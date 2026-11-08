@@ -1,0 +1,14 @@
+---
+description: Rafeeq project rules
+alwaysApply: true
+---
+- Source of truth: /docs/MASTER.md. If something is not there, write OPEN_QUESTION and stop.
+- Never compute or hard-code probabilities outside apps/api/app/kernel.
+- Never send genotype, names, ids to any LLM call. LLM prompts are built only in apps/api/app/llm/prompt_builder.py.
+- Clinical wording lives in /content only. Do not paraphrase clinician_reviewed blocks.
+- All UI strings via i18n keys (ar, en). Support RTL via logical CSS (ms-*, me-*, ps-*, pe-*).
+- No new dependency/endpoint/table without a line in /docs/DECISIONS.md.
+- TypeScript strict; Python typed (mypy clean); small functions; tests for every service.
+- Banned words list in /content/banned_terms.json must be enforced in CI (scripts/check_banned_terms).
+- Use only Azure services listed in MASTER.md Section 3. Secrets only via env/Key Vault; never commit secrets.
+- Output after each task: files changed, how to run tests, acceptance checklist.
