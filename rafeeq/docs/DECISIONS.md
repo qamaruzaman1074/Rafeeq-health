@@ -68,3 +68,19 @@ OPEN_QUESTION: the calendar and the long-form date pattern are not specified. Hi
 OPEN_QUESTION: approved copy for `landing`, `result`, `couple`, `learn`, `check`, `ask`, `privacy`, `care`, `clinic`, `insights`, and `errors` is not in MASTER.md or `/content`. Those namespaces are registered with empty catalogs. No clinical strings were added.
 
 OPEN_QUESTION: Section 4 assigns `--teal-500` to hover. `--sand-50` on `--teal-500` is 3.89:1, below 4.5:1, so hover does not replace a text-bearing fill with teal-500. Hover uses a 3px teal-500 outline offset 2px. Confirm this treatment.
+
+## 2026-11-08 — app shell, routes, and mock API
+
+No new package. `msw` 3.0.4 is already a devDependency. `apps/web/public/mockServiceWorker.js` is the worker script from `msw init`, and `package.json` records `msw.workerDirectory` as `public`. The browser worker loads only when `VITE_USE_MOCKS` is the string `true`. The Vitest node server mounts the same handlers so tests can call them without that flag.
+
+`VITE_USE_MOCKS` is not listed in MASTER.md. It exists because this task requires the mock API to toggle with that variable.
+
+OPEN_QUESTION: `content/personas.json` is `{}`, and MASTER Section 9 does not define a JSON schema. Every Section 6 handler returns `{ "data": null, "meta": { "request_id" } }`. No persona, gene, or story was added.
+
+OPEN_QUESTION: request and response bodies beyond the Section 6 envelope are not specified. `data` stays null rather than an invented object.
+
+OPEN_QUESTION: how the shell learns the signed-in role is not specified (JWT claim shape, demo accounts). The session starts with no role, so guarded routes redirect to `/`. Guest is treated as couple only after a role is set. Mock handlers do not invent a token or reject by role.
+
+OPEN_QUESTION: role-to-route mapping beyond the obvious split is not in MASTER. Couple and guest use `/app/**`. Counsellor uses `/clinic/**`. Analyst uses `/insights`. Admin uses `/admin`. Other combinations redirect to `/`. `/`, `/trust`, `/demo`, and `/legal` stay public. There is no `admin`, `settings`, `trust`, `demo`, or `legal` i18n namespace. Settings and admin titles are in `common`. The other public titles are in `landing`.
+
+OPEN_QUESTION: the default `literacy_mode` and whether the shell persists it are not specified. The toggle starts at `standard` in memory and is not written to storage.

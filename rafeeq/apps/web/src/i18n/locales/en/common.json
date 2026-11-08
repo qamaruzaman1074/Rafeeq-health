@@ -16,6 +16,20 @@
       "arab": "Arabic-Indic"
     }
   },
+  "shell": {
+    "skip": "Skip to content",
+    "syntheticNotice": "Synthetic data, not medical advice.",
+    "literacy": {
+      "label": "Reading mode",
+      "standard": "Standard",
+      "simple": "Simple",
+      "voice": "Voice"
+    }
+  },
+  "routes": {
+    "settings": "Settings",
+    "admin": "Admin"
+  },
   "toast": {
     "region": "Notices",
     "viewport": "Notices",

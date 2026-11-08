@@ -1,22 +1,7 @@
-import { useTranslation } from "react-i18next";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import { StyleguidePage } from "@/pages/dev/styleguide-page";
+import { appRoutes } from "@/app/routes";
 
-function RootRoute() {
-  const { t } = useTranslation();
-  return <main>{t("app.placeholder")}</main>;
-}
-
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootRoute />,
-  },
-  {
-    path: "/dev/styleguide",
-    element: <StyleguidePage />,
-  },
-]);
+export const router = createBrowserRouter(appRoutes);
 
 export function AppRouter() {
   return <RouterProvider router={router} />;

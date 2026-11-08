@@ -1,1 +1,14 @@
-{}
+{
+  "page": {
+    "title": "Counsellor console"
+  },
+  "queue": {
+    "title": "Queue"
+  },
+  "case": {
+    "title": "Case brief"
+  },
+  "audit": {
+    "title": "Audit"
+  }
+}

@@ -59,7 +59,7 @@ describe("design system constraints", () => {
   });
 
   it("registers the styleguide route", () => {
-    const router = readFileSync(new URL("../app/router.tsx", import.meta.url), "utf8");
-    expect(router).toContain('path: "/dev/styleguide"');
+    const routes = readFileSync(new URL("../app/routes.tsx", import.meta.url), "utf8");
+    expect(routes).toContain('path: "/dev/styleguide"');
   });
 });

@@ -16,6 +16,20 @@
       "arab": "عربية هندية"
     }
   },
+  "shell": {
+    "skip": "تخطي إلى المحتوى",
+    "syntheticNotice": "بيانات اصطناعية، وليست نصيحة طبية.",
+    "literacy": {
+      "label": "وضع القراءة",
+      "standard": "قياسي",
+      "simple": "مبسط",
+      "voice": "صوت"
+    }
+  },
+  "routes": {
+    "settings": "الإعدادات",
+    "admin": "الإدارة"
+  },
   "toast": {
     "region": "تنبيهات",
     "viewport": "تنبيهات",

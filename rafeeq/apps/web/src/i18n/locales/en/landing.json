@@ -1,1 +1,14 @@
-{}
+{
+  "page": {
+    "title": "Landing"
+  },
+  "trust": {
+    "title": "Trust centre"
+  },
+  "demo": {
+    "title": "Persona picker"
+  },
+  "legal": {
+    "title": "Legal"
+  }
+}
