@@ -3,6 +3,7 @@ import { shareGate } from "@/features/couple/share-state";
 import { audioUrlForBlock, readLocaleBlock, type LocaleCode } from "@/features/learn/blocks";
 import { glossaryBlockId } from "@/features/learn/modules";
 import { findPersona, type Persona } from "@/features/personas";
+import { answerFor, itemsForPersona, parseAnswerBody } from "@/mocks/comprehension-fixture";
 import { mockPayload, personaFile } from "@/mocks/fixtures";
 import { consentsFor, explainFor, overlapFor, ownResultFor } from "@/mocks/kernel-fixture";
 import { currentPersonaId, rememberPersona } from "@/mocks/persona-state";
@@ -124,6 +125,13 @@ function isLearnBacked(endpoint: ApiEndpoint): boolean {
   );
 }
 
+function isComprehensionBacked(endpoint: ApiEndpoint): boolean {
+  return (
+    (endpoint.method === "get" && endpoint.path === "/comprehension/items") ||
+    (endpoint.method === "post" && endpoint.path === "/comprehension/answer")
+  );
+}
+
 function localeFrom(value: string | null): LocaleCode {
   return value === "ar" ? "ar" : "en";
 }
@@ -165,6 +173,19 @@ function guestSession(personaId: string) {
     data: { role: "guest", persona_id: personaId },
     meta: { request_id: crypto.randomUUID() },
   });
+}
+
+function answerError(code: string, messageKey: string) {
+  return HttpResponse.json(
+    {
+      error: {
+        code,
+        message_key: messageKey,
+        request_id: crypto.randomUUID(),
+      },
+    },
+    { status: 400 },
+  );
 }
 
 function unknownPersona() {
@@ -253,10 +274,45 @@ export const handlers: HttpHandler[] = [
       text: block.text,
     });
   }),
+  http.get("*/api/v1/comprehension/items", ({ request }) => {
+    const persona = activePersona();
+    if (persona === null) {
+      return envelope(null);
+    }
+    const locale = localeFrom(new URL(request.url).searchParams.get("locale"));
+    return envelope(itemsForPersona(persona, locale));
+  }),
+  http.post("*/api/v1/comprehension/answer", async ({ request }) => {
+    const persona = activePersona();
+    if (persona === null) {
+      return envelope(null);
+    }
+    let raw: unknown;
+    try {
+      raw = await request.json();
+    } catch {
+      return answerError("missing_answer", "missingAnswer");
+    }
+    const parsed = parseAnswerBody(raw);
+    if (parsed === null) {
+      return answerError("missing_answer", "missingAnswer");
+    }
+    const answered = answerFor(parsed);
+    if (answered === "item") {
+      return answerError("unknown_item", "unknownItem");
+    }
+    if (answered === "option") {
+      return answerError("unknown_option", "unknownOption");
+    }
+    return envelope(answered);
+  }),
   ...apiEndpoints
     .filter(
       (endpoint) =>
-        endpoint.path !== "/auth/guest" && !isPersonaBacked(endpoint) && !isLearnBacked(endpoint),
+        endpoint.path !== "/auth/guest" &&
+        !isPersonaBacked(endpoint) &&
+        !isLearnBacked(endpoint) &&
+        !isComprehensionBacked(endpoint),
     )
     .map((endpoint) => httpByMethod[endpoint.method](`*/api/v1${endpoint.path}`, () => respond())),
 ];

@@ -3,5 +3,8 @@
   "guestFailed": "تعذر بدء جلسة الضيف.",
   "sharingDeclined": "TODO_AR",
   "consentMissing": "TODO_AR",
-  "missingBlock": "يلزم معرّف الكتلة."
+  "missingBlock": "يلزم معرّف الكتلة.",
+  "missingAnswer": "TODO_AR",
+  "unknownItem": "TODO_AR",
+  "unknownOption": "TODO_AR"
 }

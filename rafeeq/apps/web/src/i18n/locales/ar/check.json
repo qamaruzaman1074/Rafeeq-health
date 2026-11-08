@@ -1,5 +1,46 @@
 {
   "page": {
     "title": "TODO_AR"
+  },
+  "loading": "TODO_AR",
+  "empty": "TODO_AR",
+  "error": "TODO_AR",
+  "saveError": "TODO_AR",
+  "retry": "TODO_AR",
+  "prototype": "TODO_AR",
+  "skip": "TODO_AR",
+  "options": {
+    "legend": "TODO_AR"
+  },
+  "pictures": {
+    "ring": "TODO_AR",
+    "bars": "TODO_AR",
+    "cluster": "TODO_AR",
+    "unknown": "TODO_AR"
+  },
+  "progress": {
+    "label": "TODO_AR",
+    "current": "TODO_AR",
+    "upcoming": "TODO_AR",
+    "passed": "TODO_AR"
+  },
+  "feedback": {
+    "region": "TODO_AR",
+    "note": "TODO_AR"
+  },
+  "done": {
+    "title": "TODO_AR",
+    "body": "TODO_AR",
+    "home": "TODO_AR"
+  },
+  "pathway": {
+    "label": "TODO_AR",
+    "result": "TODO_AR",
+    "understand": "TODO_AR",
+    "check": "TODO_AR",
+    "share": "TODO_AR",
+    "counselling": "TODO_AR",
+    "next": "TODO_AR",
+    "done": "TODO_AR"
   }
 }

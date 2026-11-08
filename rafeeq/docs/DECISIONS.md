@@ -144,3 +144,19 @@ GET `/explain/glossary/{term}` reads the locale file (`?locale=en` or `?locale=a
 POST `/tts` accepts `{ "block_id", "locale" }` and returns `{ block_id, locale, url, text }`. It does not synthesize speech. When the block has no `audio_url`, `url` is the stable path `/mock-audio/{block_id}`. A missing `block_id` is HTTP 400 with `message_key` `missingBlock`.
 
 OPEN_QUESTION: Section 6 does not define the glossary or TTS response bodies, the locale parameter, or where audio files live.
+
+## 2026-11-08 — teach-back check
+
+No new package.
+
+GET `/comprehension/items` and POST `/comprehension/answer` now return a draft teach-back set when a guest persona is active, and `data: null` when it is not. Section 6 names the routes and the envelope only. The item and answer bodies are an OPEN_QUESTION. The mock body carries `correct_option_id`. The screen reads `matched` from the answer response and does not keep a chosen id of its own.
+
+POST `/comprehension/answer` requires `item_id`, `option_id`, `latency_ms` (integer, zero or greater), and `attempt` (integer, 1 or greater). `locale` and `literacy_mode` are accepted when present. A body that omits the time or the attempt is HTTP 400, `message_key` `missingAnswer`. An unknown item is `unknownItem`. A picture id that is not on that item is `unknownOption`.
+
+OPEN_QUESTION: `/content` has no teach-back items. The only item sentence is the English example from website planning Section 7, marked `draft`, and only for personas P1 and P4 (both carry the same change). Arabic prompt text is null. The other two items have no approved sentence, so their prompt text is null and the block id is `OPEN_QUESTION`. Feedback uses the same block id. When the content file has no text, the screen shows a short non-clinical sentence from the check catalog.
+
+OPEN_QUESTION: skip has no Section 6 route. "Skip for now" moves to the next item in the browser and does not write a comprehension event. Finishing the last item, or skipping past it, sets one in-memory flag the couple home reads. A reload clears it, the same way the guest session works. Whether a skip should be stored differently from a finished set is not specified.
+
+The couple home shows the planning order Result, Understand, Check, Decide who sees what, Counselling, Next. Understand links to `/app/learn`. Only the Check step reads the completion flag. The home page is otherwise unchanged.
+
+OPEN_QUESTION: the pathway step "Understand" is not a route name in the sitemap. This task maps it to `/app/learn`.
