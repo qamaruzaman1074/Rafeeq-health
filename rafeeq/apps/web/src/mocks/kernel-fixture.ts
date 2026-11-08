@@ -115,8 +115,11 @@ export function consentsFor(persona: Persona): ConsentRow[] {
   return [];
 }
 
-export function overlapFor(persona: Persona): OverlapResult {
-  const gate = shareGate(consentsFor(persona));
+export function overlapFor(
+  persona: Persona,
+  rows: readonly ConsentRow[] = consentsFor(persona),
+): OverlapResult {
+  const gate = shareGate(rows);
   if (gate !== "allowed") {
     return {
       hidden: true,
@@ -167,8 +170,11 @@ function bothCarriersCard(): FactCardDTO {
   };
 }
 
-export function explainFor(persona: Persona): FactCardDTO | null {
-  if (shareGate(consentsFor(persona)) !== "allowed" || persona.id !== "P1") {
+export function explainFor(
+  persona: Persona,
+  rows: readonly ConsentRow[] = consentsFor(persona),
+): FactCardDTO | null {
+  if (shareGate(rows) !== "allowed" || persona.id !== "P1") {
     return null;
   }
   return bothCarriersCard();

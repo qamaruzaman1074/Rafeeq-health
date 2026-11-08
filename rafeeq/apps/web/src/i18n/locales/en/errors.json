@@ -8,5 +8,9 @@
   "unknownItem": "That check item is not in this set.",
   "unknownOption": "That picture is not part of this check.",
   "missingQuestion": "A question is required.",
-  "questionTooLong": "The question is too long."
+  "questionTooLong": "The question is too long.",
+  "missingConsent": "A consent scope and a granted value are required.",
+  "viewOwnPermanent": "Seeing your own result stays on.",
+  "unknownReceipt": "That receipt is not available.",
+  "consentFailed": "The consent could not be saved."
 }

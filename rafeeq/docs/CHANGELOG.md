@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- 2026-11-08 feat: add privacy shares, receipts, and the personal audit timeline at `/app/privacy`.
 - 2026-11-08 feat: add the ask page at `/app/ask` (transcript, 500-character question, source labels, lilac handoff to a person). Suggested questions stay empty while `content/faq.json` is empty.
 - 2026-11-08 feat: add the teach-back check at `/app/check` (one item, pictorial options, gentle feedback, progress dots, skip) and a couple-home pathway mark when the set is finished or skipped.
 - 2026-11-08 feat: add learn modules, glossary tooltips, and mock audio. Literacy mode persists as `rafeeq.literacy` (`standard`, `simple`, `voice`).

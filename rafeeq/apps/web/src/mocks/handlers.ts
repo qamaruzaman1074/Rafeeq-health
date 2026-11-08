@@ -1,13 +1,21 @@
 import { http, HttpResponse, type HttpHandler } from "msw";
-import { shareGate } from "@/features/couple/share-state";
+import { shareGate, type ConsentRow } from "@/features/couple/share-state";
 import { audioUrlForBlock, readLocaleBlock, type LocaleCode } from "@/features/learn/blocks";
 import { glossaryBlockId } from "@/features/learn/modules";
 import { findPersona, type Persona } from "@/features/personas";
 import { answerAsk, parseAskBody } from "@/mocks/ask-fixture";
 import { answerFor, itemsForPersona, parseAnswerBody } from "@/mocks/comprehension-fixture";
 import { mockPayload, personaFile } from "@/mocks/fixtures";
-import { consentsFor, explainFor, overlapFor, ownResultFor } from "@/mocks/kernel-fixture";
+import { explainFor, overlapFor, ownResultFor } from "@/mocks/kernel-fixture";
 import { currentPersonaId, rememberPersona } from "@/mocks/persona-state";
+import {
+  auditEntries,
+  beginPrivacySession,
+  mineConsents,
+  partnerConsents,
+  postMineConsent,
+  receiptFor,
+} from "@/mocks/privacy-fixture";
 
 type HttpMethod = "get" | "post" | "patch" | "delete";
 
@@ -95,9 +103,8 @@ function activePersona(): Persona | null {
   return findPersona(personaId) ?? null;
 }
 
-function hiddenExplain(persona: Persona) {
-  const reason =
-    shareGate(consentsFor(persona)) === "declined" ? "sharing_declined" : "consent_missing";
+function hiddenExplain(rows: readonly ConsentRow[]) {
+  const reason = shareGate(rows) === "declined" ? "sharing_declined" : "consent_missing";
   return HttpResponse.json(
     {
       error: {
@@ -135,6 +142,14 @@ function isComprehensionBacked(endpoint: ApiEndpoint): boolean {
 
 function isAskBacked(endpoint: ApiEndpoint): boolean {
   return endpoint.method === "post" && endpoint.path === "/ask";
+}
+
+function isPrivacyBacked(endpoint: ApiEndpoint): boolean {
+  return (
+    (endpoint.method === "post" && endpoint.path === "/consents") ||
+    (endpoint.method === "get" && endpoint.path === "/consents/receipt/:id") ||
+    (endpoint.method === "get" && endpoint.path === "/audit")
+  );
 }
 
 function localeFrom(value: string | null): LocaleCode {
@@ -193,6 +208,19 @@ function answerError(code: string, messageKey: string) {
   );
 }
 
+function consentError(status: number, code: string, messageKey: string) {
+  return HttpResponse.json(
+    {
+      error: {
+        code,
+        message_key: messageKey,
+        request_id: crypto.randomUUID(),
+      },
+    },
+    { status },
+  );
+}
+
 function unknownPersona() {
   return HttpResponse.json(
     {
@@ -228,6 +256,7 @@ export const handlers: HttpHandler[] = [
     if (persona === undefined) {
       return unknownPersona();
     }
+    beginPrivacySession(persona);
     rememberPersona(persona.id);
     return guestSession(persona.id);
   }),
@@ -237,20 +266,64 @@ export const handlers: HttpHandler[] = [
   }),
   http.get("*/api/v1/results/overlap", () => {
     const persona = activePersona();
-    return envelope(persona === null ? null : overlapFor(persona));
+    return envelope(persona === null ? null : overlapFor(persona, partnerConsents(persona)));
   }),
-  http.get("*/api/v1/consents", () => {
+  http.get("*/api/v1/consents", ({ request }) => {
     const persona = activePersona();
-    return envelope(persona === null ? null : consentsFor(persona));
+    if (persona === null) {
+      return envelope(null);
+    }
+    const mine = new URL(request.url).searchParams.get("mine") === "true";
+    return envelope(mine ? mineConsents(persona) : partnerConsents(persona));
+  }),
+  http.post("*/api/v1/consents", async ({ request }) => {
+    const persona = activePersona();
+    if (persona === null) {
+      return envelope(null);
+    }
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      body = null;
+    }
+    const written = postMineConsent(persona, body);
+    if (written.status === "invalid") {
+      return consentError(400, "missing_consent", "missingConsent");
+    }
+    if (written.status === "permanent") {
+      return consentError(400, "view_own_permanent", "viewOwnPermanent");
+    }
+    return envelope(written.consents);
+  }),
+  http.get("*/api/v1/consents/receipt/:id", ({ params }) => {
+    const persona = activePersona();
+    if (persona === null) {
+      return envelope(null);
+    }
+    const id = typeof params.id === "string" ? params.id : "";
+    const receipt = receiptFor(persona, id);
+    if (receipt === null) {
+      return consentError(404, "unknown_receipt", "unknownReceipt");
+    }
+    return envelope(receipt);
+  }),
+  http.get("*/api/v1/audit", ({ request }) => {
+    const persona = activePersona();
+    if (persona === null || new URL(request.url).searchParams.get("mine") !== "true") {
+      return envelope(null);
+    }
+    return envelope(auditEntries(persona));
   }),
   http.post("*/api/v1/explain/overlap", () => {
     const persona = activePersona();
     if (persona === null) {
       return envelope(null);
     }
-    const card = explainFor(persona);
+    const rows = partnerConsents(persona);
+    const card = explainFor(persona, rows);
     if (card === null) {
-      return hiddenExplain(persona);
+      return hiddenExplain(rows);
     }
     return envelope({ fact_card: card });
   }),
@@ -334,7 +407,8 @@ export const handlers: HttpHandler[] = [
         !isPersonaBacked(endpoint) &&
         !isLearnBacked(endpoint) &&
         !isComprehensionBacked(endpoint) &&
-        !isAskBacked(endpoint),
+        !isAskBacked(endpoint) &&
+        !isPrivacyBacked(endpoint),
     )
     .map((endpoint) => httpByMethod[endpoint.method](`*/api/v1${endpoint.path}`, () => respond())),
 ];

@@ -8,5 +8,9 @@
   "unknownItem": "TODO_AR",
   "unknownOption": "TODO_AR",
   "missingQuestion": "TODO_AR",
-  "questionTooLong": "TODO_AR"
+  "questionTooLong": "TODO_AR",
+  "missingConsent": "TODO_AR",
+  "viewOwnPermanent": "TODO_AR",
+  "unknownReceipt": "TODO_AR",
+  "consentFailed": "TODO_AR"
 }

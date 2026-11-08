@@ -1,5 +1,67 @@
 {
   "page": {
-    "title": "TODO_AR"
+    "title": "TODO_AR",
+    "intro": "TODO_AR"
+  },
+  "loading": "TODO_AR",
+  "empty": "TODO_AR",
+  "error": "TODO_AR",
+  "retry": "TODO_AR",
+  "matrix": {
+    "caption": "TODO_AR",
+    "item": "TODO_AR",
+    "me": "TODO_AR",
+    "partner": "TODO_AR",
+    "clinic": "TODO_AR",
+    "empty": "—",
+    "ownSwitch": "TODO_AR",
+    "partnerSwitch": "TODO_AR",
+    "clinicSwitch": "TODO_AR",
+    "ownNote": "TODO_AR"
+  },
+  "scopes": {
+    "view_own": "TODO_AR",
+    "share_overlap_with_partner": "TODO_AR",
+    "share_with_clinic": "TODO_AR",
+    "research_aggregate": "TODO_AR"
+  },
+  "revoke": {
+    "title": "TODO_AR",
+    "body": "TODO_AR",
+    "confirm": "TODO_AR",
+    "failed": "TODO_AR"
+  },
+  "receipt": {
+    "heading": "TODO_AR",
+    "download": "TODO_AR",
+    "revoke": "TODO_AR",
+    "on": "TODO_AR",
+    "off": "TODO_AR",
+    "version": "TODO_AR",
+    "recorded": "TODO_AR"
+  },
+  "audit": {
+    "heading": "TODO_AR",
+    "empty": "TODO_AR",
+    "who": "TODO_AR",
+    "what": "TODO_AR",
+    "when": "TODO_AR",
+    "actor": {
+      "guest": "TODO_AR",
+      "couple": "TODO_AR",
+      "counsellor": "TODO_AR",
+      "analyst": "TODO_AR",
+      "admin": "TODO_AR"
+    },
+    "action": {
+      "read": "TODO_AR",
+      "grant": "TODO_AR",
+      "revoke": "TODO_AR"
+    },
+    "object": {
+      "results": "TODO_AR",
+      "shares": "TODO_AR",
+      "consents": "TODO_AR"
+    }
   }
 }

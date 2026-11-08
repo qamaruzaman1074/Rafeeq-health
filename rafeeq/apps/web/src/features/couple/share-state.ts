@@ -8,6 +8,8 @@ export const CONSENT_SCOPES = [
   "research_aggregate",
 ] as const;
 
+export type ConsentScope = (typeof CONSENT_SCOPES)[number];
+
 export const SHARE_OVERLAP_SCOPE = "share_overlap_with_partner" as const;
 
 export const consentRowSchema = z.object({

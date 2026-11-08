@@ -180,3 +180,25 @@ OPEN_QUESTION: Section 7.3 calls for clinician-approved crisis-line text on a di
 The boundary line is the ask catalog sentence that the assistant only shows approved content and a hard question goes to a person. It is not an accuracy or outcome claim. Arabic ask strings are `TODO_AR`.
 
 `tsconfig.node.json` includes `e2e` and previously had no DOM lib, so `tsc -b` failed on the existing check overflow callback (`document` inside `page.evaluate`). The DOM lib is added for that project. No check behaviour was changed.
+
+## 2026-11-08 — privacy shares, receipts, and audit
+
+No new package.
+
+OPEN_QUESTION: `/content` does not define a finer share-item list. Matrix rows are the Section 5 scopes: `view_own`, `share_overlap_with_partner`, `share_with_clinic`, `research_aggregate`.
+
+OPEN_QUESTION: planning Section 7 names columns me, partner, and clinic. `research_aggregate` has no column. The row is shown and each of those three cells is the existing `OPEN_QUESTION` marker. No fourth party was added, and the screen does not grant or revoke that scope.
+
+OPEN_QUESTION: Section 6 does not define the GET or POST `/consents` body. The unscoped GET stays the partner-row list the couple page already uses. `?mine=true` returns the signed-in user's scopes (`id`, `scope`, `granted`, `version`, `created_at`). POST accepts `{ "scope", "granted" }` and returns that same list. A missing body is HTTP 400, `message_key` `missingConsent`. Setting `view_own` to `granted: false` is HTTP 400, `message_key` `viewOwnPermanent`.
+
+OPEN_QUESTION: personas have no user id, so the signed-in user is partner "a". That is the overlap row the privacy toggle updates. P5 records the decline on partner "b", so the session user's overlap toggle starts off.
+
+OPEN_QUESTION: Section 6 lists GET `/audit` for admin and counsellor, not for a couple. This screen calls GET `/audit?mine=true`. Without that flag the mock still returns `data: null`.
+
+OPEN_QUESTION: the receipt signing scheme is not specified. GET `/consents/receipt/{id}` returns the consent snapshot plus `prev_hash: null` and `hash: null`. No signature was invented. An unknown id is HTTP 404, `message_key` `unknownReceipt`.
+
+OPEN_QUESTION: audit action and outcome vocabularies are not enumerated. Seed rows use action `read` for an access to `results`, `shares`, or `consents` (Section 8), the same three rows for every persona, with no gene and no person. Consent writes append `grant` or `revoke` from `consent_events`. `outcome` is `allowed`.
+
+`share_with_clinic` and `research_aggregate` start not granted. No persona story grants them. Revoking overlap updates partner "a", so the couple overlap gate closes on the next read.
+
+Arabic privacy strings are `TODO_AR` except the non-word matrix dash. When a timeline label is `TODO_AR`, the English data code is shown beside it so actor, action, and time stay readable. Times use the existing `formatDate` helper.
