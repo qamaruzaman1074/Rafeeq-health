@@ -27,3 +27,30 @@ The shadcn `--destructive` token is the stock palette variable in `globals.css`.
 i18next `fallbackLng` is `en` so the scaffold can boot. The product default locale is an OPEN_QUESTION, not a product decision.
 
 `.env.test` sets `VITE_API_BASE_URL=http://127.0.0.1:4010` so Vitest can intercept the fetch wrapper. That address is a test sink, not the API origin.
+
+## 2026-11-08 — web design system
+
+Radix primitives for the shadcn components. MASTER.md Section 3 names Radix UI. These packages were not installed in the scaffold; versions are pinned here:
+
+- `@radix-ui/react-dialog` 1.3.1 — dialog, and the drawer (a dialog pinned to the inline end).
+- `@radix-ui/react-slot` 1.5.0 — shadcn `asChild` on buttons and triggers.
+- `@radix-ui/react-switch` 1.4.1
+- `@radix-ui/react-tabs` 1.2.1
+- `@radix-ui/react-toast` 1.3.1
+- `@radix-ui/react-tooltip` 1.4.1
+
+`vaul` and `sonner` are not added. `tailwindcss-animate` stays omitted because its keyframes use physical offsets. Motion is a fade in `tailwind.config.ts`, and `prefers-reduced-motion` is handled in `tokens.css`. `class-variance-authority` and `lucide-react` are not added.
+
+IBM Plex Sans and IBM Plex Sans Arabic are self-hosted as woff2 (weights 400, 500, 600, 700) under `apps/web/src/styles/fonts`, with the SIL Open Font License in `OFL.txt`. The planning doc names the families and not the weights. Those four roman weights are the files shipped for each family. No italics.
+
+`--radius` stays `0.5rem` from the scaffold. Sections 4–5 do not specify a radius.
+
+`--danger-600` is wired only to the delete button, the system-error badge, and the system-error toast. The default Tailwind palette is replaced so stock `red-*` utilities are not generated.
+
+OPEN_QUESTION: website planning Section 5 calls for a user toggle between Arabic-Indic and Western digits, defaulting to the locale. The toggle, the digit-shaping rule, and where it lives are not specified for this task. No numeral toggle is implemented.
+
+OPEN_QUESTION: planning Section 9 marks dark mode as P2 and Sections 4–5 give no dark hex values. No dark theme is implemented.
+
+OPEN_QUESTION: `--ink-600` on `--sand-50` measures 6.79:1. Section 4 describes secondary text as at least 7:1. The specified hex is unchanged. See `docs/A11Y.md`.
+
+OPEN_QUESTION: Section 4 assigns `--teal-500` to hover. `--sand-50` on `--teal-500` is 3.89:1, below 4.5:1, so hover does not replace a text-bearing fill with teal-500. Hover uses a 3px teal-500 outline offset 2px. Confirm this treatment.

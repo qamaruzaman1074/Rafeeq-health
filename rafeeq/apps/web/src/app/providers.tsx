@@ -2,17 +2,16 @@ import { useEffect, useState, type ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { I18nextProvider, useTranslation } from "react-i18next";
 import i18n from "@/i18n";
+import { documentLocale } from "@/i18n/locale";
 
 function DocumentLocale({ children }: { children: ReactNode }) {
   const { i18n: instance } = useTranslation();
 
   useEffect(() => {
     const apply = (language: string) => {
-      const base = language.split("-")[0] ?? language;
-      const locale = base === "ar" ? "ar" : "en";
-      document.documentElement.lang = locale;
-      document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
-      document.title = instance.t("app.documentTitle");
+      const locale = documentLocale(language);
+      document.documentElement.lang = locale.lang;
+      document.documentElement.dir = locale.dir;
     };
 
     apply(instance.resolvedLanguage ?? instance.language);

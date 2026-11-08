@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter, RouterProvider } from "react-router";
+import { StyleguidePage } from "@/pages/dev/styleguide-page";
 
 function RootRoute() {
   const { t } = useTranslation();
@@ -10,6 +11,10 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootRoute />,
+  },
+  {
+    path: "/dev/styleguide",
+    element: <StyleguidePage />,
   },
 ]);
 
