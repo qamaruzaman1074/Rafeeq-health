@@ -4,6 +4,7 @@ import { Outlet, useLocation } from "react-router";
 import { LiteracyModeToggle } from "@/components/literacy-mode-toggle";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { NumeralToggle } from "@/components/numeral-toggle";
+import { PUBLIC_PATHS, PublicSiteFrame } from "@/components/public/public-site-frame";
 import { SkipLink } from "@/components/skip-link";
 
 function subscribeOnline(onChange: () => void): () => void {
@@ -60,11 +61,13 @@ export function ShellFrame({ children }: { children: ReactNode }) {
 
 export function AppShell() {
   const { pathname } = useLocation();
-  return (
-    <ShellFrame>
-      <div data-screen={pathname}>
-        <Outlet />
-      </div>
-    </ShellFrame>
+  const screen = (
+    <div data-screen={pathname}>
+      <Outlet />
+    </div>
   );
+  if (PUBLIC_PATHS.has(pathname)) {
+    return <PublicSiteFrame>{screen}</PublicSiteFrame>;
+  }
+  return <ShellFrame>{screen}</ShellFrame>;
 }

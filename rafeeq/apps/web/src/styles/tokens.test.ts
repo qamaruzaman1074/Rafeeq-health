@@ -4,18 +4,18 @@ import { describe, expect, it } from "vitest";
 const css = readFileSync(new URL("./tokens.css", import.meta.url), "utf8");
 
 const palette: Record<string, string> = {
-  "teal-900": "#0B3F45",
-  "teal-700": "#0F5C63",
-  "teal-500": "#1F8A8F",
-  "teal-100": "#D7EEEE",
-  sand50: "#FBF8F2",
-  "sand-100": "#F6F1E7",
-  "gold-500": "#B8893B",
+  "teal-900": "#103D40",
+  "teal-700": "#237A73",
+  "teal-500": "#2E9088",
+  "teal-100": "#D9EFE8",
+  sand50: "#F8F6F0",
+  "sand-100": "#F5F1EB",
+  "gold-500": "#D5A75A",
   "lilac-100": "#ECE8F6",
   "amber-100": "#FBEFD5",
   "green-600": "#2F7D5B",
-  "ink-900": "#1B2B2E",
-  "ink-600": "#4B5A5D",
+  "ink-900": "#263638",
+  "ink-600": "#4A5E60",
   "danger-600": "#B3261E",
 };
 
@@ -53,38 +53,37 @@ function tokenHex(name: string): string {
 }
 
 const textPairs: Array<[string, string, number]> = [
-  ["ink-900", "sand-50", 13.84],
-  ["ink-900", "sand-100", 13.03],
-  ["ink-900", "teal-100", 12.12],
-  ["ink-900", "amber-100", 12.86],
-  ["ink-900", "lilac-100", 12.18],
-  ["ink-600", "sand-50", 6.79],
-  ["ink-600", "sand-100", 6.39],
-  ["teal-900", "sand-50", 10.94],
-  ["teal-900", "sand-100", 10.3],
-  ["teal-900", "teal-100", 9.58],
-  ["teal-700", "sand-50", 7.25],
-  ["teal-700", "sand-100", 6.83],
-  ["teal-700", "teal-100", 6.35],
-  ["sand-50", "teal-700", 7.25],
-  ["sand-50", "teal-900", 10.94],
-  ["sand-50", "danger-600", 6.17],
-  ["sand-50", "green-600", 4.71],
-  ["sand-50", "ink-600", 6.79],
-  ["danger-600", "sand-50", 6.17],
+  ["ink-900", "sand-50", 11.66],
+  ["ink-900", "sand-100", 11.2],
+  ["ink-900", "teal-100", 10.47],
+  ["ink-900", "amber-100", 11.04],
+  ["ink-900", "lilac-100", 10.46],
+  ["ink-600", "sand-50", 6.35],
+  ["ink-600", "sand-100", 6.1],
+  ["teal-900", "sand-50", 11.02],
+  ["teal-900", "sand-100", 10.58],
+  ["teal-900", "teal-100", 9.9],
+  ["teal-700", "sand-50", 4.74],
+  ["teal-700", "sand-100", 4.55],
+  ["sand-50", "teal-700", 4.74],
+  ["sand-50", "teal-900", 11.02],
+  ["sand-50", "danger-600", 6.05],
+  ["sand-50", "green-600", 4.62],
+  ["sand-50", "ink-600", 6.35],
+  ["danger-600", "sand-50", 6.05],
 ];
 
 const uiPairs: Array<[string, string, number]> = [
-  ["teal-500", "sand-50", 3.89],
-  ["teal-500", "sand-100", 3.66],
-  ["teal-500", "teal-100", 3.41],
-  ["teal-500", "amber-100", 3.62],
-  ["teal-500", "lilac-100", 3.43],
-  ["teal-700", "amber-100", 6.74],
-  ["teal-700", "lilac-100", 6.39],
-  ["ink-600", "sand-50", 6.79],
+  ["teal-500", "sand-50", 3.56],
+  ["teal-500", "sand-100", 3.42],
+  ["teal-500", "teal-100", 3.2],
+  ["teal-500", "amber-100", 3.37],
+  ["teal-500", "lilac-100", 3.19],
+  ["teal-700", "amber-100", 4.49],
+  ["teal-700", "lilac-100", 4.25],
+  ["ink-600", "sand-50", 6.35],
   ["green-600", "sand-100", 4.44],
-  ["danger-600", "sand-50", 6.17],
+  ["danger-600", "sand-50", 6.05],
 ];
 
 describe("design tokens", () => {
@@ -148,8 +147,8 @@ describe("design tokens", () => {
     expect(css).not.toContain("fonts.gstatic.com");
   });
 
-  it("draws a 3px teal focus ring and respects reduced motion", () => {
-    expect(css).toContain("outline: 3px solid var(--teal-500);");
+  it("draws a 3px focus ring and respects reduced motion", () => {
+    expect(css).toContain("outline: 3px solid var(--ring);");
     expect(css).toContain("outline-offset: 2px;");
     expect(css).toContain("@media (prefers-reduced-motion: reduce)");
     expect(css).toContain("animation-duration: 0.01ms !important;");

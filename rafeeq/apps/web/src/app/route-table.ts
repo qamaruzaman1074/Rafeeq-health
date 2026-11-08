@@ -33,7 +33,7 @@ export const productRoutes: readonly ProductRoute[] = [
     path: "/",
     access: "public",
     ns: "landing",
-    titleKey: "page.value",
+    titleKey: "hero.title",
     load: () => import("@/pages/landing-page"),
   },
   {

@@ -53,6 +53,6 @@ test("asks for counselling only after clinic share, then updates the pathway", a
     .getByRole("button", { name: /Morning/ })
     .first()
     .click();
-  await expect(page.getByText("Selected on this device.")).toBeVisible();
+  await expect(page.getByText("Selected on this device.").first()).toBeVisible();
   await expect(page.locator("[data-status='created']")).toBeVisible();
 });

@@ -16,11 +16,9 @@ test("insights shows the synthetic badge, an undefined KPI, and a suppressed cel
 
   const completion = page.getByRole("heading", { level: 3, name: "Completion of explanation" });
   await expect(completion).toBeVisible();
-  await expect(
-    completion
-      .locator("xpath=ancestor::div[contains(@class,'rounded-lg')]")
-      .getByText("OPEN_QUESTION"),
-  ).toBeVisible();
+  await expect(page.locator('[data-kpi-result="explanation_completion"]')).toHaveText(
+    "OPEN_QUESTION",
+  );
 
   const arabic = page.getByRole("listitem").filter({ hasText: "Arabic" });
   await expect(arabic).toContainText("Not shown (small group)");

@@ -8,10 +8,11 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/check-first-route.mjs",
+    "build": "vite build && node scripts/check-first-route.mjs",
+    "typecheck": "tsc -b",
     "preview": "vite preview",
     "test": "vitest run",
-    "lint": "eslint . --max-warnings 0 && prettier --check . && node scripts/check-i18n.mjs && node ../../scripts/check_banned_terms.mjs",
+    "lint": "eslint . --max-warnings 0 && prettier --check . && tsc -b && node scripts/check-i18n.mjs && node ../../scripts/check_banned_terms.mjs",
     "check:banned-terms": "node ../../scripts/check_banned_terms.mjs",
     "lint:i18n": "node scripts/check-i18n.mjs",
     "e2e": "playwright test"
@@ -33,7 +34,15 @@
     "react-router": "7.18.5",
     "recharts": "3.10.1",
     "tailwind-merge": "3.7.0",
-    "zod": "4.6.7"
+    "zod": "4.6.7",
+    "@vitejs/plugin-react": "6.2.1",
+    "autoprefixer": "10.6.2",
+    "postcss": "8.5.32",
+    "tailwindcss": "3.4.19",
+    "vite": "8.3.6",
+    "vite-plugin-pwa": "2.0.0",
+    "workbox-build": "7.4.1",
+    "workbox-window": "7.4.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
@@ -42,23 +51,15 @@
     "@types/node": "22.20.5",
     "@types/react": "18.3.31",
     "@types/react-dom": "18.3.7",
-    "@vitejs/plugin-react": "6.2.1",
-    "autoprefixer": "10.6.2",
     "eslint": "10.14.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-react-hooks": "7.1.1",
     "globals": "17.14.0",
     "msw": "3.0.4",
-    "postcss": "8.5.32",
     "prettier": "3.9.10",
-    "tailwindcss": "3.4.19",
     "typescript": "5.9.3",
     "typescript-eslint": "8.72.1",
-    "vite": "8.3.6",
-    "vite-plugin-pwa": "2.0.0",
-    "vitest": "5.1.0",
-    "workbox-build": "7.4.1",
-    "workbox-window": "7.4.1"
+    "vitest": "5.1.0"
   },
   "msw": {
     "workerDirectory": [

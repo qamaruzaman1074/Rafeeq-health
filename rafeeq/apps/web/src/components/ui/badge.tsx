@@ -2,11 +2,11 @@ import type { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 const variantClass = {
-  neutral: "border-teal-500 bg-sand-100 text-ink-900",
-  notice: "border-teal-700 bg-amber-100 text-ink-900",
-  conversation: "border-teal-700 bg-lilac-100 text-ink-900",
-  positive: "border-green-600 bg-green-600 text-sand-50",
-  error: "border-danger-600 bg-danger-600 text-sand-50",
+  neutral: "border-border-subtle bg-sand-100 text-ink-900 shadow-xs",
+  notice: "border-gold-500/40 bg-amber-100 text-ink-900 shadow-xs",
+  conversation: "border-border bg-lilac-100 text-ink-900 shadow-xs",
+  positive: "border-green-600 bg-green-600 text-sand-50 shadow-xs",
+  error: "border-danger-600 bg-danger-600 text-sand-50 shadow-xs",
 } as const;
 
 export type BadgeVariant = keyof typeof variantClass;

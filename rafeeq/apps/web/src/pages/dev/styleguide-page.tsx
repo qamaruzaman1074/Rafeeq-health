@@ -1,5 +1,10 @@
 import { useEffect, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { AppPageLayout } from "@/components/layout/app-page-layout";
+import { MarketingHero } from "@/components/layout/marketing-hero";
+import { PageHeader } from "@/components/layout/page-header";
+import { Section } from "@/components/layout/section";
+import { TrustStrip } from "@/components/layout/trust-strip";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { NumeralToggle } from "@/components/numeral-toggle";
 import { Badge } from "@/components/ui/badge";
@@ -87,7 +92,7 @@ function Pair({ heading, children }: { heading: string; children: (frame: Frame)
               key={lang}
               lang={lang}
               dir={dir}
-              className="flex flex-col gap-3 rounded-lg border border-teal-500 bg-sand-50 p-4"
+              className="flex flex-col gap-3 rounded-lg border border-border-subtle bg-sand-50 p-4 shadow-xs"
             >
               <p className="text-sm text-ink-600">{frame.t("styleguide.frame.label")}</p>
               {children(frame)}
@@ -106,7 +111,7 @@ function ColourFrame({ t }: Frame) {
         <li key={swatch.label} className="flex items-center gap-3">
           <span
             aria-hidden="true"
-            className={`h-11 w-11 shrink-0 rounded-md border border-teal-500 ${swatch.chip}`}
+            className={`h-11 w-11 shrink-0 rounded-md border border-border-subtle shadow-xs ${swatch.chip}`}
           />
           <span className="text-base text-ink-900">{t(swatch.label)}</span>
         </li>
@@ -279,6 +284,60 @@ function FocusFrame({ t }: Frame) {
   );
 }
 
+function LayoutFrame({ t }: Frame) {
+  return (
+    <div className="flex flex-col gap-8">
+      <MarketingHero
+        eyebrow={t("styleguide.layout.heroEyebrow")}
+        title={t("styleguide.layout.heroTitle")}
+        description={t("styleguide.layout.heroBody")}
+        actions={<Button>{t("styleguide.layout.heroAction")}</Button>}
+        aside={
+          <div className="surface-elevated ps-5 pe-5 py-5 text-sm leading-relaxed text-ink-600">
+            {t("styleguide.layout.heroAside")}
+          </div>
+        }
+      />
+      <AppPageLayout
+        header={
+          <PageHeader
+            eyebrow={t("styleguide.layout.pageEyebrow")}
+            title={t("styleguide.layout.pageTitle")}
+            description={t("styleguide.layout.pageBody")}
+            actions={<Button variant="secondary">{t("styleguide.button.secondary")}</Button>}
+          />
+        }
+      >
+        <TrustStrip
+          heading={t("styleguide.layout.trustHeading")}
+          items={[
+            {
+              id: "plain",
+              label: t("styleguide.layout.trustOne"),
+              detail: t("styleguide.layout.trustOneBody"),
+            },
+            {
+              id: "sharing",
+              label: t("styleguide.layout.trustTwo"),
+              detail: t("styleguide.layout.trustTwoBody"),
+            },
+            {
+              id: "human",
+              label: t("styleguide.layout.trustThree"),
+              detail: t("styleguide.layout.trustThreeBody"),
+            },
+          ]}
+        />
+        <Section className="py-0">
+          <h2 className="text-section">{t("styleguide.layout.sectionTitle")}</h2>
+          <p className="text-base text-ink-600">{t("styleguide.layout.sectionBody")}</p>
+          <p className="text-sm text-ink-600">{t("styleguide.layout.appAside")}</p>
+        </Section>
+      </AppPageLayout>
+    </div>
+  );
+}
+
 export function StyleguidePage() {
   const { t, i18n } = useTranslation();
   const locale = documentLocale(i18n.resolvedLanguage ?? i18n.language);
@@ -318,6 +377,7 @@ export function StyleguidePage() {
           <Pair heading="styleguide.switch.heading">{(frame) => <SwitchFrame {...frame} />}</Pair>
           <Pair heading="styleguide.toastDemo.heading">{(frame) => <ToastFrame {...frame} />}</Pair>
           <Pair heading="styleguide.focus.heading">{(frame) => <FocusFrame {...frame} />}</Pair>
+          <Pair heading="styleguide.layout.heading">{(frame) => <LayoutFrame {...frame} />}</Pair>
         </main>
       </ToastProvider>
     </TooltipProvider>

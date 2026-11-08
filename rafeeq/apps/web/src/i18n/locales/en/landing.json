@@ -6,7 +6,36 @@
     "signIn": "Sign in"
   },
   "nav": {
-    "label": "Pages"
+    "label": "Pages",
+    "primary": "Site",
+    "howItWorks": "How it works",
+    "approach": "Our approach",
+    "privacy": "Privacy",
+    "legal": "Legal",
+    "home": "Rafeeq"
+  },
+  "hero": {
+    "title": "Understand your genes. Empower your future.",
+    "body": "Genetic information shouldn't be complicated. Understand screening results, explore inherited health risks and connect with qualified professionals — with privacy and informed choice at every step.",
+    "trust": "Knowledge without judgement. Guidance without pressure.",
+    "howItWorks": "How it works",
+    "imageAlt": "Abstract fluorescent microscopy in teal and violet. Decorative only. Not a personal result."
+  },
+  "problem": {
+    "heading": "What this is for",
+    "intro": "Screening can leave people with paperwork, questions, and uncertainty. Rafeeq is built to slow that moment down.",
+    "one": {
+      "title": "Complex genetic information",
+      "body": "Results often arrive in technical language. We explain them in plain words, without stigma."
+    },
+    "two": {
+      "title": "Questions after screening",
+      "body": "A report is not the end of the conversation. You can learn, check understanding, and ask for a human when it matters."
+    },
+    "three": {
+      "title": "Privacy and informed decisions",
+      "body": "You decide what is shared, with whom, and when. Nothing here assumes a marriage or family choice."
+    }
   },
   "pillars": {
     "plain": {
@@ -25,21 +54,48 @@
   "steps": {
     "heading": "How it works",
     "one": {
-      "title": "Plain language",
-      "body": "Explains a result in plain, non-stigmatizing language."
+      "title": "Understand",
+      "body": "Learn what screening results mean, in your language, at your pace."
     },
     "two": {
-      "title": "Teach-back",
-      "body": "Checks understanding with teach-back."
+      "title": "Explore",
+      "body": "Understand inherited risk and uncertainty without treating a chance as a prediction."
     },
     "three": {
-      "title": "You control sharing",
-      "body": "Each partner controls what is shared with the other and with the clinic."
+      "title": "Connect",
+      "body": "Find qualified counselling and support when questions are complex or high-impact."
     },
     "four": {
-      "title": "A person for complex questions",
-      "body": "Complex, ambiguous, or high-impact cases go to a human genetics professional."
+      "title": "Stay in control",
+      "body": "Manage consent and information sharing. You can change what is shared."
     }
+  },
+  "approach": {
+    "heading": "Our approach",
+    "body": "Rafeeq supports informed decisions without judgement, pressure, or assumptions about marriage and family choices. It is education and navigation. It never diagnoses, and it never decides for you.",
+    "imageAlt": "A quiet table and chair in a bright room. A calm place for a conversation."
+  },
+  "science": {
+    "heading": "Grounded in careful explanation",
+    "body": "Laboratory science is the starting point. What you see here is explanation and support, not a diagnosis or a substitute for a qualified professional.",
+    "imageAlt": "A genetics laboratory with sequencing equipment. Contextual only. Not a personal test site."
+  },
+  "privacySection": {
+    "heading": "Privacy and trust",
+    "intro": "Sharing is consent-led. Complex questions go to a person. This preview uses synthetic fixtures, not real genomes.",
+    "consent": "Consent-led sharing: each person controls what is visible to a partner or clinic.",
+    "respect": "Respect for individual privacy: your own result stays available to you.",
+    "uncertainty": "Clear explanations of uncertainty: a chance is not a prediction about any child.",
+    "human": "Human counselling for complex questions. The product does not replace a counsellor."
+  },
+  "cta": {
+    "heading": "Start when you are ready",
+    "body": "Enter the guest demo to see how Rafeeq explains a synthetic result. There is no pressure to continue.",
+    "action": "Continue as Guest"
+  },
+  "footer": {
+    "tagline": "Knowledge without judgement.",
+    "nav": "Footer"
   },
   "trust": {
     "title": "Trust centre",
@@ -93,6 +149,11 @@
     "story": "Story"
   },
   "legal": {
-    "title": "Legal"
+    "title": "Legal",
+    "intro": "This page describes how this preview talks about privacy, consent, and medical limits. It is not a contract.",
+    "notAdvice": "Rafeeq does not provide medical advice, a diagnosis, or a decision about marriage or family.",
+    "synthetic": "The guest demo uses synthetic fixtures. It does not use real personal genomes.",
+    "privacy": "The Trust centre explains what this prototype shows about sharing, counselling, and AI limits.",
+    "openTrust": "Open the Trust centre"
   }
 }

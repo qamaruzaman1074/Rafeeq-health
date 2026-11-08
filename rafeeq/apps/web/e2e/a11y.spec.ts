@@ -39,10 +39,10 @@ function violationSummary(results: Awaited<ReturnType<AxeBuilder["analyze"]>>) {
 
 async function scan(page: Page, path: string): Promise<void> {
   if (path === "/dev/styleguide") {
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
   } else {
     await expect(page.locator("[data-screen]")).toHaveAttribute("data-screen", path);
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
   }
   await page.waitForLoadState("networkidle");
   const results = await new AxeBuilder({ page }).analyze();
@@ -155,7 +155,10 @@ for (const locale of locales) {
     });
     const names: readonly string[] = zoomTargets[locale];
     for (const name of names) {
-      const control = page.getByRole("link", { name }).or(page.getByRole("button", { name }));
+      const control = page
+        .getByRole("link", { name })
+        .or(page.getByRole("button", { name }))
+        .first();
       await expect(control).toBeVisible();
     }
     const clipped = await page.evaluate((expected) => {

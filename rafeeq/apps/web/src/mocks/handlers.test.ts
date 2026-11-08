@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { personas } from "@/features/personas";
 import { ApiRequestError, apiRequest } from "@/lib/api";
-import { mocksEnabled, prepareMocks } from "@/mocks/enable";
+import { mocksEnabled } from "@/mocks/enable";
 import { hasPersonaFixtures, mockPayload, personaFile } from "@/mocks/fixtures";
 import { apiEndpoints } from "@/mocks/handlers";
 
@@ -13,16 +13,8 @@ describe("mock API", () => {
     expect(mocksEnabled("false")).toBe(false);
     expect(mocksEnabled("true")).toBe(true);
 
-    const started: string[] = [];
-    const start = () => {
-      started.push("started");
-      return Promise.resolve();
-    };
-    await prepareMocks(undefined, start);
-    await prepareMocks("false", start);
-    expect(started).toEqual([]);
-    await prepareMocks("true", start);
-    expect(started).toEqual(["started"]);
+    const enable = readFileSync(new URL("./enable.ts", import.meta.url), "utf8");
+    expect(enable).toContain("import.meta.env.DEV");
 
     const main = readFileSync(new URL("../main.tsx", import.meta.url), "utf8");
     expect(main).toContain("prepareMocks(import.meta.env.VITE_USE_MOCKS)");

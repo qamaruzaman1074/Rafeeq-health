@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import { createElement, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { I18nextProvider } from "react-i18next";
@@ -61,6 +61,20 @@ const chromeKeys = [
   "page.continueGuest",
   "page.signIn",
   "nav.label",
+  "nav.howItWorks",
+  "nav.approach",
+  "nav.privacy",
+  "hero.title",
+  "hero.body",
+  "hero.trust",
+  "hero.howItWorks",
+  "problem.heading",
+  "approach.heading",
+  "science.heading",
+  "privacySection.heading",
+  "cta.heading",
+  "cta.action",
+  "footer.tagline",
   "pillars.plain.title",
   "pillars.sharing.title",
   "pillars.humans.title",
@@ -150,12 +164,18 @@ describe("public pages", () => {
 
     expect(landing).toContain("Continue as Guest");
     expect(landing).toContain("Sign in");
+    expect(landing).toMatch(/href="\/demo"[^>]*>Continue as Guest</);
+    expect(landing).toMatch(/href="\/demo"[^>]*>Sign in</);
     expect(landing).toContain("Evaluation guide");
     expect(landing).toContain("Plain language");
     expect(landing).toContain("You control sharing");
     expect(landing).toContain("Humans for the big questions");
     expect(landing).toContain("How it works");
-    expect(landing).toContain("Teach-back");
+    expect(landing).toContain("Understand your genes. Empower your future.");
+    expect(landing).toContain("Explore");
+    expect(landing).toContain("/images/genetic-research.webp");
+    expect(landing).toContain("/images/genetics-lab.webp");
+    expect(landing).toContain("/images/counselling.webp");
     expect(trust).toContain("Privacy");
     expect(trust).toContain("How AI is used and limited");
     expect(trust).toContain("Who reviews content");
@@ -165,6 +185,14 @@ describe("public pages", () => {
     expect(demo).toContain("Reset");
     expect(demo).toContain("Draft synthetic fixture");
     expect(demo.match(/Enter as /g)?.length).toBe(7);
+  });
+
+  it("stores landing images as local webp files", () => {
+    const names = ["genetic-research.webp", "genetics-lab.webp", "counselling.webp"] as const;
+    for (const name of names) {
+      const file = new URL(`../../public/images/${name}`, import.meta.url);
+      expect(statSync(file).size, name).toBeGreaterThan(20_000);
+    }
   });
 
   it("does not use banned terms or accuracy claims in the new copy", () => {

@@ -55,18 +55,18 @@
     },
     "colour": {
       "heading": "Colour",
-      "teal900": "Teal 900. Headings.",
-      "teal700": "Teal 700. Primary actions and links.",
-      "teal500": "Teal 500. Focus ring and accents.",
-      "teal100": "Teal 100. Soft panels.",
-      "sand50": "Sand 50. Page background.",
-      "sand100": "Sand 100. Cards.",
-      "gold500": "Gold 500. Decorative only.",
+      "teal900": "Deep teal. Headings.",
+      "teal700": "Trust teal. Primary actions and links.",
+      "teal500": "Accent teal. Focus ring and highlights.",
+      "teal100": "Mint. Soft panels.",
+      "sand50": "Ivory. Page background.",
+      "sand100": "Ivory step. Muted surfaces.",
+      "gold500": "Soft gold. Decorative only.",
       "lilac100": "Lilac 100. Needs a conversation.",
       "amber100": "Amber 100. Please read.",
       "green600": "Green 600. Completed.",
-      "ink900": "Ink 900. Body text.",
-      "ink600": "Ink 600. Secondary text.",
+      "ink900": "Charcoal. Body text.",
+      "ink600": "Charcoal muted. Secondary text.",
       "danger600": "Danger 600. System errors and delete only."
     },
     "type": {
@@ -140,8 +140,29 @@
     },
     "focus": {
       "heading": "Focus",
-      "body": "Move focus with the keyboard. The ring is teal.",
+      "body": "Move focus with the keyboard. The ring uses the trust teal accent.",
       "target": "Focus target"
+    },
+    "layout": {
+      "heading": "Layout primitives",
+      "heroEyebrow": "Genetic health education",
+      "heroTitle": "Calm clarity for inherited risk",
+      "heroBody": "Premium surfaces with ivory, mint, and deep teal. Generous spacing for bilingual reading.",
+      "heroAction": "Explore the demo",
+      "heroAside": "Synthetic data only. No clinical decisions on this screen.",
+      "pageEyebrow": "App area",
+      "pageTitle": "Your pathway",
+      "pageBody": "Page headers separate navigation from content with a soft rule.",
+      "trustHeading": "Built for trust",
+      "trustOne": "Plain language",
+      "trustOneBody": "Non-stigmatizing explanations at your pace.",
+      "trustTwo": "You control sharing",
+      "trustTwoBody": "Consent and audit trails stay visible.",
+      "trustThree": "Human handoff",
+      "trustThreeBody": "Counsellors for high-impact questions.",
+      "sectionTitle": "Section rhythm",
+      "sectionBody": "Sections stack with consistent vertical spacing on narrow and wide viewports.",
+      "appAside": "Optional aside slot for summaries or status."
     }
   }
 }

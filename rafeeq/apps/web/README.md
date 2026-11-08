@@ -15,7 +15,7 @@ Vite prints:
 ➜  Local:   http://127.0.0.1:5173/
 ```
 
-`server.host` is `127.0.0.1` in `vite.config.ts`, and the port is Vite's default. Open that URL. This repo does not publish a public site URL.
+The dev server listens on port 5173 (Vite's default) and is reachable at `http://127.0.0.1:5173/`. `server.host` is enabled for loopback and local preview tools. This repo does not publish a public site URL.
 
 `VITE_USE_MOCKS=true` starts the mock service worker for `/api/v1`. Leave `VITE_API_BASE_URL` empty for this local mock run (see `.env.example`).
 

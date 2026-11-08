@@ -2,7 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 import type { Plugin } from "vite";
-import { defineConfig } from "vitest/config";
+import { defineConfig } from "vite";
 
 const FIRST_ROUTE_FONTS = {
   en: ["IBMPlexSans-Regular.woff2", "IBMPlexSans-Medium.woff2", "IBMPlexSans-SemiBold.woff2"],
@@ -71,8 +71,8 @@ export default defineConfig({
         start_url: "/",
         scope: "/",
         display: "standalone",
-        background_color: "#FBF8F2",
-        theme_color: "#0B3F45",
+        background_color: "#F8F6F0",
+        theme_color: "#103D40",
         lang: "en",
         dir: "ltr",
         icons: [
@@ -99,14 +99,8 @@ export default defineConfig({
     manifest: true,
   },
   server: {
-    host: "127.0.0.1",
-  },
-  test: {
-    environment: "node",
-    setupFiles: ["./src/test/setup.ts"],
-    include: ["src/**/*.{test,spec}.ts"],
-    env: {
-      VITE_API_BASE_URL: "http://127.0.0.1:4010",
-    },
+    host: true,
+    port: 5173,
+    allowedHosts: true,
   },
 });

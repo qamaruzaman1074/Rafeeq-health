@@ -27,7 +27,7 @@ test.beforeAll(() => {
 
 test("keyboard guest entry reaches the couple home", async ({ page }) => {
   await page.goto("/");
-  const guest = page.getByRole("link", { name: "Continue as Guest" });
+  const guest = page.getByRole("main").getByRole("link", { name: "Continue as Guest" }).first();
   await tabUntilFocused(page, guest);
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/demo$/);
@@ -47,7 +47,7 @@ test("keyboard guest entry works in Arabic", async ({ page }) => {
   await expect(page.locator("html")).toHaveAttribute("lang", "ar");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
 
-  const guest = page.getByRole("link", { name: "المتابعة كضيف" });
+  const guest = page.getByRole("main").getByRole("link", { name: "المتابعة كضيف" }).first();
   await tabUntilFocused(page, guest);
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/demo$/);
@@ -91,6 +91,6 @@ test("saves landing, trust, and demo screenshots in both directions", async ({ p
 
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-  await expect(page.getByRole("link", { name: "المتابعة كضيف" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "المتابعة كضيف" }).first()).toBeVisible();
   await page.screenshot({ path: path.join(screensDir, "F5-landing-ar.png"), fullPage: true });
 });

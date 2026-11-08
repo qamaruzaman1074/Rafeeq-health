@@ -10,7 +10,7 @@ import i18n from "@/i18n";
 import { NumeralProvider } from "@/i18n/numerals";
 
 const titles: Record<string, string> = {
-  "/": "Understand your genetic result - in your language, at your pace, with a counsellor one tap away.",
+  "/": "Understand your genes. Empower your future.",
   "/trust": "Trust centre",
   "/demo": "Persona picker",
   "/app": "Couple home",
