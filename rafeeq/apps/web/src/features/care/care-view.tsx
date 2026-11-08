@@ -8,6 +8,7 @@ import { BookingCalendar } from "@/features/care/booking-calendar";
 import { InfoCards } from "@/features/care/info-cards";
 import { PathwayTimeline } from "@/features/care/pathway-timeline";
 import { clinicShareGranted } from "@/features/care/steps";
+import { landmarkName } from "@/lib/landmark-name";
 import { SendReferral } from "@/features/care/send-referral";
 import { StatusChips } from "@/features/care/status-chips";
 import { fetchMineConsents, mineConsentQueryKey } from "@/features/privacy/api";
@@ -66,7 +67,13 @@ export function CareView() {
         <p>{t("page.intro", { ns: "care" })}</p>
       </header>
 
-      <section className="flex flex-col gap-4" aria-labelledby="care-steps">
+      <section
+        className="flex flex-col gap-4"
+        aria-label={landmarkName(
+          t("timeline.heading", { ns: "care" }),
+          t("timeline.heading", { ns: "care", lng: "en" }),
+        )}
+      >
         <h2 id="care-steps" className="text-2xl font-semibold text-teal-900">
           {t("timeline.heading", { ns: "care" })}
         </h2>

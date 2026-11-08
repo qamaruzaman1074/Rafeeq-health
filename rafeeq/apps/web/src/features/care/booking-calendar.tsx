@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { periodLabel } from "@/features/care/labels";
+import { landmarkName } from "@/lib/landmark-name";
 import { useNumerals } from "@/i18n/numerals";
 
 /**
@@ -22,7 +23,13 @@ export function BookingCalendar() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   return (
-    <section className="flex flex-col items-start gap-4" aria-labelledby="care-booking">
+    <section
+      className="flex flex-col items-start gap-4"
+      aria-label={landmarkName(
+        t("booking.label", { ns: "care" }),
+        t("booking.label", { ns: "care", lng: "en" }),
+      )}
+    >
       <h2 id="care-booking" className="text-2xl font-semibold text-teal-900">
         {t("booking.label", { ns: "care" })}
       </h2>

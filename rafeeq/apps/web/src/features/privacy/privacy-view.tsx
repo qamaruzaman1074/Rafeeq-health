@@ -17,6 +17,7 @@ import {
 } from "@/features/privacy/api";
 import { AuditTimeline } from "@/features/privacy/audit-timeline";
 import { commitConsentChange, type RevocableScope } from "@/features/privacy/matrix";
+import { landmarkName } from "@/lib/landmark-name";
 import { ReceiptCard } from "@/features/privacy/receipt-card";
 import { ShareMatrix } from "@/features/privacy/share-matrix";
 import type { MineConsent } from "@/features/privacy/types";
@@ -159,7 +160,13 @@ export function PrivacyView() {
       ) : null}
       {notice === "failed" ? <p role="alert">{t("revoke.failed", { ns: "privacy" })}</p> : null}
 
-      <section className="flex flex-col gap-4" aria-labelledby="privacy-receipts">
+      <section
+        className="flex flex-col gap-4"
+        aria-label={landmarkName(
+          t("receipt.heading", { ns: "privacy" }),
+          t("receipt.heading", { ns: "privacy", lng: "en" }),
+        )}
+      >
         <h2 id="privacy-receipts" className="text-2xl font-semibold text-teal-900">
           {t("receipt.heading", { ns: "privacy" })}
         </h2>
@@ -184,7 +191,13 @@ export function PrivacyView() {
         ) : null}
       </section>
 
-      <section className="flex flex-col gap-4" aria-labelledby="privacy-audit">
+      <section
+        className="flex flex-col gap-4"
+        aria-label={landmarkName(
+          t("audit.heading", { ns: "privacy" }),
+          t("audit.heading", { ns: "privacy", lng: "en" }),
+        )}
+      >
         <h2 id="privacy-audit" className="text-2xl font-semibold text-teal-900">
           {t("audit.heading", { ns: "privacy" })}
         </h2>

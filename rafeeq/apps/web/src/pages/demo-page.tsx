@@ -9,6 +9,11 @@ import { Button } from "@/components/ui/button";
 import { EvaluationGuide } from "@/features/evaluation-guide";
 import { startCounsellorSession } from "@/features/clinic/session";
 import { startAnalystSession } from "@/features/insights/session";
+import { registerClinicCatalog } from "@/i18n/register-clinic";
+import { registerInsightsCatalog } from "@/i18n/register-insights";
+
+registerClinicCatalog();
+registerInsightsCatalog();
 import { startGuestSession } from "@/features/guest-session";
 import { personas } from "@/features/personas";
 import { ApiRequestError } from "@/lib/api";

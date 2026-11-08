@@ -260,3 +260,23 @@ OPEN_QUESTION: which KPI the equity charts stratify is not specified. `metric_id
 Suppression follows MASTER: k-anonymity floor 5. A cell with `n` below 5, or `suppressed: true`, renders "Not shown (small group)" and does not render that cell's count or interval.
 
 Arabic insights strings are `TODO_AR`, except `suppressed`, which is the English sentence in both catalogs so the small-group state stays the same string. `chart.suppressedLine` in Arabic is `TODO_AR` plus that same sentence.
+
+## 2026-11-08 — accessibility scan and performance budgets
+
+New devDependencies in `apps/web`. None of these names are in MASTER.md. They exist so the scan and the shell-only service worker can be built and checked.
+
+- `@axe-core/playwright` 4.14.0 — axe-core inside the existing Playwright run.
+- `vite-plugin-pwa` 2.0.0 — web manifest and `generateSW`. This line accepts Vite 8.
+- `workbox-build` 7.4.1 and `workbox-window` 7.4.1 — the plugin's workbox peers.
+
+The generated worker precaches the app shell and uses a navigation fallback of `index.html`. The navigation route denylist is `/^\/api\//`. `runtimeCaching` is empty, so `/api` responses are not cached. `mockServiceWorker.js` is left out of the precache.
+
+The document head preloads IBM Plex weights 400, 500, and 600 for the active family only. Weight 700 stays in CSS and is not preloaded. No stylesheet or script requests Google Fonts.
+
+The HTML description, theme colour, and manifest description reuse the existing English landing sentence and `--teal-900` (`#0B3F45`). The document boots in `en`. A localized meta description is not specified.
+
+OPEN_QUESTION: `/admin` has no mock session. POST `/auth/login` accepts counsellor and analyst only. The axe run did not scan that screen. See `docs/A11Y.md`.
+
+OPEN_QUESTION: reviewed Arabic headings are not in `/content`. Named regions whose visible heading is `TODO_AR` put the existing English catalog string in the accessible name so the landmarks stay unique. Visible text is unchanged.
+
+Planning Section 12 also asks for Lighthouse >= 90 and LCP under 2.5 s. The measured home scores are in `docs/PERF.md`. The task acceptance (performance >= 85, accessibility >= 95 on `/`) is what this change checks.

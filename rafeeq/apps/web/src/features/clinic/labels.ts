@@ -3,6 +3,9 @@ import type { ReferralStatus } from "@/features/care/steps";
 import { statusLabel } from "@/features/care/labels";
 import type { Tier } from "@/features/clinic/tiers";
 import type { OverlapShare, QueueLanguage, QueueLiteracy } from "@/features/clinic/types";
+import { registerClinicCatalog } from "@/i18n/register-clinic";
+
+registerClinicCatalog();
 
 export function tierLabel(tier: Tier, t: TFunction): string {
   switch (tier) {

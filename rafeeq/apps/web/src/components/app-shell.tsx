@@ -1,13 +1,31 @@
-import { type ReactNode } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { LiteracyModeToggle } from "@/components/literacy-mode-toggle";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { NumeralToggle } from "@/components/numeral-toggle";
 import { SkipLink } from "@/components/skip-link";
 
+function subscribeOnline(onChange: () => void): () => void {
+  window.addEventListener("online", onChange);
+  window.addEventListener("offline", onChange);
+  return () => {
+    window.removeEventListener("online", onChange);
+    window.removeEventListener("offline", onChange);
+  };
+}
+
+function useOnline(): boolean {
+  return useSyncExternalStore(
+    subscribeOnline,
+    () => navigator.onLine,
+    () => true,
+  );
+}
+
 export function ShellFrame({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
+  const online = useOnline();
   return (
     <div className="flex min-h-screen flex-col bg-sand-50 text-ink-900">
       <SkipLink />
@@ -21,6 +39,11 @@ export function ShellFrame({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
+      {online ? null : (
+        <p role="status" className="bg-amber-100 ps-4 pe-4 py-3 text-ink-900">
+          {t("shell.offline")}
+        </p>
+      )}
       <main
         id="main"
         tabIndex={-1}
@@ -36,9 +59,12 @@ export function ShellFrame({ children }: { children: ReactNode }) {
 }
 
 export function AppShell() {
+  const { pathname } = useLocation();
   return (
     <ShellFrame>
-      <Outlet />
+      <div data-screen={pathname}>
+        <Outlet />
+      </div>
     </ShellFrame>
   );
 }

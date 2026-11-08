@@ -13,7 +13,7 @@ async function openLearn(page: Page): Promise<void> {
   await page.goto("/demo");
   await page.getByRole("button", { name: "Enter as Noor & Khalid" }).click();
   await expect(page).toHaveURL(/\/app$/);
-  await page.locator("a[href='/app/learn']").click();
+  await page.getByRole("link", { name: "Learn", exact: true }).click();
   await expect(page).toHaveURL(/\/app\/learn$/);
   await expect(page.getByRole("heading", { level: 1, name: "Learn" })).toBeVisible();
 }
@@ -124,6 +124,6 @@ test("persists literacy mode across reload", async ({ page }) => {
     "true",
   );
   await page.getByRole("button", { name: "Enter as Noor & Khalid" }).click();
-  await page.locator("a[href='/app/learn']").click();
+  await page.getByRole("link", { name: "Learn", exact: true }).click();
   await expect(page.locator("article[data-literacy='simple']")).toHaveCount(7);
 });

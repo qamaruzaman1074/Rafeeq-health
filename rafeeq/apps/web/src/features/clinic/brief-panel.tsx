@@ -6,6 +6,7 @@ import { languageLabel, literacyLabel, referralStatusLabel } from "@/features/cl
 import { TierChip } from "@/features/clinic/tier-chip";
 import type { BriefNote, CaseBrief, FormulaLine } from "@/features/clinic/types";
 import type { Carrier } from "@/features/result/types";
+import { landmarkName } from "@/lib/landmark-name";
 
 function NoteBody({ note }: { note: BriefNote }) {
   const { t } = useTranslation();
@@ -86,6 +87,8 @@ export function BriefPanel({
   onSave: () => void;
 }) {
   const { t } = useTranslation();
+  const region = (key: string) =>
+    landmarkName(t(key, { ns: "clinic" }), t(key, { ns: "clinic", lng: "en" }));
 
   return (
     <div className="flex flex-col gap-8" data-brief={brief.id}>
@@ -94,7 +97,7 @@ export function BriefPanel({
         <StatusChips status={brief.status} />
       </div>
 
-      <section className="flex flex-col gap-3" aria-labelledby="shared-genes">
+      <section className="flex flex-col gap-3" aria-label={region("case.sharedGenes")}>
         <h2 id="shared-genes" className="text-2xl font-semibold text-teal-900">
           {t("case.sharedGenes", { ns: "clinic" })}
         </h2>
@@ -112,7 +115,7 @@ export function BriefPanel({
         ))}
       </section>
 
-      <section className="flex flex-col gap-3" aria-labelledby="user-questions">
+      <section className="flex flex-col gap-3" aria-label={region("case.questions")}>
         <h2 id="user-questions" className="text-2xl font-semibold text-teal-900">
           {t("case.questions", { ns: "clinic" })}
         </h2>
@@ -129,7 +132,7 @@ export function BriefPanel({
         )}
       </section>
 
-      <section className="flex flex-col gap-3" aria-labelledby="teach-back-gaps">
+      <section className="flex flex-col gap-3" aria-label={region("case.gaps")}>
         <h2 id="teach-back-gaps" className="text-2xl font-semibold text-teal-900">
           {t("case.gaps", { ns: "clinic" })}
         </h2>
@@ -146,7 +149,7 @@ export function BriefPanel({
         )}
       </section>
 
-      <section className="flex flex-col gap-3" aria-labelledby="preferences">
+      <section className="flex flex-col gap-3" aria-label={region("case.preferences")}>
         <h2 id="preferences" className="text-2xl font-semibold text-teal-900">
           {t("case.preferences", { ns: "clinic" })}
         </h2>
@@ -160,14 +163,14 @@ export function BriefPanel({
         </p>
       </section>
 
-      <section className="flex flex-col gap-3" aria-labelledby="cultural-notes">
+      <section className="flex flex-col gap-3" aria-label={region("case.cultural")}>
         <h2 id="cultural-notes" className="text-2xl font-semibold text-teal-900">
           {t("case.cultural", { ns: "clinic" })}
         </h2>
         <NoteBody note={brief.cultural_notes} />
       </section>
 
-      <section className="flex flex-col gap-3" aria-labelledby="talking-prompts">
+      <section className="flex flex-col gap-3" aria-label={region("case.prompts.label")}>
         <h2 id="talking-prompts" className="text-2xl font-semibold text-teal-900">
           {t("case.prompts.label", { ns: "clinic" })}
         </h2>
@@ -177,7 +180,10 @@ export function BriefPanel({
         ))}
       </section>
 
-      <section className="flex flex-col items-start gap-3" aria-labelledby="status-update">
+      <section
+        className="flex flex-col items-start gap-3"
+        aria-label={region("case.status.update")}
+      >
         <h2 id="status-update" className="text-2xl font-semibold text-teal-900">
           {t("case.status.update", { ns: "clinic" })}
         </h2>

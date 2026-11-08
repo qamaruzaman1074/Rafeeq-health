@@ -4,10 +4,15 @@ import { applyDocumentLocale } from "@/i18n/locale";
 import { NAMESPACES } from "@/i18n/namespaces";
 import { browserStorage, readStoredLanguage } from "@/i18n/storage";
 
-const localeModules = import.meta.glob<Record<string, unknown>>("./locales/*/*.json", {
-  eager: true,
-  import: "default",
-});
+// Clinic and insights catalogs are registered by those routes (and the demo
+// buttons that open them) so they stay out of the first route bundle.
+const localeModules = import.meta.glob<Record<string, unknown>>(
+  ["./locales/*/*.json", "!./locales/*/clinic.json", "!./locales/*/insights.json"],
+  {
+    eager: true,
+    import: "default",
+  },
+);
 
 type LocaleResources = {
   en: Record<string, Record<string, unknown>>;

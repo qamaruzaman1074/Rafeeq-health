@@ -1,5 +1,8 @@
 import type { TFunction } from "i18next";
 import type { EquityDimension } from "@/features/insights/types";
+import { registerInsightsCatalog } from "@/i18n/register-insights";
+
+registerInsightsCatalog();
 
 const METRIC_TITLE_KEYS: Record<string, string> = {
   explanation_completion: "metrics.explanation_completion.title",

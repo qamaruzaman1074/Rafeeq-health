@@ -2,7 +2,6 @@ import { type RouteObject } from "react-router";
 import { RoleGuard, roleGuardLoader } from "@/app/role-guard";
 import { guardRoles, productRoutes, type RouteAccess } from "@/app/route-table";
 import { AppShell } from "@/components/app-shell";
-import { StyleguidePage } from "@/pages/dev/styleguide-page";
 
 function pagesFor(access: RouteAccess): RouteObject[] {
   return productRoutes
@@ -31,6 +30,9 @@ export const appRoutes: RouteObject[] = [
   },
   {
     path: "/dev/styleguide",
-    element: <StyleguidePage />,
+    lazy: async () => {
+      const module = await import("@/pages/dev/styleguide-page");
+      return { Component: module.StyleguidePage };
+    },
   },
 ];

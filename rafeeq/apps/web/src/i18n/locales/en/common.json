@@ -21,6 +21,7 @@
   },
   "shell": {
     "skip": "Skip to content",
+    "offline": "You are offline. This screen can stay open. New information is not loaded.",
     "syntheticNotice": "Synthetic data, not medical advice.",
     "literacy": {
       "label": "Reading mode",

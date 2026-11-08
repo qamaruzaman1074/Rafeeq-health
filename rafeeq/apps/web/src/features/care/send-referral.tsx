@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
+import { landmarkName } from "@/lib/landmark-name";
 
 export function SendReferral({
   enabled,
@@ -20,7 +21,10 @@ export function SendReferral({
   return (
     <section
       className="flex flex-col items-start gap-3"
-      aria-label={t("send.label", { ns: "care" })}
+      aria-label={landmarkName(
+        t("send.label", { ns: "care" }),
+        t("send.label", { ns: "care", lng: "en" }),
+      )}
     >
       <Button
         disabled={!enabled || pending}
