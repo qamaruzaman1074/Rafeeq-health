@@ -83,7 +83,7 @@ OPEN_QUESTION: how the shell learns the signed-in role is not specified (JWT cla
 
 OPEN_QUESTION: role-to-route mapping beyond the obvious split is not in MASTER. Couple and guest use `/app/**`. Counsellor uses `/clinic/**`. Analyst uses `/insights`. Admin uses `/admin`. Other combinations redirect to `/`. `/`, `/trust`, `/demo`, and `/legal` stay public. There is no `admin`, `settings`, `trust`, `demo`, or `legal` i18n namespace. Settings and admin titles are in `common`. The other public titles are in `landing`.
 
-OPEN_QUESTION: the default `literacy_mode` and whether the shell persists it are not specified. The toggle starts at `standard` in memory and is not written to storage.
+The toggle starts at `standard` when stored literacy is absent. Persistence is recorded in the learn-modules section below.
 
 ## 2026-11-08 — landing, trust centre, and guest demo
 
@@ -130,3 +130,17 @@ OPEN_QUESTION: P5 says partner B declines sharing and does not say whether partn
 OPEN_QUESTION: the HTTP status for a refused overlap explanation is not in Section 6. POST `/explain/overlap` uses 403 with `message_key` `sharingDeclined` or `consentMissing` when the gate is closed. Unknown or absent personas still return `data: null`.
 
 Couple-area links were added on the couple home, result, and together pages so a guest can open those routes without a reload. The in-memory session does not survive a full page load. That storage choice is unchanged from the shell task.
+
+## 2026-11-08 — learn modules and audio
+
+No new package.
+
+`localStorage` key `rafeeq.literacy` stores `standard`, `simple`, or `voice` after the user changes reading mode. When the key is absent or the value is anything else, the shell starts at `standard`. Demo reset still selects `standard`, and that choice is now written to the same key.
+
+OPEN_QUESTION: `/content/blocks.en.json`, `/content/blocks.ar.json`, and `/content/faq.json` are empty. MASTER Section 7.2 names explanation topics and does not assign block ids or a JSON shape. The learn page looks up stable ids (`learn.{topic}.full`, `learn.{topic}.short`, `glossary.{term}`). A missing body renders the existing `OPEN_QUESTION` marker and the id. No clinical paragraph was written. FAQ entries are not rendered. The planning sentence about family relatedness (cultural context and the size of added risk) is clinician-reviewed wording and is not in the content files, so it is not shown.
+
+GET `/explain/glossary/{term}` reads the locale file (`?locale=en` or `?locale=ar`; anything else is treated as `en`) and returns `{ term, block_id, locale, text }`. `text` is null when the block is empty.
+
+POST `/tts` accepts `{ "block_id", "locale" }` and returns `{ block_id, locale, url, text }`. It does not synthesize speech. When the block has no `audio_url`, `url` is the stable path `/mock-audio/{block_id}`. A missing `block_id` is HTTP 400 with `message_key` `missingBlock`.
+
+OPEN_QUESTION: Section 6 does not define the glossary or TTS response bodies, the locale parameter, or where audio files live.

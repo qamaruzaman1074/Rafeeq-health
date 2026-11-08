@@ -34,8 +34,13 @@ describe("mock API", () => {
     expect(mockPayload({ P1: { id: "P1" } })).toBeNull();
     expect(apiEndpoints).toHaveLength(28);
 
-    const endpoints = apiEndpoints.filter((endpoint) => endpoint.path !== "/auth/guest");
-    expect(endpoints).toHaveLength(27);
+    const endpoints = apiEndpoints.filter(
+      (endpoint) =>
+        endpoint.path !== "/auth/guest" &&
+        endpoint.path !== "/explain/glossary/:term" &&
+        endpoint.path !== "/tts",
+    );
+    expect(endpoints).toHaveLength(25);
 
     for (const endpoint of endpoints) {
       const result = await apiRequest<null>(`/api/v1${endpoint.example}`, {

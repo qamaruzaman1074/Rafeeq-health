@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- 2026-11-08 feat: add learn modules, glossary tooltips, and mock audio. Literacy mode persists as `rafeeq.literacy` (`standard`, `simple`, `voice`).
 - 2026-11-08 feat: add the result and couple pages (own carrier cards, consent-gated overlap, fact card).
 - 2026-11-08 feat: add the landing, trust centre, and guest persona demo.
 - 2026-11-08 feat: add the app shell, lazy routes, role guard, and MSW handlers for `/api/v1`.

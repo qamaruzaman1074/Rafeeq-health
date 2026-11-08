@@ -1,5 +1,7 @@
 import { http, HttpResponse, type HttpHandler } from "msw";
 import { shareGate } from "@/features/couple/share-state";
+import { audioUrlForBlock, readLocaleBlock, type LocaleCode } from "@/features/learn/blocks";
+import { glossaryBlockId } from "@/features/learn/modules";
 import { findPersona, type Persona } from "@/features/personas";
 import { mockPayload, personaFile } from "@/mocks/fixtures";
 import { consentsFor, explainFor, overlapFor, ownResultFor } from "@/mocks/kernel-fixture";
@@ -115,6 +117,49 @@ function isPersonaBacked(endpoint: ApiEndpoint): boolean {
   );
 }
 
+function isLearnBacked(endpoint: ApiEndpoint): boolean {
+  return (
+    (endpoint.method === "get" && endpoint.path === "/explain/glossary/:term") ||
+    (endpoint.method === "post" && endpoint.path === "/tts")
+  );
+}
+
+function localeFrom(value: string | null): LocaleCode {
+  return value === "ar" ? "ar" : "en";
+}
+
+function missingBlock() {
+  return HttpResponse.json(
+    {
+      error: {
+        code: "missing_block",
+        message_key: "missingBlock",
+        request_id: crypto.randomUUID(),
+      },
+    },
+    { status: 400 },
+  );
+}
+
+async function readTtsBody(
+  request: Request,
+): Promise<{ blockId: string; locale: LocaleCode } | null> {
+  try {
+    const body: unknown = await request.json();
+    if (body === null || typeof body !== "object" || !("block_id" in body)) {
+      return null;
+    }
+    const blockId = body.block_id;
+    if (typeof blockId !== "string" || blockId.trim().length === 0) {
+      return null;
+    }
+    const localeValue = "locale" in body && typeof body.locale === "string" ? body.locale : null;
+    return { blockId, locale: localeFrom(localeValue) };
+  } catch {
+    return null;
+  }
+}
+
 function guestSession(personaId: string) {
   return HttpResponse.json({
     data: { role: "guest", persona_id: personaId },
@@ -183,7 +228,35 @@ export const handlers: HttpHandler[] = [
     }
     return envelope({ fact_card: card });
   }),
+  http.get("*/api/v1/explain/glossary/:term", ({ request, params }) => {
+    const term = typeof params.term === "string" ? params.term : "";
+    const locale = localeFrom(new URL(request.url).searchParams.get("locale"));
+    const blockId = glossaryBlockId(term);
+    const block = readLocaleBlock(locale, blockId);
+    return envelope({
+      term,
+      block_id: blockId,
+      locale,
+      text: block.text,
+    });
+  }),
+  http.post("*/api/v1/tts", async ({ request }) => {
+    const body = await readTtsBody(request);
+    if (body === null) {
+      return missingBlock();
+    }
+    const block = readLocaleBlock(body.locale, body.blockId);
+    return envelope({
+      block_id: body.blockId,
+      locale: body.locale,
+      url: audioUrlForBlock(body.blockId, block.audioUrl),
+      text: block.text,
+    });
+  }),
   ...apiEndpoints
-    .filter((endpoint) => endpoint.path !== "/auth/guest" && !isPersonaBacked(endpoint))
+    .filter(
+      (endpoint) =>
+        endpoint.path !== "/auth/guest" && !isPersonaBacked(endpoint) && !isLearnBacked(endpoint),
+    )
     .map((endpoint) => httpByMethod[endpoint.method](`*/api/v1${endpoint.path}`, () => respond())),
 ];

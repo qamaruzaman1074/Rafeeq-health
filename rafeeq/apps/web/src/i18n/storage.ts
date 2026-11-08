@@ -59,6 +59,38 @@ export function readStoredNumeralSystem(storage: KeyValueStore | null): NumeralS
   return null;
 }
 
+export const LITERACY_STORAGE_KEY = "rafeeq.literacy";
+
+const STORED_LITERACY_MODES = ["standard", "simple", "voice"] as const;
+
+export type StoredLiteracyMode = (typeof STORED_LITERACY_MODES)[number];
+
+function isStoredLiteracyMode(value: string): value is StoredLiteracyMode {
+  return (STORED_LITERACY_MODES as readonly string[]).includes(value);
+}
+
+export function readStoredLiteracyMode(storage: KeyValueStore | null): StoredLiteracyMode | null {
+  const value = readItem(storage, LITERACY_STORAGE_KEY);
+  if (value !== null && isStoredLiteracyMode(value)) {
+    return value;
+  }
+  return null;
+}
+
+export function writeStoredLiteracyMode(
+  storage: KeyValueStore | null,
+  mode: StoredLiteracyMode,
+): void {
+  if (storage === null) {
+    return;
+  }
+  try {
+    storage.setItem(LITERACY_STORAGE_KEY, mode);
+  } catch {
+    // Private-mode storage can throw. The in-memory literacy mode still changes.
+  }
+}
+
 export function writeStoredNumeralSystem(
   storage: KeyValueStore | null,
   system: NumeralSystem | null,
