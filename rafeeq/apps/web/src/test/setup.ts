@@ -1,0 +1,14 @@
+import { afterAll, afterEach, beforeAll } from "vitest";
+import { server } from "@/test/mocks/server";
+
+beforeAll(() => {
+  server.listen({ onUnhandledFrame: "error" });
+});
+
+afterEach(() => {
+  server.resetHandlers();
+});
+
+afterAll(() => {
+  server.close();
+});
