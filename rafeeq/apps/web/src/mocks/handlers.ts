@@ -9,6 +9,18 @@ import { answerFor, itemsForPersona, parseAnswerBody } from "@/mocks/comprehensi
 import { mockPayload, personaFile } from "@/mocks/fixtures";
 import { explainFor, overlapFor, ownResultFor } from "@/mocks/kernel-fixture";
 import { beginCareSession, createReferral, pathwayPayload } from "@/mocks/care-fixture";
+import {
+  applyStatus,
+  briefPayload,
+  counsellorAuditEntries,
+  queuePayload,
+  recordBriefRead,
+} from "@/mocks/clinic-fixture";
+import {
+  beginCounsellorSession,
+  counsellorActive,
+  endCounsellorSession,
+} from "@/mocks/counsellor-session";
 import { currentPersonaId, rememberPersona } from "@/mocks/persona-state";
 import {
   auditEntries,
@@ -161,6 +173,15 @@ function isCareBacked(endpoint: ApiEndpoint): boolean {
   );
 }
 
+function isClinicBacked(endpoint: ApiEndpoint): boolean {
+  return (
+    (endpoint.method === "post" && endpoint.path === "/auth/login") ||
+    (endpoint.method === "get" && endpoint.path === "/counsellor/queue") ||
+    (endpoint.method === "get" && endpoint.path === "/counsellor/referrals/:id/brief") ||
+    (endpoint.method === "patch" && endpoint.path === "/counsellor/referrals/:id")
+  );
+}
+
 function localeFrom(value: string | null): LocaleCode {
   return value === "ar" ? "ar" : "en";
 }
@@ -265,6 +286,7 @@ export const handlers: HttpHandler[] = [
     if (persona === undefined) {
       return unknownPersona();
     }
+    endCounsellorSession();
     beginPrivacySession(persona);
     beginCareSession(persona.id);
     rememberPersona(persona.id);
@@ -319,11 +341,70 @@ export const handlers: HttpHandler[] = [
     return envelope(receipt);
   }),
   http.get("*/api/v1/audit", ({ request }) => {
-    const persona = activePersona();
-    if (persona === null || new URL(request.url).searchParams.get("mine") !== "true") {
+    const mine = new URL(request.url).searchParams.get("mine") === "true";
+    if (mine) {
+      const persona = activePersona();
+      if (persona === null) {
+        return envelope(null);
+      }
+      return envelope(auditEntries(persona));
+    }
+    if (counsellorActive()) {
+      return envelope(counsellorAuditEntries());
+    }
+    return envelope(null);
+  }),
+  http.post("*/api/v1/auth/login", async ({ request }) => {
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      body = null;
+    }
+    if (body !== null && typeof body === "object" && "role" in body && body.role === "counsellor") {
+      beginCounsellorSession();
+      return envelope({ role: "counsellor" });
+    }
+    return envelope(null);
+  }),
+  http.get("*/api/v1/counsellor/queue", () => {
+    if (!counsellorActive()) {
       return envelope(null);
     }
-    return envelope(auditEntries(persona));
+    return envelope(queuePayload());
+  }),
+  http.get("*/api/v1/counsellor/referrals/:id/brief", ({ request, params }) => {
+    if (!counsellorActive()) {
+      return envelope(null);
+    }
+    const id = typeof params.id === "string" ? params.id : "";
+    const locale = localeFrom(new URL(request.url).searchParams.get("locale"));
+    const brief = briefPayload(id, locale);
+    if (brief === null) {
+      return consentError(404, "unknown_referral", "unknownReferral");
+    }
+    recordBriefRead(id);
+    return envelope(brief);
+  }),
+  http.patch("*/api/v1/counsellor/referrals/:id", async ({ params, request }) => {
+    if (!counsellorActive()) {
+      return envelope(null);
+    }
+    const id = typeof params.id === "string" ? params.id : "";
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      body = null;
+    }
+    const updated = applyStatus(id, body);
+    if (updated.status === "unknown") {
+      return consentError(404, "unknown_referral", "unknownReferral");
+    }
+    if (updated.status === "invalid") {
+      return consentError(400, "invalid_status", "invalidStatus");
+    }
+    return envelope({ id: updated.id, status: updated.referralStatus });
   }),
   http.post("*/api/v1/explain/overlap", () => {
     const persona = activePersona();
@@ -436,7 +517,8 @@ export const handlers: HttpHandler[] = [
         !isComprehensionBacked(endpoint) &&
         !isAskBacked(endpoint) &&
         !isPrivacyBacked(endpoint) &&
-        !isCareBacked(endpoint),
+        !isCareBacked(endpoint) &&
+        !isClinicBacked(endpoint),
     )
     .map((endpoint) => httpByMethod[endpoint.method](`*/api/v1${endpoint.path}`, () => respond())),
 ];

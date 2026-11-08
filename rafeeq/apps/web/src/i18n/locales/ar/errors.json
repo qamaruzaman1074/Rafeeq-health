@@ -13,5 +13,8 @@
   "viewOwnPermanent": "TODO_AR",
   "unknownReceipt": "TODO_AR",
   "consentFailed": "TODO_AR",
-  "clinicShareRequired": "TODO_AR"
+  "clinicShareRequired": "TODO_AR",
+  "unknownReferral": "TODO_AR",
+  "invalidStatus": "TODO_AR",
+  "counsellorFailed": "TODO_AR"
 }

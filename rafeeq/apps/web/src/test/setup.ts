@@ -1,5 +1,7 @@
 import { afterAll, afterEach, beforeAll } from "vitest";
 import { resetCareSessions } from "@/mocks/care-fixture";
+import { resetClinicQueue } from "@/mocks/clinic-fixture";
+import { endCounsellorSession } from "@/mocks/counsellor-session";
 import { resetActivePersona } from "@/mocks/persona-state";
 import { resetPrivacySessions } from "@/mocks/privacy-fixture";
 import { server } from "@/test/mocks/server";
@@ -9,6 +11,8 @@ beforeAll(() => {
 });
 
 afterEach(() => {
+  endCounsellorSession();
+  resetClinicQueue();
   resetActivePersona();
   resetPrivacySessions();
   resetCareSessions();

@@ -220,3 +220,27 @@ OPEN_QUESTION: Section 6 has no booking route. The four slots are local componen
 OPEN_QUESTION: `/content/blocks.en.json` and `/content/blocks.ar.json` have no body for confirmatory assessment or specialised reproductive-genomics services. The cards show the step title, the label "Information only", and the existing `OPEN_QUESTION` marker with lookup ids `care.confirmatory-assessment` and `care.specialised-reproductive-genomics`. No description of those services was written.
 
 Arabic care strings, and the new error string, are `TODO_AR`.
+
+## 2026-11-08 — counsellor queue and case brief
+
+No new package.
+
+GET `/counsellor/queue`, GET `/counsellor/referrals/{id}/brief`, and PATCH `/counsellor/referrals/{id}` return data only after a counsellor session. GET `/audit` without `?mine=true` returns that counsellor's own read entries. `?mine=true` is unchanged and still serves the couple timeline.
+
+OPEN_QUESTION: how a counsellor signs in is not specified. POST `/auth/login` stays empty unless the body is `{ "role": "counsellor" }`. No email, password, or token is invented. The demo page has "Open the counsellor queue", which stores the role the same way a guest session stores `guest`. There is no logout route.
+
+OPEN_QUESTION: response bodies are not in Section 6. The queue columns are the planning Section 7 list. Tier is set only when `content/personas.json` `tests` names exactly one of T1, T2, T3, or T4, mapped to the Section 5 enum (`T1_info`, `T2_counsel_routine`, `T3_counsel_priority`, `T4_urgent_human`). P1, P4, and P6 qualify. P3 names both T1 and T2, so that persona is not queued. P5 is queued with `tier: null` so the declined-share brief can be opened. The chip text is the enum name. It is not labelled as a risk level.
+
+OPEN_QUESTION: language, literacy mode, due-by, reason codes, comprehension gaps, user questions, and stated preferences are not in the persona file. Those fields are null or empty. P7's voice note is not used, because P7 has no single tier. No due date was invented.
+
+OPEN_QUESTION: `share_with_clinic` starts off for every persona. Shared genes and formula lines are copied from the existing overlap payload only when that scope is on and overlap consent is allowed. The web UI prints those strings. It does not calculate them. P5 partner B declines sharing, so the brief stays empty of genes and formulas even after clinic share is granted.
+
+OPEN_QUESTION: `content/genes.json` is empty. The P5 raw store uses the markers `P5_PARTNER_B_UNSHARED` and `P5_OVERLAP_UNSHARED`. They are not catalog symbols. They are never copied into a counsellor payload.
+
+OPEN_QUESTION: `/content/blocks.en.json` and `/content/blocks.ar.json` have no talking-point or cultural-note text. The brief carries `clinic.talking-points` and `clinic.cultural-notes` with `text: null`. The screen labels talking points as prompts, not advice, shows the block id, and does not render a talking-point body.
+
+OPEN_QUESTION: the audit action for a status change is not in the vocabulary already used (`read`, `grant`, `revoke`). PATCH updates the referral status and does not append an audit row. Reading a brief appends `read` on `shares` for that referral id. `actor_user_id` is not in the existing audit entry shape.
+
+OPEN_QUESTION: the default sort column is not specified. The table stays in seed order until a header button is used. Empty values stay at the end of that column.
+
+Arabic clinic strings, and the new error strings, are `TODO_AR`. Tier enum names are the same in both catalogs.

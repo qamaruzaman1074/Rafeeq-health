@@ -7,6 +7,7 @@ import { PublicNav } from "@/components/public-nav";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { EvaluationGuide } from "@/features/evaluation-guide";
+import { startCounsellorSession } from "@/features/clinic/session";
 import { startGuestSession } from "@/features/guest-session";
 import { personas } from "@/features/personas";
 import { ApiRequestError } from "@/lib/api";
@@ -17,7 +18,9 @@ export function Component() {
   const { setMode } = useLiteracy();
   const attempt = useRef(0);
   const [pendingId, setPendingId] = useState<string | null>(null);
-  const [errorKey, setErrorKey] = useState<"unknownPersona" | "guestFailed" | null>(null);
+  const [errorKey, setErrorKey] = useState<
+    "unknownPersona" | "guestFailed" | "counsellorFailed" | null
+  >(null);
 
   const choose = (personaId: string) => {
     const token = attempt.current + 1;
@@ -45,6 +48,28 @@ export function Component() {
       });
   };
 
+  const openClinic = () => {
+    const token = attempt.current + 1;
+    attempt.current = token;
+    setPendingId("counsellor");
+    setErrorKey(null);
+    void startCounsellorSession()
+      .then(async () => {
+        if (token !== attempt.current) {
+          setSessionRole(null);
+          return;
+        }
+        await navigate("/clinic/queue");
+      })
+      .catch(() => {
+        if (token !== attempt.current) {
+          return;
+        }
+        setPendingId(null);
+        setErrorKey("counsellorFailed");
+      });
+  };
+
   const reset = () => {
     attempt.current += 1;
     setSessionRole(null);
@@ -62,8 +87,16 @@ export function Component() {
         </h1>
         <p>{t("demo.intro", { ns: "landing" })}</p>
         <div className="flex flex-wrap gap-3">
-          <Button variant="secondary" onClick={reset}>
+          <Button variant="secondary" onClick={reset} disabled={pendingId !== null}>
             {t("demo.reset", { ns: "landing" })}
+          </Button>
+          <Button
+            variant="secondary"
+            aria-busy={pendingId === "counsellor"}
+            disabled={pendingId !== null}
+            onClick={openClinic}
+          >
+            {t("session.open", { ns: "clinic" })}
           </Button>
           <EvaluationGuide />
         </div>
@@ -76,6 +109,11 @@ export function Component() {
       {errorKey === "guestFailed" ? (
         <p role="alert" className="rounded-lg border border-teal-700 bg-amber-100 p-4">
           {t("guestFailed", { ns: "errors" })}
+        </p>
+      ) : null}
+      {errorKey === "counsellorFailed" ? (
+        <p role="alert" className="rounded-lg border border-teal-700 bg-amber-100 p-4">
+          {t("counsellorFailed", { ns: "errors" })}
         </p>
       ) : null}
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">

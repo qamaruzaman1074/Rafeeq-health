@@ -1,7 +1,5 @@
-import { useTranslation } from "react-i18next";
-import { PlaceholderTitle } from "@/pages/placeholder-title";
+import { QueueView } from "@/features/clinic/queue-view";
 
 export function Component() {
-  const { t } = useTranslation();
-  return <PlaceholderTitle title={t("queue.title", { ns: "clinic" })} />;
+  return <QueueView />;
 }

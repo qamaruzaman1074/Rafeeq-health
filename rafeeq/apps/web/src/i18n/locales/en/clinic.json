@@ -1,14 +1,96 @@
 {
   "page": {
-    "title": "Counsellor console"
+    "title": "Counsellor console",
+    "toQueue": "Queue"
+  },
+  "session": {
+    "open": "Open the counsellor queue"
   },
   "queue": {
-    "title": "Queue"
+    "title": "Queue",
+    "intro": "Referrals with only the fields that were shared.",
+    "loading": "Loading the queue.",
+    "empty": "No referrals match these filters.",
+    "unavailable": "No queue is available for this session.",
+    "error": "The queue could not be loaded.",
+    "retry": "Try again",
+    "caption": "Counsellor queue",
+    "filters": {
+      "label": "Filters",
+      "tier": "Tier",
+      "language": "Referral language",
+      "status": "Status",
+      "all": "All",
+      "unknownLanguage": "Not recorded"
+    },
+    "columns": {
+      "open": "Brief",
+      "tier": "Tier",
+      "reasons": "Reason codes",
+      "due": "Due by",
+      "language": "Language",
+      "literacy": "Reading mode",
+      "gaps": "Teach-back gaps",
+      "share": "Consented share",
+      "status": "Status"
+    },
+    "open": "Open brief {{id}}",
+    "noReasons": "None recorded",
+    "gapsYes": "Yes",
+    "gapsNo": "No",
+    "shareClinicOn": "Clinic share on",
+    "shareClinicOff": "Clinic share off",
+    "overlapAllowed": "Overlap consent on",
+    "overlapDeclined": "Overlap consent declined",
+    "overlapMissing": "Overlap consent not recorded",
+    "overlapEmpty": "Overlap consent not recorded"
   },
   "case": {
-    "title": "Case brief"
+    "title": "Case brief",
+    "loading": "Loading the brief.",
+    "empty": "No brief is available for this session.",
+    "error": "The brief could not be loaded.",
+    "retry": "Try again",
+    "back": "Back to queue",
+    "tabs": {
+      "label": "Case sections",
+      "brief": "Brief",
+      "audit": "Audit"
+    },
+    "sharedGenes": "Shared genes",
+    "noSharedGenes": "No shared genes.",
+    "formula": "Formula",
+    "inputs": "Inputs",
+    "questions": "User questions",
+    "noQuestions": "No questions were shared.",
+    "gaps": "Teach-back gaps",
+    "noGaps": "No teach-back gaps were shared.",
+    "preferences": "Preferences stated",
+    "language": "Language",
+    "literacy": "Reading mode",
+    "cultural": "Cultural and language notes",
+    "prompts": {
+      "label": "Prompts, not advice",
+      "note": "These are prompts, not advice."
+    },
+    "status": {
+      "choose": "New status",
+      "update": "Update status",
+      "failed": "The status could not be updated."
+    }
   },
   "audit": {
-    "title": "Audit"
+    "title": "Audit",
+    "onCase": "Audit entries for a referral are on that case.",
+    "caseIntro": "Entries recorded when this brief is read.",
+    "empty": "No audit entries for this referral.",
+    "loading": "Loading audit entries.",
+    "error": "Audit entries could not be loaded."
+  },
+  "tiers": {
+    "T1_info": "T1_info",
+    "T2_counsel_routine": "T2_counsel_routine",
+    "T3_counsel_priority": "T3_counsel_priority",
+    "T4_urgent_human": "T4_urgent_human"
   }
 }

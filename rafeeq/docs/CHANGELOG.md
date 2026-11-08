@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- 2026-11-08 feat: add the counsellor queue at `/clinic/queue` and the case brief at `/clinic/case/:id` (filters, status update, audit tab). Shared genes and formulas are shown only when the brief payload includes them.
 - 2026-11-08 feat: add the care pathway at `/app/care` (timeline, status, consent-gated referral, information cards, and on-device booking slots).
 - 2026-11-08 feat: add privacy shares, receipts, and the personal audit timeline at `/app/privacy`.
 - 2026-11-08 feat: add the ask page at `/app/ask` (transcript, 500-character question, source labels, lilac handoff to a person). Suggested questions stay empty while `content/faq.json` is empty.

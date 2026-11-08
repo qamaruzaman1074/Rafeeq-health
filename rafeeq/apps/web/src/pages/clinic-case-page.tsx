@@ -1,7 +1,5 @@
-import { useTranslation } from "react-i18next";
-import { PlaceholderTitle } from "@/pages/placeholder-title";
+import { CaseView } from "@/features/clinic/case-view";
 
 export function Component() {
-  const { t } = useTranslation();
-  return <PlaceholderTitle title={t("case.title", { ns: "clinic" })} />;
+  return <CaseView />;
 }
