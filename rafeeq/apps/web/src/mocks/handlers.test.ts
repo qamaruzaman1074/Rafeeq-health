@@ -38,9 +38,10 @@ describe("mock API", () => {
       (endpoint) =>
         endpoint.path !== "/auth/guest" &&
         endpoint.path !== "/explain/glossary/:term" &&
-        endpoint.path !== "/tts",
+        endpoint.path !== "/tts" &&
+        endpoint.path !== "/ask",
     );
-    expect(endpoints).toHaveLength(25);
+    expect(endpoints).toHaveLength(24);
 
     for (const endpoint of endpoints) {
       const result = await apiRequest<null>(`/api/v1${endpoint.example}`, {

@@ -6,5 +6,7 @@
   "missingBlock": "يلزم معرّف الكتلة.",
   "missingAnswer": "TODO_AR",
   "unknownItem": "TODO_AR",
-  "unknownOption": "TODO_AR"
+  "unknownOption": "TODO_AR",
+  "missingQuestion": "TODO_AR",
+  "questionTooLong": "TODO_AR"
 }

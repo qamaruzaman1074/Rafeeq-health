@@ -6,5 +6,7 @@
   "missingBlock": "A text block id is required.",
   "missingAnswer": "An answer needs a time and an attempt.",
   "unknownItem": "That check item is not in this set.",
-  "unknownOption": "That picture is not part of this check."
+  "unknownOption": "That picture is not part of this check.",
+  "missingQuestion": "A question is required.",
+  "questionTooLong": "The question is too long."
 }

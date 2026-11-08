@@ -21,6 +21,7 @@ export function CoupleSectionNav() {
     { to: "/app/result", label: t("page.title", { ns: "result" }) },
     { to: "/app/couple", label: t("together.title", { ns: "couple" }) },
     { to: "/app/learn", label: t("page.title", { ns: "learn" }) },
+    { to: "/app/ask", label: t("page.title", { ns: "ask" }) },
   ];
 
   return (

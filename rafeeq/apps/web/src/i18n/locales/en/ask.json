@@ -1,5 +1,52 @@
 {
   "page": {
     "title": "Ask a question"
-  }
+  },
+  "boundary": {
+    "label": "Assistant limit",
+    "notice": "This assistant only shows approved content. A hard question goes to a person."
+  },
+  "composer": {
+    "label": "Your question",
+    "send": "Send",
+    "count": "{{count}} of {{max}}"
+  },
+  "chips": {
+    "label": "Suggested questions"
+  },
+  "transcript": {
+    "label": "Questions and answers",
+    "you": "You"
+  },
+  "source": {
+    "list": "Sources",
+    "label": "Source: Approved content #{{id}}"
+  },
+  "talk": {
+    "button": "Talk to a person"
+  },
+  "handoff": {
+    "region": "Needs a person",
+    "badge": "Needs a conversation",
+    "title": "This question goes to a person",
+    "book": "Book a counsellor",
+    "crisisLabel": "Approved crisis-line text",
+    "reason": {
+      "distress": "Distress or self-harm",
+      "termination": "Pregnancy termination",
+      "religious": "Religious ruling",
+      "other_person": "Another person's results",
+      "blame": "Blame",
+      "diagnosis": "Diagnosis request",
+      "decision": "A decision for you",
+      "medication": "Medication or treatment",
+      "legal": "Legal or immigration",
+      "minor": "A minor"
+    }
+  },
+  "error": {
+    "noSource": "No approved answer is available.",
+    "send": "The question could not be sent."
+  },
+  "loading": "Sending the question."
 }

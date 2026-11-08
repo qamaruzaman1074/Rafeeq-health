@@ -160,3 +160,23 @@ OPEN_QUESTION: skip has no Section 6 route. "Skip for now" moves to the next ite
 The couple home shows the planning order Result, Understand, Check, Decide who sees what, Counselling, Next. Understand links to `/app/learn`. Only the Check step reads the completion flag. The home page is otherwise unchanged.
 
 OPEN_QUESTION: the pathway step "Understand" is not a route name in the sitemap. This task maps it to `/app/learn`.
+
+## 2026-11-08 — ask page and human handoff
+
+No new package.
+
+POST `/ask` is the only answer source for `/app/ask`. The screen does not classify a question and does not write answer text.
+
+OPEN_QUESTION: MASTER Section 6 names POST `/ask` and the envelope, not the body. The mock accepts `{ "question", "locale" }`. A missing or blank question is HTTP 400, `message_key` `missingQuestion`. A question longer than 500 characters is HTTP 400, `message_key` `questionTooLong`. The response is `{ "route": "human" | "content", "reason", "source_ids", "text" }`.
+
+OPEN_QUESTION: `content/routes.json` is `{}` and has no schema. The mock maps the Section 7.3 categories (distress or self-harm, pregnancy termination, religious ruling, another person's results, blame, diagnosis, a decision for the user, medication or treatment, legal or immigration, a minor) to `route: "human"`. Those responses set `text` to null and `source_ids` to an empty list. No answer sentence is attached.
+
+OPEN_QUESTION: `content/faq.json` is `{}`. Suggested-question chips are an empty list. No clinical question was written. A content answer is returned only when that file names the question and at least one source id. The answer text is read from the content blocks for the first source id. Those blocks are empty, so `text` stays null. An ordinary question with no faq match returns `route: "content"`, empty `source_ids`, and `text: null`.
+
+The screen renders answer text only when `route` is `content` and at least one source id is present. Otherwise it shows the blocked state, or a handoff when `route` is `human`. The handoff uses `--lilac-100` and links to the existing `/app/care` placeholder. It does not build the care page.
+
+OPEN_QUESTION: Section 7.3 calls for clinician-approved crisis-line text on a distress handoff. No such block is in `/content`. The card shows the existing `OPEN_QUESTION` marker. No phone number was added.
+
+The boundary line is the ask catalog sentence that the assistant only shows approved content and a hard question goes to a person. It is not an accuracy or outcome claim. Arabic ask strings are `TODO_AR`.
+
+`tsconfig.node.json` includes `e2e` and previously had no DOM lib, so `tsc -b` failed on the existing check overflow callback (`document` inside `page.evaluate`). The DOM lib is added for that project. No check behaviour was changed.

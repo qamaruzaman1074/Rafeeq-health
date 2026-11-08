@@ -2,19 +2,36 @@ import { useTranslation } from "react-i18next";
 import type { LocalizedBlock } from "@/features/couple/fact-card-dto";
 import { documentLocale } from "@/i18n/locale";
 
-export function BoundaryBanner({ blocks }: { blocks: readonly LocalizedBlock[] }) {
+export function BoundaryBanner({
+  blocks,
+  notice,
+  label,
+}: {
+  blocks: readonly LocalizedBlock[];
+  notice?: string;
+  label?: string;
+}) {
   const { i18n, t } = useTranslation();
   const locale = documentLocale(i18n.resolvedLanguage ?? i18n.language).lang;
   const block = blocks.find((item) => item.locale === locale);
+  const approved = block !== undefined && block.text !== null ? block.text : null;
+  const fallback =
+    notice !== undefined && notice.trim().length > 0
+      ? notice
+      : t("content.missing", { ns: "common" });
 
   return (
-    <aside className="rounded-lg border border-teal-700 bg-amber-100 p-4">
-      {block === undefined || block.text === null ? (
-        <p>{t("content.missing", { ns: "common" })}</p>
-      ) : (
+    <aside
+      className="rounded-lg border border-teal-700 bg-amber-100 p-4"
+      aria-label={label}
+      data-boundary={notice !== undefined || label !== undefined ? "visible" : undefined}
+    >
+      {approved !== null && block !== undefined ? (
         <p lang={block.locale} dir={block.locale === "ar" ? "rtl" : "ltr"}>
-          {block.text}
+          {approved}
         </p>
+      ) : (
+        <p>{fallback}</p>
       )}
       {block !== undefined ? (
         <p lang="en" dir="ltr">

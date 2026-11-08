@@ -3,6 +3,7 @@ import { shareGate } from "@/features/couple/share-state";
 import { audioUrlForBlock, readLocaleBlock, type LocaleCode } from "@/features/learn/blocks";
 import { glossaryBlockId } from "@/features/learn/modules";
 import { findPersona, type Persona } from "@/features/personas";
+import { answerAsk, parseAskBody } from "@/mocks/ask-fixture";
 import { answerFor, itemsForPersona, parseAnswerBody } from "@/mocks/comprehension-fixture";
 import { mockPayload, personaFile } from "@/mocks/fixtures";
 import { consentsFor, explainFor, overlapFor, ownResultFor } from "@/mocks/kernel-fixture";
@@ -130,6 +131,10 @@ function isComprehensionBacked(endpoint: ApiEndpoint): boolean {
     (endpoint.method === "get" && endpoint.path === "/comprehension/items") ||
     (endpoint.method === "post" && endpoint.path === "/comprehension/answer")
   );
+}
+
+function isAskBacked(endpoint: ApiEndpoint): boolean {
+  return endpoint.method === "post" && endpoint.path === "/ask";
 }
 
 function localeFrom(value: string | null): LocaleCode {
@@ -306,13 +311,30 @@ export const handlers: HttpHandler[] = [
     }
     return envelope(answered);
   }),
+  http.post("*/api/v1/ask", async ({ request }) => {
+    let raw: unknown;
+    try {
+      raw = await request.json();
+    } catch {
+      return answerError("missing_question", "missingQuestion");
+    }
+    const parsed = parseAskBody(raw);
+    if (parsed === "too_long") {
+      return answerError("question_too_long", "questionTooLong");
+    }
+    if (parsed === "missing") {
+      return answerError("missing_question", "missingQuestion");
+    }
+    return envelope(answerAsk(parsed));
+  }),
   ...apiEndpoints
     .filter(
       (endpoint) =>
         endpoint.path !== "/auth/guest" &&
         !isPersonaBacked(endpoint) &&
         !isLearnBacked(endpoint) &&
-        !isComprehensionBacked(endpoint),
+        !isComprehensionBacked(endpoint) &&
+        !isAskBacked(endpoint),
     )
     .map((endpoint) => httpByMethod[endpoint.method](`*/api/v1${endpoint.path}`, () => respond())),
 ];
