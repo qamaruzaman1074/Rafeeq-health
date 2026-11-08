@@ -1,0 +1,98 @@
+{
+  "page": {
+    "title": "الرئيسية",
+    "value": "TODO_AR",
+    "continueGuest": "المتابعة كضيف",
+    "signIn": "تسجيل الدخول"
+  },
+  "nav": {
+    "label": "الصفحات"
+  },
+  "pillars": {
+    "plain": {
+      "title": "لغة واضحة",
+      "body": "TODO_AR"
+    },
+    "sharing": {
+      "title": "أنت تتحكم في المشاركة",
+      "body": "TODO_AR"
+    },
+    "humans": {
+      "title": "أشخاص للأسئلة الكبيرة",
+      "body": "TODO_AR"
+    }
+  },
+  "steps": {
+    "heading": "كيف يعمل",
+    "one": {
+      "title": "لغة واضحة",
+      "body": "TODO_AR"
+    },
+    "two": {
+      "title": "التحقق من الفهم",
+      "body": "TODO_AR"
+    },
+    "three": {
+      "title": "التحكم في المشاركة",
+      "body": "TODO_AR"
+    },
+    "four": {
+      "title": "شخص للأسئلة المعقدة",
+      "body": "TODO_AR"
+    }
+  },
+  "trust": {
+    "title": "مركز الثقة",
+    "synthetic": "TODO_AR",
+    "frequencies": "TODO_AR",
+    "privacy": {
+      "heading": "الخصوصية",
+      "own": "TODO_AR",
+      "overlap": "TODO_AR",
+      "clinic": "TODO_AR",
+      "counsellor": "TODO_AR",
+      "analyst": "TODO_AR",
+      "audit": "TODO_AR",
+      "revoke": "TODO_AR",
+      "guest": "TODO_AR",
+      "minimise": "TODO_AR"
+    },
+    "ai": {
+      "heading": "كيف يُستخدم الذكاء الاصطناعي وحدوده",
+      "role": "TODO_AR",
+      "inputs": "TODO_AR",
+      "limits": "TODO_AR",
+      "human": "TODO_AR",
+      "routes": "TODO_AR"
+    },
+    "review": {
+      "heading": "من يراجع المحتوى",
+      "status": "TODO_AR",
+      "draft": "TODO_AR",
+      "arabic": "TODO_AR"
+    }
+  },
+  "demo": {
+    "title": "اختيار شخصية",
+    "intro": "سبع شخصيات اصطناعية في وضع المسودة. اختر واحدة لبدء جلسة ضيف.",
+    "willSee": "ما الذي ستراه",
+    "enter": "الدخول: {{name}}",
+    "reset": "إعادة الضبط",
+    "draft": "مسودة اصطناعية"
+  },
+  "guide": {
+    "open": "دليل التقييم",
+    "title": "دليل التقييم",
+    "intro": "جولة في شخصيات الضيف. نحو ٩٠ ثانية.",
+    "tryHeading": "جرّب هذا",
+    "step1": "اختر لغة: الإنجليزية أو العربية.",
+    "step2": "اختر المتابعة كضيف.",
+    "step3": "اختر بطاقة شخصية واحدة.",
+    "step4": "تفتح صفحة الزوجين.",
+    "personasHeading": "الشخصيات",
+    "story": "القصة"
+  },
+  "legal": {
+    "title": "TODO_AR"
+  }
+}

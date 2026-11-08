@@ -1,0 +1,57 @@
+{
+  "page": {
+    "title": "Learn"
+  },
+  "blocks": {
+    "language": "English blocks"
+  },
+  "modules": {
+    "label": "Explanation modules",
+    "carrier": {
+      "title": "What is a carrier",
+      "term": "carrier"
+    },
+    "coupleResult": {
+      "title": "What the result means for a couple",
+      "term": "couple"
+    },
+    "riskVsDiagnosis": {
+      "title": "Risk vs diagnosis",
+      "term": "diagnosis"
+    },
+    "uncertainty": {
+      "title": "Uncertainty",
+      "term": "uncertainty"
+    },
+    "relatedness": {
+      "title": "Family relatedness and risk",
+      "term": "relatedness"
+    },
+    "options": {
+      "title": "Options people may discuss with a counsellor (information only, no ranking)",
+      "term": "options"
+    },
+    "next": {
+      "title": "What happens next",
+      "term": "next"
+    }
+  },
+  "audio": {
+    "play": "Play audio",
+    "name": "Play audio: {{title}}",
+    "loading": "Loading the audio.",
+    "error": "The audio request could not be completed."
+  },
+  "transcript": {
+    "show": "Show transcript: {{title}}",
+    "showLabel": "Show transcript",
+    "label": "Transcript: {{title}}"
+  },
+  "glossary": {
+    "termName": "Glossary: {{term}}",
+    "loading": "Loading the glossary."
+  },
+  "error": "The explanation could not be loaded.",
+  "empty": "No explanation modules are available.",
+  "retry": "Try again"
+}

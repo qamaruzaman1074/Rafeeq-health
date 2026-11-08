@@ -1,0 +1,21 @@
+{
+  "unknownPersona": "That persona is not available.",
+  "guestFailed": "The guest session could not be started.",
+  "sharingDeclined": "Overlap stays hidden because sharing was declined.",
+  "consentMissing": "Overlap stays hidden until both partners allow sharing.",
+  "missingBlock": "A text block id is required.",
+  "missingAnswer": "An answer needs a time and an attempt.",
+  "unknownItem": "That check item is not in this set.",
+  "unknownOption": "That picture is not part of this check.",
+  "missingQuestion": "A question is required.",
+  "questionTooLong": "The question is too long.",
+  "missingConsent": "A consent scope and a granted value are required.",
+  "viewOwnPermanent": "Seeing your own result stays on.",
+  "unknownReceipt": "That receipt is not available.",
+  "consentFailed": "The consent could not be saved.",
+  "clinicShareRequired": "Clinic share is required before this request.",
+  "unknownReferral": "That referral is not available.",
+  "invalidStatus": "That status is not one of the referral statuses.",
+  "counsellorFailed": "The counsellor session could not be started.",
+  "analystFailed": "The analyst session could not be started."
+}

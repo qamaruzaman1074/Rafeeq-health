@@ -1,0 +1,57 @@
+{
+  "page": {
+    "title": "TODO_AR"
+  },
+  "blocks": {
+    "language": "كتل عربية"
+  },
+  "modules": {
+    "label": "وحدات الشرح",
+    "carrier": {
+      "title": "TODO_AR",
+      "term": "TODO_AR"
+    },
+    "coupleResult": {
+      "title": "TODO_AR",
+      "term": "TODO_AR"
+    },
+    "riskVsDiagnosis": {
+      "title": "TODO_AR",
+      "term": "TODO_AR"
+    },
+    "uncertainty": {
+      "title": "TODO_AR",
+      "term": "TODO_AR"
+    },
+    "relatedness": {
+      "title": "TODO_AR",
+      "term": "TODO_AR"
+    },
+    "options": {
+      "title": "TODO_AR",
+      "term": "TODO_AR"
+    },
+    "next": {
+      "title": "TODO_AR",
+      "term": "TODO_AR"
+    }
+  },
+  "audio": {
+    "play": "تشغيل الصوت",
+    "name": "تشغيل الصوت: {{id}}",
+    "loading": "جار تحميل الصوت.",
+    "error": "تعذر طلب الصوت."
+  },
+  "transcript": {
+    "show": "عرض النص: {{id}}",
+    "showLabel": "عرض النص",
+    "label": "النص: {{id}}"
+  },
+  "glossary": {
+    "termName": "مصطلح: {{term}} {{id}}",
+    "loading": "جار تحميل المسرد."
+  },
+  "error": "تعذر تحميل الشرح.",
+  "empty": "TODO_AR",
+  "retry": "TODO_AR"
+}

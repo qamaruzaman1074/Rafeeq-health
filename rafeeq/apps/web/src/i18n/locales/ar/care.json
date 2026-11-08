@@ -1,0 +1,45 @@
+{
+  "page": {
+    "title": "TODO_AR",
+    "intro": "TODO_AR"
+  },
+  "loading": "TODO_AR",
+  "empty": "TODO_AR",
+  "error": "TODO_AR",
+  "retry": "TODO_AR",
+  "timeline": {
+    "heading": "TODO_AR",
+    "label": "TODO_AR"
+  },
+  "steps": {
+    "result_received": "TODO_AR",
+    "counselling": "TODO_AR",
+    "confirmatory_assessment": "TODO_AR",
+    "specialised_services": "TODO_AR",
+    "follow_up": "TODO_AR"
+  },
+  "infoOnly": "TODO_AR",
+  "status": {
+    "label": "TODO_AR",
+    "created": "TODO_AR",
+    "sent": "TODO_AR",
+    "booked": "TODO_AR",
+    "attended": "TODO_AR",
+    "confirmatory_ordered": "TODO_AR",
+    "closed": "TODO_AR"
+  },
+  "send": {
+    "label": "TODO_AR",
+    "action": "TODO_AR",
+    "needsShare": "TODO_AR",
+    "privacy": "TODO_AR",
+    "failed": "TODO_AR"
+  },
+  "booking": {
+    "label": "TODO_AR",
+    "localOnly": "TODO_AR",
+    "selected": "TODO_AR",
+    "morning": "TODO_AR",
+    "afternoon": "TODO_AR"
+  }
+}

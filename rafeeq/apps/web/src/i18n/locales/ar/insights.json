@@ -1,0 +1,63 @@
+{
+  "page": {
+    "title": "TODO_AR",
+    "intro": "TODO_AR"
+  },
+  "session": {
+    "open": "TODO_AR"
+  },
+  "notice": {
+    "k": "TODO_AR"
+  },
+  "loading": "TODO_AR",
+  "unavailable": "TODO_AR",
+  "error": "TODO_AR",
+  "retry": "TODO_AR",
+  "suppressed": "Not shown (small group)",
+  "kpis": {
+    "heading": "TODO_AR"
+  },
+  "equity": {
+    "heading": "TODO_AR"
+  },
+  "metrics": {
+    "explanation_completion": {
+      "title": "TODO_AR"
+    },
+    "teach_back_pass": {
+      "title": "TODO_AR"
+    },
+    "counselling_uptake": {
+      "title": "TODO_AR"
+    },
+    "median_time_result_to_referral": {
+      "title": "TODO_AR"
+    },
+    "privacy_events": {
+      "title": "TODO_AR"
+    }
+  },
+  "chart": {
+    "language": "TODO_AR",
+    "literacy_mode": "TODO_AR",
+    "textAlternative": "TODO_AR",
+    "showTable": "TODO_AR",
+    "hideTable": "TODO_AR",
+    "caption": "TODO_AR {{chart}}",
+    "group": "TODO_AR",
+    "result": "TODO_AR",
+    "shown": "TODO_AR {{group}} {{n}} {{low}} {{high}}",
+    "shownValue": "TODO_AR {{n}} {{low}} {{high}}",
+    "countOnly": "TODO_AR {{group}} {{n}} {{marker}}",
+    "countOnlyValue": "TODO_AR {{n}} {{marker}}",
+    "interval": "TODO_AR {{low}} {{high}}",
+    "intervalLine": "TODO_AR {{group}} {{low}} {{high}} {{marker}}",
+    "missingLine": "TODO_AR {{group}} {{marker}}",
+    "suppressedLine": "TODO_AR {{group}}. Not shown (small group)."
+  },
+  "fields": {
+    "count": "TODO_AR {{n}}",
+    "granted": "TODO_AR {{n}}",
+    "revoked": "TODO_AR {{n}}"
+  }
+}

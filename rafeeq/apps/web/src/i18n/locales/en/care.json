@@ -1,0 +1,45 @@
+{
+  "page": {
+    "title": "Care pathway",
+    "intro": "These are the care steps. You can ask for counselling from here."
+  },
+  "loading": "Loading the care pathway.",
+  "empty": "No pathway is available for this session.",
+  "error": "The care pathway could not be loaded.",
+  "retry": "Try again",
+  "timeline": {
+    "heading": "Care steps",
+    "label": "Care steps"
+  },
+  "steps": {
+    "result_received": "Result received",
+    "counselling": "Counselling",
+    "confirmatory_assessment": "Confirmatory assessment (if advised by a counsellor)",
+    "specialised_services": "Specialised reproductive-genomics services",
+    "follow_up": "Follow-up"
+  },
+  "infoOnly": "Information only",
+  "status": {
+    "label": "Status",
+    "created": "Created",
+    "sent": "Sent",
+    "booked": "Booked",
+    "attended": "Attended",
+    "confirmatory_ordered": "Confirmatory ordered",
+    "closed": "Closed"
+  },
+  "send": {
+    "label": "Counselling request",
+    "action": "Send my questions and what I understood to the counsellor",
+    "needsShare": "This stays off until clinic share is on.",
+    "privacy": "Privacy",
+    "failed": "The request could not be sent."
+  },
+  "booking": {
+    "label": "Booking",
+    "localOnly": "Choosing a time stays on this device.",
+    "selected": "Selected on this device.",
+    "morning": "Morning",
+    "afternoon": "Afternoon"
+  }
+}

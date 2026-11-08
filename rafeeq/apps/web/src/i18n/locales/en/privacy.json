@@ -1,0 +1,67 @@
+{
+  "page": {
+    "title": "Privacy",
+    "intro": "You control what is shared. Revoking takes effect immediately."
+  },
+  "loading": "Loading privacy details.",
+  "empty": "No sharing details are available for this session.",
+  "error": "Privacy details could not be loaded.",
+  "retry": "Try again",
+  "matrix": {
+    "caption": "Who can see this",
+    "item": "Item",
+    "me": "Me",
+    "partner": "Partner",
+    "clinic": "Clinic",
+    "empty": "—",
+    "ownSwitch": "Your own result stays on",
+    "partnerSwitch": "Share the overlap with your partner",
+    "clinicSwitch": "Share with the clinic",
+    "ownNote": "This stays on."
+  },
+  "scopes": {
+    "view_own": "Own result",
+    "share_overlap_with_partner": "Overlap with partner",
+    "share_with_clinic": "Clinic share",
+    "research_aggregate": "Research aggregate"
+  },
+  "revoke": {
+    "title": "Revoke this share?",
+    "body": "Revoking takes effect immediately.",
+    "confirm": "Revoke",
+    "failed": "The share could not be changed. The previous choice is restored."
+  },
+  "receipt": {
+    "heading": "Receipts",
+    "download": "Download receipt JSON",
+    "revoke": "Revoke receipt",
+    "on": "On",
+    "off": "Off",
+    "version": "Version",
+    "recorded": "Recorded"
+  },
+  "audit": {
+    "heading": "Who accessed my data",
+    "empty": "No access is recorded for this session.",
+    "who": "Who",
+    "what": "What",
+    "when": "When",
+    "actor": {
+      "guest": "Guest",
+      "couple": "Couple member",
+      "counsellor": "Counsellor",
+      "analyst": "Analyst",
+      "admin": "Admin"
+    },
+    "action": {
+      "read": "Read",
+      "grant": "Grant",
+      "revoke": "Revoke"
+    },
+    "object": {
+      "results": "Results",
+      "shares": "Shares",
+      "consents": "Consents"
+    }
+  }
+}

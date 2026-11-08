@@ -1,0 +1,53 @@
+{
+  "page": {
+    "title": "TODO_AR"
+  },
+  "boundary": {
+    "label": "TODO_AR",
+    "notice": "TODO_AR"
+  },
+  "composer": {
+    "label": "TODO_AR",
+    "send": "TODO_AR",
+    "count": "TODO_AR"
+  },
+  "chips": {
+    "label": "TODO_AR"
+  },
+  "transcript": {
+    "label": "TODO_AR",
+    "you": "TODO_AR"
+  },
+  "source": {
+    "list": "TODO_AR",
+    "label": "TODO_AR"
+  },
+  "talk": {
+    "button": "TODO_AR"
+  },
+  "handoff": {
+    "region": "TODO_AR",
+    "badge": "TODO_AR",
+    "title": "TODO_AR",
+    "book": "TODO_AR",
+    "crisisLabel": "TODO_AR",
+    "reason": {
+      "distress": "TODO_AR",
+      "termination": "TODO_AR",
+      "religious": "TODO_AR",
+      "other_person": "TODO_AR",
+      "blame": "TODO_AR",
+      "diagnosis": "TODO_AR",
+      "decision": "TODO_AR",
+      "medication": "TODO_AR",
+      "legal": "TODO_AR",
+      "minor": "TODO_AR"
+    }
+  },
+  "error": {
+    "noSource": "TODO_AR",
+    "send": "TODO_AR"
+  },
+  "loading": "TODO_AR",
+  "empty": "TODO_AR"
+}

@@ -1,0 +1,35 @@
+{
+  "home": {
+    "title": "Couple home"
+  },
+  "together": {
+    "title": "Your result together"
+  },
+  "nav": {
+    "label": "Your pages"
+  },
+  "loading": "Loading the shared result.",
+  "empty": "No shared result is available for this session.",
+  "error": "The shared result could not be loaded.",
+  "retry": "Try again",
+  "prototype": "prototype content - not clinically validated",
+  "gate": {
+    "shared": "What can be shared is the overlap: genes you both carry.",
+    "whom": "That overlap is shared with your partner.",
+    "revoke": "Revoking sharing takes effect immediately.",
+    "declined": "Overlap stays hidden because sharing was declined."
+  },
+  "fact": {
+    "region": "Fact card",
+    "howCalculated": "How this was calculated",
+    "formula": "Formula",
+    "inputs": "Inputs",
+    "limits": "What this does not tell us"
+  },
+  "outcomes": {
+    "legend": "Figures for each outcome",
+    "affected": "Affected",
+    "carrier": "Carrier",
+    "neither": "Neither"
+  }
+}

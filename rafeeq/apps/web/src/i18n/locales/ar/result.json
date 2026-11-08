@@ -1,0 +1,17 @@
+{
+  "page": {
+    "title": "TODO_AR"
+  },
+  "loading": "TODO_AR",
+  "empty": "TODO_AR",
+  "error": "TODO_AR",
+  "retry": "TODO_AR",
+  "prototype": "TODO_AR",
+  "card": {
+    "gene": "TODO_AR",
+    "condition": "TODO_AR",
+    "learnMore": "TODO_AR",
+    "whoCanSee": "TODO_AR",
+    "whoCanSeeBody": "TODO_AR"
+  }
+}

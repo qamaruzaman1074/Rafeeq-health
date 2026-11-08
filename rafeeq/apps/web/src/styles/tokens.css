@@ -1,0 +1,152 @@
+/* IBM Plex Sans and IBM Plex Sans Arabic. SIL Open Font License: ./fonts/OFL.txt */
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSans-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSans-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSans-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSans-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSansArabic-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSansArabic-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSansArabic-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSansArabic-Bold.woff2") format("woff2");
+}
+
+:root {
+  --teal-900: #0b3f45;
+  --teal-700: #0f5c63;
+  --teal-500: #1f8a8f;
+  --teal-100: #d7eeee;
+  --sand-50: #fbf8f2;
+  --sand-100: #f6f1e7;
+  --gold-500: #b8893b;
+  --lilac-100: #ece8f6;
+  --amber-100: #fbefd5;
+  --green-600: #2f7d5b;
+  --ink-900: #1b2b2e;
+  --ink-600: #4b5a5d;
+  --danger-600: #b3261e;
+
+  --background: var(--sand-50);
+  --foreground: var(--ink-900);
+  --card: var(--sand-100);
+  --card-foreground: var(--ink-900);
+  --popover: var(--sand-50);
+  --popover-foreground: var(--ink-900);
+  --primary: var(--teal-700);
+  --primary-foreground: var(--sand-50);
+  --secondary: var(--teal-100);
+  --secondary-foreground: var(--teal-900);
+  --muted: var(--sand-100);
+  --muted-foreground: var(--ink-600);
+  --accent: var(--teal-100);
+  --accent-foreground: var(--teal-900);
+  --destructive: var(--danger-600);
+  --destructive-foreground: var(--sand-50);
+  --border: var(--teal-500);
+  --input: var(--ink-600);
+  --ring: var(--teal-500);
+  --radius: 0.5rem;
+
+  --size-body: 1rem;
+  --line-body: 1.55;
+}
+
+html[lang="ar"],
+[lang="ar"] {
+  --size-body: calc(1rem + 1px);
+  --line-body: 1.7;
+}
+
+html[lang="en"],
+[lang="en"] {
+  --size-body: 1rem;
+  --line-body: 1.55;
+}
+
+html[lang="en"] body,
+html[lang="ar"] body,
+[lang="en"]:not(html),
+[lang="ar"]:not(html) {
+  font-size: var(--size-body);
+  line-height: var(--line-body);
+}
+
+html[lang="en"],
+html[lang="en"] body,
+[lang="en"]:not(html) {
+  font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif;
+}
+
+html[lang="ar"],
+html[lang="ar"] body,
+[lang="ar"]:not(html) {
+  font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif;
+}
+
+:focus-visible {
+  outline: 3px solid var(--teal-500);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

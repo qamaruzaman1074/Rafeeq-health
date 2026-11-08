@@ -2,5 +2,146 @@
   "app": {
     "documentTitle": "Rafeeq",
     "placeholder": ""
+  },
+  "content": {
+    "missing": "OPEN_QUESTION"
+  },
+  "common": {
+    "close": "Close",
+    "language": "Language",
+    "languageName": {
+      "en": "English",
+      "ar": "Arabic"
+    },
+    "numerals": {
+      "label": "Numerals",
+      "latn": "Western",
+      "arab": "Arabic-Indic"
+    }
+  },
+  "shell": {
+    "skip": "Skip to content",
+    "offline": "You are offline. This screen can stay open. New information is not loaded.",
+    "syntheticNotice": "Synthetic data, not medical advice.",
+    "literacy": {
+      "label": "Reading mode",
+      "standard": "Standard",
+      "simple": "Simple",
+      "voice": "Voice"
+    }
+  },
+  "routes": {
+    "settings": "Settings",
+    "admin": "Admin"
+  },
+  "toast": {
+    "region": "Notices",
+    "viewport": "Notices",
+    "dismiss": "Dismiss",
+    "success": "Saved",
+    "failure": "The action could not be completed."
+  },
+  "styleguide": {
+    "documentTitle": "Rafeeq design system",
+    "title": "Design system",
+    "intro": "Colour, type, and components in English and Arabic.",
+    "documentStatus": "Document language {{lang}}, direction {{dir}}.",
+    "language": {
+      "en": "English",
+      "ar": "Arabic"
+    },
+    "frame": {
+      "label": "English"
+    },
+    "colour": {
+      "heading": "Colour",
+      "teal900": "Teal 900. Headings.",
+      "teal700": "Teal 700. Primary actions and links.",
+      "teal500": "Teal 500. Focus ring and accents.",
+      "teal100": "Teal 100. Soft panels.",
+      "sand50": "Sand 50. Page background.",
+      "sand100": "Sand 100. Cards.",
+      "gold500": "Gold 500. Decorative only.",
+      "lilac100": "Lilac 100. Needs a conversation.",
+      "amber100": "Amber 100. Please read.",
+      "green600": "Green 600. Completed.",
+      "ink900": "Ink 900. Body text.",
+      "ink600": "Ink 600. Secondary text.",
+      "danger600": "Danger 600. System errors and delete only."
+    },
+    "type": {
+      "heading": "Type",
+      "sm": "Small",
+      "base": "Body",
+      "lg": "Large",
+      "xl": "Title",
+      "2xl": "Section",
+      "3xl": "Display",
+      "4xl": "Hero",
+      "sample": "Text at this size."
+    },
+    "button": {
+      "heading": "Button",
+      "primary": "Continue",
+      "secondary": "Review",
+      "ghost": "Details",
+      "link": "Learn more",
+      "destructive": "Delete"
+    },
+    "card": {
+      "heading": "Card",
+      "title": "Summary",
+      "body": "A calm panel for one idea."
+    },
+    "badge": {
+      "heading": "Badge",
+      "neutral": "Neutral",
+      "notice": "Please read",
+      "conversation": "Needs a conversation",
+      "positive": "Complete",
+      "error": "System error"
+    },
+    "dialog": {
+      "heading": "Dialog",
+      "open": "Open dialog",
+      "title": "Dialog title",
+      "body": "A short message in a dialog."
+    },
+    "drawer": {
+      "heading": "Drawer",
+      "open": "Open drawer",
+      "title": "Drawer title",
+      "body": "This panel sits on the inline end."
+    },
+    "tabs": {
+      "heading": "Tabs",
+      "one": "First",
+      "two": "Second",
+      "oneBody": "First panel.",
+      "twoBody": "Second panel."
+    },
+    "tooltip": {
+      "heading": "Tooltip",
+      "trigger": "Hint",
+      "body": "Extra detail on demand."
+    },
+    "switch": {
+      "heading": "Switch",
+      "label": "Example switch"
+    },
+    "toastDemo": {
+      "heading": "Toast",
+      "show": "Show notice",
+      "showError": "Show system error",
+      "title": "Saved",
+      "body": "The notice is on screen.",
+      "errorTitle": "System error",
+      "errorBody": "The action could not be completed."
+    },
+    "focus": {
+      "heading": "Focus",
+      "body": "Move focus with the keyboard. The ring is teal.",
+      "target": "Focus target"
+    }
   }
 }

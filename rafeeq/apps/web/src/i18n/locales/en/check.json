@@ -1,0 +1,46 @@
+{
+  "page": {
+    "title": "Teach-back check"
+  },
+  "loading": "Loading the check.",
+  "empty": "No check is available for this session.",
+  "error": "The check could not be loaded.",
+  "saveError": "The answer could not be saved.",
+  "retry": "Try again",
+  "prototype": "prototype content - not clinically validated",
+  "skip": "Skip for now",
+  "options": {
+    "legend": "Choose a picture"
+  },
+  "pictures": {
+    "ring": "Ring",
+    "bars": "Bars",
+    "cluster": "Cluster",
+    "unknown": "Picture"
+  },
+  "progress": {
+    "label": "Check progress",
+    "current": "Current item",
+    "upcoming": "Later item",
+    "passed": "Earlier item"
+  },
+  "feedback": {
+    "region": "Explanation",
+    "note": "Here is another way to look at this."
+  },
+  "done": {
+    "title": "Check saved",
+    "body": "You can return to the couple home.",
+    "home": "Couple home"
+  },
+  "pathway": {
+    "label": "Pathway",
+    "result": "Result",
+    "understand": "Understand",
+    "check": "Check",
+    "share": "Decide who sees what",
+    "counselling": "Counselling",
+    "next": "Next",
+    "done": "Complete"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "page": {
+    "title": "Landing",
+    "value": "Understand your genetic result - in your language, at your pace, with a counsellor one tap away.",
+    "continueGuest": "Continue as Guest",
+    "signIn": "Sign in"
+  },
+  "nav": {
+    "label": "Pages"
+  },
+  "pillars": {
+    "plain": {
+      "title": "Plain language",
+      "body": "Explains a result in plain, non-stigmatizing language."
+    },
+    "sharing": {
+      "title": "You control sharing",
+      "body": "Each partner controls what is shared with the other and with the clinic."
+    },
+    "humans": {
+      "title": "Humans for the big questions",
+      "body": "Complex, ambiguous, or high-impact cases go to a human genetics professional. It never replaces a counsellor."
+    }
+  },
+  "steps": {
+    "heading": "How it works",
+    "one": {
+      "title": "Plain language",
+      "body": "Explains a result in plain, non-stigmatizing language."
+    },
+    "two": {
+      "title": "Teach-back",
+      "body": "Checks understanding with teach-back."
+    },
+    "three": {
+      "title": "You control sharing",
+      "body": "Each partner controls what is shared with the other and with the clinic."
+    },
+    "four": {
+      "title": "A person for complex questions",
+      "body": "Complex, ambiguous, or high-impact cases go to a human genetics professional."
+    }
+  },
+  "trust": {
+    "title": "Trust centre",
+    "synthetic": "All data is synthetic. No real person, genome, or Emirati Genome Programme data.",
+    "frequencies": "Carrier frequencies are marked illustrative until replaced by cited values.",
+    "privacy": {
+      "heading": "Privacy",
+      "own": "A couple member sees their own result always.",
+      "overlap": "A partner's data is visible only for the overlap (genes both people carry), and only if both granted that sharing.",
+      "clinic": "A clinic sees only what the user shares.",
+      "counsellor": "A counsellor sees the brief and shared fields, and never sees raw results unless they are shared.",
+      "analyst": "An analyst sees aggregates only (k-anonymity of at least 5), with no row-level data.",
+      "audit": "Every access to results, shares, and consents is written to an audit log.",
+      "revoke": "Consent revocation takes effect immediately and is shown to the user.",
+      "guest": "Guest sessions are deleted after 24 hours.",
+      "minimise": "Data minimisation: store the least."
+    },
+    "ai": {
+      "heading": "How AI is used and limited",
+      "role": "This is education, decision support, and navigation. It never diagnoses, never recommends a reproductive decision, and never replaces a counsellor.",
+      "inputs": "The language model never sees genotypes, names, IDs, or free-text identifiers. It receives only a pre-built, de-identified fact-card ID list and the question text after PII scrubbing.",
+      "limits": "The language model does not write new medical content. It may classify intent, select an approved content block, or lightly rephrase an approved block at a stated reading level. Output must pass the verifier, or a fixed fallback is shown.",
+      "human": "Hard routes bypass the language model and go to a human.",
+      "routes": "Distress or self-harm language. Pregnancy termination questions. Religious rulings. Requests about another person's results. Blame. Diagnosis requests. Medication or treatment advice. Requests to decide for the user, including whether to marry. Legal or immigration questions. Minors."
+    },
+    "review": {
+      "heading": "Who reviews content",
+      "status": "Clinical-facing text lives in the content files, in Arabic and English, with a status of draft or clinician-reviewed.",
+      "draft": "Draft blocks display this notice: prototype content - not clinically validated.",
+      "arabic": "Arabic copy must be reviewed by a native speaker on the team and, ideally, an Emirati counsellor."
+    }
+  },
+  "demo": {
+    "title": "Persona picker",
+    "intro": "Seven draft synthetic fixtures. Choose one to start a guest session.",
+    "willSee": "What you will see",
+    "enter": "Enter as {{name}}",
+    "reset": "Reset",
+    "draft": "Draft synthetic fixture"
+  },
+  "guide": {
+    "open": "Evaluation guide",
+    "title": "Evaluation guide",
+    "intro": "A walkthrough of the guest personas. About 90 seconds.",
+    "tryHeading": "Try this",
+    "step1": "Choose a language: English or Arabic.",
+    "step2": "Choose Continue as Guest.",
+    "step3": "Choose one persona card.",
+    "step4": "The couple home opens.",
+    "personasHeading": "Personas",
+    "story": "Story"
+  },
+  "legal": {
+    "title": "Legal"
+  }
+}
