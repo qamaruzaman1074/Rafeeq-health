@@ -3,6 +3,9 @@
     "documentTitle": "Rafeeq",
     "placeholder": ""
   },
+  "content": {
+    "missing": "OPEN_QUESTION"
+  },
   "common": {
     "close": "إغلاق",
     "language": "اللغة",

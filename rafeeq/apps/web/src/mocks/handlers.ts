@@ -1,6 +1,9 @@
 import { http, HttpResponse, type HttpHandler } from "msw";
-import { findPersona } from "@/features/personas";
+import { shareGate } from "@/features/couple/share-state";
+import { findPersona, type Persona } from "@/features/personas";
 import { mockPayload, personaFile } from "@/mocks/fixtures";
+import { consentsFor, explainFor, overlapFor, ownResultFor } from "@/mocks/kernel-fixture";
+import { currentPersonaId, rememberPersona } from "@/mocks/persona-state";
 
 type HttpMethod = "get" | "post" | "patch" | "delete";
 
@@ -73,6 +76,45 @@ function respond() {
   });
 }
 
+function envelope(data: unknown) {
+  return HttpResponse.json({
+    data,
+    meta: { request_id: crypto.randomUUID() },
+  });
+}
+
+function activePersona(): Persona | null {
+  const personaId = currentPersonaId();
+  if (personaId === null) {
+    return null;
+  }
+  return findPersona(personaId) ?? null;
+}
+
+function hiddenExplain(persona: Persona) {
+  const reason =
+    shareGate(consentsFor(persona)) === "declined" ? "sharing_declined" : "consent_missing";
+  return HttpResponse.json(
+    {
+      error: {
+        code: reason,
+        message_key: reason === "sharing_declined" ? "sharingDeclined" : "consentMissing",
+        request_id: crypto.randomUUID(),
+      },
+    },
+    { status: 403 },
+  );
+}
+
+function isPersonaBacked(endpoint: ApiEndpoint): boolean {
+  return (
+    (endpoint.method === "get" && endpoint.path === "/results/mine") ||
+    (endpoint.method === "get" && endpoint.path === "/results/overlap") ||
+    (endpoint.method === "get" && endpoint.path === "/consents") ||
+    (endpoint.method === "post" && endpoint.path === "/explain/overlap")
+  );
+}
+
 function guestSession(personaId: string) {
   return HttpResponse.json({
     data: { role: "guest", persona_id: personaId },
@@ -115,9 +157,33 @@ export const handlers: HttpHandler[] = [
     if (persona === undefined) {
       return unknownPersona();
     }
+    rememberPersona(persona.id);
     return guestSession(persona.id);
   }),
+  http.get("*/api/v1/results/mine", () => {
+    const persona = activePersona();
+    return envelope(persona === null ? null : ownResultFor(persona));
+  }),
+  http.get("*/api/v1/results/overlap", () => {
+    const persona = activePersona();
+    return envelope(persona === null ? null : overlapFor(persona));
+  }),
+  http.get("*/api/v1/consents", () => {
+    const persona = activePersona();
+    return envelope(persona === null ? null : consentsFor(persona));
+  }),
+  http.post("*/api/v1/explain/overlap", () => {
+    const persona = activePersona();
+    if (persona === null) {
+      return envelope(null);
+    }
+    const card = explainFor(persona);
+    if (card === null) {
+      return hiddenExplain(persona);
+    }
+    return envelope({ fact_card: card });
+  }),
   ...apiEndpoints
-    .filter((endpoint) => endpoint.path !== "/auth/guest")
+    .filter((endpoint) => endpoint.path !== "/auth/guest" && !isPersonaBacked(endpoint))
     .map((endpoint) => httpByMethod[endpoint.method](`*/api/v1${endpoint.path}`, () => respond())),
 ];

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { setSessionRole } from "@/app/session";
+import { setSessionPersona, setSessionRole } from "@/app/session";
 import { apiRequest } from "@/lib/api";
 
 const guestSessionSchema = z.object({
@@ -17,4 +17,5 @@ export async function startGuestSession(personaId: string): Promise<void> {
     throw new Error("Guest session persona_id did not match the request");
   }
   setSessionRole("guest");
+  setSessionPersona(session.persona_id);
 }

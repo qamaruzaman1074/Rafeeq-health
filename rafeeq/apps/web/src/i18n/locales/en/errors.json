@@ -1,4 +1,6 @@
 {
   "unknownPersona": "That persona is not available.",
-  "guestFailed": "The guest session could not be started."
+  "guestFailed": "The guest session could not be started.",
+  "sharingDeclined": "Overlap stays hidden because sharing was declined.",
+  "consentMissing": "Overlap stays hidden until both partners allow sharing."
 }

@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createElement, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { I18nextProvider } from "react-i18next";
@@ -30,13 +31,20 @@ const titles: Record<string, string> = {
 };
 
 function renderRoute(Component: () => ReactNode): ReactNode {
+  const client = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  });
   return createElement(
     I18nextProvider,
     { i18n },
     createElement(
-      MemoryRouter,
-      null,
-      createElement(LiteracyProvider, null, createElement(Component)),
+      QueryClientProvider,
+      { client },
+      createElement(
+        MemoryRouter,
+        null,
+        createElement(LiteracyProvider, null, createElement(Component)),
+      ),
     ),
   );
 }

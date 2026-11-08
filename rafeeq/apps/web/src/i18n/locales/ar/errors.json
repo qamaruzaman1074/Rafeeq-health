@@ -1,4 +1,6 @@
 {
   "unknownPersona": "هذه الشخصية غير متاحة.",
-  "guestFailed": "تعذر بدء جلسة الضيف."
+  "guestFailed": "تعذر بدء جلسة الضيف.",
+  "sharingDeclined": "TODO_AR",
+  "consentMissing": "TODO_AR"
 }

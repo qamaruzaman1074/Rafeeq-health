@@ -1,4 +1,5 @@
 import { afterAll, afterEach, beforeAll } from "vitest";
+import { resetActivePersona } from "@/mocks/persona-state";
 import { server } from "@/test/mocks/server";
 
 beforeAll(() => {
@@ -6,6 +7,7 @@ beforeAll(() => {
 });
 
 afterEach(() => {
+  resetActivePersona();
   server.resetHandlers();
 });
 

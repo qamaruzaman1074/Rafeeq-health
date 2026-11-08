@@ -108,3 +108,25 @@ OPEN_QUESTION: Reset on `/demo` clears the in-memory guest role and sets literac
 The trust page uses only the privacy, model-limit, and review statements already in MASTER Sections 1, 2, 7.3, 8, and 10. Hard-route categories are listed without adding policy. Arabic sentences that are not short UI chrome stay `TODO_AR`. Persona story and tests stay the English fixture text, with `lang="en"`, because Section 9 is English and Section 10 requires Arabic copy to be reviewed.
 
 Playwright starts Vite with the existing `VITE_USE_MOCKS=true` so the guest call hits MSW. That variable was already introduced for the mock API. It is not turned on for a normal `npm run dev`.
+
+## 2026-11-08 — result and couple pages
+
+No new package.
+
+The FactCard DTO lives in the web app (`src/features/couple/fact-card-dto.ts`). `packages/contracts/types.ts` is still the empty openapi-typescript placeholder, so there is no generated schema to import.
+
+OPEN_QUESTION: Section 6 does not say how a request after POST `/auth/guest` names the persona. The mock remembers the last successful guest `persona_id` in the worker. The web session keeps that id in memory so TanStack Query keys change when another persona is entered. No header, token, or new endpoint was added.
+
+OPEN_QUESTION: `/content/blocks.en.json` and `/content/blocks.ar.json` are empty, and neither MASTER nor the planning doc assigns block ids. Every block id in the mock is the marker `OPEN_QUESTION`. The own-result banner reads only those files, so the page shows the marker and the id. The planning sentence about being a carrier was not copied into the banner.
+
+The both-carriers fact card (persona P1) puts the Section 7.1 proportions and the planning Section 7 sentences in the mock only. `src/features/couple` renders that payload and does not contain those literals. Arabic sentence and diagnosis text stay null until a block exists, and the page shows `OPEN_QUESTION` instead of an unreviewed translation.
+
+OPEN_QUESTION: `content/genes.json` is empty. Personas do not name a gene symbol. P1's condition label is the parenthetical already in that persona's story (`hearing-loss example`). The symbol is null. P5's story names no gene, so the own carrier list is empty. No other persona is given a gene or a frequency.
+
+OPEN_QUESTION: Section 9 names consanguinity wording for P1, and Section 7.1's relatedness prior applies only when one partner's carrier status is unknown. Both partners' statuses are known for the both-carriers card, so that prior is not applied, and no consanguinity sentence was written.
+
+OPEN_QUESTION: P5 says partner B declines sharing and does not say whether partner A has granted it. The mock records only partner B as `granted: false` for `share_overlap_with_partner`. Partner labels are `a` and `b` because the persona file has no user ids.
+
+OPEN_QUESTION: the HTTP status for a refused overlap explanation is not in Section 6. POST `/explain/overlap` uses 403 with `message_key` `sharingDeclined` or `consentMissing` when the gate is closed. Unknown or absent personas still return `data: null`.
+
+Couple-area links were added on the couple home, result, and together pages so a guest can open those routes without a reload. The in-memory session does not survive a full page load. That storage choice is unchanged from the shell task.
