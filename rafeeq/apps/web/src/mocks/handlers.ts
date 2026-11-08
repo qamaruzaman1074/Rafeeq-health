@@ -1,4 +1,5 @@
 import { http, HttpResponse, type HttpHandler } from "msw";
+import { clinicShareGranted } from "@/features/care/steps";
 import { shareGate, type ConsentRow } from "@/features/couple/share-state";
 import { audioUrlForBlock, readLocaleBlock, type LocaleCode } from "@/features/learn/blocks";
 import { glossaryBlockId } from "@/features/learn/modules";
@@ -7,6 +8,7 @@ import { answerAsk, parseAskBody } from "@/mocks/ask-fixture";
 import { answerFor, itemsForPersona, parseAnswerBody } from "@/mocks/comprehension-fixture";
 import { mockPayload, personaFile } from "@/mocks/fixtures";
 import { explainFor, overlapFor, ownResultFor } from "@/mocks/kernel-fixture";
+import { beginCareSession, createReferral, pathwayPayload } from "@/mocks/care-fixture";
 import { currentPersonaId, rememberPersona } from "@/mocks/persona-state";
 import {
   auditEntries,
@@ -152,6 +154,13 @@ function isPrivacyBacked(endpoint: ApiEndpoint): boolean {
   );
 }
 
+function isCareBacked(endpoint: ApiEndpoint): boolean {
+  return (
+    (endpoint.method === "get" && endpoint.path === "/pathway") ||
+    (endpoint.method === "post" && endpoint.path === "/referrals")
+  );
+}
+
 function localeFrom(value: string | null): LocaleCode {
   return value === "ar" ? "ar" : "en";
 }
@@ -257,6 +266,7 @@ export const handlers: HttpHandler[] = [
       return unknownPersona();
     }
     beginPrivacySession(persona);
+    beginCareSession(persona.id);
     rememberPersona(persona.id);
     return guestSession(persona.id);
   }),
@@ -400,6 +410,23 @@ export const handlers: HttpHandler[] = [
     }
     return envelope(answerAsk(parsed));
   }),
+  http.get("*/api/v1/pathway", () => {
+    const persona = activePersona();
+    if (persona === null) {
+      return envelope(null);
+    }
+    return envelope(pathwayPayload(persona));
+  }),
+  http.post("*/api/v1/referrals", () => {
+    const persona = activePersona();
+    if (persona === null) {
+      return envelope(null);
+    }
+    if (!clinicShareGranted(mineConsents(persona))) {
+      return consentError(403, "clinic_share_required", "clinicShareRequired");
+    }
+    return envelope(createReferral(persona));
+  }),
   ...apiEndpoints
     .filter(
       (endpoint) =>
@@ -408,7 +435,8 @@ export const handlers: HttpHandler[] = [
         !isLearnBacked(endpoint) &&
         !isComprehensionBacked(endpoint) &&
         !isAskBacked(endpoint) &&
-        !isPrivacyBacked(endpoint),
+        !isPrivacyBacked(endpoint) &&
+        !isCareBacked(endpoint),
     )
     .map((endpoint) => httpByMethod[endpoint.method](`*/api/v1${endpoint.path}`, () => respond())),
 ];

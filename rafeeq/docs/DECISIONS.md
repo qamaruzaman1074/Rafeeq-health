@@ -202,3 +202,21 @@ OPEN_QUESTION: audit action and outcome vocabularies are not enumerated. Seed ro
 `share_with_clinic` and `research_aggregate` start not granted. No persona story grants them. Revoking overlap updates partner "a", so the couple overlap gate closes on the next read.
 
 Arabic privacy strings are `TODO_AR` except the non-word matrix dash. When a timeline label is `TODO_AR`, the English data code is shown beside it so actor, action, and time stay readable. Times use the existing `formatDate` helper.
+
+## 2026-11-08 — care pathway and referral
+
+No new package.
+
+GET `/pathway` and POST `/referrals` now return a draft pathway when a guest persona is active, and `data: null` when it is not. Section 6 names the routes and the envelope only.
+
+OPEN_QUESTION: the pathway body is not specified. The mock lists the planning Section 7 steps in order: Result received, Counselling, Confirmatory assessment (if advised by a counsellor), Specialised reproductive-genomics services, Follow-up. `current_step` is `result_received` until a referral exists, then `counselling`. `status` is null until then, then `created`.
+
+OPEN_QUESTION: `tier` and `due_by` are counsellor-only (GET `/counsellor/queue` in Section 6). The mock still puts them on the pathway and referral payloads. The couple client keeps only `current_step`, `steps`, and `status` (and `id` plus `status` on the referral ack). Those fields are never shown, and they are never labelled as a risk level.
+
+OPEN_QUESTION: the consent scope for "Send my questions and what I understood to the counsellor" is not named. MASTER Section 8 says the clinic sees only what is shared via `share_with_clinic`. The control stays disabled until that scope is granted. POST `/referrals` without it is HTTP 403, `message_key` `clinicShareRequired`. The request body is `{}`. No question text is sent, because where those questions and teach-back answers are read from is not specified.
+
+OPEN_QUESTION: Section 6 has no booking route. The four slots are local component state. Choosing one does not call the API and does not change referral status.
+
+OPEN_QUESTION: `/content/blocks.en.json` and `/content/blocks.ar.json` have no body for confirmatory assessment or specialised reproductive-genomics services. The cards show the step title, the label "Information only", and the existing `OPEN_QUESTION` marker with lookup ids `care.confirmatory-assessment` and `care.specialised-reproductive-genomics`. No description of those services was written.
+
+Arabic care strings, and the new error string, are `TODO_AR`.

@@ -12,5 +12,6 @@
   "missingConsent": "TODO_AR",
   "viewOwnPermanent": "TODO_AR",
   "unknownReceipt": "TODO_AR",
-  "consentFailed": "TODO_AR"
+  "consentFailed": "TODO_AR",
+  "clinicShareRequired": "TODO_AR"
 }

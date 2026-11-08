@@ -7,6 +7,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 import { LiteracyProvider } from "@/app/literacy";
 import { productRoutes } from "@/app/route-table";
 import i18n from "@/i18n";
+import { NumeralProvider } from "@/i18n/numerals";
 
 const titles: Record<string, string> = {
   "/": "Understand your genetic result - in your language, at your pace, with a counsellor one tap away.",
@@ -41,9 +42,13 @@ function renderRoute(Component: () => ReactNode): ReactNode {
       QueryClientProvider,
       { client },
       createElement(
-        MemoryRouter,
+        NumeralProvider,
         null,
-        createElement(LiteracyProvider, null, createElement(Component)),
+        createElement(
+          MemoryRouter,
+          null,
+          createElement(LiteracyProvider, null, createElement(Component)),
+        ),
       ),
     ),
   );

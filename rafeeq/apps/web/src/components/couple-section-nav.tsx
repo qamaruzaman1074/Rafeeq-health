@@ -23,6 +23,7 @@ export function CoupleSectionNav() {
     { to: "/app/learn", label: t("page.title", { ns: "learn" }) },
     { to: "/app/ask", label: t("page.title", { ns: "ask" }) },
     { to: "/app/privacy", label: t("page.title", { ns: "privacy" }) },
+    { to: "/app/care", label: t("page.title", { ns: "care" }) },
   ];
 
   return (
