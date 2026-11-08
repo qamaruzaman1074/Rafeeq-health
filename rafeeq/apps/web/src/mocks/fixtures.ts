@@ -13,8 +13,9 @@ export function hasPersonaFixtures(file: unknown): boolean {
 }
 
 /**
- * OPEN_QUESTION: content/personas.json has no records, and MASTER Section 9
- * does not define a JSON schema. Handlers return an empty payload either way.
+ * OPEN_QUESTION: MASTER Section 6 fixes the envelope, not the body of endpoints
+ * other than the guest session this task binds to a persona. Those handlers
+ * keep `data` null. POST /auth/guest is handled separately.
  */
 export function mockPayload(file: unknown): null {
   if (!hasPersonaFixtures(file)) {

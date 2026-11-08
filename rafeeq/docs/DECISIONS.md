@@ -84,3 +84,27 @@ OPEN_QUESTION: how the shell learns the signed-in role is not specified (JWT cla
 OPEN_QUESTION: role-to-route mapping beyond the obvious split is not in MASTER. Couple and guest use `/app/**`. Counsellor uses `/clinic/**`. Analyst uses `/insights`. Admin uses `/admin`. Other combinations redirect to `/`. `/`, `/trust`, `/demo`, and `/legal` stay public. There is no `admin`, `settings`, `trust`, `demo`, or `legal` i18n namespace. Settings and admin titles are in `common`. The other public titles are in `landing`.
 
 OPEN_QUESTION: the default `literacy_mode` and whether the shell persists it are not specified. The toggle starts at `standard` in memory and is not written to storage.
+
+## 2026-11-08 — landing, trust centre, and guest demo
+
+No new package.
+
+`content/personas.json` was `{}`. MASTER Section 9 does not define a JSON schema. The file is now seven draft synthetic fixtures. Each entry has `id`, `names`, `story`, and `tests` from the Section 9 table, plus `status: "draft"` and `synthetic: true`. The file has the same two marks. `docs/MASTER.md` on this branch is still the placeholder heading, so the rows were taken from the composer source named in the task.
+
+OPEN_QUESTION: the formal persona schema (field names, nesting) is not specified.
+
+POST `/auth/guest` reads `{ "persona_id" }` and, when that id is in the fixture file, returns `{ "data": { "role": "guest", "persona_id" }, "meta": { "request_id" } }`. The web app then sets the in-memory session role to `guest`, which the existing role guard already treats as couple, and navigates to `/app`. No JWT is invented. Other Section 6 handlers still return `data: null`.
+
+OPEN_QUESTION: Section 6 does not define the guest response body or error codes. Unknown or missing `persona_id` uses HTTP 400, `code: "unknown_persona"`, and `message_key: "unknownPersona"`.
+
+OPEN_QUESTION: Continue as Guest opens `/demo`. It does not call POST `/auth/guest`, because that call needs a `persona_id` and no default persona is specified.
+
+OPEN_QUESTION: planning Section 7 lists Sign in, and Section 6 lists POST `/auth/login`, but neither names a route or a form. The secondary control is shown and does not navigate or call the endpoint.
+
+OPEN_QUESTION: planning Section 7 says "how it works (4 steps)" and does not name the steps. The four sentences are the first four functions in MASTER Section 1: plain-language explanation, teach-back, control of sharing, and a human for complex cases. They are not new outcome claims.
+
+OPEN_QUESTION: Reset on `/demo` clears the in-memory guest role and sets literacy mode back to `standard`. It does not clear `rafeeq.lang`. Whether reset should also clear the stored language is not specified.
+
+The trust page uses only the privacy, model-limit, and review statements already in MASTER Sections 1, 2, 7.3, 8, and 10. Hard-route categories are listed without adding policy. Arabic sentences that are not short UI chrome stay `TODO_AR`. Persona story and tests stay the English fixture text, with `lang="en"`, because Section 9 is English and Section 10 requires Arabic copy to be reviewed.
+
+Playwright starts Vite with the existing `VITE_USE_MOCKS=true` so the guest call hits MSW. That variable was already introduced for the mock API. It is not turned on for a normal `npm run dev`.

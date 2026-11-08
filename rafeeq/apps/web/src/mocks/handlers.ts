@@ -1,4 +1,5 @@
 import { http, HttpResponse, type HttpHandler } from "msw";
+import { findPersona } from "@/features/personas";
 import { mockPayload, personaFile } from "@/mocks/fixtures";
 
 type HttpMethod = "get" | "post" | "patch" | "delete";
@@ -16,8 +17,8 @@ const httpByMethod = {
   delete: http.delete,
 } as const;
 
-// OPEN_QUESTION: Section 6 fixes the envelope, not the body. With no persona
-// fixtures, data is null. Handlers do not invent a JWT or reject by role.
+// OPEN_QUESTION: Section 6 fixes the envelope, not response bodies. Handlers
+// other than POST /auth/guest keep data null. No handler invents a JWT.
 export const apiEndpoints: readonly ApiEndpoint[] = [
   { method: "post", path: "/auth/guest", example: "/auth/guest" },
   { method: "post", path: "/auth/login", example: "/auth/login" },
@@ -72,6 +73,51 @@ function respond() {
   });
 }
 
-export const handlers: HttpHandler[] = apiEndpoints.map((endpoint) =>
-  httpByMethod[endpoint.method](`*/api/v1${endpoint.path}`, () => respond()),
-);
+function guestSession(personaId: string) {
+  return HttpResponse.json({
+    data: { role: "guest", persona_id: personaId },
+    meta: { request_id: crypto.randomUUID() },
+  });
+}
+
+function unknownPersona() {
+  return HttpResponse.json(
+    {
+      error: {
+        code: "unknown_persona",
+        message_key: "unknownPersona",
+        request_id: crypto.randomUUID(),
+      },
+    },
+    { status: 400 },
+  );
+}
+
+async function readPersonaId(request: Request): Promise<string> {
+  try {
+    const body: unknown = await request.json();
+    if (body !== null && typeof body === "object" && "persona_id" in body) {
+      const value = body.persona_id;
+      if (typeof value === "string") {
+        return value;
+      }
+    }
+  } catch {
+    return "";
+  }
+  return "";
+}
+
+export const handlers: HttpHandler[] = [
+  http.post("*/api/v1/auth/guest", async ({ request }) => {
+    const personaId = await readPersonaId(request);
+    const persona = findPersona(personaId);
+    if (persona === undefined) {
+      return unknownPersona();
+    }
+    return guestSession(persona.id);
+  }),
+  ...apiEndpoints
+    .filter((endpoint) => endpoint.path !== "/auth/guest")
+    .map((endpoint) => httpByMethod[endpoint.method](`*/api/v1${endpoint.path}`, () => respond())),
+];

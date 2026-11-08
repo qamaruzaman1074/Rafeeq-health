@@ -1,1 +1,4 @@
-{}
+{
+  "unknownPersona": "That persona is not available.",
+  "guestFailed": "The guest session could not be started."
+}

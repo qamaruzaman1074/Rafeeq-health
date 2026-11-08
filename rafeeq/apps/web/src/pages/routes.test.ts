@@ -1,12 +1,14 @@
-import { createElement } from "react";
+import { createElement, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { I18nextProvider } from "react-i18next";
+import { MemoryRouter } from "react-router";
 import { beforeAll, describe, expect, it } from "vitest";
+import { LiteracyProvider } from "@/app/literacy";
 import { productRoutes } from "@/app/route-table";
 import i18n from "@/i18n";
 
 const titles: Record<string, string> = {
-  "/": "Landing",
+  "/": "Understand your genetic result - in your language, at your pace, with a counsellor one tap away.",
   "/trust": "Trust centre",
   "/demo": "Persona picker",
   "/app": "Couple home",
@@ -27,6 +29,18 @@ const titles: Record<string, string> = {
   "/legal": "Legal",
 };
 
+function renderRoute(Component: () => ReactNode): ReactNode {
+  return createElement(
+    I18nextProvider,
+    { i18n },
+    createElement(
+      MemoryRouter,
+      null,
+      createElement(LiteracyProvider, null, createElement(Component)),
+    ),
+  );
+}
+
 describe("route placeholders", () => {
   beforeAll(async () => {
     await i18n.changeLanguage("en");
@@ -40,9 +54,7 @@ describe("route placeholders", () => {
       }
       expect(i18n.t(route.titleKey, { ns: route.ns }), route.path).toBe(expected);
       const page = await route.load();
-      const html = renderToStaticMarkup(
-        createElement(I18nextProvider, { i18n }, createElement(page.Component)),
-      );
+      const html = renderToStaticMarkup(renderRoute(page.Component));
       expect(html, route.path).toContain(`>${expected}<`);
     }
   });

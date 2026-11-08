@@ -1,1 +1,62 @@
-{}
+{
+  "status": "draft",
+  "synthetic": true,
+  "personas": [
+    {
+      "id": "P1",
+      "names": "Noor & Khalid",
+      "story": "First cousins; both carry the same gene (hearing-loss example)",
+      "tests": "Overlap explanation, consanguinity wording, counselling T2",
+      "status": "draft",
+      "synthetic": true
+    },
+    {
+      "id": "P2",
+      "names": "Mariam & Saeed",
+      "story": "Unrelated; no shared genes; each carries different genes",
+      "tests": "Reassurance without false certainty, residual-risk wording",
+      "status": "draft",
+      "synthetic": true
+    },
+    {
+      "id": "P3",
+      "names": "Huda & Omar",
+      "story": "One carrier only",
+      "tests": "Residual risk range, T1/T2",
+      "status": "draft",
+      "synthetic": true
+    },
+    {
+      "id": "P4",
+      "names": "Fatima & Rashid",
+      "story": "Both carry same gene with early-treatment pathway (e.g., SMA example)",
+      "tests": "Priority routing T3",
+      "status": "draft",
+      "synthetic": true
+    },
+    {
+      "id": "P5",
+      "names": "Aisha & Hamad",
+      "story": "Partner B declines sharing",
+      "tests": "Privacy: overlap hidden, user can still use own info",
+      "status": "draft",
+      "synthetic": true
+    },
+    {
+      "id": "P6",
+      "names": "Salma & Yousef",
+      "story": "Result includes VUS flag",
+      "tests": "Ambiguity -> T4 human, no numbers",
+      "status": "draft",
+      "synthetic": true
+    },
+    {
+      "id": "P7",
+      "names": "Low-literacy voice-first user",
+      "story": "Any result, voice mode",
+      "tests": "TTS + simple mode + teach-back",
+      "status": "draft",
+      "synthetic": true
+    }
+  ]
+}
