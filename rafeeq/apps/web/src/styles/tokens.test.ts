@@ -126,6 +126,15 @@ describe("design tokens", () => {
     expect(contrast(tokenHex("ink-900"), tokenHex("danger-600"))).toBeLessThan(4.5);
   });
 
+  it("switches the sans family with the document language", () => {
+    expect(css).toMatch(
+      /html\[lang="en"\],\s*html\[lang="en"\] body,\s*\[lang="en"\]:not\(html\)\s*\{\s*font-family:\s*"IBM Plex Sans",\s*"IBM Plex Sans Arabic",\s*sans-serif;/,
+    );
+    expect(css).toMatch(
+      /html\[lang="ar"\],\s*html\[lang="ar"\] body,\s*\[lang="ar"\]:not\(html\)\s*\{\s*font-family:\s*"IBM Plex Sans Arabic",\s*"IBM Plex Sans",\s*sans-serif;/,
+    );
+  });
+
   it("self-hosts both families with font-display swap", () => {
     const faces = css.match(/@font-face\s*{[^}]+}/g) ?? [];
     expect(faces).toHaveLength(8);

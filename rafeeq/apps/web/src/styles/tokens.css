@@ -123,6 +123,18 @@ html[lang="ar"] body,
   line-height: var(--line-body);
 }
 
+html[lang="en"],
+html[lang="en"] body,
+[lang="en"]:not(html) {
+  font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif;
+}
+
+html[lang="ar"],
+html[lang="ar"] body,
+[lang="ar"]:not(html) {
+  font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif;
+}
+
 :focus-visible {
   outline: 3px solid var(--teal-500);
   outline-offset: 2px;

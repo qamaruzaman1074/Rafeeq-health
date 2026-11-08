@@ -2,6 +2,7 @@ import { http, HttpResponse } from "msw";
 import { describe, expect, it } from "vitest";
 import { AppProviders } from "@/app/providers";
 import i18n from "@/i18n";
+import { NAMESPACES } from "@/i18n/namespaces";
 import { ApiRequestError, apiRequest } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { server } from "@/test/mocks/server";
@@ -15,9 +16,12 @@ describe("web scaffold", () => {
   });
 
   it("registers Arabic and English bundles", () => {
-    expect(i18n.hasResourceBundle("en", "common")).toBe(true);
-    expect(i18n.hasResourceBundle("ar", "common")).toBe(true);
+    for (const namespace of NAMESPACES) {
+      expect(i18n.hasResourceBundle("en", namespace), namespace).toBe(true);
+      expect(i18n.hasResourceBundle("ar", namespace), namespace).toBe(true);
+    }
     expect(i18n.t("app.placeholder")).toBe("");
+    expect(i18n.t("common.languageName.ar")).toBe("Arabic");
   });
 
   it("keeps logical spacing classes", () => {

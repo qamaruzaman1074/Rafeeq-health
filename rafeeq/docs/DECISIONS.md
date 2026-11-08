@@ -47,10 +47,24 @@ IBM Plex Sans and IBM Plex Sans Arabic are self-hosted as woff2 (weights 400, 50
 
 `--danger-600` is wired only to the delete button, the system-error badge, and the system-error toast. The default Tailwind palette is replaced so stock `red-*` utilities are not generated.
 
-OPEN_QUESTION: website planning Section 5 calls for a user toggle between Arabic-Indic and Western digits, defaulting to the locale. The toggle, the digit-shaping rule, and where it lives are not specified for this task. No numeral toggle is implemented.
+The numeral toggle from website planning Section 5 was out of scope for the design-system task. It is specified in the bilingual i18n section below.
 
 OPEN_QUESTION: planning Section 9 marks dark mode as P2 and Sections 4–5 give no dark hex values. No dark theme is implemented.
 
 OPEN_QUESTION: `--ink-600` on `--sand-50` measures 6.79:1. Section 4 describes secondary text as at least 7:1. The specified hex is unchanged. See `docs/A11Y.md`.
+
+## 2026-11-08 — bilingual i18n and numerals
+
+No new package. `react-i18next` and its `i18next` peer are already in the scaffold.
+
+`localStorage` key `rafeeq.lang` stores `en` or `ar` after the user switches language. When the key is absent, i18next still boots with `en`. The product default locale remains the OPEN_QUESTION in the scaffold section.
+
+`localStorage` key `rafeeq.numerals` stores `latn` (Western digits) or `arab` (Arabic-Indic, Unicode numbering system U+0660–U+0669) only when the user chooses a system other than the active locale's default. Removing the key means "follow the locale": Arabic uses `arab`, English uses `latn` (website planning Section 5).
+
+`formatNumber` and `formatDate` call `Intl` and do not calculate probabilities. `formatNumber` sets `useGrouping: false` because a grouping style is not specified. `formatDate` uses the Gregorian calendar, UTC, and a numeric year-month-day skeleton.
+
+OPEN_QUESTION: the calendar and the long-form date pattern are not specified. Hijri is not implemented.
+
+OPEN_QUESTION: approved copy for `landing`, `result`, `couple`, `learn`, `check`, `ask`, `privacy`, `care`, `clinic`, `insights`, and `errors` is not in MASTER.md or `/content`. Those namespaces are registered with empty catalogs. No clinical strings were added.
 
 OPEN_QUESTION: Section 4 assigns `--teal-500` to hover. `--sand-50` on `--teal-500` is 3.89:1, below 4.5:1, so hover does not replace a text-bearing fill with teal-500. Hover uses a 3px teal-500 outline offset 2px. Confirm this treatment.

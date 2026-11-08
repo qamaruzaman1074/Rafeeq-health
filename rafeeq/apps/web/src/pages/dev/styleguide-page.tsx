@@ -1,5 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { LocaleSwitcher } from "@/components/locale-switcher";
+import { NumeralToggle } from "@/components/numeral-toggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,6 +24,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ToastProvider, useToast } from "@/components/ui/toast";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { documentLocale, type AppDirection, type AppLocale } from "@/i18n/locale";
+import { useNumerals } from "@/i18n/numerals";
+
+const sampleDate = new Date(Date.UTC(2026, 0, 15));
 
 type Translate = (key: string) => string;
 
@@ -274,36 +279,10 @@ function FocusFrame({ t }: Frame) {
   );
 }
 
-function LanguageSwitch() {
-  const { t, i18n } = useTranslation();
-  const active = documentLocale(i18n.resolvedLanguage ?? i18n.language).lang;
-  return (
-    <div role="group" aria-label={t("common.language")} className="flex flex-wrap gap-2">
-      <Button
-        variant="secondary"
-        aria-pressed={active === "en"}
-        onClick={() => {
-          void i18n.changeLanguage("en");
-        }}
-      >
-        {t("styleguide.language.en")}
-      </Button>
-      <Button
-        variant="secondary"
-        aria-pressed={active === "ar"}
-        onClick={() => {
-          void i18n.changeLanguage("ar");
-        }}
-      >
-        {t("styleguide.language.ar")}
-      </Button>
-    </div>
-  );
-}
-
 export function StyleguidePage() {
   const { t, i18n } = useTranslation();
   const locale = documentLocale(i18n.resolvedLanguage ?? i18n.language);
+  const numerals = useNumerals();
 
   useEffect(() => {
     document.title = t("styleguide.documentTitle");
@@ -322,7 +301,10 @@ export function StyleguidePage() {
             <p className="text-sm text-ink-600">
               {t("styleguide.documentStatus", { lang: locale.lang, dir: locale.dir })}
             </p>
-            <LanguageSwitch />
+            <LocaleSwitcher />
+            <NumeralToggle />
+            <p className="text-base text-ink-900">{numerals.formatNumber(25)}</p>
+            <p className="text-base text-ink-600">{numerals.formatDate(sampleDate)}</p>
           </header>
           <Pair heading="styleguide.colour.heading">{(frame) => <ColourFrame {...frame} />}</Pair>
           <Pair heading="styleguide.type.heading">{(frame) => <TypeFrame {...frame} />}</Pair>

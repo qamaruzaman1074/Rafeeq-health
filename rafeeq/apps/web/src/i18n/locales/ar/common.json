@@ -5,7 +5,16 @@
   },
   "common": {
     "close": "إغلاق",
-    "language": "اللغة"
+    "language": "اللغة",
+    "languageName": {
+      "en": "الإنجليزية",
+      "ar": "العربية"
+    },
+    "numerals": {
+      "label": "الأرقام",
+      "latn": "غربية",
+      "arab": "عربية هندية"
+    }
   },
   "toast": {
     "region": "تنبيهات",

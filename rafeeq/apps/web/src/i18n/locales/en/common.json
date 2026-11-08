@@ -5,7 +5,16 @@
   },
   "common": {
     "close": "Close",
-    "language": "Language"
+    "language": "Language",
+    "languageName": {
+      "en": "English",
+      "ar": "Arabic"
+    },
+    "numerals": {
+      "label": "Numerals",
+      "latn": "Western",
+      "arab": "Arabic-Indic"
+    }
   },
   "toast": {
     "region": "Notices",
