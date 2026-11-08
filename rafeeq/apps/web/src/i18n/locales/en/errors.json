@@ -16,5 +16,6 @@
   "clinicShareRequired": "Clinic share is required before this request.",
   "unknownReferral": "That referral is not available.",
   "invalidStatus": "That status is not one of the referral statuses.",
-  "counsellorFailed": "The counsellor session could not be started."
+  "counsellorFailed": "The counsellor session could not be started.",
+  "analystFailed": "The analyst session could not be started."
 }

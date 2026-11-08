@@ -244,3 +244,19 @@ OPEN_QUESTION: the audit action for a status change is not in the vocabulary alr
 OPEN_QUESTION: the default sort column is not specified. The table stays in seed order until a header button is used. Empty values stay at the end of that column.
 
 Arabic clinic strings, and the new error strings, are `TODO_AR`. Tier enum names are the same in both catalogs.
+
+## 2026-11-08 — insights KPIs and equity charts
+
+No new package. `recharts` 3.10.1 is already a dependency of `apps/web` (MASTER.md Section 3 names Recharts). No chart library was added.
+
+OPEN_QUESTION: how an analyst signs in is not specified. POST `/auth/login` stays empty unless the body is `{ "role": "analyst" }`. No email, password, or token is invented. The demo page has "Open insights", which stores the role the same way a counsellor session stores `counsellor`.
+
+OPEN_QUESTION: GET `/insights/kpis` and GET `/insights/equity` bodies are not in Section 6. The mock returns data only after an analyst session, and otherwise `data: null`.
+
+OPEN_QUESTION: KPI formulas are not specified (completion of explanation, teach-back pass rate, counselling uptake, median time from result to referral booked, privacy events). Those cards render from payload fields. The fixture leaves `value`, `n`, `ci`, `granted`, and `revoked` null, and the card shows the existing `OPEN_QUESTION` marker. No rate, duration, or consent count was invented.
+
+OPEN_QUESTION: which KPI the equity charts stratify is not specified. `metric_id` is null and the screen shows `OPEN_QUESTION`. The cells are synthetic display fixtures so the screen can show a supplied count, a supplied 95% interval (bounds are strings on the payload), and suppression. They are not measurements. The component does not add, divide, or round them. A count is passed through the existing numeral formatter. Interval bounds are printed as supplied.
+
+Suppression follows MASTER: k-anonymity floor 5. A cell with `n` below 5, or `suppressed: true`, renders "Not shown (small group)" and does not render that cell's count or interval.
+
+Arabic insights strings are `TODO_AR`, except `suppressed`, which is the English sentence in both catalogs so the small-group state stays the same string. `chart.suppressedLine` in Arabic is `TODO_AR` plus that same sentence.

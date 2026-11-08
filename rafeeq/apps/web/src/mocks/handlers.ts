@@ -16,11 +16,13 @@ import {
   queuePayload,
   recordBriefRead,
 } from "@/mocks/clinic-fixture";
+import { analystActive, beginAnalystSession, endAnalystSession } from "@/mocks/analyst-session";
 import {
   beginCounsellorSession,
   counsellorActive,
   endCounsellorSession,
 } from "@/mocks/counsellor-session";
+import { equityPayload, kpiPayload } from "@/mocks/insights-fixture";
 import { currentPersonaId, rememberPersona } from "@/mocks/persona-state";
 import {
   auditEntries,
@@ -173,6 +175,13 @@ function isCareBacked(endpoint: ApiEndpoint): boolean {
   );
 }
 
+function isInsightsBacked(endpoint: ApiEndpoint): boolean {
+  return (
+    (endpoint.method === "get" && endpoint.path === "/insights/kpis") ||
+    (endpoint.method === "get" && endpoint.path === "/insights/equity")
+  );
+}
+
 function isClinicBacked(endpoint: ApiEndpoint): boolean {
   return (
     (endpoint.method === "post" && endpoint.path === "/auth/login") ||
@@ -287,6 +296,7 @@ export const handlers: HttpHandler[] = [
       return unknownPersona();
     }
     endCounsellorSession();
+    endAnalystSession();
     beginPrivacySession(persona);
     beginCareSession(persona.id);
     rememberPersona(persona.id);
@@ -362,8 +372,14 @@ export const handlers: HttpHandler[] = [
       body = null;
     }
     if (body !== null && typeof body === "object" && "role" in body && body.role === "counsellor") {
+      endAnalystSession();
       beginCounsellorSession();
       return envelope({ role: "counsellor" });
+    }
+    if (body !== null && typeof body === "object" && "role" in body && body.role === "analyst") {
+      endCounsellorSession();
+      beginAnalystSession();
+      return envelope({ role: "analyst" });
     }
     return envelope(null);
   }),
@@ -405,6 +421,18 @@ export const handlers: HttpHandler[] = [
       return consentError(400, "invalid_status", "invalidStatus");
     }
     return envelope({ id: updated.id, status: updated.referralStatus });
+  }),
+  http.get("*/api/v1/insights/kpis", () => {
+    if (!analystActive()) {
+      return envelope(null);
+    }
+    return envelope(kpiPayload());
+  }),
+  http.get("*/api/v1/insights/equity", () => {
+    if (!analystActive()) {
+      return envelope(null);
+    }
+    return envelope(equityPayload());
   }),
   http.post("*/api/v1/explain/overlap", () => {
     const persona = activePersona();
@@ -518,7 +546,8 @@ export const handlers: HttpHandler[] = [
         !isAskBacked(endpoint) &&
         !isPrivacyBacked(endpoint) &&
         !isCareBacked(endpoint) &&
-        !isClinicBacked(endpoint),
+        !isClinicBacked(endpoint) &&
+        !isInsightsBacked(endpoint),
     )
     .map((endpoint) => httpByMethod[endpoint.method](`*/api/v1${endpoint.path}`, () => respond())),
 ];

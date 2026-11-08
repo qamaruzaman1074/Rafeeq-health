@@ -16,5 +16,6 @@
   "clinicShareRequired": "TODO_AR",
   "unknownReferral": "TODO_AR",
   "invalidStatus": "TODO_AR",
-  "counsellorFailed": "TODO_AR"
+  "counsellorFailed": "TODO_AR",
+  "analystFailed": "TODO_AR"
 }

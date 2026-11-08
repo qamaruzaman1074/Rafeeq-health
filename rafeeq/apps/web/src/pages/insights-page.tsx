@@ -1,7 +1,5 @@
-import { useTranslation } from "react-i18next";
-import { PlaceholderTitle } from "@/pages/placeholder-title";
+import { InsightsView } from "@/features/insights/insights-view";
 
 export function Component() {
-  const { t } = useTranslation();
-  return <PlaceholderTitle title={t("page.title", { ns: "insights" })} />;
+  return <InsightsView />;
 }

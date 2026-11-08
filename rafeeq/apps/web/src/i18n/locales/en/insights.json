@@ -1,5 +1,63 @@
 {
   "page": {
-    "title": "Insights"
+    "title": "Insights",
+    "intro": "Aggregates only. No row-level data."
+  },
+  "session": {
+    "open": "Open insights"
+  },
+  "notice": {
+    "k": "k-anonymity floor: 5. Groups smaller than 5 are not shown."
+  },
+  "loading": "Loading insights.",
+  "unavailable": "No insights are available for this session.",
+  "error": "Insights could not be loaded.",
+  "retry": "Try again",
+  "suppressed": "Not shown (small group)",
+  "kpis": {
+    "heading": "Summary"
+  },
+  "equity": {
+    "heading": "Equity"
+  },
+  "metrics": {
+    "explanation_completion": {
+      "title": "Completion of explanation"
+    },
+    "teach_back_pass": {
+      "title": "Teach-back pass rate"
+    },
+    "counselling_uptake": {
+      "title": "Counselling uptake"
+    },
+    "median_time_result_to_referral": {
+      "title": "Median time from result to referral booked"
+    },
+    "privacy_events": {
+      "title": "Privacy events (consents granted/revoked)"
+    }
+  },
+  "chart": {
+    "language": "By language",
+    "literacy_mode": "By reading mode",
+    "textAlternative": "Text alternative",
+    "showTable": "Show data table",
+    "hideTable": "Hide data table",
+    "caption": "Data table. {{chart}}",
+    "group": "Group",
+    "result": "Result",
+    "shown": "{{group}}. Count {{n}}. 95% CI {{low}} to {{high}}.",
+    "shownValue": "Count {{n}}. 95% CI {{low}} to {{high}}.",
+    "countOnly": "{{group}}. Count {{n}}. {{marker}}",
+    "countOnlyValue": "Count {{n}}. {{marker}}",
+    "interval": "95% CI {{low}} to {{high}}.",
+    "intervalLine": "{{group}}. 95% CI {{low}} to {{high}}. {{marker}}",
+    "missingLine": "{{group}}. {{marker}}",
+    "suppressedLine": "{{group}}. Not shown (small group)."
+  },
+  "fields": {
+    "count": "Count {{n}}",
+    "granted": "Consents granted {{n}}",
+    "revoked": "Consents revoked {{n}}"
   }
 }

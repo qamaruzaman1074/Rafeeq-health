@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { EvaluationGuide } from "@/features/evaluation-guide";
 import { startCounsellorSession } from "@/features/clinic/session";
+import { startAnalystSession } from "@/features/insights/session";
 import { startGuestSession } from "@/features/guest-session";
 import { personas } from "@/features/personas";
 import { ApiRequestError } from "@/lib/api";
@@ -19,7 +20,7 @@ export function Component() {
   const attempt = useRef(0);
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [errorKey, setErrorKey] = useState<
-    "unknownPersona" | "guestFailed" | "counsellorFailed" | null
+    "unknownPersona" | "guestFailed" | "counsellorFailed" | "analystFailed" | null
   >(null);
 
   const choose = (personaId: string) => {
@@ -70,6 +71,28 @@ export function Component() {
       });
   };
 
+  const openInsights = () => {
+    const token = attempt.current + 1;
+    attempt.current = token;
+    setPendingId("analyst");
+    setErrorKey(null);
+    void startAnalystSession()
+      .then(async () => {
+        if (token !== attempt.current) {
+          setSessionRole(null);
+          return;
+        }
+        await navigate("/insights");
+      })
+      .catch(() => {
+        if (token !== attempt.current) {
+          return;
+        }
+        setPendingId(null);
+        setErrorKey("analystFailed");
+      });
+  };
+
   const reset = () => {
     attempt.current += 1;
     setSessionRole(null);
@@ -98,6 +121,14 @@ export function Component() {
           >
             {t("session.open", { ns: "clinic" })}
           </Button>
+          <Button
+            variant="secondary"
+            aria-busy={pendingId === "analyst"}
+            disabled={pendingId !== null}
+            onClick={openInsights}
+          >
+            {t("session.open", { ns: "insights" })}
+          </Button>
           <EvaluationGuide />
         </div>
       </header>
@@ -114,6 +145,11 @@ export function Component() {
       {errorKey === "counsellorFailed" ? (
         <p role="alert" className="rounded-lg border border-teal-700 bg-amber-100 p-4">
           {t("counsellorFailed", { ns: "errors" })}
+        </p>
+      ) : null}
+      {errorKey === "analystFailed" ? (
+        <p role="alert" className="rounded-lg border border-teal-700 bg-amber-100 p-4">
+          {t("analystFailed", { ns: "errors" })}
         </p>
       ) : null}
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
