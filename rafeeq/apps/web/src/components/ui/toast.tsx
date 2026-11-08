@@ -1,8 +1,17 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import * as ToastPrimitives from "@radix-ui/react-toast";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import type { AppDirection, AppLocale } from "@/i18n/locale";
+import { documentLocale, type AppDirection, type AppLocale } from "@/i18n/locale";
 import { cn } from "@/lib/utils";
 
 export type ToastVariant = "default" | "error";
@@ -97,4 +106,50 @@ export function useToast(): ToastContextValue {
     throw new Error("useToast must be used within ToastProvider");
   }
   return context;
+}
+
+export function useOptionalToast(): ToastContextValue | null {
+  return useContext(ToastContext);
+}
+
+export function useNotify(): (input: {
+  title: string;
+  description?: string;
+  variant?: ToastVariant;
+}) => void {
+  const toast = useOptionalToast();
+  const { i18n } = useTranslation();
+  const lang = i18n.resolvedLanguage ?? i18n.language;
+  return useCallback(
+    (input) => {
+      if (toast === null) {
+        return;
+      }
+      const locale = documentLocale(lang);
+      toast.push({
+        title: input.title,
+        description: input.description,
+        variant: input.variant,
+        dir: locale.dir,
+        lang: locale.lang,
+      });
+    },
+    [toast, lang],
+  );
+}
+
+export function useFailureToast(active: boolean, title: string): void {
+  const notify = useNotify();
+  const sent = useRef(false);
+  useEffect(() => {
+    if (!active) {
+      sent.current = false;
+      return;
+    }
+    if (sent.current) {
+      return;
+    }
+    sent.current = true;
+    notify({ title, variant: "error" });
+  }, [active, title, notify]);
 }

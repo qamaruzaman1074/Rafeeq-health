@@ -37,7 +37,9 @@
   "toast": {
     "region": "Notices",
     "viewport": "Notices",
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "success": "Saved",
+    "failure": "The action could not be completed."
   },
   "styleguide": {
     "documentTitle": "Rafeeq design system",

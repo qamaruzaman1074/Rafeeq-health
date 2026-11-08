@@ -1,6 +1,9 @@
 import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { EmptyState } from "@/components/empty-state";
+import { ErrorState, humanContact } from "@/components/error-state";
+import { Skeleton } from "@/components/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { OptionPicture, pictureLabel } from "@/features/check/pictures";
@@ -68,6 +71,7 @@ export function CheckScreen({
   saveError,
   onChoose,
   onSkip,
+  onRetrySave,
 }: {
   item: CheckItemView | null;
   itemCount: number;
@@ -79,8 +83,10 @@ export function CheckScreen({
   saveError: boolean;
   onChoose: (optionId: string) => void;
   onSkip: () => void;
+  onRetrySave?: () => void;
 }) {
   const { t } = useTranslation();
+  const contact = humanContact(t);
 
   if (finished) {
     return (
@@ -103,7 +109,7 @@ export function CheckScreen({
     return (
       <div className="flex flex-col gap-6">
         <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "check" })}</h1>
-        <p>{t("empty", { ns: "check" })}</p>
+        <EmptyState title={t("empty", { ns: "check" })} />
       </div>
     );
   }
@@ -174,7 +180,17 @@ export function CheckScreen({
             )}
           </aside>
         ) : null}
-        {saveError ? <p role="alert">{t("saveError", { ns: "check" })}</p> : null}
+        {pending ? <Skeleton label={t("loading", { ns: "check" })} /> : null}
+        {saveError ? (
+          <ErrorState
+            title={t("saveError", { ns: "check" })}
+            retryLabel={t("retry", { ns: "check" })}
+            onRetry={() => {
+              onRetrySave?.();
+            }}
+            {...contact}
+          />
+        ) : null}
         <Button variant="ghost" disabled={pending} onClick={onSkip}>
           {t("skip", { ns: "check" })}
         </Button>

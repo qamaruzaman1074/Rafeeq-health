@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLiteracy, type LiteracyMode } from "@/app/literacy";
+import { EmptyState } from "@/components/empty-state";
 import { Button } from "@/components/ui/button";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AudioButton } from "@/features/learn/audio-button";
@@ -135,19 +136,24 @@ export function LearnView() {
   const { t, i18n } = useTranslation();
   const { mode } = useLiteracy();
   const locale = documentLocale(i18n.resolvedLanguage ?? i18n.language).lang;
+  const modules: readonly LearnModule[] = LEARN_MODULES;
 
   return (
     <TooltipProvider delayDuration={200}>
       <div className="flex flex-col gap-6">
         <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "learn" })}</h1>
         <p>{t("blocks.language", { ns: "learn" })}</p>
-        <ul className="flex flex-col gap-6" aria-label={t("modules.label", { ns: "learn" })}>
-          {LEARN_MODULES.map((module) => (
-            <li key={module.id}>
-              <LearnModuleCard module={module} locale={locale} mode={mode} />
-            </li>
-          ))}
-        </ul>
+        {modules.length === 0 ? (
+          <EmptyState title={t("empty", { ns: "learn" })} />
+        ) : (
+          <ul className="flex flex-col gap-6" aria-label={t("modules.label", { ns: "learn" })}>
+            {modules.map((module) => (
+              <li key={module.id}>
+                <LearnModuleCard module={module} locale={locale} mode={mode} />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </TooltipProvider>
   );

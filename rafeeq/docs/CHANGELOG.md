@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- 2026-11-08 feat: add empty, error, and loading states with success and failure toasts; ban the English terms from MASTER Section 10 in web locales; add route screenshots and a 90-second demo script.
 - 2026-11-08 fix: meet the accessibility and performance budgets (axe on en and ar, first-route split, font preload, shell-only service worker, meta and favicon).
 - 2026-11-08 feat: add analyst insights at `/insights` (KPI cards, equity charts by language and reading mode, k-anonymity suppression). A metric with no payload value stays OPEN_QUESTION. Counts and confidence intervals render only when the payload supplies them.
 - 2026-11-08 feat: add the counsellor queue at `/clinic/queue` and the case brief at `/clinic/case/:id` (filters, status update, audit tab). Shared genes and formulas are shown only when the brief payload includes them.

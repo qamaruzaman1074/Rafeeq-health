@@ -2,7 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useSyncExternalStore } from "react";
 import { useTranslation } from "react-i18next";
 import { getSessionPersona, subscribeSession } from "@/app/session";
-import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/empty-state";
+import { ErrorState, humanContact } from "@/components/error-state";
+import { Skeleton } from "@/components/skeleton";
+import { useFailureToast } from "@/components/ui/toast";
 import { explainOverlap, fetchConsents } from "@/features/couple/api";
 import { FactCard } from "@/features/couple/fact-card";
 import { shareGate } from "@/features/couple/share-state";
@@ -56,29 +59,29 @@ export function ConsentGate() {
     enabled: allowed,
     retry: false,
   });
+  const contact = humanContact(t);
+  const loadFailed = consents.isError || overlap.isError || explain.isError;
+  useFailureToast(loadFailed, t("error", { ns: "couple" }));
 
   if (consents.isPending) {
-    return <p>{t("loading", { ns: "couple" })}</p>;
+    return <Skeleton label={t("loading", { ns: "couple" })} />;
   }
 
   if (consents.isError) {
     return (
-      <div role="alert" className="flex flex-col items-start gap-3">
-        <p>{t("error", { ns: "couple" })}</p>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            void consents.refetch();
-          }}
-        >
-          {t("retry", { ns: "couple" })}
-        </Button>
-      </div>
+      <ErrorState
+        title={t("error", { ns: "couple" })}
+        retryLabel={t("retry", { ns: "couple" })}
+        onRetry={() => {
+          void consents.refetch();
+        }}
+        {...contact}
+      />
     );
   }
 
   if (gate === "empty") {
-    return <p>{t("empty", { ns: "couple" })}</p>;
+    return <EmptyState title={t("empty", { ns: "couple" })} />;
   }
 
   if (gate === "declined") {
@@ -95,23 +98,20 @@ export function ConsentGate() {
   }
 
   if (overlap.isPending || explain.isPending) {
-    return <p>{t("loading", { ns: "couple" })}</p>;
+    return <Skeleton label={t("loading", { ns: "couple" })} />;
   }
 
   if (overlap.isError || explain.isError) {
     return (
-      <div role="alert" className="flex flex-col items-start gap-3">
-        <p>{t("error", { ns: "couple" })}</p>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            void overlap.refetch();
-            void explain.refetch();
-          }}
-        >
-          {t("retry", { ns: "couple" })}
-        </Button>
-      </div>
+      <ErrorState
+        title={t("error", { ns: "couple" })}
+        retryLabel={t("retry", { ns: "couple" })}
+        onRetry={() => {
+          void overlap.refetch();
+          void explain.refetch();
+        }}
+        {...contact}
+      />
     );
   }
 
@@ -125,7 +125,7 @@ export function ConsentGate() {
     explained === null ||
     explained.fact_card === null
   ) {
-    return <p>{t("empty", { ns: "couple" })}</p>;
+    return <EmptyState title={t("empty", { ns: "couple" })} />;
   }
 
   return (

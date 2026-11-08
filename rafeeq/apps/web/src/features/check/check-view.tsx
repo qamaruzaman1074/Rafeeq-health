@@ -3,7 +3,9 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslation } from "react-i18next";
 import { useLiteracy } from "@/app/literacy";
 import { getSessionPersona, subscribeSession } from "@/app/session";
-import { Button } from "@/components/ui/button";
+import { ErrorState, humanContact } from "@/components/error-state";
+import { Skeleton } from "@/components/skeleton";
+import { useFailureToast, useNotify } from "@/components/ui/toast";
 import { buildAnswerRequest, fetchCheckItems, submitAnswer } from "@/features/check/api";
 import { CheckScreen } from "@/features/check/check-screen";
 import { applyAnswer, initialFlow, nextIndexFor, skipForNow } from "@/features/check/flow";
@@ -39,6 +41,10 @@ function CheckSession({ locale }: { locale: "en" | "ar" }) {
   const [pending, setPending] = useState(false);
   const [saveError, setSaveError] = useState(false);
   const startedAt = useRef(Date.now());
+  const lastOption = useRef<string | null>(null);
+  const notify = useNotify();
+  const contact = humanContact(t);
+  useFailureToast(itemsQuery.isError, t("error", { ns: "check" }));
 
   useEffect(() => {
     startedAt.current = Date.now();
@@ -48,7 +54,7 @@ function CheckSession({ locale }: { locale: "en" | "ar" }) {
     return (
       <div className="flex flex-col gap-6">
         <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "check" })}</h1>
-        <p>{t("loading", { ns: "check" })}</p>
+        <Skeleton label={t("loading", { ns: "check" })} />
       </div>
     );
   }
@@ -57,17 +63,14 @@ function CheckSession({ locale }: { locale: "en" | "ar" }) {
     return (
       <div className="flex flex-col gap-6">
         <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "check" })}</h1>
-        <div role="alert" className="flex flex-col items-start gap-3">
-          <p>{t("error", { ns: "check" })}</p>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              void itemsQuery.refetch();
-            }}
-          >
-            {t("retry", { ns: "check" })}
-          </Button>
-        </div>
+        <ErrorState
+          title={t("error", { ns: "check" })}
+          retryLabel={t("retry", { ns: "check" })}
+          onRetry={() => {
+            void itemsQuery.refetch();
+          }}
+          {...contact}
+        />
       </div>
     );
   }
@@ -109,6 +112,7 @@ function CheckSession({ locale }: { locale: "en" | "ar" }) {
     if (pending || current === null) {
       return;
     }
+    lastOption.current = optionId;
     const body = buildAnswerRequest({
       itemId: current.id,
       optionId,
@@ -129,9 +133,11 @@ function CheckSession({ locale }: { locale: "en" | "ar" }) {
         setFeedback(next.showFeedback ? result.feedback : null);
         setFlow(next);
         recordCheckOutcome(next);
+        notify({ title: t("toast.success") });
       })
       .catch(() => {
         setSaveError(true);
+        notify({ title: t("saveError", { ns: "check" }), variant: "error" });
       })
       .finally(() => {
         setPending(false);
@@ -150,6 +156,11 @@ function CheckSession({ locale }: { locale: "en" | "ar" }) {
       saveError={saveError}
       onChoose={onChoose}
       onSkip={onSkip}
+      onRetrySave={() => {
+        if (lastOption.current !== null) {
+          onChoose(lastOption.current);
+        }
+      }}
     />
   );
 }

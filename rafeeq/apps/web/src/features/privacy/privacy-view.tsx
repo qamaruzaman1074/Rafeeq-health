@@ -3,8 +3,12 @@ import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSyncExternalStore } from "react";
 import { useTranslation } from "react-i18next";
 import { getSessionPersona, subscribeSession } from "@/app/session";
+import { EmptyState } from "@/components/empty-state";
+import { ErrorState, humanContact } from "@/components/error-state";
+import { Skeleton } from "@/components/skeleton";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { useFailureToast, useNotify } from "@/components/ui/toast";
 import {
   auditQueryKey,
   fetchMineConsents,
@@ -26,20 +30,10 @@ function grantOf(rows: readonly MineConsent[] | null | undefined, scope: Revocab
   return rows?.find((row) => row.scope === scope)?.granted ?? false;
 }
 
-function LoadError({ onRetry }: { onRetry: () => void }) {
-  const { t } = useTranslation();
-  return (
-    <div role="alert" className="flex flex-col items-start gap-3">
-      <p>{t("error", { ns: "privacy" })}</p>
-      <Button variant="secondary" onClick={onRetry}>
-        {t("retry", { ns: "privacy" })}
-      </Button>
-    </div>
-  );
-}
-
 export function PrivacyView() {
   const { t } = useTranslation();
+  const notify = useNotify();
+  const contact = humanContact(t);
   const queryClient = useQueryClient();
   const personaId = useSyncExternalStore(subscribeSession, getSessionPersona, getSessionPersona);
   const mineKey = mineConsentQueryKey(personaId);
@@ -101,8 +95,10 @@ export function PrivacyView() {
         delete cleared[scope];
         return cleared;
       });
+      notify({ title: t("toast.success") });
     } catch {
       setNotice("failed");
+      notify({ title: t("revoke.failed", { ns: "privacy" }), variant: "error" });
     } finally {
       setBusy(false);
     }
@@ -128,6 +124,7 @@ export function PrivacyView() {
 
   const receiptPending = receiptQueries.some((query) => query.isPending);
   const receiptFailed = receiptQueries.some((query) => query.isError);
+  useFailureToast(mine.isError || receiptFailed || audit.isError, t("error", { ns: "privacy" }));
   const receipts = receiptQueries.flatMap((query) =>
     query.data === undefined ? [] : [query.data],
   );
@@ -141,15 +138,20 @@ export function PrivacyView() {
         <p>{t("page.intro", { ns: "privacy" })}</p>
       </header>
 
-      {mine.isPending ? <p>{t("loading", { ns: "privacy" })}</p> : null}
+      {mine.isPending ? <Skeleton label={t("loading", { ns: "privacy" })} /> : null}
       {mine.isError ? (
-        <LoadError
+        <ErrorState
+          title={t("error", { ns: "privacy" })}
+          retryLabel={t("retry", { ns: "privacy" })}
           onRetry={() => {
             void mine.refetch();
           }}
+          {...contact}
         />
       ) : null}
-      {mine.isSuccess && mine.data === null ? <p>{t("empty", { ns: "privacy" })}</p> : null}
+      {mine.isSuccess && mine.data === null ? (
+        <EmptyState title={t("empty", { ns: "privacy" })} />
+      ) : null}
       {rows !== null ? (
         <ShareMatrix
           partnerGranted={currentGrant("share_overlap_with_partner")}
@@ -170,14 +172,19 @@ export function PrivacyView() {
         <h2 id="privacy-receipts" className="text-2xl font-semibold text-teal-900">
           {t("receipt.heading", { ns: "privacy" })}
         </h2>
-        {rows !== null && receiptPending ? <p>{t("loading", { ns: "privacy" })}</p> : null}
+        {rows !== null && receiptPending ? (
+          <Skeleton label={t("loading", { ns: "privacy" })} />
+        ) : null}
         {receiptFailed ? (
-          <LoadError
+          <ErrorState
+            title={t("error", { ns: "privacy" })}
+            retryLabel={t("retry", { ns: "privacy" })}
             onRetry={() => {
               for (const query of receiptQueries) {
                 void query.refetch();
               }
             }}
+            {...contact}
           />
         ) : null}
         {receipts.length > 0 ? (
@@ -201,16 +208,19 @@ export function PrivacyView() {
         <h2 id="privacy-audit" className="text-2xl font-semibold text-teal-900">
           {t("audit.heading", { ns: "privacy" })}
         </h2>
-        {audit.isPending ? <p>{t("loading", { ns: "privacy" })}</p> : null}
+        {audit.isPending ? <Skeleton label={t("loading", { ns: "privacy" })} /> : null}
         {audit.isError ? (
-          <LoadError
+          <ErrorState
+            title={t("error", { ns: "privacy" })}
+            retryLabel={t("retry", { ns: "privacy" })}
             onRetry={() => {
               void audit.refetch();
             }}
+            {...contact}
           />
         ) : null}
         {audit.isSuccess && (audit.data === null || audit.data.length === 0) ? (
-          <p>{t("audit.empty", { ns: "privacy" })}</p>
+          <EmptyState title={t("audit.empty", { ns: "privacy" })} />
         ) : null}
         {audit.data !== undefined && audit.data !== null && audit.data.length > 0 ? (
           <AuditTimeline entries={audit.data} />

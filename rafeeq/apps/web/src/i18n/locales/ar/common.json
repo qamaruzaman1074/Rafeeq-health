@@ -37,7 +37,9 @@
   "toast": {
     "region": "تنبيهات",
     "viewport": "تنبيهات",
-    "dismiss": "إخفاء"
+    "dismiss": "إخفاء",
+    "success": "تم الحفظ",
+    "failure": "تعذر إكمال الإجراء."
   },
   "styleguide": {
     "documentTitle": "نظام تصميم رفيق",

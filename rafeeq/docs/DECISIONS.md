@@ -280,3 +280,11 @@ OPEN_QUESTION: `/admin` has no mock session. POST `/auth/login` accepts counsell
 OPEN_QUESTION: reviewed Arabic headings are not in `/content`. Named regions whose visible heading is `TODO_AR` put the existing English catalog string in the accessible name so the landmarks stay unique. Visible text is unchanged.
 
 Planning Section 12 also asks for Lighthouse >= 90 and LCP under 2.5 s. The measured home scores are in `docs/PERF.md`. The task acceptance (performance >= 85, accessibility >= 95 on `/`) is what this change checks.
+
+## 2026-11-08 — empty states and banned-term check
+
+No new package. Empty, error, and loading states use the components already allowed by the design system (button, toast). Skeletons are CSS bars with `motion-safe:animate-pulse`. `--danger-600` stays on system errors and delete. `components/error-state.tsx` is the system-error panel, so it is on that allow-list with the badge, delete button, and error toast. It is not used for carrier status.
+
+`rafeeq/content/banned_terms.json` was `{}`. It is seeded with the English terms named in MASTER Section 10. `rafeeq/scripts/check_banned_terms.mjs` reads that file and fails `npm run lint` in `apps/web` when one of those terms appears in `apps/web/src/i18n/locales`.
+
+OPEN_QUESTION: Arabic banned terms are not listed in MASTER Section 10. The `ar` list is empty.

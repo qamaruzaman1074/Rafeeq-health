@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
+import { useNotify } from "@/components/ui/toast";
 import { periodLabel } from "@/features/care/labels";
 import { landmarkName } from "@/lib/landmark-name";
 import { useNumerals } from "@/i18n/numerals";
@@ -19,6 +20,7 @@ export type BookingSlot = (typeof BOOKING_SLOTS)[number];
 
 export function BookingCalendar() {
   const { t } = useTranslation();
+  const notify = useNotify();
   const { formatDate } = useNumerals();
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -50,6 +52,7 @@ export function BookingCalendar() {
               data-slot={slot.id}
               onClick={() => {
                 setSelectedId(slot.id);
+                notify({ title: t("booking.selected", { ns: "care" }) });
               }}
             >
               <time dateTime={slot.at}>{when}</time>

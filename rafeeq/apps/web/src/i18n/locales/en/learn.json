@@ -39,6 +39,7 @@
   "audio": {
     "play": "Play audio",
     "name": "Play audio: {{title}}",
+    "loading": "Loading the audio.",
     "error": "The audio request could not be completed."
   },
   "transcript": {
@@ -50,5 +51,7 @@
     "termName": "Glossary: {{term}}",
     "loading": "Loading the glossary."
   },
-  "error": "The explanation could not be loaded."
+  "error": "The explanation could not be loaded.",
+  "empty": "No explanation modules are available.",
+  "retry": "Try again"
 }

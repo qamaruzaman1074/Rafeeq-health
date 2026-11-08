@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import faqFile from "../../../../../content/faq.json";
+import { EmptyState } from "@/components/empty-state";
+import { ErrorState, humanContact } from "@/components/error-state";
+import { Skeleton } from "@/components/skeleton";
 import { Button } from "@/components/ui/button";
+import { useNotify } from "@/components/ui/toast";
 import { boundaryBlocks } from "@/features/ask/boundary";
 import { readSuggestedQuestions } from "@/features/ask/faq";
 import { limitQuestion, QUESTION_LIMIT } from "@/features/ask/limit";
@@ -24,27 +28,25 @@ export function AskView() {
   const { i18n, t } = useTranslation();
   const locale = documentLocale(i18n.resolvedLanguage ?? i18n.language).lang;
   const chips = readSuggestedQuestions(faq);
+  const notify = useNotify();
+  const contact = humanContact(t);
   const [draft, setDraft] = useState("");
   const [turns, setTurns] = useState<AskTurn[]>([]);
   const [pending, setPending] = useState(false);
 
-  function send(question: string): void {
-    const trimmed = limitQuestion(question).trim();
-    if (trimmed.length === 0 || pending) {
-      return;
-    }
-    const id = crypto.randomUUID();
+  function deliver(id: string, question: string): void {
     setPending(true);
-    setDraft("");
-    setTurns((current) => [
-      ...current,
-      { id, question: trimmed, status: "pending", payload: null },
-    ]);
-    void postAsk({ question: trimmed, locale })
+    setTurns((current) =>
+      current.map((turn) =>
+        turn.id === id ? { ...turn, status: "pending", payload: null } : turn,
+      ),
+    );
+    void postAsk({ question, locale })
       .then((payload) => {
         setTurns((current) =>
           current.map((turn) => (turn.id === id ? { ...turn, status: "ready", payload } : turn)),
         );
+        notify({ title: t("toast.success") });
       })
       .catch(() => {
         setTurns((current) =>
@@ -52,10 +54,25 @@ export function AskView() {
             turn.id === id ? { ...turn, status: "failed", payload: null } : turn,
           ),
         );
+        notify({ title: t("error.send", { ns: "ask" }), variant: "error" });
       })
       .finally(() => {
         setPending(false);
       });
+  }
+
+  function send(question: string): void {
+    const trimmed = limitQuestion(question).trim();
+    if (trimmed.length === 0 || pending) {
+      return;
+    }
+    const id = crypto.randomUUID();
+    setDraft("");
+    setTurns((current) => [
+      ...current,
+      { id, question: trimmed, status: "pending", payload: null },
+    ]);
+    deliver(id, trimmed);
   }
 
   return (
@@ -112,13 +129,23 @@ export function AskView() {
           {t("composer.send", { ns: "ask" })}
         </Button>
       </form>
+      {turns.length === 0 ? <EmptyState title={t("empty", { ns: "ask" })} /> : null}
       <ol aria-label={t("transcript.label", { ns: "ask" })} className="flex flex-col gap-6">
         {turns.map((turn) => (
           <li key={turn.id} className="flex flex-col gap-3">
             <p className="font-medium text-teal-900">{t("transcript.you", { ns: "ask" })}</p>
             <p className="whitespace-pre-wrap">{turn.question}</p>
-            {turn.status === "pending" ? <p>{t("loading", { ns: "ask" })}</p> : null}
-            {turn.status === "failed" ? <p role="alert">{t("error.send", { ns: "ask" })}</p> : null}
+            {turn.status === "pending" ? <Skeleton label={t("loading", { ns: "ask" })} /> : null}
+            {turn.status === "failed" ? (
+              <ErrorState
+                title={t("error.send", { ns: "ask" })}
+                retryLabel={t("composer.send", { ns: "ask" })}
+                onRetry={() => {
+                  deliver(turn.id, turn.question);
+                }}
+                {...contact}
+              />
+            ) : null}
             {turn.status === "ready" && turn.payload !== null ? (
               <AskExchange payload={turn.payload} />
             ) : null}

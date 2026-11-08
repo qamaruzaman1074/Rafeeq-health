@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { EmptyState } from "@/components/empty-state";
 import { REFERRAL_STATUSES } from "@/features/care/steps";
 import {
   gapsLabel,
@@ -179,7 +180,7 @@ export function QueueTable({
         </FilterSelect>
       </div>
       {rows.length === 0 ? (
-        <p>{t("queue.empty", { ns: "clinic" })}</p>
+        <EmptyState title={t("queue.empty", { ns: "clinic" })} />
       ) : (
         <div className="w-full min-w-0">
           <table className="w-full table-fixed border-collapse text-sm" data-queue="table">

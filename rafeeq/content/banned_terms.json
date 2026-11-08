@@ -1,1 +1,19 @@
-{}
+{
+  "en": [
+    "defective",
+    "abnormal",
+    "mutant",
+    "bad genes",
+    "risky couple",
+    "incompatible",
+    "genetic disease couple",
+    "high-risk person",
+    "dangerous",
+    "you must",
+    "you should not marry"
+  ],
+  "ar": [],
+  "open_questions": [
+    "OPEN_QUESTION: Arabic banned terms are not listed in MASTER.md Section 10. Only the English terms from that section are seeded."
+  ]
+}

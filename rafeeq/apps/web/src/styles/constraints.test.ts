@@ -41,6 +41,7 @@ describe("design system constraints", () => {
 
   it("keeps danger-600 on error and delete surfaces", () => {
     const allowed = new Set([
+      "components/error-state.tsx",
       "components/ui/badge.tsx",
       "components/ui/button.tsx",
       "components/ui/toast.tsx",

@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { ErrorState, humanContact } from "@/components/error-state";
+import { Skeleton } from "@/components/skeleton";
 import { Button } from "@/components/ui/button";
+import { useFailureToast } from "@/components/ui/toast";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { fetchGlossary } from "@/features/learn/api";
 import type { LocaleCode } from "@/features/learn/blocks";
@@ -25,6 +28,8 @@ export function GlossaryTerm({
     queryFn: () => fetchGlossary(term, locale),
     retry: false,
   });
+  const contact = humanContact(t);
+  useFailureToast(glossary.isError, t("error", { ns: "learn" }));
 
   return (
     <Tooltip>
@@ -38,8 +43,17 @@ export function GlossaryTerm({
         </Button>
       </TooltipTrigger>
       <TooltipContent>
-        {glossary.isPending ? <p>{t("glossary.loading", { ns: "learn" })}</p> : null}
-        {glossary.isError ? <p role="alert">{t("error", { ns: "learn" })}</p> : null}
+        {glossary.isPending ? <Skeleton label={t("glossary.loading", { ns: "learn" })} /> : null}
+        {glossary.isError ? (
+          <ErrorState
+            title={t("error", { ns: "learn" })}
+            retryLabel={t("retry", { ns: "learn" })}
+            onRetry={() => {
+              void glossary.refetch();
+            }}
+            {...contact}
+          />
+        ) : null}
         {glossary.isSuccess ? (
           <BlockBody text={glossary.data.text} blockId={glossary.data.block_id} />
         ) : null}

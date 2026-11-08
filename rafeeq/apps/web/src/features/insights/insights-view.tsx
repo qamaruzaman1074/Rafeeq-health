@@ -1,25 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { EmptyState } from "@/components/empty-state";
+import { ErrorState, humanContact } from "@/components/error-state";
+import { Skeleton } from "@/components/skeleton";
 import { SyntheticBadge } from "@/components/synthetic-badge";
-import { Button } from "@/components/ui/button";
+import { useFailureToast } from "@/components/ui/toast";
 import { equityQueryKey, fetchEquity, fetchKpis, kpiQueryKey } from "@/features/insights/api";
 import { EquityChart } from "@/features/insights/equity-chart";
 import { KpiCard } from "@/features/insights/kpi-card";
 import { metricTitle } from "@/features/insights/labels";
 import { K_ANONYMITY_FLOOR } from "@/features/insights/suppress";
 import type { EquityReport, KpiReport } from "@/features/insights/types";
-
-function LoadError({ onRetry }: { onRetry: () => void }) {
-  const { t } = useTranslation();
-  return (
-    <div role="alert" className="flex flex-col items-start gap-3">
-      <p>{t("error", { ns: "insights" })}</p>
-      <Button variant="secondary" onClick={onRetry}>
-        {t("retry", { ns: "insights" })}
-      </Button>
-    </div>
-  );
-}
 
 export function InsightsPanels({ kpis, equity }: { kpis: KpiReport; equity: EquityReport }) {
   const { t } = useTranslation();
@@ -72,6 +63,8 @@ export function InsightsView() {
   });
   const pending = kpis.isPending || equity.isPending;
   const failed = kpis.isError || equity.isError;
+  const contact = humanContact(t);
+  useFailureToast(failed, t("error", { ns: "insights" }));
 
   return (
     <div className="flex w-full min-w-0 flex-col gap-6">
@@ -83,17 +76,20 @@ export function InsightsView() {
         <p>{t("page.intro", { ns: "insights" })}</p>
         <p>{t("notice.k", { ns: "insights" })}</p>
       </header>
-      {pending ? <p>{t("loading", { ns: "insights" })}</p> : null}
+      {pending ? <Skeleton label={t("loading", { ns: "insights" })} /> : null}
       {failed ? (
-        <LoadError
+        <ErrorState
+          title={t("error", { ns: "insights" })}
+          retryLabel={t("retry", { ns: "insights" })}
           onRetry={() => {
             void kpis.refetch();
             void equity.refetch();
           }}
+          {...contact}
         />
       ) : null}
       {kpis.isSuccess && equity.isSuccess && (kpis.data === null || equity.data === null) ? (
-        <p>{t("unavailable", { ns: "insights" })}</p>
+        <EmptyState title={t("unavailable", { ns: "insights" })} />
       ) : null}
       {kpis.isSuccess && equity.isSuccess && kpis.data !== null && equity.data !== null ? (
         <InsightsPanels kpis={kpis.data} equity={equity.data} />

@@ -2,7 +2,10 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/empty-state";
+import { ErrorState, humanContact } from "@/components/error-state";
+import { Skeleton } from "@/components/skeleton";
+import { useFailureToast } from "@/components/ui/toast";
 import { fetchQueue, queueQueryKey } from "@/features/clinic/api";
 import { QueueTable } from "@/features/clinic/queue-table";
 import {
@@ -14,20 +17,9 @@ import {
   type QueueSort,
 } from "@/features/clinic/queue-state";
 
-function LoadError({ onRetry }: { onRetry: () => void }) {
-  const { t } = useTranslation();
-  return (
-    <div role="alert" className="flex flex-col items-start gap-3">
-      <p>{t("queue.error", { ns: "clinic" })}</p>
-      <Button variant="secondary" onClick={onRetry}>
-        {t("queue.retry", { ns: "clinic" })}
-      </Button>
-    </div>
-  );
-}
-
 export function QueueView() {
   const { t } = useTranslation();
+  const contact = humanContact(t);
   const queue = useQuery({
     queryKey: queueQueryKey(),
     queryFn: fetchQueue,
@@ -39,6 +31,7 @@ export function QueueView() {
     queue.data === null || queue.data === undefined
       ? []
       : sortQueue(filterQueue(queue.data, filters), sort);
+  useFailureToast(queue.isError, t("queue.error", { ns: "clinic" }));
 
   return (
     <div className="flex w-full min-w-0 flex-col gap-6">
@@ -48,16 +41,19 @@ export function QueueView() {
         </h1>
         <p>{t("queue.intro", { ns: "clinic" })}</p>
       </header>
-      {queue.isPending ? <p>{t("queue.loading", { ns: "clinic" })}</p> : null}
+      {queue.isPending ? <Skeleton label={t("queue.loading", { ns: "clinic" })} /> : null}
       {queue.isError ? (
-        <LoadError
+        <ErrorState
+          title={t("queue.error", { ns: "clinic" })}
+          retryLabel={t("queue.retry", { ns: "clinic" })}
           onRetry={() => {
             void queue.refetch();
           }}
+          {...contact}
         />
       ) : null}
       {queue.isSuccess && queue.data === null ? (
-        <p>{t("queue.unavailable", { ns: "clinic" })}</p>
+        <EmptyState title={t("queue.unavailable", { ns: "clinic" })} />
       ) : null}
       {queue.isSuccess && queue.data !== null ? (
         <QueueTable

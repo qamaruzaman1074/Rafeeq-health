@@ -48,5 +48,6 @@
     "noSource": "No approved answer is available.",
     "send": "The question could not be sent."
   },
-  "loading": "Sending the question."
+  "loading": "Sending the question.",
+  "empty": "No question has been sent."
 }
