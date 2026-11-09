@@ -1,4 +1,4 @@
-/* IBM Plex Sans and IBM Plex Sans Arabic. SIL Open Font License: ./fonts/OFL.txt */
+/* IBM Plex Sans (self-hosted). SIL Open Font License: ./fonts/OFL.txt */
 @font-face {
   font-family: "IBM Plex Sans";
   font-style: normal;
@@ -31,44 +31,13 @@
   src: url("./fonts/IBMPlexSans-Bold.woff2") format("woff2");
 }
 
-@font-face {
-  font-family: "IBM Plex Sans Arabic";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("./fonts/IBMPlexSansArabic-Regular.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "IBM Plex Sans Arabic";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("./fonts/IBMPlexSansArabic-Medium.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "IBM Plex Sans Arabic";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("./fonts/IBMPlexSansArabic-SemiBold.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "IBM Plex Sans Arabic";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("./fonts/IBMPlexSansArabic-Bold.woff2") format("woff2");
-}
-
 :root {
   /* Premium palette (Phase 1) */
   --teal-900: #103d40;
   --teal-700: #237a73;
   --teal-500: #2e9088;
   --teal-100: #d9efe8;
+  --pale-teal: #edf5f1;
   --sand-50: #f8f6f0;
   --sand-100: #f5f1eb;
   --gold-500: #d5a75a;
@@ -76,30 +45,34 @@
   --amber-100: #fbefd5;
   --green-600: #2f7d5b;
   --ink-900: #263638;
-  --ink-600: #4a5e60;
+  /* Spec #687675 is 4.38:1 on --background; #676f6e meets 4.5:1 on sand. */
+  --ink-600: #676f6e;
   --danger-600: #b3261e;
 
-  --background: var(--sand-50);
-  --foreground: var(--ink-900);
+  --background: #f8f6f0;
+  --foreground: #263638;
   --card: #ffffff;
-  --card-foreground: var(--ink-900);
-  --popover: var(--sand-50);
-  --popover-foreground: var(--ink-900);
-  --primary: var(--teal-700);
-  --primary-foreground: var(--sand-50);
-  --secondary: var(--teal-100);
-  --secondary-foreground: var(--teal-900);
-  --muted: var(--sand-100);
-  --muted-foreground: var(--ink-600);
-  --accent: var(--teal-100);
-  --accent-foreground: var(--teal-900);
-  --destructive: var(--danger-600);
-  --destructive-foreground: var(--sand-50);
-  --border: #c5dbd6;
-  --border-subtle: #dce9e6;
-  --input: var(--ink-600);
-  --ring: var(--teal-500);
+  --card-foreground: #263638;
+  --popover: #ffffff;
+  --popover-foreground: #263638;
+  --elevated: #ffffff;
+  --primary: #103d40;
+  --primary-foreground: #f8f6f0;
+  --primary-hover: #237a73;
+  --secondary: #d9efe8;
+  --secondary-foreground: #103d40;
+  --muted: #edf5f1;
+  --muted-foreground: #676f6e;
+  --accent: #d9efe8;
+  --accent-foreground: #103d40;
+  --destructive: #b3261e;
+  --destructive-foreground: #f8f6f0;
+  --border: #e5e9e5;
+  --border-subtle: #e5e9e5;
+  --input: #676f6e;
+  --ring: #237a73;
   --radius: 0.625rem;
+  color-scheme: light;
 
   --shadow-xs: 0 1px 2px rgb(16 61 64 / 0.04);
   --shadow-sm: 0 1px 2px rgb(16 61 64 / 0.05), 0 2px 6px rgb(16 61 64 / 0.04);
@@ -110,6 +83,69 @@
   --line-body: 1.55;
   --tracking-tight: -0.02em;
   --tracking-wide: 0.04em;
+}
+
+html[data-theme="dark"] {
+  --pale-teal: #284943;
+  --teal-900: #72b8aa;
+  --teal-700: #91cfc0;
+  --teal-500: #72b8aa;
+  --teal-100: #284943;
+  --sand-50: #101c1d;
+  --sand-100: #182829;
+  --gold-500: #e0b96f;
+  --lilac-100: #2a3340;
+  --amber-100: #3a3420;
+  --green-600: #6fbf96;
+  --ink-900: #f2f5f2;
+  --ink-600: #b0bfbb;
+  --danger-600: #e07068;
+
+  --background: #101c1d;
+  --foreground: #f2f5f2;
+  --card: #182829;
+  --card-foreground: #f2f5f2;
+  --popover: #203536;
+  --popover-foreground: #f2f5f2;
+  --elevated: #203536;
+  --primary: #72b8aa;
+  --primary-foreground: #101c1d;
+  --primary-hover: #91cfc0;
+  --secondary: #284943;
+  --secondary-foreground: #f2f5f2;
+  --muted: #182829;
+  --muted-foreground: #b0bfbb;
+  --accent: #284943;
+  --accent-foreground: #f2f5f2;
+  --destructive: #e07068;
+  --destructive-foreground: #101c1d;
+  --border: #344a48;
+  --border-subtle: #344a48;
+  --input: #b0bfbb;
+  --ring: #72b8aa;
+
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.28);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3), 0 2px 8px rgb(0 0 0 / 0.24);
+  --shadow-md: 0 4px 14px rgb(0 0 0 / 0.34), 0 2px 4px rgb(0 0 0 / 0.22);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.4), 0 4px 8px rgb(0 0 0 / 0.22);
+  color-scheme: dark;
+}
+
+html[data-theme-transition] {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+html[data-theme-transition] body,
+html[data-theme-transition] body *:not(img):not(svg):not(path):not(circle) {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    outline-color 200ms ease;
 }
 
 html[lang="ar"],
@@ -134,14 +170,11 @@ html[lang="ar"] body,
 
 html[lang="en"],
 html[lang="en"] body,
-[lang="en"]:not(html) {
-  font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif;
-}
-
+[lang="en"]:not(html),
 html[lang="ar"],
 html[lang="ar"] body,
 [lang="ar"]:not(html) {
-  font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
 :focus-visible {

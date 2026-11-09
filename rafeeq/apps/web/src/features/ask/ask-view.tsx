@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import faqFile from "../../../../../content/faq.json";
+import { AppPageLayout } from "@/components/layout/app-page-layout";
+import { PageHeader } from "@/components/layout/page-header";
 import { EmptyState } from "@/components/empty-state";
 import { ErrorState, humanContact } from "@/components/error-state";
 import { Skeleton } from "@/components/skeleton";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNotify } from "@/components/ui/toast";
 import { boundaryBlocks } from "@/features/ask/boundary";
 import { readSuggestedQuestions } from "@/features/ask/faq";
@@ -76,13 +80,39 @@ export function AskView() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "ask" })}</h1>
+    <AppPageLayout width="wide">
+      <PageHeader
+        title={t("page.title", { ns: "ask" })}
+        description={t("page.intro", { ns: "ask" })}
+        actions={
+          <Button asChild>
+            <Link to="/app/care">{t("talk.button", { ns: "ask" })}</Link>
+          </Button>
+        }
+      />
+
+      <p className="max-w-2xl text-base leading-relaxed text-ink-600">
+        {t("page.notCounsellor", { ns: "ask" })}
+      </p>
+
       <BoundaryBanner
         blocks={boundaryBlocks(locale)}
         label={t("boundary.label", { ns: "ask" })}
         notice={t("boundary.notice", { ns: "ask" })}
       />
+
+      <Card className="hover:shadow-surface">
+        <CardHeader>
+          <CardTitle>{t("human.heading", { ns: "ask" })}</CardTitle>
+          <CardDescription>{t("human.body", { ns: "ask" })}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button asChild variant="secondary">
+            <Link to="/app/care">{t("human.action", { ns: "ask" })}</Link>
+          </Button>
+        </CardContent>
+      </Card>
+
       <div role="group" aria-label={t("chips.label", { ns: "ask" })} data-suggested={chips.length}>
         {chips.length > 0 ? (
           <ul className="flex flex-wrap gap-3">
@@ -104,7 +134,7 @@ export function AskView() {
         ) : null}
       </div>
       <form
-        className="flex flex-col items-start gap-3"
+        className="flex flex-col items-start gap-3 rounded-lg border border-border-subtle bg-sand-100 p-6"
         onSubmit={(event) => {
           event.preventDefault();
           send(draft);
@@ -152,6 +182,6 @@ export function AskView() {
           </li>
         ))}
       </ol>
-    </div>
+    </AppPageLayout>
   );
 }

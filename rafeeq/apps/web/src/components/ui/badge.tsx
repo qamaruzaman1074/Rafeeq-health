@@ -5,8 +5,8 @@ const variantClass = {
   neutral: "border-border-subtle bg-sand-100 text-ink-900 shadow-xs",
   notice: "border-gold-500/40 bg-amber-100 text-ink-900 shadow-xs",
   conversation: "border-border bg-lilac-100 text-ink-900 shadow-xs",
-  positive: "border-green-600 bg-green-600 text-sand-50 shadow-xs",
-  error: "border-danger-600 bg-danger-600 text-sand-50 shadow-xs",
+  positive: "border-green-600 bg-green-600 text-primary-foreground shadow-xs",
+  error: "border-danger-600 bg-danger-600 text-destructive-foreground shadow-xs",
 } as const;
 
 export type BadgeVariant = keyof typeof variantClass;

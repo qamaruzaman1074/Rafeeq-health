@@ -3,6 +3,9 @@ import type { NumeralSystem } from "@/i18n/format";
 
 export const LANGUAGE_STORAGE_KEY = "rafeeq.lang";
 export const NUMERAL_STORAGE_KEY = "rafeeq.numerals";
+export const THEME_STORAGE_KEY = "rafeeq.theme";
+
+export type AppTheme = "light" | "dark";
 
 export type KeyValueStore = {
   getItem: (key: string) => string | null;
@@ -34,8 +37,11 @@ function readItem(storage: KeyValueStore | null, key: string): string | null {
 
 export function readStoredLanguage(storage: KeyValueStore | null): AppLocale | null {
   const value = readItem(storage, LANGUAGE_STORAGE_KEY);
-  if (value === "en" || value === "ar") {
+  if (value === "en") {
     return value;
+  }
+  if (value === "ar") {
+    return "en";
   }
   return null;
 }
@@ -88,6 +94,25 @@ export function writeStoredLiteracyMode(
     storage.setItem(LITERACY_STORAGE_KEY, mode);
   } catch {
     // Private-mode storage can throw. The in-memory literacy mode still changes.
+  }
+}
+
+export function readStoredTheme(storage: KeyValueStore | null): AppTheme | null {
+  const value = readItem(storage, THEME_STORAGE_KEY);
+  if (value === "light" || value === "dark") {
+    return value;
+  }
+  return null;
+}
+
+export function writeStoredTheme(storage: KeyValueStore | null, theme: AppTheme): void {
+  if (storage === null) {
+    return;
+  }
+  try {
+    storage.setItem(THEME_STORAGE_KEY, theme);
+  } catch {
+    // Private-mode storage can throw. The in-memory theme still changes.
   }
 }
 

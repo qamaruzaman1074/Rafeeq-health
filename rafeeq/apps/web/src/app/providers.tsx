@@ -4,6 +4,7 @@ import { I18nextProvider, useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 import { applyDocumentLocale } from "@/i18n/locale";
 import { LiteracyProvider } from "@/app/literacy";
+import { ThemeProvider } from "@/app/theme";
 import { ToastProvider } from "@/components/ui/toast";
 import { NumeralProvider } from "@/i18n/numerals";
 
@@ -32,11 +33,13 @@ export function AppProviders({ children }: { children: ReactNode }) {
     <I18nextProvider i18n={i18n}>
       <QueryClientProvider client={queryClient}>
         <DocumentLocale>
-          <NumeralProvider>
-            <LiteracyProvider>
-              <ToastProvider>{children}</ToastProvider>
-            </LiteracyProvider>
-          </NumeralProvider>
+          <ThemeProvider>
+            <NumeralProvider>
+              <LiteracyProvider>
+                <ToastProvider>{children}</ToastProvider>
+              </LiteracyProvider>
+            </NumeralProvider>
+          </ThemeProvider>
         </DocumentLocale>
       </QueryClientProvider>
     </I18nextProvider>

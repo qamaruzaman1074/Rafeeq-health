@@ -15,8 +15,19 @@ const palette: Record<string, string> = {
   "amber-100": "#FBEFD5",
   "green-600": "#2F7D5B",
   "ink-900": "#263638",
-  "ink-600": "#4A5E60",
+  "ink-600": "#676F6E",
   "danger-600": "#B3261E",
+};
+
+const darkPalette: Record<string, string> = {
+  "teal-900": "#72B8AA",
+  "teal-700": "#91CFC0",
+  "teal-100": "#284943",
+  "sand-50": "#101C1D",
+  "gold-500": "#E0B96F",
+  "ink-900": "#F2F5F2",
+  "ink-600": "#B0BFBB",
+  border: "#344A48",
 };
 
 function channel(hex: string, offset: number): number {
@@ -52,14 +63,26 @@ function tokenHex(name: string): string {
   return hex.toUpperCase();
 }
 
+function darkTokenHex(name: string): string {
+  const block = css.match(/html\[data-theme="dark"\]\s*\{([^}]+)\}/);
+  const body = block?.[1];
+  if (body === undefined) {
+    throw new Error("Missing dark theme block");
+  }
+  const match = body.match(new RegExp(`--${name}:\\s*(#[0-9a-fA-F]{6})`));
+  const hex = match?.[1];
+  if (hex === undefined) {
+    throw new Error(`Missing dark token --${name}`);
+  }
+  return hex.toUpperCase();
+}
+
 const textPairs: Array<[string, string, number]> = [
   ["ink-900", "sand-50", 11.66],
   ["ink-900", "sand-100", 11.2],
   ["ink-900", "teal-100", 10.47],
   ["ink-900", "amber-100", 11.04],
   ["ink-900", "lilac-100", 10.46],
-  ["ink-600", "sand-50", 6.35],
-  ["ink-600", "sand-100", 6.1],
   ["teal-900", "sand-50", 11.02],
   ["teal-900", "sand-100", 10.58],
   ["teal-900", "teal-100", 9.9],
@@ -69,7 +92,6 @@ const textPairs: Array<[string, string, number]> = [
   ["sand-50", "teal-900", 11.02],
   ["sand-50", "danger-600", 6.05],
   ["sand-50", "green-600", 4.62],
-  ["sand-50", "ink-600", 6.35],
   ["danger-600", "sand-50", 6.05],
 ];
 
@@ -81,7 +103,6 @@ const uiPairs: Array<[string, string, number]> = [
   ["teal-500", "lilac-100", 3.19],
   ["teal-700", "amber-100", 4.49],
   ["teal-700", "lilac-100", 4.25],
-  ["ink-600", "sand-50", 6.35],
   ["green-600", "sand-100", 4.44],
   ["danger-600", "sand-50", 6.05],
 ];
@@ -101,6 +122,41 @@ describe("design tokens", () => {
     expect(tokenHex("ink-900")).toBe(palette["ink-900"]);
     expect(tokenHex("ink-600")).toBe(palette["ink-600"]);
     expect(tokenHex("danger-600")).toBe(palette["danger-600"]);
+    expect(tokenHex("border")).toBe("#E5E9E5");
+  });
+
+  it("keeps the specified dark palette", () => {
+    expect(darkTokenHex("teal-900")).toBe(darkPalette["teal-900"]);
+    expect(darkTokenHex("teal-700")).toBe(darkPalette["teal-700"]);
+    expect(darkTokenHex("teal-100")).toBe(darkPalette["teal-100"]);
+    expect(darkTokenHex("sand-50")).toBe(darkPalette["sand-50"]);
+    expect(darkTokenHex("gold-500")).toBe(darkPalette["gold-500"]);
+    expect(darkTokenHex("ink-900")).toBe(darkPalette["ink-900"]);
+    expect(darkTokenHex("ink-600")).toBe(darkPalette["ink-600"]);
+    expect(darkTokenHex("border")).toBe(darkPalette.border);
+    expect(darkTokenHex("card")).toBe("#182829");
+    expect(darkTokenHex("elevated")).toBe("#203536");
+  });
+
+  it("meets 4.5:1 for dark text pairs in use", () => {
+    const pairs: Array<[string, string, number]> = [
+      ["ink-900", "sand-50", 15.85],
+      ["ink-600", "sand-50", 9.14],
+      ["teal-900", "sand-50", 7.59],
+      ["teal-700", "sand-50", 9.86],
+      ["sand-50", "teal-700", 9.86],
+      ["sand-50", "teal-900", 7.59],
+    ];
+    for (const [foreground, background, expected] of pairs) {
+      const ratio = contrast(darkTokenHex(foreground), darkTokenHex(background));
+      expect(ratio, `dark ${foreground} on ${background}`).toBeGreaterThanOrEqual(4.5);
+      expect(Number(ratio.toFixed(2)), `dark ${foreground} on ${background}`).toBe(expected);
+    }
+  });
+
+  it("meets 4.5:1 for muted body copy on card surfaces", () => {
+    const ratio = contrast(tokenHex("ink-600"), tokenHex("card"));
+    expect(ratio).toBeGreaterThanOrEqual(4.5);
   });
 
   it("meets 4.5:1 for the text pairs in use", () => {
@@ -125,24 +181,21 @@ describe("design tokens", () => {
     expect(contrast(tokenHex("ink-900"), tokenHex("danger-600"))).toBeLessThan(4.5);
   });
 
-  it("switches the sans family with the document language", () => {
+  it("uses IBM Plex Sans for English and legacy Arabic lang hooks", () => {
     expect(css).toMatch(
-      /html\[lang="en"\],\s*html\[lang="en"\] body,\s*\[lang="en"\]:not\(html\)\s*\{\s*font-family:\s*"IBM Plex Sans",\s*"IBM Plex Sans Arabic",\s*sans-serif;/,
-    );
-    expect(css).toMatch(
-      /html\[lang="ar"\],\s*html\[lang="ar"\] body,\s*\[lang="ar"\]:not\(html\)\s*\{\s*font-family:\s*"IBM Plex Sans Arabic",\s*"IBM Plex Sans",\s*sans-serif;/,
+      /html\[lang="en"\],\s*html\[lang="en"\] body,\s*\[lang="en"\]:not\(html\),\s*html\[lang="ar"\],\s*html\[lang="ar"\] body,\s*\[lang="ar"\]:not\(html\)\s*\{\s*font-family:\s*"IBM Plex Sans",\s*sans-serif;/,
     );
   });
 
-  it("self-hosts both families with font-display swap", () => {
+  it("self-hosts Plex Sans with font-display swap", () => {
     const faces = css.match(/@font-face\s*{[^}]+}/g) ?? [];
-    expect(faces).toHaveLength(8);
+    expect(faces).toHaveLength(4);
     for (const face of faces) {
       expect(face).toContain("font-display: swap");
       expect(face).toContain('format("woff2")');
     }
     expect(css).toContain('font-family: "IBM Plex Sans"');
-    expect(css).toContain('font-family: "IBM Plex Sans Arabic"');
+    expect(css).not.toContain("IBMPlexSansArabic");
     expect(css).not.toContain("fonts.googleapis.com");
     expect(css).not.toContain("fonts.gstatic.com");
   });
@@ -162,10 +215,6 @@ describe("design tokens", () => {
       "IBMPlexSans-Medium.woff2",
       "IBMPlexSans-SemiBold.woff2",
       "IBMPlexSans-Bold.woff2",
-      "IBMPlexSansArabic-Regular.woff2",
-      "IBMPlexSansArabic-Medium.woff2",
-      "IBMPlexSansArabic-SemiBold.woff2",
-      "IBMPlexSansArabic-Bold.woff2",
       "OFL.txt",
     ];
     for (const name of expected) {

@@ -8,8 +8,9 @@ const numberingSystem: Record<NumeralSystem, NumeralSystem> = {
   arab: "arab",
 };
 
-export function defaultNumeralSystem(locale: AppLocale): NumeralSystem {
-  return locale === "ar" ? "arab" : "latn";
+export function defaultNumeralSystem(_locale: AppLocale): NumeralSystem {
+  void _locale;
+  return "latn";
 }
 
 export function resolveNumeralSystem(

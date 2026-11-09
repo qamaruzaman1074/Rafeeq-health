@@ -49,10 +49,10 @@ export function ShareMatrix({
 
   return (
     <div
-      className="overflow-x-auto rounded-lg border border-teal-500 bg-sand-100"
+      className="max-w-full min-w-0 overflow-x-auto rounded-lg border border-border-subtle bg-sand-100 shadow-xs"
       data-matrix="shares"
     >
-      <table className="w-full border-collapse text-start">
+      <table className="w-full min-w-[36rem] border-collapse text-start">
         <caption className="py-4 ps-4 pe-4 text-start text-2xl font-semibold text-teal-900">
           {t("matrix.caption", { ns: "privacy" })}
         </caption>

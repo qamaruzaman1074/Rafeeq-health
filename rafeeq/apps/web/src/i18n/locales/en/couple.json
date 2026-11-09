@@ -1,6 +1,57 @@
 {
   "home": {
-    "title": "Couple home"
+    "title": "Overview",
+    "welcome": "Welcome, {{names}}.",
+    "welcomeGuest": "Welcome. This is a guest demo session.",
+    "welcomeRegion": "Welcome",
+    "welcomeBody": "This overview uses only information stored for this visit. It is a demo example, not a personal medical record.",
+    "intro": "A calm place to see screening notes, learning, counselling, and sharing — then choose a next page when you are ready.",
+    "loadError": "Some overview details could not be loaded.",
+    "results": {
+      "title": "Screening notes",
+      "lead": "Carrier entries come from the result already stored for this session.",
+      "empty": "No screening notes are available for this session.",
+      "none": "No carrier entries were returned for this demo session.",
+      "listed": "A carrier entry is listed for this demo session.",
+      "action": "Open results"
+    },
+    "understanding": {
+      "title": "Understanding",
+      "lead": "Reading mode and the teach-back check are stored on this device for the visit.",
+      "reading": "Reading mode: {{mode}}",
+      "topics": "{{count}} explanation topics are available in Learn.",
+      "checkOpen": "The teach-back check is still open for this visit.",
+      "checkDone": "The teach-back check is marked complete for this visit.",
+      "learnAction": "Open Learn",
+      "checkAction": "Open Check",
+      "note": "Topic-by-topic completion is not stored, so this page does not show a learning score."
+    },
+    "counselling": {
+      "title": "Counselling",
+      "lead": "Care steps come from the pathway already stored for this session.",
+      "empty": "No care pathway is available for this session.",
+      "current": "Current care step: {{step}}.",
+      "status": "Referral status: {{status}}.",
+      "none": "No counselling request is recorded yet.",
+      "action": "Open Care"
+    },
+    "privacy": {
+      "title": "Privacy and sharing",
+      "lead": "Sharing choices come from the consents already stored for this session.",
+      "empty": "No sharing details are available for this session.",
+      "own": "Your own result stays available to you.",
+      "choiceOn": "on",
+      "choiceOff": "off",
+      "partnerOn": "Both partners have allowed overlap sharing.",
+      "partnerDeclined": "Overlap stays hidden because sharing was declined.",
+      "partnerMissing": "Overlap stays hidden until both partners allow sharing.",
+      "action": "Open Privacy"
+    },
+    "next": {
+      "title": "Next steps",
+      "intro": "Move at your own pace. These links open existing pages in this app.",
+      "suggested": "A calm next step: {{label}}."
+    }
   },
   "together": {
     "title": "Your result together"
@@ -12,7 +63,7 @@
   "empty": "No shared result is available for this session.",
   "error": "The shared result could not be loaded.",
   "retry": "Try again",
-  "prototype": "prototype content - not clinically validated",
+  "prototype": "Educational content — not clinically validated",
   "gate": {
     "shared": "What can be shared is the overlap: genes you both carry.",
     "whom": "That overlap is shared with your partner.",
@@ -31,5 +82,253 @@
     "affected": "Affected",
     "carrier": "Carrier",
     "neither": "Neither"
+  },
+  "report": {
+    "title": "My screening report",
+    "eyebrow": "Screening results",
+    "intro": "Review each finding, then open the explanation to see what it says, what it does not say, and what to ask a professional.",
+    "syntheticBanner": "Demo example — not a real genetic test result",
+    "meta": {
+      "name": "Name",
+      "id": "Report ID",
+      "date": "Report date",
+      "type": "Report type",
+      "dateValue": "09 November 2026",
+      "carrierPanel": "Carrier screening panel (fictional demonstration)"
+    },
+    "findingsHeading": "Findings",
+    "statusLabel": "Status",
+    "geneLabel": "Gene",
+    "patternLabel": "Inheritance pattern",
+    "status": {
+      "carrier_finding": "Carrier finding",
+      "no_variant_identified_in_demo_panel": "No relevant variant identified in this demo panel",
+      "inconclusive": "Inconclusive",
+      "not_tested": "Not tested"
+    },
+    "pattern": {
+      "autosomal_recessive": "Autosomal recessive",
+      "unknown": "Not applicable — not tested"
+    },
+    "conditions": {
+      "betaThalassemia": "Beta-thalassemia",
+      "sickleCell": "Sickle cell disease",
+      "sma": "Spinal muscular atrophy",
+      "cysticFibrosis": "Cystic fibrosis"
+    },
+    "explain": {
+      "betaThalassemia": {
+        "summary": "This example finding demonstrates how carrier status may be explained. A carrier finding does not automatically mean the person has the condition.",
+        "next": "Review the inheritance explanation and seek professional interpretation where appropriate.",
+        "says": "A variant associated with beta-thalassemia was reported in one copy of the HBB gene in this fictional panel.",
+        "notSays": "It does not say the person has beta-thalassemia, and it does not say anything about a future child on its own.",
+        "uncertainty": "Couple-level implications depend on whether a biological partner has a relevant HBB finding.",
+        "questions": [
+          "Does this carrier finding affect my own health?",
+          "Should my partner be offered screening for the same gene?",
+          "Is any confirmatory testing appropriate?"
+        ]
+      },
+      "sickleCell": {
+        "summary": "No relevant variant was identified in the fictional demonstration panel. This does not rule out every possible genetic risk.",
+        "next": "No action is suggested by this demonstration result alone.",
+        "says": "The variants tested for sickle cell disease in this fictional panel were not found.",
+        "notSays": "It does not rule out every possible variant or every inherited condition.",
+        "uncertainty": "Panels test selected variants only. Untested variants are not covered.",
+        "questions": [
+          "Which variants did the panel include?",
+          "Is my family background relevant to what was tested?"
+        ]
+      },
+      "sma": {
+        "summary": "This example finding cannot establish a definitive conclusion. A qualified genetics professional should review the result and explain whether further assessment is appropriate.",
+        "next": "Ask a qualified genetics professional to review this result.",
+        "says": "The test could not reach a clear conclusion about SMN1 carrier status.",
+        "notSays": "It does not say the person is a carrier, and it does not say they are not a carrier.",
+        "uncertainty": "SMA screening has technical limitations and may leave residual risk.",
+        "questions": [
+          "Why was the result inconclusive?",
+          "Is further assessment appropriate?",
+          "What does residual risk mean for me?"
+        ]
+      },
+      "cysticFibrosis": {
+        "summary": "This fictional panel does not include a result for this condition. No conclusion about carrier status should be drawn.",
+        "next": "Ask whether screening for this condition is relevant to you.",
+        "says": "Cystic fibrosis was not included in this demonstration panel.",
+        "notSays": "It does not say anything about CFTR carrier status.",
+        "uncertainty": "Carrier status for this condition is unknown.",
+        "questions": ["Should cystic fibrosis screening be considered for me?"]
+      }
+    },
+    "explainToggle": "Understand this finding",
+    "whatSays": "What the finding says",
+    "whatNotSays": "What it does not say",
+    "uncertaintyLabel": "What uncertainty remains",
+    "professionalLabel": "Why professional interpretation may matter",
+    "professional": "A qualified genetics professional can confirm what a finding means for you and whether further assessment is appropriate.",
+    "questionsLabel": "Questions you could ask a counsellor",
+    "nextLabel": "Suggested next step",
+    "disclaimer": "This explanation is educational and based on a demo example. It is not a clinical interpretation or diagnosis.",
+    "uploadHeading": "Report upload",
+    "upload": "Report upload is not available yet. This demo uses an example report, and no clinical genetic analysis is performed."
+  },
+  "partner": {
+    "title": "Partner connection",
+    "eyebrow": "Consent-based sharing",
+    "intro": "Invite a partner only if you want to. Each of you keeps your own report. Only the categories you switch on can be used for an educational comparison.",
+    "syntheticNote": "Demo invitation — no message will be sent.",
+    "invite": {
+      "heading": "Invitation",
+      "none": "No partner is connected.",
+      "pending": "Invitation {{code}} is waiting for your partner.",
+      "accepted": "Your partner accepted invitation {{code}}.",
+      "declined": "Your partner declined the invitation.",
+      "cancelled": "You cancelled the invitation.",
+      "create": "Create demo invitation",
+      "cancel": "Cancel invitation",
+      "simulateAccept": "Simulate partner accepting",
+      "simulateDecline": "Simulate partner declining",
+      "codeLabel": "Invitation code"
+    },
+    "consent": {
+      "heading": "What you share",
+      "intro": "Each category is a separate permission. Nothing is shared until you switch it on.",
+      "needsPartner": "Connect a partner before choosing what to share.",
+      "categories": {
+        "carrierFindings": {
+          "title": "Selected carrier findings",
+          "body": "Carrier findings from your report, such as the gene and condition. Used for the educational comparison."
+        },
+        "reportInfo": {
+          "title": "Relevant report information",
+          "body": "Inconclusive findings that may need professional review. Not your full report."
+        },
+        "referralInfo": {
+          "title": "Counselling referral information",
+          "body": "Whether you have requested counselling, so your partner can join if you both agree."
+        }
+      },
+      "who": "Recipient: your connected partner only.",
+      "duration": "Ongoing until you revoke it.",
+      "grant": "Share",
+      "revoke": "Revoke",
+      "granted": "Shared since {{time}}",
+      "revokedAt": "Revoked at {{time}}",
+      "off": "Not shared",
+      "on": "Shared",
+      "revokeTitle": "Revoke this permission?",
+      "revokeBody": "Your partner will lose access from now on. Revoking cannot undo information they have already viewed or kept.",
+      "confirmRevoke": "Revoke permission",
+      "keep": "Keep sharing",
+      "notShared": "Never shared: your full report, results with no relevant variant, untested conditions and your profile details."
+    },
+    "partnerSide": {
+      "heading": "Your partner's sharing (demo)",
+      "body": "Your partner controls their own permissions. In this demo, use the button below to show what happens when they share carrier findings.",
+      "simulate": "Simulate partner sharing carrier findings",
+      "shared": "Your partner shared selected carrier findings.",
+      "notShared": "Your partner has not shared any findings."
+    },
+    "risk": {
+      "heading": "Shared risk overview",
+      "noScore": "RAFEEQ never shows a compatibility score or a recommendation about marriage.",
+      "noPartner": "Partner information has not been shared. Couple-level risk cannot be assessed from your individual findings alone.",
+      "pending": "Your partner has not completed the consent process. No partner findings have been shared.",
+      "noSharedFindings": "Your accounts are connected, but no relevant genetic findings have been authorised for this educational comparison.",
+      "insufficient": "The available information is not sufficient for a reliable educational conclusion. A qualified genetics professional should review the findings.",
+      "exampleIntro": "Both of you shared a carrier finding in the same gene ({{genes}}) for a condition that typically follows autosomal recessive inheritance. In this specific demo example, the typical model for each pregnancy is:",
+      "outcomes": [
+        {
+          "value": "25%",
+          "label": "chance of an affected child"
+        },
+        {
+          "value": "50%",
+          "label": "chance of a child who is a carrier"
+        },
+        {
+          "value": "25%",
+          "label": "chance of a child who inherits neither familial variant"
+        }
+      ],
+      "exampleCaveat": "This is an inheritance example for one gene, not a universal couple-level risk. Each pregnancy is independent. A qualified genetics professional should confirm whether this applies to you.",
+      "sourceLabel": "Sources used",
+      "sourceMine": "Your shared carrier findings (consent on)",
+      "sourcePartner": "Partner's shared carrier findings (consent on)",
+      "counselling": "Explore counselling"
+    },
+    "audit": {
+      "heading": "Sharing history",
+      "empty": "No sharing activity yet.",
+      "synthetic": "Demo event",
+      "types": {
+        "inviteCreated": "Partner invitation created",
+        "inviteCancelled": "Invitation cancelled",
+        "inviteAccepted": "Invitation accepted (demo)",
+        "inviteDeclined": "Invitation declined (demo)",
+        "consentGranted": "You granted consent: {{category}}",
+        "consentRevoked": "You revoked consent: {{category}}",
+        "partnerConsentGranted": "Partner granted consent: {{category}} (demo)",
+        "reset": "Demonstration reset"
+      }
+    },
+    "reset": "Reset partner demonstration",
+    "resetDone": "The partner demonstration was reset. A reset event stays in the history."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "eyebrow": "Updates",
+    "intro": "Notifications never include genetic findings in the preview. Open one to see details in your private dashboard.",
+    "unread": "{{count}} unread",
+    "markRead": "Mark as read",
+    "markAllRead": "Mark all as read",
+    "open": "Open",
+    "read": "Read",
+    "new": "New",
+    "empty": "You are all caught up.",
+    "emptyBody": "New updates will appear here.",
+    "restore": "Restore demonstration notifications",
+    "items": {
+      "reportReady": "Your demonstration screening report is ready to review.",
+      "inconclusiveExplained": "You have an educational explanation available for an inconclusive finding.",
+      "invitePending": "Your partner invitation is awaiting a response.",
+      "consentUpdated": "A consent permission was updated.",
+      "referralChanged": "Your demonstration referral status has changed."
+    }
+  },
+  "settingsPage": {
+    "title": "Profile and settings",
+    "intro": "Manage how RAFEEQ looks and what it sends you. Profile details are a demo example.",
+    "profileHeading": "Profile",
+    "nameLabel": "Display name",
+    "nameValue": "Ahmed Hassan (demo profile)",
+    "languageLabel": "Language",
+    "languageValue": "English",
+    "displayHeading": "Display and reading",
+    "themeLabel": "Theme",
+    "literacyLabel": "Reading level",
+    "notificationsHeading": "Notification preferences",
+    "essential": "Essential account and consent notices",
+    "essentialNote": "Always on. These tell you when sharing changes.",
+    "reminders": "Educational reminders",
+    "referral": "Referral status updates",
+    "saved": "Preference saved for this session.",
+    "privacyHeading": "Privacy",
+    "privacyBody": "Sharing permissions and the activity history live in Privacy and Partner connection.",
+    "privacyLink": "Open privacy controls",
+    "partnerLink": "Open partner connection",
+    "securityHeading": "Account security",
+    "securityBody": "Password sign-in, password reset and account recovery are not available yet. This demo uses temporary sessions.",
+    "signOut": "Sign out",
+    "signOutBody": "Ends this demonstration session on this device."
+  },
+  "dashboardExtras": {
+    "heading": "Your next steps",
+    "report": "Review your screening report",
+    "partner": "Manage partner connection",
+    "notifications": "View notifications",
+    "welcome": "Welcome back. Your genetic information deserves clear explanations and careful handling.",
+    "welcomeBody": "Review your information, explore what your findings mean, and choose the next step that feels right for you."
   }
 }

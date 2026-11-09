@@ -28,7 +28,7 @@ describe("formatNumber", () => {
 
 describe("formatDate", () => {
   it("uses Arabic-Indic digits when that system is on", () => {
-    const formatted = formatDate(sampleDate, "arab", "ar");
+    const formatted = formatDate(sampleDate, "arab", "en");
     expect(formatted).toMatch(/[٠-٩]/u);
     expect(formatted).not.toMatch(/[0-9]/u);
   });
@@ -44,18 +44,13 @@ describe("formatDate", () => {
 
 describe("numeral defaults", () => {
   it("follows the locale until the user stores an override", () => {
-    expect(defaultNumeralSystem("ar")).toBe("arab");
     expect(defaultNumeralSystem("en")).toBe("latn");
-    expect(resolveNumeralSystem("ar", null)).toBe("arab");
     expect(resolveNumeralSystem("en", null)).toBe("latn");
     expect(resolveNumeralSystem("en", "arab")).toBe("arab");
-    expect(resolveNumeralSystem("ar", "latn")).toBe("latn");
   });
 
   it("clears the stored override when the choice matches the locale default", () => {
     expect(numeralPreferenceUpdate("en", "latn")).toBeNull();
-    expect(numeralPreferenceUpdate("ar", "arab")).toBeNull();
     expect(numeralPreferenceUpdate("en", "arab")).toBe("arab");
-    expect(numeralPreferenceUpdate("ar", "latn")).toBe("latn");
   });
 });

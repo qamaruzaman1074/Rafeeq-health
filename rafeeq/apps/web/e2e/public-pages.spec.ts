@@ -25,9 +25,27 @@ test.beforeAll(() => {
   mkdirSync(screensDir, { recursive: true });
 });
 
+test("theme toggle persists dark mode after refresh", async ({ page }) => {
+  await page.addInitScript(() => {
+    if (sessionStorage.getItem("rafeeq.theme.seeded") === "1") {
+      return;
+    }
+    localStorage.setItem("rafeeq.theme", "light");
+    sessionStorage.setItem("rafeeq.theme.seeded", "1");
+  });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await page.getByRole("banner").getByRole("button", { name: "Switch to dark theme" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.locator("header svg").first()).toBeVisible();
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.locator("html")).toHaveAttribute("style", /color-scheme:\s*dark/);
+});
+
 test("keyboard guest entry reaches the couple home", async ({ page }) => {
   await page.goto("/");
-  const guest = page.getByRole("main").getByRole("link", { name: "Continue as Guest" }).first();
+  const guest = page.getByRole("banner").getByRole("link", { name: "Get Started" }).first();
   await tabUntilFocused(page, guest);
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/demo$/);
@@ -36,61 +54,34 @@ test("keyboard guest entry reaches the couple home", async ({ page }) => {
   await tabUntilFocused(page, persona);
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/app$/);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Couple home");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Overview");
 });
 
-test("keyboard guest entry works in Arabic", async ({ page }) => {
-  await page.goto("/");
-  const arabic = page.getByRole("button", { name: "Arabic", exact: true });
-  await tabUntilFocused(page, arabic);
-  await page.keyboard.press("Enter");
-  await expect(page.locator("html")).toHaveAttribute("lang", "ar");
-  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-
-  const guest = page.getByRole("main").getByRole("link", { name: "المتابعة كضيف" }).first();
-  await tabUntilFocused(page, guest);
-  await page.keyboard.press("Enter");
-  await expect(page).toHaveURL(/\/demo$/);
-
-  const persona = page.getByRole("button", { name: "الدخول: Noor & Khalid" });
-  await tabUntilFocused(page, persona);
-  await page.keyboard.press("Enter");
-  await expect(page).toHaveURL(/\/app$/);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("TODO_AR");
-});
-
-test("saves landing, trust, and demo screenshots in both directions", async ({ page }) => {
+test("saves landing, trust, and demo screenshots", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await page.screenshot({ path: path.join(screensDir, "F5-landing-en.png"), fullPage: true });
 
   await page.goto("/trust");
-  await expect(page.getByRole("heading", { level: 1, name: "Trust centre" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: "Your information. Your permission. Your choice.",
+    }),
+  ).toBeVisible();
   await page.screenshot({ path: path.join(screensDir, "F5-trust-en.png"), fullPage: true });
 
   await page.goto("/demo");
-  await expect(page.getByRole("heading", { level: 1, name: "Persona picker" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Choose a demo profile" }),
+  ).toBeVisible();
   await page.screenshot({ path: path.join(screensDir, "F5-demo-en.png"), fullPage: true });
 
-  await page.getByRole("button", { name: "Arabic", exact: true }).click();
-  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-  await page.screenshot({ path: path.join(screensDir, "F5-demo-ar.png"), fullPage: true });
-
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.getByRole("button", { name: "دليل التقييم" }).click();
+  await page.getByRole("button", { name: "Evaluation guide" }).click();
   const guide = page.getByRole("dialog");
   await expect(guide).toBeVisible();
-  await guide.screenshot({ path: path.join(screensDir, "F5-guide-ar.png") });
+  await guide.screenshot({ path: path.join(screensDir, "F5-guide-en.png") });
   await page.keyboard.press("Escape");
-
-  await page.goto("/trust");
-  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-  await expect(page.getByRole("heading", { level: 1, name: "مركز الثقة" })).toBeVisible();
-  await page.screenshot({ path: path.join(screensDir, "F5-trust-ar.png"), fullPage: true });
-
-  await page.goto("/");
-  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-  await expect(page.getByRole("link", { name: "المتابعة كضيف" }).first()).toBeVisible();
-  await page.screenshot({ path: path.join(screensDir, "F5-landing-ar.png"), fullPage: true });
 });

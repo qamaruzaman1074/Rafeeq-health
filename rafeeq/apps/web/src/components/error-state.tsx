@@ -29,7 +29,7 @@ export function ErrorState({
     <div
       role="alert"
       data-state="error"
-      className="flex flex-col items-start gap-3 rounded-lg border border-danger-600 bg-sand-50 p-4"
+      className="flex flex-col items-start gap-3 rounded-lg border border-danger-600 bg-elevated p-4"
     >
       <p>{title}</p>
       <div className="flex flex-wrap items-center gap-3">

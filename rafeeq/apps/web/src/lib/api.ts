@@ -1,10 +1,8 @@
 import { z } from "zod";
 
 /**
- * OPEN_QUESTION: `packages/contracts/types.ts` is still an empty openapi-typescript
- * placeholder, so this module validates the documented response envelopes locally.
- * `data` stays generic until generated contract types exist. This file does not
- * declare API endpoints.
+ * HTTP client for `/api/v1` during mock development or a future REST bridge.
+ * Response envelopes are validated locally with Zod; callers supply typed `data`.
  */
 
 const responseMetaSchema = z.object({
@@ -99,7 +97,7 @@ export async function apiRequest<T>(path: string, init?: RequestInit): Promise<A
   }
 
   return {
-    // Caller-supplied until packages/contracts types are generated.
+    // Caller-supplied payload typing.
     data: parsed.data.data as T,
     meta: parsed.data.meta,
   };

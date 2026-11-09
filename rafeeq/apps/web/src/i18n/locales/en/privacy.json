@@ -1,12 +1,36 @@
 {
   "page": {
     "title": "Privacy",
-    "intro": "You control what is shared. Revoking takes effect immediately."
+    "intro": "You control what is shared. Revoking takes effect immediately.",
+    "demo": "This session is a demonstration. The switches below send consent changes to the mock API used in this build. They do not provide production backend security.",
+    "controlsHeading": "Sharing controls",
+    "controlsLead": "Each switch records a consent change in this session. Turn a share off to revoke it. Your own result stays on.",
+    "revokeLead": "Revoke uses the existing confirm dialog. The previous choice is restored if the request fails."
   },
   "loading": "Loading privacy details.",
   "empty": "No sharing details are available for this session.",
   "error": "Privacy details could not be loaded.",
   "retry": "Try again",
+  "explain": {
+    "heading": "What this page covers",
+    "lead": "Sharing is limited to the scopes this product already implements. Research aggregate is listed because the mock matrix includes it, not because a research pipeline is live.",
+    "own": {
+      "title": "Your own result",
+      "body": "You can always see your own result in this session. That switch stays on and cannot be turned off here."
+    },
+    "overlap": {
+      "title": "Overlap with your partner",
+      "body": "When this is on, the overlap note can appear on Results. When it is off, that note is withheld in this session."
+    },
+    "clinic": {
+      "title": "Clinic share",
+      "body": "When this is on, the Care page can send a referral through the existing pathway API. When it is off, that send stays blocked."
+    },
+    "research": {
+      "title": "Research aggregate",
+      "body": "The matrix shows this row as a placeholder. This build does not implement a research share or a research audience."
+    }
+  },
   "matrix": {
     "caption": "Who can see this",
     "item": "Item",
@@ -33,6 +57,7 @@
   },
   "receipt": {
     "heading": "Receipts",
+    "lead": "Each consent change in this session can be downloaded as JSON. The files are the existing receipt records.",
     "download": "Download receipt JSON",
     "revoke": "Revoke receipt",
     "on": "On",
@@ -42,6 +67,7 @@
   },
   "audit": {
     "heading": "Who accessed my data",
+    "lead": "This list is the access log already recorded for the session. It is not a live security monitor.",
     "empty": "No access is recorded for this session.",
     "who": "Who",
     "what": "What",
@@ -63,5 +89,10 @@
       "shares": "Shares",
       "consents": "Consents"
     }
+  },
+  "related": {
+    "heading": "Related pages",
+    "care": "Open Care",
+    "results": "Open Results"
   }
 }

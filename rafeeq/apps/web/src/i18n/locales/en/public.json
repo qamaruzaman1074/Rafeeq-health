@@ -1,0 +1,663 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "howItWorks": "How It Works",
+    "faq": "FAQ",
+    "trustPrivacy": "Privacy",
+    "risk": "Genetic Risk",
+    "conditions": "Conditions",
+    "counselling": "Counselling",
+    "contact": "Contact",
+    "signIn": "Sign In"
+  },
+  "footer": {
+    "about": "About RAFEEQ",
+    "howItWorks": "How It Works",
+    "faq": "FAQs",
+    "privacyPolicy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "statement": "RAFEEQ is an educational and decision-support platform. It does not provide genetic diagnosis, replace laboratory testing, or substitute for professional medical or genetic counselling.",
+    "copyright": "© {{year}} RAFEEQ.",
+    "platformHeading": "Platform",
+    "learnHeading": "Learn",
+    "privacyHeading": "Privacy and legal",
+    "risk": "Understanding Genetic Risk",
+    "conditions": "Inherited Conditions",
+    "counselling": "Genetic Counselling",
+    "contact": "Contact",
+    "trust": "Privacy and Security",
+    "description": "Inherited health education, consent-based sharing and pathways to qualified genetic counselling."
+  },
+  "cta": {
+    "getStarted": "Get Started",
+    "explore": "Explore RAFEEQ",
+    "howItWorks": "How It Works",
+    "understandHowItWorks": "Understand How It Works",
+    "findGuidance": "Find Guidance",
+    "understandResults": "Understand Your Results",
+    "findCounselling": "Find Genetic Counselling"
+  },
+  "brand": {
+    "tagline": "Knowledge without judgement. Guidance without pressure.",
+    "subtitle": "Your information. Your consent. Your decisions.",
+    "description": "RAFEEQ makes inherited health information easier to understand and helps individuals and couples find appropriate guidance."
+  },
+  "about": {
+    "title": "About RAFEEQ",
+    "heroTitle": "Making genetic information easier to understand, while keeping people in control.",
+    "heroIntro": "RAFEEQ was designed around a simple idea: people deserve to understand their genetic health information without being judged, pressured, or overwhelmed.",
+    "tagline": "About RAFEEQ",
+    "purpose": {
+      "heading": "Why RAFEEQ exists",
+      "body": "Genetic screening can help identify inherited health risks, but a test result alone does not guarantee understanding.\n\nIndividuals and couples may receive complex information without knowing what carrier status means, how inheritance works or what questions to ask next.\n\nThese challenges can be more significant in communities where consanguineous marriage is practised and where conversations about inherited conditions may involve family, cultural and personal considerations.\n\nRAFEEQ addresses this gap by connecting genetic education, understandable screening information, privacy-conscious sharing and counselling navigation in one accessible platform."
+    },
+    "mission": {
+      "heading": "Our mission",
+      "body": "To make inherited health information understandable and accessible so individuals and families can explore potential risks and seek appropriate professional guidance with confidence."
+    },
+    "vision": {
+      "heading": "Our vision",
+      "body": "A future in which every person can access clear, respectful and reliable information about inherited health risks and make informed decisions without stigma or pressure."
+    },
+    "different": {
+      "heading": "What makes RAFEEQ different?",
+      "people": {
+        "title": "People before data",
+        "body": "We recognise that genetic information is personal and may affect entire families. Communication must be sensitive, respectful and understandable."
+      },
+      "understanding": {
+        "title": "Understanding before decisions",
+        "body": "We believe people need clear explanations before they can make meaningful decisions about their health."
+      },
+      "judgement": {
+        "title": "Guidance without judgement",
+        "body": "We do not promote or oppose any marriage or family-planning choice. We support access to information and professional counselling."
+      },
+      "privacy": {
+        "title": "Privacy through responsibility",
+        "body": "Genetic information deserves careful handling, meaningful consent and appropriate access controls."
+      }
+    },
+    "approach": {
+      "heading": "Our approach",
+      "intro": "RAFEEQ brings together:",
+      "step1": "Accessible genetic education.",
+      "step2": "Support for understanding screening results.",
+      "step3": "Explanations of relevant couple-level inherited risk.",
+      "step4": "Consent-conscious information sharing.",
+      "step5": "Connections to qualified counselling pathways."
+    },
+    "commitment": {
+      "heading": "Our commitment",
+      "body": "We aim to make complex health information easier to understand while recognising the limits of technology.\n\nRAFEEQ does not diagnose inherited conditions, guarantee outcomes or replace qualified healthcare professionals."
+    },
+    "disclaimer": "Knowledge without judgement. Guidance without pressure.",
+    "imageAlt": "Two parents smiling and playing with their baby at home. Stock photograph.",
+    "storyHeading": "Why RAFEEQ exists",
+    "story": [
+      "Genetic screening can reveal important information about inherited conditions. However, the meaning of an individual finding and its potential implications for a couple may be difficult to understand without clear communication and appropriate professional support.",
+      "RAFEEQ brings education, consent-based information sharing, understandable risk explanations, and pathways to genetic counselling into one experience.",
+      "Our approach respects personal values, family relationships, cultural context, and individual privacy."
+    ],
+    "principlesHeading": "Our principles",
+    "principlesList": [
+      {
+        "title": "Clarity",
+        "body": "Explain complex information in understandable language."
+      },
+      {
+        "title": "Respect",
+        "body": "Never stigmatise cultural practices or family relationships."
+      },
+      {
+        "title": "Privacy",
+        "body": "Keep personal genetic information private by default."
+      },
+      {
+        "title": "Consent",
+        "body": "Let individuals decide what they share."
+      },
+      {
+        "title": "Professional guidance",
+        "body": "Recognise the limits of automated explanations."
+      },
+      {
+        "title": "Informed choice",
+        "body": "Support decisions without directing or coercing them."
+      }
+    ],
+    "visionHeading": "Our vision",
+    "visionBody": "A future where individuals and families can understand inherited health risks, access appropriate guidance, and make informed decisions with dignity and confidence."
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "heroTitle": "From screening information to informed, supported decisions.",
+    "heroIntro": "RAFEEQ follows six stages. You decide how far to go, and nothing is shared unless you choose to share it.",
+    "step1": {
+      "heading": "Step 1 — Start with understanding",
+      "intro": "Explore introductory information about:",
+      "bullet1": "Genes and inherited conditions.",
+      "bullet2": "Genetic carrier status.",
+      "bullet3": "Inheritance patterns.",
+      "bullet4": "The purpose and limitations of screening."
+    },
+    "step2": {
+      "heading": "Step 2 — Review screening information",
+      "intro": "Where supported information is available, RAFEEQ helps explain:",
+      "bullet1": "What a reported result means.",
+      "bullet2": "What carrier status does and does not indicate.",
+      "bullet3": "Which questions may require clinical interpretation.",
+      "bullet4": "Why additional testing or professional advice may be appropriate."
+    },
+    "step3": {
+      "heading": "Step 3 — Explore couple-level considerations",
+      "body": "Some inherited conditions depend on the genetic contributions of both biological parents.\n\nFor example, when both biological parents carry relevant disease-associated variants in the same autosomal recessive condition, there may be a chance of an affected child in each pregnancy.\n\nThe actual risk must be interpreted using the specific condition, variants and clinical evidence.\n\nRAFEEQ helps explain this concept without treating every condition or couple as the same."
+    },
+    "step4": {
+      "heading": "Step 4 — Seek professional guidance",
+      "intro": "Genetic counselling can help individuals and couples:",
+      "bullet1": "Understand their specific results.",
+      "bullet2": "Discuss family history.",
+      "bullet3": "Explore inheritance patterns.",
+      "bullet4": "Ask questions about available options.",
+      "bullet5": "Make informed personal decisions."
+    },
+    "distinction": {
+      "heading": "Important distinction",
+      "body": "A carrier result is not automatically a diagnosis. A potential inherited risk is not a prediction that a child will definitely have a condition.\n\nClinical interpretation should be provided by qualified professionals."
+    },
+    "imageAlt": "A couple talking with a professional in a calm, bright room. Stock photograph.",
+    "stageLabel": "Stage {{n}}",
+    "stages": [
+      {
+        "title": "Learn",
+        "body": "Understand inherited conditions, carrier status, inheritance patterns, and the role of genetic screening.",
+        "action": "Learn the basics"
+      },
+      {
+        "title": "Review your information",
+        "body": "Access your individual screening information through a private account. Your information is not automatically visible to a partner or family member.",
+        "action": "Try the demo dashboard"
+      },
+      {
+        "title": "Understand the findings",
+        "body": "Explore plain-language explanations of findings, limitations, and uncertainty.",
+        "action": "Browse inherited conditions"
+      },
+      {
+        "title": "Choose whether to connect",
+        "body": "Invite a partner only when you want to. Each person controls their own information and must explicitly consent before relevant findings are shared.",
+        "action": "See privacy controls"
+      },
+      {
+        "title": "Understand potential couple-level risk",
+        "body": "When the relevant information from both biological partners is available and clinically appropriate, RAFEEQ can demonstrate how inherited risk may be explained.",
+        "action": "Understand couple-level risk"
+      },
+      {
+        "title": "Access professional support",
+        "body": "Complex, uncertain, or high-impact findings should be discussed with a qualified genetics professional.",
+        "action": "Explore genetic counselling"
+      }
+    ],
+    "noteHeading": "Education, not diagnosis",
+    "note": "RAFEEQ explains and supports. It does not diagnose, interpret results clinically, or recommend personal decisions."
+  },
+  "trustPublic": {
+    "title": "Trust & Privacy",
+    "heroTitle": "Your information. Your permission. Your choice.",
+    "heroIntro": "Genetic information is personal. RAFEEQ is designed to give individuals clear control over access and sharing.",
+    "principlesHeading": "Privacy principles",
+    "principles": [
+      "Private by default.",
+      "Explicit consent.",
+      "Individual ownership of personal results.",
+      "Limited information sharing.",
+      "Clear access permissions.",
+      "Transparent sharing history.",
+      "Ability to revoke future sharing.",
+      "No automatic family access."
+    ],
+    "faqHeading": "How privacy works in the demo",
+    "explain": [
+      {
+        "q": "What information the demo stores",
+        "a": "Only fictional demo profiles, example results and sharing settings. Demo state is kept in your browser session and can be reset."
+      },
+      {
+        "q": "Why information is needed",
+        "a": "Results are needed to show explanations. Sharing settings are needed to decide what a partner or clinic may see."
+      },
+      {
+        "q": "Who can access it",
+        "a": "Only you, by default. A partner or clinic sees only the specific information you switch on."
+      },
+      {
+        "q": "How partner sharing works",
+        "a": "Each partner chooses separately what to share. One partner never sees the other's full report."
+      },
+      {
+        "q": "How permissions can be changed",
+        "a": "From Privacy in your dashboard. Every change is recorded in the activity history with a time."
+      },
+      {
+        "q": "What happens when consent is revoked",
+        "a": "Future access stops immediately. Revoking cannot undo information that someone has already viewed or kept."
+      },
+      {
+        "q": "What the demo does not do",
+        "a": "It does not store real genetic data, connect to laboratories or hospitals, or send information to third-party services."
+      }
+    ],
+    "productionHeading": "Demo controls and production security",
+    "production": "These controls demonstrate consent and access design. A production service would also need independently verified security, encryption, hosting and legal compliance. RAFEEQ does not claim any of these today."
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "intro": "Answers to common questions about RAFEEQ, genetic information, privacy and counselling.",
+    "searchLabel": "Search questions",
+    "searchPlaceholder": "Type a keyword…",
+    "noResults": "No questions match your search.",
+    "previewLink": "View All FAQs",
+    "categories": {
+      "general": {
+        "title": "General",
+        "items": [
+          {
+            "id": "what-is-rafeeq",
+            "q": "What is RAFEEQ?",
+            "a": "RAFEEQ is an educational and decision-support platform that helps people understand inherited disease risk, explore screening information, and find pathways to genetic counselling."
+          },
+          {
+            "id": "is-lab",
+            "q": "Is RAFEEQ a genetic testing laboratory?",
+            "a": "No. RAFEEQ does not perform laboratory genetic testing. It is designed to support understanding and access to appropriate guidance."
+          },
+          {
+            "id": "who-can-use",
+            "q": "Who can use RAFEEQ?",
+            "a": "Individuals and couples who want to understand inherited conditions, screening concepts, and possible next steps."
+          }
+        ]
+      },
+      "genetics": {
+        "title": "Genetic information",
+        "items": [
+          {
+            "id": "carrier-status",
+            "q": "What does carrier status mean?",
+            "a": "A carrier has a genetic variant associated with a particular inherited condition. For many recessive conditions, carriers do not have the condition themselves."
+          },
+          {
+            "id": "carrier-child",
+            "q": "Does being a carrier mean my child will have the condition?",
+            "a": "No. A carrier finding alone does not establish that a future child will have an inherited condition. Risk depends on the relevant findings from both biological parents, the gene, variants, and inheritance pattern."
+          },
+          {
+            "id": "consanguinity",
+            "q": "Does consanguineous marriage mean a child will have an inherited condition?",
+            "a": "No. A biological relationship between partners does not establish that a child will have a particular inherited condition. Appropriate screening and professional interpretation can help clarify relevant risks."
+          },
+          {
+            "id": "diagnose",
+            "q": "Can RAFEEQ diagnose genetic conditions?",
+            "a": "No. RAFEEQ provides educational explanations and decision support. Diagnosis and clinical interpretation require appropriate clinical assessment."
+          }
+        ]
+      },
+      "privacy": {
+        "title": "Partner and family privacy",
+        "items": [
+          {
+            "id": "partner-see",
+            "q": "Can my partner automatically see my screening results?",
+            "a": "No. Personal results are private by default. Sharing requires your explicit permission."
+          },
+          {
+            "id": "family-access",
+            "q": "Can my family access my information?",
+            "a": "No. Family members do not receive access automatically."
+          },
+          {
+            "id": "revoke",
+            "q": "Can I revoke sharing permission?",
+            "a": "Yes. You can revoke future access to information you previously chose to share. Revoking cannot undo information that has already been viewed or independently kept by the other person."
+          }
+        ]
+      },
+      "counselling": {
+        "title": "Counselling and next steps",
+        "items": [
+          {
+            "id": "when-professional",
+            "q": "When should I speak to a genetics professional?",
+            "a": "Professional guidance may be important when findings are complex, inconclusive, potentially high-impact, or require clinical interpretation."
+          },
+          {
+            "id": "marriage",
+            "q": "Does RAFEEQ recommend whether people should marry?",
+            "a": "No. RAFEEQ does not recommend or discourage marriage. It supports understanding, personal autonomy, and informed decision-making."
+          },
+          {
+            "id": "treatment",
+            "q": "Does RAFEEQ provide reproductive treatment?",
+            "a": "No. It can provide educational information about pathways and options, but it does not provide treatment or replace professional care."
+          }
+        ]
+      }
+    }
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "heroTitle": "Your information deserves respect.",
+    "intro": "RAFEEQ recognises that genetic and family health information is personal. We aim to handle information responsibly, explain its intended use and support meaningful consent.",
+    "sections": {
+      "collect": {
+        "heading": "1. Information we may process",
+        "body": "Depending on the features used, information may include basic account or profile information; information voluntarily entered by a user; genetic screening information provided by a user; information related to consent and sharing preferences; and technical information necessary to operate the service.\n\nIn the demo, language, theme and reading-mode preferences may be stored in your browser. Demo sessions use temporary in-browser state and fictional example profiles."
+      },
+      "use": {
+        "heading": "2. How information is used",
+        "body": "Information may be used to provide requested platform features, explain educational content, support relevant workflows and improve service functionality.\n\nRAFEEQ must not use sensitive genetic information for unrelated purposes without an appropriate lawful basis and required consent."
+      },
+      "consent": {
+        "heading": "3. Consent and sharing",
+        "body": "Genetic information may reveal details relevant to biological relatives as well as the person tested. Sharing should therefore be carefully considered. Users should understand what information is being shared, with whom and for what purpose before using a sharing feature.\n\nIn the couple privacy screens, separate sharing scopes are modelled (e.g. overlap with partner, sharing with clinic). Revocation is immediate in the demo UI and logged in the audit timeline."
+      },
+      "access": {
+        "heading": "4. Access and permissions",
+        "body": "Access depends on user roles, permissions and the features in use. In the demo, couple, counsellor, analyst and admin areas are separated by role. Being a partner, family member or healthcare professional does not by itself give someone access to another person's results."
+      },
+      "minimise": {
+        "heading": "5. Data minimisation",
+        "body": "RAFEEQ aims to collect and process only information needed to provide the requested functionality."
+      },
+      "storage": {
+        "heading": "6. Storage and security",
+        "body": "Information security depends on the systems and safeguards in use. This policy is not a guarantee of encryption, secure hosting or regulatory certification. The demo runs in your browser with example data."
+      },
+      "retention": {
+        "heading": "7. Retention and deletion",
+        "body": "Retention periods and deletion procedures will be defined for the live service in line with applicable legal requirements. In the demo, session data stays in your browser and can be reset at any time."
+      },
+      "thirdParty": {
+        "heading": "8. Third-party services",
+        "body": "Fonts are self-hosted. Any external service that processes user information will be identified in this policy."
+      },
+      "rights": {
+        "heading": "9. Your choices and rights",
+        "body": "Users will be informed of the available rights and procedures for access, correction, consent withdrawal and deletion, subject to applicable law. Questions can be sent to help@rafeeq.health."
+      },
+      "contact": {
+        "heading": "10. Contact",
+        "body": "A verified privacy contact and organisation identity must be added before publication."
+      }
+    }
+  },
+  "terms": {
+    "title": "Terms of Use",
+    "intro": "By using the service, you acknowledge that you have read and understood the applicable terms and privacy information.",
+    "sections": {
+      "about": {
+        "heading": "1. About RAFEEQ",
+        "body": "RAFEEQ is an educational and guidance platform intended to help users understand inherited health risks, explore available genetic screening information and navigate appropriate professional support."
+      },
+      "acceptance": {
+        "heading": "2. Acceptance",
+        "body": "By using the service, you acknowledge that you have read and understood the applicable terms and privacy information."
+      },
+      "educational": {
+        "heading": "3. Educational purpose",
+        "body": "RAFEEQ provides educational information and support tools. It does not provide a medical diagnosis, replace genetic counselling or establish a clinician-patient relationship."
+      },
+      "noGuarantee": {
+        "heading": "4. No guarantee of clinical outcomes",
+        "body": "Information presented by the platform may be limited by the quality, completeness and interpretation of available data. Users should consult qualified healthcare professionals for individual medical decisions."
+      },
+      "responsibilities": {
+        "heading": "5. User responsibilities",
+        "body": "Users should provide accurate information where requested; avoid entering another person's sensitive information without appropriate permission; protect their account credentials where applicable; respect other people's privacy; and use the service lawfully and responsibly."
+      },
+      "genetic": {
+        "heading": "6. Genetic information and interpretation",
+        "body": "Genetic results require condition-specific interpretation. The platform must not be treated as a substitute for clinical confirmation, medical advice or professional assessment."
+      },
+      "sharing": {
+        "heading": "7. Sharing and consent",
+        "body": "Users should review sharing permissions before disclosing genetic or family information. Available sharing features are governed by the actual service functionality and applicable privacy policy."
+      },
+      "availability": {
+        "heading": "8. Service availability",
+        "body": "RAFEEQ may be updated, modified or temporarily unavailable. No uninterrupted availability is guaranteed unless expressly stated."
+      },
+      "ip": {
+        "heading": "9. Intellectual property",
+        "body": "The website's original content, design and software are subject to applicable intellectual property rights."
+      },
+      "liability": {
+        "heading": "10. Limitation of liability",
+        "body": "Limitations of liability will be set out in the final terms in accordance with applicable law."
+      },
+      "changes": {
+        "heading": "11. Changes",
+        "body": "These terms may be updated as the service evolves. Material changes should be communicated appropriately."
+      },
+      "governing": {
+        "heading": "12. Governing law and contact",
+        "body": "The governing law, jurisdiction, legal entity name and official contact details will be stated in these terms."
+      }
+    }
+  },
+  "home": {
+    "counselling": {
+      "heading": "Technology can explain. People can guide.",
+      "body": "Genetic information can raise personal and complex questions. A qualified genetic counsellor can help explain results, discuss inheritance patterns, explore family history and consider available options.\n\nRAFEEQ encourages appropriate professional guidance rather than replacing it.",
+      "action": "Explore Counselling Support"
+    },
+    "faqPreview": {
+      "heading": "Frequently asked questions",
+      "body": "Short answers to questions people ask after screening."
+    }
+  },
+  "risk": {
+    "title": "Understanding Genetic Risk",
+    "eyebrow": "Genetic risk explained",
+    "heroTitle": "Understanding genetic risk, clearly and without judgement.",
+    "heroIntro": "Carrier status, inheritance patterns and couple-level risk are easy to confuse. This page explains each one in plain language.",
+    "carrier": {
+      "heading": "What does being a carrier mean?",
+      "body": "A carrier has a genetic variant associated with a particular inherited condition. In many recessive conditions, carriers do not have the condition themselves. However, if both biological parents carry relevant disease-associated variants in the same gene, there may be a chance that a child inherits the condition.",
+      "note": "Being a carrier does not automatically mean that a person is ill or that their future children will have an inherited condition."
+    },
+    "couple": {
+      "heading": "Why one result is not enough to determine a couple's risk.",
+      "body": "An individual screening result provides information about that individual. Estimating potential risk for a child generally requires consideration of both biological parents' relevant findings, the specific gene and variants involved, the inheritance pattern, and clinical interpretation."
+    },
+    "patternsHeading": "Inheritance patterns",
+    "patternsIntro": "Inheritance patterns differ, and not every inherited condition follows the same model.",
+    "patterns": [
+      {
+        "title": "Autosomal recessive",
+        "body": "A child is generally affected only when they inherit a relevant variant in the same gene from each biological parent. People with one variant are usually carriers."
+      },
+      {
+        "title": "Autosomal dominant",
+        "body": "One copy of a relevant variant can be enough to cause a condition. A person with the variant may pass it on, and effects can vary between people."
+      },
+      {
+        "title": "X-linked",
+        "body": "The relevant gene is on the X chromosome. Because of this, the chance and the effects can differ between male and female children."
+      }
+    ],
+    "example": {
+      "heading": "Example: autosomal recessive inheritance",
+      "intro": "When both biological parents carry relevant pathogenic variants in the same gene associated with an autosomal recessive condition, a typical model for each pregnancy is:",
+      "outcomes": [
+        {
+          "value": "25%",
+          "label": "chance of an affected child"
+        },
+        {
+          "value": "50%",
+          "label": "chance of a child who is a carrier"
+        },
+        {
+          "value": "25%",
+          "label": "chance of a child who inherits neither familial variant"
+        }
+      ],
+      "caveat": "This example applies only to the relevant autosomal recessive situation. It is not a universal risk estimate for every couple or every inherited condition. Each pregnancy is an independent event."
+    },
+    "family": {
+      "heading": "Understanding family relationships and inherited risk without judgement.",
+      "body": [
+        "Biological relatives may have a higher chance of sharing certain inherited variants because they have common ancestors. However, a family relationship alone does not establish that a child will inherit a particular condition.",
+        "Individual and couple-level screening information, family history, and appropriate professional interpretation are important."
+      ]
+    },
+    "diagnosis": {
+      "heading": "Risk is not diagnosis",
+      "body": "A calculated or estimated risk is not the same as a diagnosis. Screening can identify findings that may need further assessment, but it cannot always establish whether a person or future child has a condition."
+    },
+    "next": {
+      "heading": "After screening: confirmatory assessment and options",
+      "items": [
+        "Screening and diagnosis are different. Some findings need confirmatory assessment before any conclusion is drawn.",
+        "Ambiguous or inconclusive results should be interpreted by a qualified professional.",
+        "Genetic counselling can help you understand findings, uncertainty and available options.",
+        "Options may include further testing, specialist consultation and reproductive-genomics services where available. Which options are appropriate depends on individual circumstances, clinical context, availability and personal values."
+      ],
+      "note": "RAFEEQ does not recommend any particular reproductive decision and does not claim that a specific service is available at any institution."
+    },
+    "imageAlt": "A modern genetics laboratory with sequencing equipment. Stock photograph."
+  },
+  "conditions": {
+    "title": "Inherited Conditions",
+    "eyebrow": "Educational directory",
+    "heroTitle": "Inherited conditions, explained in plain language.",
+    "heroIntro": "A short educational guide to some inherited conditions that are often discussed in screening programmes.",
+    "labels": {
+      "pattern": "Inheritance pattern",
+      "carrier": "What carrier status may mean",
+      "screening": "Why screening may be relevant",
+      "advice": "When professional advice may be needed"
+    },
+    "items": [
+      {
+        "id": "beta-thalassemia",
+        "name": "Beta-thalassemia",
+        "summary": "Beta-thalassemia is an inherited blood disorder affecting hemoglobin production. Some people carry a variant without having the severe form of the condition. If both biological parents carry relevant pathogenic variants in the HBB gene, their children may have an increased chance of inheriting a clinically significant form.",
+        "pattern": "Usually autosomal recessive (HBB gene).",
+        "carrier": "A carrier usually does not have the severe form, though some carriers have mild changes in blood tests.",
+        "screening": "Blood tests and genetic screening can identify carrier status before decisions about having children.",
+        "advice": "When both partners have relevant findings, or when a blood test or genetic result is unclear."
+      },
+      {
+        "id": "sickle-cell",
+        "name": "Sickle cell disease",
+        "summary": "Sickle cell disease is an inherited blood disorder involving hemoglobin. The implications of carrier findings depend on the variants inherited from both biological parents.",
+        "pattern": "Autosomal recessive (HBB gene).",
+        "carrier": "Carriers (sometimes called sickle cell trait) usually do not have sickle cell disease.",
+        "screening": "Screening can show which hemoglobin variants each partner carries, which matters for how variants may combine.",
+        "advice": "When both partners carry relevant hemoglobin variants, including different variants that can combine."
+      },
+      {
+        "id": "sma",
+        "name": "Spinal muscular atrophy",
+        "summary": "Spinal muscular atrophy is a genetic condition affecting motor neurons and muscle function. Many forms are associated with changes in the SMN1 gene. Screening and interpretation can involve technical limitations and residual risk.",
+        "pattern": "Most forms are autosomal recessive (SMN1 gene).",
+        "carrier": "Carriers usually have no symptoms. Some carrier arrangements are hard to detect with standard tests.",
+        "screening": "Carrier screening can estimate SMN1 copy number, but results can have technical limitations.",
+        "advice": "When a result is inconclusive or reports residual risk, or when there is a family history."
+      },
+      {
+        "id": "cystic-fibrosis",
+        "name": "Cystic fibrosis",
+        "summary": "Cystic fibrosis is an inherited condition associated with variants in the CFTR gene. Carrier findings require consideration of both biological parents' relevant variants.",
+        "pattern": "Autosomal recessive (CFTR gene).",
+        "carrier": "Carriers usually do not have cystic fibrosis.",
+        "screening": "Panels test for selected CFTR variants. Which variants are included differs between panels.",
+        "advice": "When one or both partners have a CFTR finding, or when a panel does not cover variants common in your family background."
+      }
+    ],
+    "disclaimer": "These descriptions are general educational information. They do not establish a diagnosis or provide an individualised risk assessment. Screening panels differ, and not every panel includes every condition."
+  },
+  "counsellingPage": {
+    "title": "Genetic Counselling",
+    "eyebrow": "Genetic counselling",
+    "heroTitle": "You do not have to interpret complex genetic information alone.",
+    "heroIntro": "Genetic counselling helps individuals and couples understand genetic information, inheritance patterns, possible implications, and available options. It can also help people consider uncertainty and personal values without pressure.",
+    "imageAlt": "Two healthcare professionals speaking with a couple in a clinic consultation room. Stock photograph.",
+    "whenHeading": "When counselling may help",
+    "when": [
+      "A carrier finding is identified.",
+      "Both partners have potentially relevant findings.",
+      "Results are inconclusive.",
+      "A finding has significant potential implications.",
+      "Family history raises questions.",
+      "A person needs help understanding screening limitations.",
+      "Someone wants to explore available reproductive or clinical options."
+    ],
+    "whatHeading": "What counselling can involve",
+    "what": [
+      "Reviewing relevant screening information.",
+      "Explaining inheritance patterns.",
+      "Discussing possible risks and uncertainty.",
+      "Reviewing whether confirmatory assessment is appropriate.",
+      "Explaining available options.",
+      "Supporting informed, values-sensitive decisions."
+    ],
+    "profilesHeading": "Demonstration counsellor profiles",
+    "profilesIntro": "These profiles show how counsellor information could appear. They are not real people.",
+    "fictionalLabel": "FICTIONAL DEMONSTRATION PROFILE — NOT A REAL HEALTHCARE PROFESSIONAL.",
+    "profiles": [
+      {
+        "name": "Dr. Layla Al Mansoori",
+        "focus": "Carrier screening and couple-level explanations"
+      },
+      {
+        "name": "Dr. Omar Al Nuaimi",
+        "focus": "Hemoglobin disorders and family history"
+      },
+      {
+        "name": "Dr. Mariam Hassan",
+        "focus": "Inconclusive findings and screening limitations"
+      }
+    ],
+    "cta": "Explore Your Counselling Pathway",
+    "ctaNote": "The pathway is a demonstration. No real request is sent and no appointment is booked."
+  },
+  "contact": {
+    "title": "Contact",
+    "eyebrow": "Contact",
+    "heroTitle": "Questions about RAFEEQ?",
+    "heroIntro": "Send us a question about RAFEEQ. Please do not include genetic results or other health information.",
+    "name": "Your name",
+    "email": "Email address",
+    "topic": "Topic",
+    "message": "Message",
+    "topics": {
+      "general": "General question",
+      "privacy": "Privacy question",
+      "accessibility": "Accessibility feedback",
+      "feedback": "Product feedback"
+    },
+    "submit": "Prepare message",
+    "errors": {
+      "name": "Enter your name.",
+      "email": "Enter a valid email address.",
+      "message": "Enter a message of at least 10 characters."
+    },
+    "success": "Your message is ready. Online sending is not available yet, so please send it to {{email}} from your email app.",
+    "notice": "Do not share genetic results, medical records or other sensitive health information through this form.",
+    "urgentHeading": "Need medical advice?",
+    "urgent": "RAFEEQ cannot respond to medical questions. Please contact a qualified healthcare professional or your local health service.",
+    "openEmail": "Open in your email app",
+    "detailsHeading": "Contact details",
+    "emailLabel": "Email",
+    "phoneLabel": "Telephone",
+    "phoneBadge": "Demo placeholder",
+    "phoneNote": "Temporary demo numbers. They are not monitored and will be replaced when real contact numbers are provided."
+  }
+}

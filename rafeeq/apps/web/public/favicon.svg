@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img">
-  <title>Rafeeq</title>
-  <rect width="32" height="32" rx="8" fill="#FBF8F2"/>
-  <circle cx="13" cy="16" r="6" fill="#0F5C63"/>
-  <circle cx="19" cy="16" r="6" fill="#1F8A8F"/>
+  <title>RAFEEQ</title>
+  <rect width="32" height="32" rx="8" fill="#103D40" />
+  <circle cx="13" cy="16" r="6" fill="none" stroke="#72B8AA" stroke-width="1.75" opacity="0.7" />
+  <circle cx="19" cy="16" r="6" fill="none" stroke="#D9EFE8" stroke-width="1.75" />
+  <circle cx="16" cy="16" r="2" fill="#D5A75A" />
 </svg>

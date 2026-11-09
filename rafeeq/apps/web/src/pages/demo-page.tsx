@@ -3,10 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useLiteracy } from "@/app/literacy";
 import { setSessionRole } from "@/app/session";
+import { SiteContainer } from "@/components/layout/site-container";
 import { PageHeader } from "@/components/layout/page-header";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { EvaluationGuide } from "@/features/evaluation-guide";
 import { startCounsellorSession } from "@/features/clinic/session";
 import { startAnalystSession } from "@/features/insights/session";
@@ -18,6 +17,16 @@ registerInsightsCatalog();
 import { startGuestSession } from "@/features/guest-session";
 import { personas } from "@/features/personas";
 import { ApiRequestError } from "@/lib/api";
+import { cn } from "@/lib/utils";
+
+function initials(names: string): string {
+  return names
+    .split(/\s+/)
+    .filter((word) => /^\p{L}/u.test(word))
+    .map((word) => word.charAt(0))
+    .join("")
+    .slice(0, 2);
+}
 
 export function Component() {
   const { t } = useTranslation();
@@ -108,7 +117,7 @@ export function Component() {
   };
 
   return (
-    <div className="ms-auto me-auto flex w-full max-w-5xl flex-col gap-8 ps-4 pe-4 py-8 sm:ps-6 sm:pe-6 sm:py-12">
+    <SiteContainer className="flex flex-col gap-8 py-8 sm:py-12">
       <PageHeader
         title={t("demo.title", { ns: "landing" })}
         description={t("demo.intro", { ns: "landing" })}
@@ -157,43 +166,70 @@ export function Component() {
           {t("analystFailed", { ns: "errors" })}
         </p>
       ) : null}
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {personas.map((persona) => (
-          <li key={persona.id}>
-            <Card className="h-full">
-              <article className="flex h-full flex-col">
-                <CardHeader>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h2 className="text-xl font-semibold text-teal-900">{persona.names}</h2>
-                    <Badge variant="notice">{t("demo.draft", { ns: "landing" })}</Badge>
-                  </div>
-                  <p lang="en" dir="ltr">
-                    {persona.story}
-                  </p>
-                  <h3 className="text-lg font-semibold text-teal-900">
-                    {t("demo.willSee", { ns: "landing" })}
-                  </h3>
-                  <p lang="en" dir="ltr">
-                    {persona.tests}
-                  </p>
-                </CardHeader>
-                <CardContent className="mt-auto">
-                  <Button
-                    className="w-full"
-                    aria-busy={pendingId === persona.id}
-                    disabled={pendingId !== null}
-                    onClick={() => {
-                      choose(persona.id);
-                    }}
+      <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {personas.map((persona) => {
+          const busy = pendingId === persona.id;
+          return (
+            <li key={persona.id} className="flex">
+              <button
+                type="button"
+                data-persona={persona.id}
+                aria-busy={busy}
+                disabled={pendingId !== null}
+                onClick={() => {
+                  choose(persona.id);
+                }}
+                className={cn(
+                  "persona-card flex w-full flex-col gap-4 rounded-xl p-5 text-start disabled:cursor-wait sm:p-6",
+                  pendingId !== null && !busy && "opacity-60",
+                )}
+              >
+                <span className="flex items-center gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="persona-mark inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary text-sm font-semibold text-teal-900"
                   >
-                    {t("demo.enter", { ns: "landing", name: persona.names })}
-                  </Button>
-                </CardContent>
-              </article>
-            </Card>
-          </li>
-        ))}
+                    {initials(persona.names)}
+                  </span>
+                  <span className="text-xl font-semibold text-teal-900">{persona.names}</span>
+                </span>
+                <span className="flex flex-col gap-3">
+                  <span className="text-base leading-relaxed text-ink-900">
+                    {t(`demo.personas.${persona.id}.summary`, { ns: "landing" })}
+                  </span>
+                  <span className="flex flex-col gap-1">
+                    <span className="text-sm font-semibold text-teal-900">
+                      {t("demo.willSee", { ns: "landing" })}
+                    </span>
+                    <span className="text-sm leading-relaxed text-ink-600">
+                      {t(`demo.personas.${persona.id}.explore`, { ns: "landing" })}
+                    </span>
+                  </span>
+                </span>
+                <span className="mt-auto flex items-center justify-between gap-3 border-t border-border-subtle pt-4 text-base font-semibold text-teal-700">
+                  <span>
+                    {busy
+                      ? t("demo.opening", { ns: "landing" })
+                      : t("demo.enter", { ns: "landing", name: persona.names })}
+                  </span>
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className="persona-arrow h-5 w-5 shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </button>
+            </li>
+          );
+        })}
       </ul>
-    </div>
+    </SiteContainer>
   );
 }

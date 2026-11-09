@@ -4,7 +4,7 @@
     "placeholder": ""
   },
   "content": {
-    "missing": "OPEN_QUESTION"
+    "missing": "Not available yet"
   },
   "common": {
     "close": "Close",
@@ -12,6 +12,20 @@
     "languageName": {
       "en": "English",
       "ar": "Arabic"
+    },
+    "languageCompact": {
+      "en": "English (EN)",
+      "ar": "العربية (AR)"
+    },
+    "brand": {
+      "wordmark": "RAFEEQ"
+    },
+    "theme": {
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "toLight": "Switch to light theme",
+      "toDark": "Switch to dark theme"
     },
     "numerals": {
       "label": "Numerals",
@@ -22,13 +36,44 @@
   "shell": {
     "skip": "Skip to content",
     "offline": "You are offline. This screen can stay open. New information is not loaded.",
-    "syntheticNotice": "Synthetic data, not medical advice.",
+    "syntheticNotice": "Demo environment with fictional data. Not medical advice.",
     "literacy": {
       "label": "Reading mode",
       "standard": "Standard",
       "simple": "Simple",
       "voice": "Voice"
-    }
+    },
+    "nav": {
+      "label": "Pages",
+      "overview": "Overview",
+      "results": "Results",
+      "learn": "Learn",
+      "check": "Check",
+      "privacy": "Privacy",
+      "care": "Care",
+      "more": "More",
+      "moreBody": "Your report, partner sharing, questions, notifications and settings.",
+      "together": "Together",
+      "ask": "Ask",
+      "settings": "Settings",
+      "report": "My report",
+      "partner": "Partner",
+      "notifications": "Notifications",
+      "groups": {
+        "main": "Main",
+        "sharing": "Results & sharing",
+        "account": "Account",
+        "display": "Display"
+      }
+    },
+    "session": {
+      "guest": "Demo session",
+      "current": "Current session",
+      "none": "No session on this device.",
+      "noPersona": "No profile selected.",
+      "choose": "Switch profile"
+    },
+    "demoLabel": "Demo example"
   },
   "routes": {
     "settings": "Settings",
@@ -44,7 +89,7 @@
   "styleguide": {
     "documentTitle": "Rafeeq design system",
     "title": "Design system",
-    "intro": "Colour, type, and components in English and Arabic.",
+    "intro": "Colour, type, and components.",
     "documentStatus": "Document language {{lang}}, direction {{dir}}.",
     "language": {
       "en": "English",
@@ -149,7 +194,7 @@
       "heroTitle": "Calm clarity for inherited risk",
       "heroBody": "Premium surfaces with ivory, mint, and deep teal. Generous spacing for bilingual reading.",
       "heroAction": "Explore the demo",
-      "heroAside": "Synthetic data only. No clinical decisions on this screen.",
+      "heroAside": "Example data only. No clinical decisions on this screen.",
       "pageEyebrow": "App area",
       "pageTitle": "Your pathway",
       "pageBody": "Page headers separate navigation from content with a soft rule.",

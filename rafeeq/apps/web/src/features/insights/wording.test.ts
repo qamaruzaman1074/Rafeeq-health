@@ -54,13 +54,6 @@ describe("insights wording", () => {
           "utf8",
         ),
       },
-      {
-        file: "ar/insights.json",
-        text: readFileSync(
-          fileURLToPath(new URL("../../i18n/locales/ar/insights.json", import.meta.url)),
-          "utf8",
-        ),
-      },
     ];
     const hits: string[] = [];
     for (const source of sources) {

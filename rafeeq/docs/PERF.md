@@ -4,7 +4,7 @@ Measured on 2026-11-08 from the production build of `apps/web` (`npm run build`)
 
 ## Method
 
-Vite preview does not gzip. The scores below are from a local static server that gzip-encodes every response, which is how Azure Static Web Apps serves the build. Lighthouse 12.8.2, mobile form factor, default simulated throttling, Playwright Chromium (`chromium-1254`), headless. Categories: performance and accessibility.
+Vite preview does not gzip. The scores below are from a local static server that gzip-encodes every response (similar to gzipped static hosting such as Firebase Hosting). Lighthouse 12.8.2, mobile form factor, default simulated throttling, Playwright Chromium (`chromium-1254`), headless. Categories: performance and accessibility.
 
 Role-gated routes redirect to `/` on a cold load. The session lives in memory, and Lighthouse starts a fresh browser, so `/app`, `/clinic`, `/insights`, and `/admin` were not scored as themselves.
 

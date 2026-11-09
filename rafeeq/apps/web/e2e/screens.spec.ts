@@ -48,11 +48,7 @@ async function clientGo(page: Page, href: string): Promise<void> {
   await expect(page.locator("[data-screen]")).toHaveAttribute("data-screen", expected);
 }
 
-async function capture(
-  page: Page,
-  locale: "en" | "ar",
-  viewport: keyof typeof viewports,
-): Promise<void> {
+async function capture(page: Page, locale: "en", viewport: keyof typeof viewports): Promise<void> {
   await page.addInitScript((lang) => {
     localStorage.setItem("rafeeq.lang", lang);
   }, locale);
@@ -68,7 +64,7 @@ async function capture(
   await clientGo(page, "/demo");
   await shot(page, "demo", locale, viewport, "/demo");
 
-  const enter = locale === "ar" ? "الدخول: Noor & Khalid" : "Enter as Noor & Khalid";
+  const enter = "Enter as Noor & Khalid";
   await page.getByRole("button", { name: enter }).click();
   await page.waitForURL((url) => url.pathname === "/app");
   await shot(page, "app", locale, viewport, "/app");
@@ -114,7 +110,7 @@ async function capture(
 
 test.describe.configure({ mode: "serial" });
 
-for (const locale of ["en", "ar"] as const) {
+for (const locale of ["en"] as const) {
   for (const viewport of ["desktop", "mobile"] as const) {
     test(`screenshots ${locale} ${viewport}`, async ({ page }) => {
       test.setTimeout(240_000);

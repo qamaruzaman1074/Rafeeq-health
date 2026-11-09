@@ -1,29 +1,43 @@
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
-import { LiteracyModeToggle } from "@/components/literacy-mode-toggle";
-import { LocaleSwitcher } from "@/components/locale-switcher";
-import { NumeralToggle } from "@/components/numeral-toggle";
+import { RafeeqLogo } from "@/components/brand/rafeeq-logo";
+import { SiteContainer } from "@/components/layout/site-container";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { publicNavPrimary } from "@/config/public-nav";
+import { cn } from "@/lib/utils";
 
-const navLinkClass =
-  "inline-flex min-h-11 items-center text-base text-teal-700 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-teal-500";
+export const navLinkClass =
+  "nav-pill inline-flex min-h-11 w-full items-center justify-center focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-ring md:w-auto";
 
-const currentClass = "inline-flex min-h-11 items-center text-base font-medium text-teal-900";
+const currentClass =
+  "nav-pill nav-pill-active inline-flex min-h-11 w-full items-center justify-center md:w-auto";
 
 function HashNavLink({
   hash,
   label,
   className,
+  onNavigate,
 }: {
   hash: string;
   label: string;
   className: string;
+  onNavigate?: () => void;
 }) {
   return (
     <Link
       to={{ pathname: "/", hash }}
       className={className}
       onClick={() => {
+        onNavigate?.();
         if (window.location.pathname !== "/") {
           return;
         }
@@ -37,64 +51,166 @@ function HashNavLink({
   );
 }
 
-export function PublicHeader() {
+function PrimaryNavLinks({
+  pathname,
+  closeMenu,
+  className,
+}: {
+  pathname: string;
+  closeMenu?: () => void;
+  className?: string;
+}) {
   const { t } = useTranslation();
-  const { pathname } = useLocation();
-
   return (
-    <header className="border-b border-border-subtle bg-sand-50">
-      <div className="ms-auto me-auto flex w-full max-w-6xl flex-col gap-3 ps-4 pe-4 py-3 sm:ps-6 sm:pe-6">
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Link
-            to="/"
-            className="text-lg font-semibold tracking-tight text-teal-900 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-teal-500"
-          >
-            {t("nav.home", { ns: "landing" })}
-          </Link>
-          <nav aria-label={t("nav.primary", { ns: "landing" })} className="min-w-0 flex-1">
-            <ul className="flex flex-wrap items-center gap-x-4 gap-y-1">
-              <li>
-                <HashNavLink
-                  hash="#how-it-works"
-                  label={t("nav.howItWorks", { ns: "landing" })}
-                  className={navLinkClass}
-                />
-              </li>
-              <li>
-                <HashNavLink
-                  hash="#approach"
-                  label={t("nav.approach", { ns: "landing" })}
-                  className={navLinkClass}
-                />
-              </li>
-              <li>
-                {pathname === "/trust" ? (
-                  <span aria-current="page" className={currentClass}>
-                    {t("nav.privacy", { ns: "landing" })}
-                  </span>
-                ) : (
-                  <Link to="/trust" className={navLinkClass}>
-                    {t("nav.privacy", { ns: "landing" })}
-                  </Link>
-                )}
-              </li>
-            </ul>
-          </nav>
-          <div className="ms-auto flex flex-wrap items-center gap-3">
-            <LocaleSwitcher />
-            {/* OPEN_QUESTION: planning Section 7 names Sign in, and MASTER Section 6 names POST /auth/login. Neither names a route or form. Until a login form exists, Sign in opens the public demo entry. */}
-            <Button asChild variant="secondary">
-              <Link to="/demo">{t("page.signIn", { ns: "landing" })}</Link>
-            </Button>
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <LiteracyModeToggle />
-          <NumeralToggle />
-        </div>
-      </div>
-    </header>
+    <ul className={className}>
+      {publicNavPrimary.map((item) => {
+        const label = t(item.labelKey, { ns: "public" });
+        const routePath = item.path.split("#")[0] || "/";
+        const isHash = "hashOnHome" in item && item.hashOnHome;
+        return (
+          <li key={item.path}>
+            {isHash ? (
+              <HashNavLink
+                hash="#how-it-works"
+                label={label}
+                className={navLinkClass}
+                onNavigate={closeMenu}
+              />
+            ) : pathname === routePath ? (
+              <span aria-current="page" className={currentClass}>
+                {label}
+              </span>
+            ) : (
+              <Link to={item.path} className={navLinkClass} onClick={closeMenu}>
+                {label}
+              </Link>
+            )}
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 
-export { navLinkClass, currentClass };
+export function PublicHeader() {
+  const { t } = useTranslation();
+  const { pathname } = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  return (
+    <header
+      data-scrolled={scrolled ? "true" : undefined}
+      className={cn(
+        "sticky top-0 z-50 w-full border-b border-border-subtle/80 bg-background/85 backdrop-blur-md transition-[box-shadow,background-color,padding] duration-300 motion-safe:ease-out supports-[backdrop-filter]:bg-background/75",
+        scrolled ? "shadow-surface-md bg-background/95" : "shadow-xs",
+      )}
+    >
+      <SiteContainer
+        className={cn(
+          "flex w-full flex-wrap items-center gap-x-4 gap-y-3 motion-safe:transition-[padding] motion-safe:duration-300",
+          scrolled ? "py-2.5 sm:py-3" : "py-3 sm:py-4",
+        )}
+      >
+        <Link
+          to="/"
+          className="shrink-0 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-ring"
+        >
+          <RafeeqLogo />
+        </Link>
+
+        <nav
+          aria-label={t("nav.primary", { ns: "landing" })}
+          className="hidden min-w-0 flex-1 justify-center xl:flex"
+        >
+          <PrimaryNavLinks
+            pathname={pathname}
+            className="flex min-w-0 flex-wrap items-center justify-center gap-x-0.5 gap-y-1"
+          />
+        </nav>
+
+        <div className="ms-auto flex items-center gap-2">
+          <Button asChild variant="ghost" className="hidden min-h-11 lg:inline-flex">
+            <Link to="/demo">{t("nav.signIn", { ns: "public" })}</Link>
+          </Button>
+          <Button asChild className="hidden min-h-11 sm:inline-flex">
+            <Link to="/demo">{t("cta.getStarted", { ns: "public" })}</Link>
+          </Button>
+          <ThemeToggle />
+          <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
+            <DialogTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                className="xl:hidden"
+                aria-expanded={menuOpen}
+                aria-controls="public-mobile-nav"
+              >
+                {t("nav.menu", { ns: "landing" })}
+              </Button>
+            </DialogTrigger>
+            <DialogContent aria-describedby={undefined}>
+              <DialogTitle className="text-lg font-semibold text-teal-900">
+                {t("nav.primary", { ns: "landing" })}
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                {t("nav.menuHint", { ns: "landing" })}
+              </DialogDescription>
+              <nav id="public-mobile-nav" aria-label={t("nav.primary", { ns: "landing" })}>
+                <PrimaryNavLinks
+                  pathname={pathname}
+                  closeMenu={() => {
+                    setMenuOpen(false);
+                  }}
+                  className="flex flex-col gap-1"
+                />
+                <div className="mt-4 flex flex-col gap-2 border-t border-border-subtle pt-4">
+                  <Link
+                    to="/contact"
+                    className={navLinkClass}
+                    onClick={() => {
+                      setMenuOpen(false);
+                    }}
+                  >
+                    {t("nav.contact", { ns: "public" })}
+                  </Link>
+                  <Button asChild variant="secondary">
+                    <Link
+                      to="/demo"
+                      onClick={() => {
+                        setMenuOpen(false);
+                      }}
+                    >
+                      {t("nav.signIn", { ns: "public" })}
+                    </Link>
+                  </Button>
+                  <Button asChild>
+                    <Link
+                      to="/demo"
+                      onClick={() => {
+                        setMenuOpen(false);
+                      }}
+                    >
+                      {t("cta.getStarted", { ns: "public" })}
+                    </Link>
+                  </Button>
+                </div>
+              </nav>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </SiteContainer>
+    </header>
+  );
+}

@@ -21,21 +21,12 @@ function catalogStrings(file: string): string[] {
 }
 
 describe("check locale wording", () => {
-  it("keeps failure words out of the en and ar check catalogs", () => {
+  it("keeps failure words out of the en check catalog", () => {
     const english = catalogStrings(
       fileURLToPath(new URL("../../i18n/locales/en/check.json", import.meta.url)),
     );
-    const arabic = catalogStrings(
-      fileURLToPath(new URL("../../i18n/locales/ar/check.json", import.meta.url)),
-    );
     const englishFailure = /wrong|incorrect/i;
-    const arabicFailure = ["خاطئ", "خطأ", "غير صحيح", "غير صحيحة"];
-    const hits = [...english, ...arabic].filter((line) => {
-      if (englishFailure.test(line)) {
-        return true;
-      }
-      return arabicFailure.some((word) => line.includes(word));
-    });
+    const hits = english.filter((line) => englishFailure.test(line));
     expect(hits).toEqual([]);
   });
 });

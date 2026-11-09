@@ -44,7 +44,7 @@ export function HandoffCard({ reason }: { reason: string | null }) {
     <section
       data-handoff="human"
       aria-label={t("handoff.region", { ns: "ask" })}
-      className="flex flex-col items-start gap-3 rounded-lg border border-teal-700 bg-lilac-100 p-4"
+      className="flex flex-col items-start gap-3 rounded-lg border border-teal-700 bg-lilac-100 p-6 shadow-xs"
     >
       <Badge variant="conversation">{t("handoff.badge", { ns: "ask" })}</Badge>
       <h2 className="text-xl font-semibold text-teal-900">{t("handoff.title", { ns: "ask" })}</h2>
@@ -76,7 +76,7 @@ export function AnswerCard({
   return (
     <article
       data-answer="content"
-      className="flex flex-col items-start gap-3 rounded-lg border border-teal-500 bg-sand-100 p-4"
+      className="flex flex-col items-start gap-3 rounded-lg border border-border-subtle bg-sand-100 p-6 shadow-xs"
     >
       {text === null ? (
         <p>
@@ -106,7 +106,7 @@ export function BlockedAnswer() {
     <div
       role="alert"
       data-answer="blocked"
-      className="flex flex-col items-start gap-3 rounded-lg border border-teal-700 bg-sand-100 p-4"
+      className="flex flex-col items-start gap-3 rounded-lg border border-teal-700 bg-sand-100 p-6 shadow-xs"
     >
       <p>{t("error.noSource", { ns: "ask" })}</p>
       <Button asChild variant="secondary">

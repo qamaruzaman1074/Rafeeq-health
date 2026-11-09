@@ -11,7 +11,7 @@ export type AppPageLayoutProps = HTMLAttributes<HTMLDivElement> & {
 
 const widthClass = {
   narrow: "max-w-3xl",
-  wide: "max-w-5xl",
+  wide: "max-w-[min(100%,90rem)]",
 } as const;
 
 export function AppPageLayout({

@@ -113,7 +113,7 @@ describe("result and couple mocks", () => {
   });
 
   it("keeps other personas empty", async () => {
-    for (const personaId of ["P2", "P3", "P4", "P6", "P7"]) {
+    for (const personaId of ["P2", "P3", "P4", "P6"]) {
       await enter(personaId);
       const own = await apiRequest<{ carriers: unknown[] }>("/api/v1/results/mine");
       expect(own.data.carriers, personaId).toEqual([]);

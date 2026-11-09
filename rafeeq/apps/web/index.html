@@ -7,18 +7,45 @@
       name="description"
       content="Understand your genetic result - in your language, at your pace, with a counsellor one tap away."
     />
-    <meta name="theme-color" content="#0B3F45" />
-    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#103D40" />
+    <meta name="color-scheme" content="light dark" />
     <title>Rafeeq</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <style>
+      html,
+      body {
+        background-color: #f8f6f0;
+        color: #263638;
+      }
+      html[data-theme="dark"],
+      html[data-theme="dark"] body {
+        background-color: #101c1d;
+        color: #f2f5f2;
+      }
+    </style>
     <script>
       (function () {
         try {
-          var stored = localStorage.getItem("rafeeq.lang");
-          if (stored === "ar" || stored === "en") {
-            document.documentElement.lang = stored;
-            document.documentElement.dir = stored === "ar" ? "rtl" : "ltr";
+          var theme = localStorage.getItem("rafeeq.theme");
+          if (theme !== "light" && theme !== "dark") {
+            theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          document.documentElement.setAttribute("data-theme", theme);
+          document.documentElement.style.colorScheme = theme;
+          var themeMeta = document.querySelector('meta[name="theme-color"]');
+          if (themeMeta) {
+            themeMeta.setAttribute("content", theme === "dark" ? "#101C1D" : "#103D40");
+          }
+        } catch (error) {
+          document.documentElement.setAttribute("data-theme", "light");
+          document.documentElement.style.colorScheme = "light";
+        }
+        try {
+          document.documentElement.lang = "en";
+          document.documentElement.dir = "ltr";
+          if (localStorage.getItem("rafeeq.lang") === "ar") {
+            localStorage.setItem("rafeeq.lang", "en");
           }
         } catch (error) {
           /* Storage can be unavailable before the app boots. */

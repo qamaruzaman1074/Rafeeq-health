@@ -1,0 +1,139 @@
+import { useId } from "react";
+import { useTranslation } from "react-i18next";
+import { Link, useMatch } from "react-router";
+import { CoupleNavIcon, type CoupleNavIconId } from "@/components/app/nav-icons";
+import { cn } from "@/lib/utils";
+
+export type CoupleNavItem = {
+  to: string;
+  icon: CoupleNavIconId;
+  labelKey: string;
+};
+
+export const COUPLE_PRIMARY_NAV: readonly CoupleNavItem[] = [
+  { to: "/app", icon: "overview", labelKey: "shell.nav.overview" },
+  { to: "/app/result", icon: "results", labelKey: "shell.nav.results" },
+  { to: "/app/learn", icon: "learn", labelKey: "shell.nav.learn" },
+  { to: "/app/check", icon: "check", labelKey: "shell.nav.check" },
+  { to: "/app/privacy", icon: "privacy", labelKey: "shell.nav.privacy" },
+  { to: "/app/care", icon: "care", labelKey: "shell.nav.care" },
+];
+
+export const COUPLE_SECONDARY_GROUPS: readonly {
+  headingKey: string;
+  items: readonly CoupleNavItem[];
+}[] = [
+  {
+    headingKey: "shell.nav.groups.sharing",
+    items: [
+      { to: "/app/report", icon: "report", labelKey: "shell.nav.report" },
+      { to: "/app/partner", icon: "partner", labelKey: "shell.nav.partner" },
+      { to: "/app/couple", icon: "together", labelKey: "shell.nav.together" },
+      { to: "/app/ask", icon: "ask", labelKey: "shell.nav.ask" },
+    ],
+  },
+  {
+    headingKey: "shell.nav.groups.account",
+    items: [
+      { to: "/app/notifications", icon: "notifications", labelKey: "shell.nav.notifications" },
+      { to: "/app/settings", icon: "settings", labelKey: "shell.nav.settings" },
+    ],
+  },
+];
+
+export const COUPLE_SECONDARY_NAV: readonly CoupleNavItem[] = COUPLE_SECONDARY_GROUPS.flatMap(
+  (group) => group.items,
+);
+
+const focusClass =
+  "focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-teal-500";
+
+export function NavGroupHeading({ children, id }: { children: string; id?: string }) {
+  return (
+    <p
+      id={id}
+      className="ps-3 pe-3 pb-1 text-xs font-semibold uppercase tracking-[0.08em] text-ink-600"
+    >
+      {children}
+    </p>
+  );
+}
+
+export function CoupleNavLink({ item, compact }: { item: CoupleNavItem; compact?: boolean }) {
+  const { t } = useTranslation();
+  const match = useMatch({ path: item.to, end: true });
+  const label = t(item.labelKey);
+  const current = Boolean(match);
+
+  return (
+    <Link
+      to={item.to}
+      aria-current={current ? "page" : undefined}
+      className={cn(
+        "relative inline-flex min-h-11 min-w-0 items-center gap-3 rounded-lg font-medium transition-colors duration-150",
+        focusClass,
+        compact
+          ? "w-full flex-col justify-center gap-1 ps-1 pe-1 py-2 text-center lg:min-h-10 lg:flex-row lg:justify-start lg:gap-3 lg:ps-3 lg:pe-3 lg:py-0 lg:text-start"
+          : "w-full ps-3 pe-3 lg:min-h-10",
+        "lg:text-[0.9375rem]",
+        current
+          ? "bg-secondary text-teal-900 lg:before:absolute lg:before:start-0 lg:before:top-2 lg:before:bottom-2 lg:before:w-[3px] lg:before:rounded-full lg:before:bg-teal-700"
+          : "text-ink-600 hover:bg-secondary hover:text-teal-900",
+      )}
+    >
+      <span className={cn("inline-flex", current ? "text-teal-700" : "text-current")}>
+        <CoupleNavIcon id={item.icon} />
+      </span>
+      <span
+        className={cn(
+          "leading-tight",
+          compact && "max-w-full truncate text-[0.6875rem] lg:text-[0.9375rem]",
+        )}
+      >
+        {label}
+      </span>
+    </Link>
+  );
+}
+
+export function CouplePrimaryNav({ className }: { className?: string }) {
+  const { t } = useTranslation();
+  return (
+    <nav aria-label={t("shell.nav.label")} className={className}>
+      <div className="hidden lg:block">
+        <NavGroupHeading>{t("shell.nav.groups.main")}</NavGroupHeading>
+      </div>
+      <ul className="grid grid-cols-6 lg:flex lg:flex-col lg:gap-0.5">
+        {COUPLE_PRIMARY_NAV.map((item) => (
+          <li key={item.to} className="min-w-0">
+            <CoupleNavLink item={item} compact />
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+export function CoupleSecondaryNav() {
+  const { t } = useTranslation();
+  const baseId = useId();
+  return (
+    <nav aria-label={t("shell.nav.more")} className="flex flex-col gap-5">
+      {COUPLE_SECONDARY_GROUPS.map((group, index) => {
+        const headingId = `${baseId}-group-${index}`;
+        return (
+          <div key={group.headingKey} role="group" aria-labelledby={headingId}>
+            <NavGroupHeading id={headingId}>{t(group.headingKey)}</NavGroupHeading>
+            <ul className="flex flex-col gap-0.5">
+              {group.items.map((item) => (
+                <li key={item.to}>
+                  <CoupleNavLink item={item} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+    </nav>
+  );
+}

@@ -8,6 +8,7 @@ const ts = require("typescript");
 
 export const REQUIRED_NAMESPACES = [
   "common",
+  "public",
   "landing",
   "result",
   "couple",
@@ -67,22 +68,6 @@ function violation(file, source, node, message) {
   return { file, line: at.line, column: at.column, message };
 }
 
-function leaves(value, prefix, found) {
-  if (typeof value === "string") {
-    if (prefix.length > 0) {
-      found.add(prefix);
-    }
-    return;
-  }
-  if (typeof value !== "object" || value === null || Array.isArray(value)) {
-    return;
-  }
-  for (const [key, child] of Object.entries(value)) {
-    const next = prefix.length > 0 ? `${prefix}.${key}` : key;
-    leaves(child, next, found);
-  }
-}
-
 function hasKey(catalog, dotted) {
   const parts = dotted.split(".");
   let current = catalog;
@@ -140,10 +125,15 @@ function templateLetters(node) {
   return node.templateSpans.some((span) => hasLetters(span.literal.text));
 }
 
+const SUPPORTED_LOCALES = ["en"];
+
 export function loadCatalogs(localesDir) {
-  const catalogs = { en: {}, ar: {} };
-  for (const locale of ["en", "ar"]) {
+  const catalogs = { en: {} };
+  for (const locale of SUPPORTED_LOCALES) {
     const directory = path.join(localesDir, locale);
+    if (!statSync(directory).isDirectory()) {
+      continue;
+    }
     const files = readdirSync(directory).filter((name) => name.endsWith(".json"));
     for (const file of files) {
       const namespace = file.slice(0, -".json".length);
@@ -156,51 +146,23 @@ export function loadCatalogs(localesDir) {
 export function diffCatalogs(catalogs) {
   const violations = [];
   const english = new Set(Object.keys(catalogs.en));
-  const arabic = new Set(Object.keys(catalogs.ar));
-  const namespaces = [...new Set([...REQUIRED_NAMESPACES, ...english, ...arabic])].sort();
+  const namespaces = [...new Set([...REQUIRED_NAMESPACES, ...english])].sort();
 
   for (const namespace of namespaces) {
-    if (!english.has(namespace) || !arabic.has(namespace)) {
+    if (!english.has(namespace)) {
       violations.push({
-        file: `src/i18n/locales/${english.has(namespace) ? "ar" : "en"}/${namespace}.json`,
+        file: `src/i18n/locales/en/${namespace}.json`,
         line: 1,
         column: 1,
         message: `Missing locale file for namespace "${namespace}"`,
       });
-      continue;
-    }
-    const enLeaves = new Set();
-    const arLeaves = new Set();
-    leaves(catalogs.en[namespace], "", enLeaves);
-    leaves(catalogs.ar[namespace], "", arLeaves);
-    for (const key of enLeaves) {
-      if (!arLeaves.has(key)) {
-        violations.push({
-          file: `src/i18n/locales/ar/${namespace}.json`,
-          line: 1,
-          column: 1,
-          message: `Missing i18n key "${key}" in ar/${namespace}.json`,
-        });
-      }
-    }
-    for (const key of arLeaves) {
-      if (!enLeaves.has(key)) {
-        violations.push({
-          file: `src/i18n/locales/en/${namespace}.json`,
-          line: 1,
-          column: 1,
-          message: `Missing i18n key "${key}" in en/${namespace}.json`,
-        });
-      }
     }
   }
   return violations;
 }
 
 function knownKey(catalogs, dotted) {
-  return ["en", "ar"].every((locale) =>
-    Object.values(catalogs[locale]).some((catalog) => hasKey(catalog, dotted)),
-  );
+  return Object.values(catalogs.en).some((catalog) => hasKey(catalog, dotted));
 }
 
 export function auditSource(text, file, catalogs) {
@@ -242,9 +204,7 @@ export function auditSource(text, file, catalogs) {
           KEY_PATTERN.test(textValue) &&
           !knownKey(catalogs, textValue)
         ) {
-          violations.push(
-            violation(file, source, node, `Missing i18n key "${textValue}" in en and ar`),
-          );
+          violations.push(violation(file, source, node, `Missing i18n key "${textValue}" in en`));
         }
       }
     }
@@ -263,7 +223,7 @@ export function auditSource(text, file, catalogs) {
             file,
             source,
             node.initializer,
-            `Missing i18n key "${node.initializer.text}" in en and ar`,
+            `Missing i18n key "${node.initializer.text}" in en`,
           ),
         );
       }
@@ -274,18 +234,11 @@ export function auditSource(text, file, catalogs) {
       if (first !== undefined && ts.isStringLiteral(first)) {
         const namespace = namespaceFromCall(node);
         const key = first.text;
-        for (const locale of ["en", "ar"]) {
-          const catalog = catalogs[locale][namespace];
-          if (catalog === undefined || !hasKey(catalog, key)) {
-            violations.push(
-              violation(
-                file,
-                source,
-                first,
-                `Missing i18n key "${key}" in ${locale}/${namespace}.json`,
-              ),
-            );
-          }
+        const catalog = catalogs.en[namespace];
+        if (catalog === undefined || !hasKey(catalog, key)) {
+          violations.push(
+            violation(file, source, first, `Missing i18n key "${key}" in en/${namespace}.json`),
+          );
         }
       }
     }

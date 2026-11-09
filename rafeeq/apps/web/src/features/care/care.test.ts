@@ -117,7 +117,7 @@ describe("care pathway", () => {
     expect(html).toContain("Confirmatory assessment (if advised by a counsellor)");
     expect(html).toContain("Specialised reproductive-genomics services");
     expect(html.match(/Information only/g)).toHaveLength(2);
-    expect(html.match(/OPEN_QUESTION/g)).toHaveLength(2);
+    expect(html.match(/Not available yet/g)).toHaveLength(2);
     expect(html).toContain("care.confirmatory-assessment");
     expect(html).toContain("care.specialised-reproductive-genomics");
   });

@@ -182,8 +182,11 @@ export function QueueTable({
       {rows.length === 0 ? (
         <EmptyState title={t("queue.empty", { ns: "clinic" })} />
       ) : (
-        <div className="w-full min-w-0">
-          <table className="w-full table-fixed border-collapse text-sm" data-queue="table">
+        <div className="w-full min-w-0 max-w-full overflow-x-auto">
+          <table
+            className="w-full min-w-[56rem] table-fixed border-collapse text-sm"
+            data-queue="table"
+          >
             <caption className="sr-only">{t("queue.caption", { ns: "clinic" })}</caption>
             <thead className="bg-sand-100 text-teal-900">
               <tr>

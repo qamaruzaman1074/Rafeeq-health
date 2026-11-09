@@ -45,15 +45,7 @@ describe("mock API", () => {
   });
 
   it("binds POST /auth/guest to a persona from the fixture file", async () => {
-    expect(personas.map((persona) => persona.id)).toEqual([
-      "P1",
-      "P2",
-      "P3",
-      "P4",
-      "P5",
-      "P6",
-      "P7",
-    ]);
+    expect(personas.map((persona) => persona.id)).toEqual(["P1", "P2", "P3", "P4", "P5", "P6"]);
 
     for (const persona of personas) {
       const result = await apiRequest<{ role: string; persona_id: string }>("/api/v1/auth/guest", {

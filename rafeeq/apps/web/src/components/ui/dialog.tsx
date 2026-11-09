@@ -26,7 +26,7 @@ export const DialogContent = forwardRef<
         <DialogPrimitive.Content
           ref={ref}
           className={cn(
-            "pointer-events-auto flex max-h-[85vh] w-full max-w-lg flex-col gap-4 overflow-y-auto rounded-lg border border-teal-500 bg-sand-50 p-6 text-ink-900 motion-safe:animate-fade-in",
+            "pointer-events-auto flex max-h-[85vh] w-full max-w-lg flex-col gap-4 overflow-y-auto rounded-lg border border-border bg-card p-6 text-card-foreground shadow-surface-lg motion-safe:animate-fade-in",
             className,
           )}
           {...props}

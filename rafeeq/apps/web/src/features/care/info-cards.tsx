@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { stepLabel } from "@/features/care/labels";
 import { CARE_BLOCKS, INFO_CARD_IDS, type InfoCardId } from "@/features/care/steps";
 import { BlockBody } from "@/features/learn/block-body";
@@ -20,14 +21,16 @@ export function InfoCards() {
         const blockId = cardBlock(id);
         const block = readLocaleBlock(locale, blockId);
         return (
-          <article
-            key={id}
-            data-info={id}
-            className="flex flex-col items-start gap-3 rounded-lg border border-teal-500 bg-sand-100 p-6"
-          >
-            <h2 className="text-2xl font-semibold text-teal-900">{stepLabel(id, t)}</h2>
-            <Badge variant="notice">{t("infoOnly", { ns: "care" })}</Badge>
-            <BlockBody text={block.text} blockId={blockId} />
+          <article key={id} data-info={id}>
+            <Card className="hover:shadow-surface">
+              <CardHeader>
+                <CardTitle className="text-2xl">{stepLabel(id, t)}</CardTitle>
+                <Badge variant="notice">{t("infoOnly", { ns: "care" })}</Badge>
+              </CardHeader>
+              <CardContent>
+                <BlockBody text={block.text} blockId={blockId} />
+              </CardContent>
+            </Card>
           </article>
         );
       })}

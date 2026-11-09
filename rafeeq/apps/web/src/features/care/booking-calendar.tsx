@@ -26,7 +26,7 @@ export function BookingCalendar() {
 
   return (
     <section
-      className="flex flex-col items-start gap-4"
+      className="flex flex-col items-start gap-4 rounded-lg border border-border-subtle bg-sand-100 p-6"
       aria-label={landmarkName(
         t("booking.label", { ns: "care" }),
         t("booking.label", { ns: "care", lng: "en" }),
@@ -36,6 +36,7 @@ export function BookingCalendar() {
         {t("booking.label", { ns: "care" })}
       </h2>
       <p>{t("booking.localOnly", { ns: "care" })}</p>
+      <p className="text-sm text-ink-600">{t("booking.demo", { ns: "care" })}</p>
       <div
         role="group"
         aria-label={t("booking.label", { ns: "care" })}

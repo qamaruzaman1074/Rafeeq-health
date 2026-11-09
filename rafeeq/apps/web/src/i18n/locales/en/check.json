@@ -7,7 +7,7 @@
   "error": "The check could not be loaded.",
   "saveError": "The answer could not be saved.",
   "retry": "Try again",
-  "prototype": "prototype content - not clinically validated",
+  "prototype": "Educational content — not clinically validated",
   "skip": "Skip for now",
   "options": {
     "legend": "Choose a picture"

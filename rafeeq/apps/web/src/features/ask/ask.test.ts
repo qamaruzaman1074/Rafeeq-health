@@ -95,7 +95,7 @@ describe("ask", () => {
     expect(handoff).toContain("This question goes to a person");
     expect(handoff).toContain("Distress or self-harm");
     expect(handoff).toContain("Approved crisis-line text");
-    expect(handoff).toContain("OPEN_QUESTION");
+    expect(handoff).toContain("Not available yet");
     expect(handoff).toContain('href="/app/care"');
     expect(handoff).toContain("Book a counsellor");
 
@@ -115,7 +115,7 @@ describe("ask", () => {
       }),
     );
     expect(missingText).not.toContain(SENTINEL);
-    expect(missingText).toContain("OPEN_QUESTION");
+    expect(missingText).toContain("Not available yet");
     expect(missingText).toContain("Source: Approved content #B-017");
   });
 

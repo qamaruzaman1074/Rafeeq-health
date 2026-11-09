@@ -26,7 +26,7 @@ The shadcn `--destructive` token is the stock palette variable in `globals.css`.
 
 i18next `fallbackLng` is `en` so the scaffold can boot. The product default locale is an OPEN_QUESTION, not a product decision.
 
-`.env.test` sets `VITE_API_BASE_URL=http://127.0.0.1:4010` so Vitest can intercept the fetch wrapper. That address is a test sink, not the API origin.
+`vitest.config.ts` sets `test.env.VITE_API_BASE_URL=http://127.0.0.1:4010` so Vitest can intercept the fetch wrapper. That address is a test sink, not the API origin. A local `.env.test` may mirror the same value but is not tracked in Git.
 
 ## 2026-11-08 — web design system
 
@@ -231,7 +231,7 @@ OPEN_QUESTION: how a counsellor signs in is not specified. POST `/auth/login` st
 
 OPEN_QUESTION: response bodies are not in Section 6. The queue columns are the planning Section 7 list. Tier is set only when `content/personas.json` `tests` names exactly one of T1, T2, T3, or T4, mapped to the Section 5 enum (`T1_info`, `T2_counsel_routine`, `T3_counsel_priority`, `T4_urgent_human`). P1, P4, and P6 qualify. P3 names both T1 and T2, so that persona is not queued. P5 is queued with `tier: null` so the declined-share brief can be opened. The chip text is the enum name. It is not labelled as a risk level.
 
-OPEN_QUESTION: language, literacy mode, due-by, reason codes, comprehension gaps, user questions, and stated preferences are not in the persona file. Those fields are null or empty. P7's voice note is not used, because P7 has no single tier. No due date was invented.
+OPEN_QUESTION: language, literacy mode, due-by, reason codes, comprehension gaps, user questions, and stated preferences are not in the persona file. Those fields are null or empty. No due date was invented. The former P7 persona (low-literacy voice-first user) was removed from the persona picker; voice and simple-language modes remain available to every persona.
 
 OPEN_QUESTION: `share_with_clinic` starts off for every persona. Shared genes and formula lines are copied from the existing overlap payload only when that scope is on and overlap consent is allowed. The web UI prints those strings. It does not calculate them. P5 partner B declines sharing, so the brief stays empty of genes and formulas even after clinic share is granted.
 

@@ -6,10 +6,13 @@ import { applyDocumentLocale, documentLocale } from "@/i18n/locale";
 import {
   LANGUAGE_STORAGE_KEY,
   NUMERAL_STORAGE_KEY,
+  THEME_STORAGE_KEY,
   readStoredLanguage,
   readStoredNumeralSystem,
+  readStoredTheme,
   writeStoredLanguage,
   writeStoredNumeralSystem,
+  writeStoredTheme,
   type KeyValueStore,
 } from "@/i18n/storage";
 
@@ -30,21 +33,16 @@ function memoryStore(
 }
 
 describe("documentLocale", () => {
-  it("maps Arabic to rtl", () => {
-    expect(documentLocale("ar")).toEqual({ lang: "ar", dir: "rtl" });
-    expect(documentLocale("ar-AE")).toEqual({ lang: "ar", dir: "rtl" });
-  });
-
-  it("maps English and unknown languages to ltr", () => {
+  it("always resolves to English ltr", () => {
     expect(documentLocale("en")).toEqual({ lang: "en", dir: "ltr" });
-    expect(documentLocale("en-GB")).toEqual({ lang: "en", dir: "ltr" });
+    expect(documentLocale("ar")).toEqual({ lang: "en", dir: "ltr" });
     expect(documentLocale("fr")).toEqual({ lang: "en", dir: "ltr" });
   });
 
   it("writes lang and dir onto a document root", () => {
-    const root = { lang: "en", dir: "ltr" };
-    expect(applyDocumentLocale("ar", root)).toEqual({ lang: "ar", dir: "rtl" });
-    expect(root).toEqual({ lang: "ar", dir: "rtl" });
+    const root = { lang: "fr", dir: "rtl" };
+    expect(applyDocumentLocale("ar", root)).toEqual({ lang: "en", dir: "ltr" });
+    expect(root).toEqual({ lang: "en", dir: "ltr" });
   });
 });
 
@@ -59,24 +57,20 @@ describe("rafeeq.lang", () => {
     expect(readStoredLanguage(memoryStore({ [LANGUAGE_STORAGE_KEY]: "fr" }))).toBeNull();
   });
 
-  it("persists a language switch under rafeeq.lang and flips direction", async () => {
-    const storage = memoryStore();
-    const root = { lang: "en", dir: "ltr" };
+  it("migrates stored Arabic to English and keeps ltr", async () => {
+    const storage = memoryStore({ [LANGUAGE_STORAGE_KEY]: "ar" });
+    expect(readStoredLanguage(storage)).toBe("en");
+    const root = { lang: "ar", dir: "rtl" };
     await changeAppLanguage("ar", storage, root);
-    expect(storage.values.get(LANGUAGE_STORAGE_KEY)).toBe("ar");
-    expect(root).toEqual({ lang: "ar", dir: "rtl" });
-    expect(i18n.resolvedLanguage).toBe("ar");
-    expect(readStoredLanguage(storage)).toBe("ar");
-
-    await changeAppLanguage("en", storage, root);
     expect(storage.values.get(LANGUAGE_STORAGE_KEY)).toBe("en");
     expect(root).toEqual({ lang: "en", dir: "ltr" });
+    expect(i18n.resolvedLanguage).toBe("en");
   });
 
   it("reads rafeeq.lang from the document bootstrap", () => {
     const html = readFileSync(new URL("../../index.html", import.meta.url), "utf8");
     expect(html).toContain('localStorage.getItem("rafeeq.lang")');
-    expect(html).toContain('stored === "ar" ? "rtl" : "ltr"');
+    expect(html).toContain('document.documentElement.lang = "en"');
   });
 });
 
@@ -87,9 +81,19 @@ describe("rafeeq.numerals", () => {
     expect(readStoredNumeralSystem(memoryStore({ [NUMERAL_STORAGE_KEY]: "roman" }))).toBeNull();
     writeStoredNumeralSystem(storage, "arab");
     expect(readStoredNumeralSystem(storage)).toBe("arab");
-    writeStoredLanguage(storage, "ar");
-    expect(storage.values.get(LANGUAGE_STORAGE_KEY)).toBe("ar");
+    writeStoredLanguage(storage, "en");
+    expect(storage.values.get(LANGUAGE_STORAGE_KEY)).toBe("en");
     writeStoredNumeralSystem(storage, null);
     expect(storage.values.has(NUMERAL_STORAGE_KEY)).toBe(false);
+  });
+});
+
+describe("rafeeq.theme", () => {
+  it("stores only light or dark", () => {
+    const storage = memoryStore();
+    expect(readStoredTheme(storage)).toBeNull();
+    expect(readStoredTheme(memoryStore({ [THEME_STORAGE_KEY]: "auto" }))).toBeNull();
+    writeStoredTheme(storage, "dark");
+    expect(readStoredTheme(storage)).toBe("dark");
   });
 });

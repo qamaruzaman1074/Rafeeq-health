@@ -73,9 +73,6 @@ describe("care wording", () => {
     const english = catalogStrings(
       fileURLToPath(new URL("../../i18n/locales/en/care.json", import.meta.url)),
     ).join("\n");
-    const arabic = catalogStrings(
-      fileURLToPath(new URL("../../i18n/locales/ar/care.json", import.meta.url)),
-    ).join("\n");
     const hits: string[] = [];
     for (const source of sources) {
       for (const pattern of BANNED) {
@@ -89,10 +86,6 @@ describe("care wording", () => {
       const englishHit = pattern.exec(english);
       if (englishHit !== null) {
         hits.push(`en/care.json: ${englishHit[0]}`);
-      }
-      const arabicHit = pattern.exec(arabic);
-      if (arabicHit !== null) {
-        hits.push(`ar/care.json: ${arabicHit[0]}`);
       }
     }
     expect(hits).toEqual([]);

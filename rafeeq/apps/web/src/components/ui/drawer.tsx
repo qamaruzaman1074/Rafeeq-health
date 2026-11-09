@@ -25,7 +25,7 @@ export const DrawerContent = forwardRef<
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          "fixed end-0 top-0 bottom-0 z-50 flex h-full w-full max-w-sm flex-col gap-4 overflow-y-auto border-s border-teal-500 bg-sand-50 p-6 text-ink-900 motion-safe:animate-fade-in",
+          "fixed end-0 top-0 bottom-0 z-50 flex h-full w-full max-w-sm flex-col gap-4 overflow-y-auto border-s border-teal-500 bg-elevated p-6 text-ink-900 motion-safe:animate-fade-in",
           className,
         )}
         {...props}
@@ -33,7 +33,7 @@ export const DrawerContent = forwardRef<
         <div className="flex items-start gap-3">
           <div className="flex min-w-0 flex-1 flex-col gap-4">{children}</div>
           <DialogPrimitive.Close asChild>
-            <Button variant="ghost" className="shrink-0">
+            <Button variant="ghost" className="w-auto shrink-0">
               {closeLabel ?? t("common.close")}
             </Button>
           </DialogPrimitive.Close>

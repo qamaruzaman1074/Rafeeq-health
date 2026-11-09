@@ -11,6 +11,7 @@ const config = {
         700: "var(--teal-700)",
         500: "var(--teal-500)",
         100: "var(--teal-100)",
+        pale: "var(--pale-teal)",
       },
       sand: {
         50: "var(--sand-50)",
@@ -44,7 +45,9 @@ const config = {
       primary: {
         DEFAULT: "var(--primary)",
         foreground: "var(--primary-foreground)",
+        hover: "var(--primary-hover)",
       },
+      elevated: "var(--elevated)",
       secondary: {
         DEFAULT: "var(--secondary)",
         foreground: "var(--secondary-foreground)",
@@ -71,7 +74,7 @@ const config = {
       },
     },
     fontFamily: {
-      sans: ['"IBM Plex Sans"', '"IBM Plex Sans Arabic"', "sans-serif"],
+      sans: ['"IBM Plex Sans"', "sans-serif"],
     },
     fontSize: {
       sm: ["0.875rem", { lineHeight: "1.45" }],

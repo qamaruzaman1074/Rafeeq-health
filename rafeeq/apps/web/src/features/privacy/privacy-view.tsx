@@ -2,11 +2,15 @@ import { useState } from "react";
 import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSyncExternalStore } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import { getSessionPersona, subscribeSession } from "@/app/session";
+import { AppPageLayout } from "@/components/layout/app-page-layout";
+import { PageHeader } from "@/components/layout/page-header";
 import { EmptyState } from "@/components/empty-state";
 import { ErrorState, humanContact } from "@/components/error-state";
 import { Skeleton } from "@/components/skeleton";
 import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { useFailureToast, useNotify } from "@/components/ui/toast";
 import {
@@ -28,6 +32,55 @@ import type { MineConsent } from "@/features/privacy/types";
 
 function grantOf(rows: readonly MineConsent[] | null | undefined, scope: RevocableScope): boolean {
   return rows?.find((row) => row.scope === scope)?.granted ?? false;
+}
+
+function SharingExplainer() {
+  const { t } = useTranslation();
+  const items = [
+    {
+      id: "own",
+      title: t("explain.own.title", { ns: "privacy" }),
+      body: t("explain.own.body", { ns: "privacy" }),
+    },
+    {
+      id: "overlap",
+      title: t("explain.overlap.title", { ns: "privacy" }),
+      body: t("explain.overlap.body", { ns: "privacy" }),
+    },
+    {
+      id: "clinic",
+      title: t("explain.clinic.title", { ns: "privacy" }),
+      body: t("explain.clinic.body", { ns: "privacy" }),
+    },
+    {
+      id: "research",
+      title: t("explain.research.title", { ns: "privacy" }),
+      body: t("explain.research.body", { ns: "privacy" }),
+    },
+  ] as const;
+
+  return (
+    <section className="flex flex-col gap-4" data-privacy-section="explain">
+      <h2 className="text-xl font-semibold text-teal-900">
+        {t("explain.heading", { ns: "privacy" })}
+      </h2>
+      <p className="max-w-2xl text-base leading-relaxed text-ink-600">
+        {t("explain.lead", { ns: "privacy" })}
+      </p>
+      <ul className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {items.map((item) => (
+          <li key={item.id}>
+            <Card className="h-full hover:shadow-surface">
+              <CardHeader>
+                <CardTitle>{item.title}</CardTitle>
+                <CardDescription>{item.body}</CardDescription>
+              </CardHeader>
+            </Card>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 }
 
 export function PrivacyView() {
@@ -130,13 +183,20 @@ export function PrivacyView() {
   );
 
   return (
-    <div className="flex flex-col gap-8">
-      <header className="flex flex-col gap-3">
-        <h1 className="text-3xl font-semibold text-teal-900">
-          {t("page.title", { ns: "privacy" })}
-        </h1>
-        <p>{t("page.intro", { ns: "privacy" })}</p>
-      </header>
+    <AppPageLayout width="wide">
+      <PageHeader
+        title={t("page.title", { ns: "privacy" })}
+        description={t("page.intro", { ns: "privacy" })}
+      />
+
+      <p
+        className="rounded-lg border border-border-subtle bg-sand-100 ps-4 pe-4 py-4 text-base leading-relaxed text-ink-600"
+        data-privacy-section="demo"
+      >
+        {t("page.demo", { ns: "privacy" })}
+      </p>
+
+      <SharingExplainer />
 
       {mine.isPending ? <Skeleton label={t("loading", { ns: "privacy" })} /> : null}
       {mine.isError ? (
@@ -153,12 +213,23 @@ export function PrivacyView() {
         <EmptyState title={t("empty", { ns: "privacy" })} />
       ) : null}
       {rows !== null ? (
-        <ShareMatrix
-          partnerGranted={currentGrant("share_overlap_with_partner")}
-          clinicGranted={currentGrant("share_with_clinic")}
-          disabled={busy}
-          onToggle={onToggle}
-        />
+        <section className="flex flex-col gap-3" data-privacy-section="controls">
+          <h2 className="text-xl font-semibold text-teal-900">
+            {t("page.controlsHeading", { ns: "privacy" })}
+          </h2>
+          <p className="max-w-2xl text-base leading-relaxed text-ink-600">
+            {t("page.controlsLead", { ns: "privacy" })}
+          </p>
+          <p className="max-w-2xl text-base leading-relaxed text-ink-600">
+            {t("page.revokeLead", { ns: "privacy" })}
+          </p>
+          <ShareMatrix
+            partnerGranted={currentGrant("share_overlap_with_partner")}
+            clinicGranted={currentGrant("share_with_clinic")}
+            disabled={busy}
+            onToggle={onToggle}
+          />
+        </section>
       ) : null}
       {notice === "failed" ? <p role="alert">{t("revoke.failed", { ns: "privacy" })}</p> : null}
 
@@ -172,6 +243,9 @@ export function PrivacyView() {
         <h2 id="privacy-receipts" className="text-2xl font-semibold text-teal-900">
           {t("receipt.heading", { ns: "privacy" })}
         </h2>
+        <p className="max-w-2xl text-base leading-relaxed text-ink-600">
+          {t("receipt.lead", { ns: "privacy" })}
+        </p>
         {rows !== null && receiptPending ? (
           <Skeleton label={t("loading", { ns: "privacy" })} />
         ) : null}
@@ -208,6 +282,9 @@ export function PrivacyView() {
         <h2 id="privacy-audit" className="text-2xl font-semibold text-teal-900">
           {t("audit.heading", { ns: "privacy" })}
         </h2>
+        <p className="max-w-2xl text-base leading-relaxed text-ink-600">
+          {t("audit.lead", { ns: "privacy" })}
+        </p>
         {audit.isPending ? <Skeleton label={t("loading", { ns: "privacy" })} /> : null}
         {audit.isError ? (
           <ErrorState
@@ -223,8 +300,24 @@ export function PrivacyView() {
           <EmptyState title={t("audit.empty", { ns: "privacy" })} />
         ) : null}
         {audit.data !== undefined && audit.data !== null && audit.data.length > 0 ? (
-          <AuditTimeline entries={audit.data} />
+          <div className="rounded-lg border border-border-subtle bg-sand-100 p-6">
+            <AuditTimeline entries={audit.data} />
+          </div>
         ) : null}
+      </section>
+
+      <section className="flex flex-col gap-3" data-privacy-section="related">
+        <h2 className="text-xl font-semibold text-teal-900">
+          {t("related.heading", { ns: "privacy" })}
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          <Button asChild variant="secondary">
+            <Link to="/app/care">{t("related.care", { ns: "privacy" })}</Link>
+          </Button>
+          <Button asChild variant="secondary">
+            <Link to="/app/result">{t("related.results", { ns: "privacy" })}</Link>
+          </Button>
+        </div>
       </section>
 
       {pending !== null ? (
@@ -250,6 +343,6 @@ export function PrivacyView() {
           </DialogContent>
         </Dialog>
       ) : null}
-    </div>
+    </AppPageLayout>
   );
 }

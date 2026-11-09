@@ -17,21 +17,17 @@ describe("web scaffold", () => {
     expect(apiRequest).toBeTypeOf("function");
   });
 
-  it("registers Arabic and English bundles", () => {
+  it("registers English bundles", () => {
     const routeCatalogs = new Set(["clinic", "insights"]);
     for (const namespace of NAMESPACES) {
       const present = !routeCatalogs.has(namespace);
       expect(i18n.hasResourceBundle("en", namespace), namespace).toBe(present);
-      expect(i18n.hasResourceBundle("ar", namespace), namespace).toBe(present);
     }
     registerClinicCatalog();
     registerInsightsCatalog();
     expect(i18n.hasResourceBundle("en", "clinic")).toBe(true);
-    expect(i18n.hasResourceBundle("ar", "clinic")).toBe(true);
     expect(i18n.hasResourceBundle("en", "insights")).toBe(true);
-    expect(i18n.hasResourceBundle("ar", "insights")).toBe(true);
     expect(i18n.t("app.placeholder")).toBe("");
-    expect(i18n.t("common.languageName.ar")).toBe("Arabic");
   });
 
   it("keeps logical spacing classes", () => {

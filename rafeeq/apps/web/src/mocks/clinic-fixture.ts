@@ -14,8 +14,7 @@ import { mineConsents, partnerConsents } from "@/mocks/privacy-fixture";
  * (P1, P4, P6). P3 names both T1 and T2, so it is left off the queue.
  * P5 is included so the declined-share brief can be opened. Its tier is null.
  *
- * OPEN_QUESTION: language, literacy mode (except the P7 voice note, and P7 has
- * no single tier), due-by, reason codes, comprehension gaps, user questions,
+ * OPEN_QUESTION: language, literacy mode, due-by, reason codes, comprehension gaps, user questions,
  * and stated preferences are not in the persona file or in `/content`. Those
  * fields are null or empty. No clinical sentence is added.
  *

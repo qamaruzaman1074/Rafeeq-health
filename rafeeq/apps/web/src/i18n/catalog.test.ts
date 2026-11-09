@@ -4,12 +4,12 @@ import { NAMESPACES } from "@/i18n/namespaces";
 
 const localesRoot = new URL("./locales/", import.meta.url);
 
-function catalog(locale: string, namespace: string): unknown {
-  return JSON.parse(readFileSync(new URL(`${locale}/${namespace}.json`, localesRoot), "utf8"));
+function catalog(namespace: string): unknown {
+  return JSON.parse(readFileSync(new URL(`en/${namespace}.json`, localesRoot), "utf8"));
 }
 
-function namespaceFiles(locale: string): string[] {
-  return readdirSync(new URL(`${locale}/`, localesRoot))
+function namespaceFiles(): string[] {
+  return readdirSync(new URL("en/", localesRoot))
     .filter((name) => name.endsWith(".json"))
     .map((name) => name.slice(0, -".json".length))
     .sort();
@@ -36,32 +36,26 @@ function leaves(value: unknown, prefix = ""): Map<string, string> {
 }
 
 describe("locale catalogs", () => {
-  it("registers the same namespace files for Arabic and English", () => {
+  it("registers every app namespace in English", () => {
     const expected = [...NAMESPACES].sort();
-    expect(namespaceFiles("en")).toEqual(expected);
-    expect(namespaceFiles("ar")).toEqual(expected);
+    expect(namespaceFiles()).toEqual(expected);
   });
 
-  it("gives Arabic and English the same keys in every namespace", () => {
+  it("gives English a non-empty string for every key", () => {
     for (const namespace of NAMESPACES) {
-      const english = leaves(catalog("en", namespace));
-      const arabic = leaves(catalog("ar", namespace));
-      expect([...arabic.keys()].sort(), namespace).toEqual([...english.keys()].sort());
+      const english = leaves(catalog(namespace));
+      for (const [key, text] of english) {
+        if (key === "app.placeholder") {
+          continue;
+        }
+        expect(text.length, `${namespace}.${key}`).toBeGreaterThan(0);
+        expect(text, `${namespace}.${key}`).not.toBe("TODO_AR");
+      }
     }
   });
 
-  it("keeps the scaffold placeholder empty and translates every other common string", () => {
-    const english = leaves(catalog("en", "common"));
-    const arabic = leaves(catalog("ar", "common"));
+  it("keeps the scaffold placeholder empty", () => {
+    const english = leaves(catalog("common"));
     expect(english.get("app.placeholder")).toBe("");
-    expect(arabic.get("app.placeholder")).toBe("");
-    for (const [key, text] of english) {
-      if (key === "app.placeholder") {
-        continue;
-      }
-      expect(text.length, key).toBeGreaterThan(0);
-      expect(arabic.get(key)?.length, key).toBeGreaterThan(0);
-      expect(arabic.get(key), key).not.toBe("TODO_AR");
-    }
   });
 });

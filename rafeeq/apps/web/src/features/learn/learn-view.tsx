@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLiteracy, type LiteracyMode } from "@/app/literacy";
+import { AppPageLayout } from "@/components/layout/app-page-layout";
+import { PageHeader } from "@/components/layout/page-header";
 import { EmptyState } from "@/components/empty-state";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AudioButton } from "@/features/learn/audio-button";
 import { BlockBody } from "@/features/learn/block-body";
 import { readLocaleBlock, type LocaleCode } from "@/features/learn/blocks";
+import { EducationGuide } from "@/features/learn/education-guide";
 import { GlossaryTerm } from "@/features/learn/glossary-term";
 import { ModuleIcon } from "@/features/learn/module-icon";
 import { LEARN_MODULES, type LearnModule } from "@/features/learn/modules";
+import { LearnRelatedLinks } from "@/features/learn/related-links";
 import { documentLocale } from "@/i18n/locale";
 
 function Transcript({
@@ -76,59 +81,86 @@ function LearnModuleCard({
   const spoken = readLocaleBlock(locale, spokenId);
 
   return (
-    <article
-      className="flex flex-col gap-4 rounded-lg border border-teal-500 bg-sand-100 p-6"
-      data-content-locale={locale}
-      data-literacy={mode}
-    >
-      <h2 className="text-2xl font-semibold text-teal-900">{title}</h2>
-      <GlossaryTerm
-        term={module.glossaryTerm}
-        termKey={module.termKey}
-        locale={locale}
-        large={mode === "voice"}
-      />
-      {mode === "simple" ? (
-        <div className="flex items-start gap-4">
-          <ModuleIcon moduleId={module.id} />
-          <Transcript
+    <article className="flex flex-col gap-4" data-content-locale={locale} data-literacy={mode}>
+      <Card className="hover:shadow-surface">
+        <CardContent className="flex flex-col gap-4 p-6 sm:p-8">
+          <h2 className="text-2xl font-semibold text-teal-900">{title}</h2>
+          <p className="text-sm text-ink-600">{t("modules.educationOnly", { ns: "learn" })}</p>
+          <GlossaryTerm
+            term={module.glossaryTerm}
+            termKey={module.termKey}
+            locale={locale}
+            large={mode === "voice"}
+          />
+          {mode === "simple" ? (
+            <div className="flex items-start gap-4">
+              <ModuleIcon moduleId={module.id} />
+              <Transcript
+                title={title}
+                moduleId={module.id}
+                text={spoken.text}
+                blockId={spokenId}
+                shown
+                large={false}
+              />
+            </div>
+          ) : null}
+          {mode === "standard" ? (
+            <Transcript
+              title={title}
+              moduleId={module.id}
+              text={spoken.text}
+              blockId={spokenId}
+              shown
+              large={false}
+            />
+          ) : null}
+          <AudioButton
+            blockId={spokenId}
+            locale={locale}
             title={title}
             moduleId={module.id}
-            text={spoken.text}
-            blockId={spokenId}
-            shown
-            large={false}
+            large={mode === "voice"}
           />
-        </div>
-      ) : null}
-      {mode === "standard" ? (
-        <Transcript
-          title={title}
-          moduleId={module.id}
-          text={spoken.text}
-          blockId={spokenId}
-          shown
-          large={false}
-        />
-      ) : null}
-      <AudioButton
-        blockId={spokenId}
-        locale={locale}
-        title={title}
-        moduleId={module.id}
-        large={mode === "voice"}
-      />
-      {mode === "voice" ? (
-        <Transcript
-          title={title}
-          moduleId={module.id}
-          text={spoken.text}
-          blockId={spokenId}
-          shown={false}
-          large
-        />
-      ) : null}
+          {mode === "voice" ? (
+            <Transcript
+              title={title}
+              moduleId={module.id}
+              text={spoken.text}
+              blockId={spokenId}
+              shown={false}
+              large
+            />
+          ) : null}
+        </CardContent>
+      </Card>
     </article>
+  );
+}
+
+function GlossaryStrip({ locale, large }: { locale: LocaleCode; large: boolean }) {
+  const { t } = useTranslation();
+  return (
+    <section className="flex flex-col gap-3" data-learn-section="glossary">
+      <h2 className="text-xl font-semibold text-teal-900">
+        {t("glossary.heading", { ns: "learn" })}
+      </h2>
+      <p className="max-w-2xl text-base leading-relaxed text-ink-600">
+        {t("glossary.lead", { ns: "learn" })}
+      </p>
+      <ul className="flex flex-wrap gap-2">
+        {LEARN_MODULES.map((module) => (
+          <li key={module.glossaryTerm}>
+            <GlossaryTerm
+              term={module.glossaryTerm}
+              termKey={module.termKey}
+              locale={locale}
+              large={large}
+            />
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 
@@ -140,9 +172,16 @@ export function LearnView() {
 
   return (
     <TooltipProvider delayDuration={200}>
-      <div className="flex flex-col gap-6">
-        <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "learn" })}</h1>
+      <AppPageLayout width="wide">
+        <PageHeader
+          title={t("page.title", { ns: "learn" })}
+          description={t("page.intro", { ns: "learn" })}
+        />
+        <p className="max-w-2xl text-base leading-relaxed text-ink-600">
+          {t("page.notAdvice", { ns: "learn" })}
+        </p>
         <p>{t("blocks.language", { ns: "learn" })}</p>
+        <EducationGuide />
         {modules.length === 0 ? (
           <EmptyState title={t("empty", { ns: "learn" })} />
         ) : (
@@ -154,7 +193,9 @@ export function LearnView() {
             ))}
           </ul>
         )}
-      </div>
+        <GlossaryStrip locale={locale} large={mode === "voice"} />
+        <LearnRelatedLinks />
+      </AppPageLayout>
     </TooltipProvider>
   );
 }

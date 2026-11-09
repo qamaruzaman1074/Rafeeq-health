@@ -1,4 +1,3 @@
-import blocksAr from "../../../../../content/blocks.ar.json";
 import blocksEn from "../../../../../content/blocks.en.json";
 
 export type LocaleCode = "en" | "ar";
@@ -9,7 +8,6 @@ export type ContentBlock = {
 };
 
 const englishBlocks: unknown = blocksEn;
-const arabicBlocks: unknown = blocksAr;
 
 function nonEmpty(value: unknown): string | null {
   if (typeof value !== "string") {
@@ -22,11 +20,7 @@ function nonEmpty(value: unknown): string | null {
   return trimmed;
 }
 
-/**
- * OPEN_QUESTION: blocks.en.json and blocks.ar.json are `{}`. MASTER does not
- * define the entry shape. A string, or an object with `text` and optional
- * `audio_url`, is accepted. Anything else is treated as missing.
- */
+/** English-only product: approved copy lives in blocks.en.json. */
 export function readContentBlock(file: unknown, blockId: string): ContentBlock {
   if (typeof file !== "object" || file === null || Array.isArray(file)) {
     return { text: null, audioUrl: null };
@@ -50,7 +44,10 @@ export function readContentBlock(file: unknown, blockId: string): ContentBlock {
 }
 
 export function readLocaleBlock(locale: LocaleCode, blockId: string): ContentBlock {
-  return readContentBlock(locale === "ar" ? arabicBlocks : englishBlocks, blockId);
+  if (locale !== "en") {
+    return { text: null, audioUrl: null };
+  }
+  return readContentBlock(englishBlocks, blockId);
 }
 
 export function mockAudioUrl(blockId: string): string {

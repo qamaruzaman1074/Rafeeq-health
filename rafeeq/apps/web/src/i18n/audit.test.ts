@@ -5,26 +5,16 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { NAMESPACES } from "@/i18n/namespaces";
-import {
-  REQUIRED_NAMESPACES,
-  auditSource,
-  auditWeb,
-  diffCatalogs,
-} from "../../scripts/check-i18n.mjs";
+import { REQUIRED_NAMESPACES, auditSource, auditWeb } from "../../scripts/check-i18n.mjs";
 
 const webRoot = fileURLToPath(new URL("../..", import.meta.url));
 
-function writeLocales(
-  root: string,
-  catalogs: { en: Record<string, unknown>; ar: Record<string, unknown> },
-) {
-  for (const locale of ["en", "ar"] as const) {
-    const directory = path.join(root, "src", "i18n", "locales", locale);
-    mkdirSync(directory, { recursive: true });
-    for (const namespace of NAMESPACES) {
-      const catalog = catalogs[locale][namespace] ?? {};
-      writeFileSync(path.join(directory, `${namespace}.json`), JSON.stringify(catalog));
-    }
+function writeLocales(root: string, catalogs: { en: Record<string, unknown> }) {
+  const directory = path.join(root, "src", "i18n", "locales", "en");
+  mkdirSync(directory, { recursive: true });
+  for (const namespace of NAMESPACES) {
+    const catalog = catalogs.en[namespace] ?? {};
+    writeFileSync(path.join(directory, `${namespace}.json`), JSON.stringify(catalog));
   }
 }
 
@@ -40,7 +30,6 @@ describe("check-i18n", () => {
   it("fails on a hard-coded JSX string", () => {
     const catalogs = {
       en: { common: { hello: "Hello" } },
-      ar: { common: { hello: "TODO_AR" } },
     };
     const violations = auditSource(
       `export function Sample(){ return <p>Hello</p>; }`,
@@ -50,15 +39,10 @@ describe("check-i18n", () => {
     expect(violations.some((item) => item.message === "Hard-coded JSX string")).toBe(true);
   });
 
-  it("fails when a key is missing from either locale", () => {
+  it("fails when a translation key is missing from English", () => {
     const catalogs = {
       en: { common: { hello: "Hello" } },
-      ar: { common: {} },
     };
-    const missing = diffCatalogs(catalogs);
-    expect(
-      missing.some((item) => item.message.includes('"hello"') && item.file.includes("/ar/")),
-    ).toBe(true);
     const used = auditSource(
       `export function Sample(){ const t = (key: string) => key; return <p>{t("missing.key")}</p>; }`,
       "src/Sample.tsx",
@@ -74,7 +58,7 @@ describe("check-i18n", () => {
 
     const fixture = mkdtempSync(path.join(tmpdir(), "rafeeq-i18n-"));
     try {
-      writeLocales(fixture, { en: { common: { hello: "Hello" } }, ar: { common: {} } });
+      writeLocales(fixture, { en: { common: { hello: "Hello" } } });
       writeFileSync(
         path.join(fixture, "src", "Sample.tsx"),
         `export function Sample(){ return <p>Hello</p>; }`,
@@ -91,7 +75,6 @@ describe("check-i18n", () => {
             ? String(error.stderr)
             : "";
         expect(stderr).toContain("Hard-coded JSX string");
-        expect(stderr).toContain('"hello"');
       }
     } finally {
       rmSync(fixture, { recursive: true, force: true });

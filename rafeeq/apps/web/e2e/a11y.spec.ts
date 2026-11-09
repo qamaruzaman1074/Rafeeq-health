@@ -1,11 +1,26 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
-const locales = ["en", "ar"] as const;
+const locales = ["en"] as const;
 
 type Locale = (typeof locales)[number];
 
-const publicRoutes = ["/", "/trust", "/demo", "/legal", "/dev/styleguide"] as const;
+const publicRoutes = [
+  "/",
+  "/about",
+  "/how-it-works",
+  "/understanding-genetic-risk",
+  "/inherited-conditions",
+  "/genetic-counselling",
+  "/contact",
+  "/faq",
+  "/trust",
+  "/demo",
+  "/privacy-policy",
+  "/terms",
+  "/legal",
+  "/dev/styleguide",
+] as const;
 
 const coupleRoutes = [
   "/app",
@@ -16,6 +31,9 @@ const coupleRoutes = [
   "/app/ask",
   "/app/privacy",
   "/app/care",
+  "/app/report",
+  "/app/partner",
+  "/app/notifications",
   "/app/settings",
 ] as const;
 
@@ -45,6 +63,7 @@ async function scan(page: Page, path: string): Promise<void> {
     await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
   }
   await page.waitForLoadState("networkidle");
+  await page.waitForTimeout(1200);
   const results = await new AxeBuilder({ page }).analyze();
   expect(violationSummary(results), path).toEqual([]);
 }
@@ -71,14 +90,82 @@ async function enterGuest(page: Page): Promise<void> {
 
 async function enterCounsellor(page: Page): Promise<void> {
   await page.goto("/demo");
-  await page.locator("main header").getByRole("button").nth(1).click();
+  const named = page.getByRole("button", { name: "Open the counsellor queue" });
+  if (await named.count()) {
+    await named.click();
+  } else {
+    await page.locator("main header").getByRole("button").nth(1).click();
+  }
   await expect(page).toHaveURL(/\/clinic\/queue$/);
 }
 
 async function enterAnalyst(page: Page): Promise<void> {
   await page.goto("/demo");
-  await page.locator("main header").getByRole("button").nth(2).click();
+  const named = page.getByRole("button", { name: "Open insights" });
+  if (await named.count()) {
+    await named.click();
+  } else {
+    await page.locator("main header").getByRole("button").nth(2).click();
+  }
   await expect(page).toHaveURL(/\/insights$/);
+}
+
+const coupleNav = {
+  en: {
+    pages: "Pages",
+    more: "More",
+    primary: {
+      "/app": "Overview",
+      "/app/result": "Results",
+      "/app/learn": "Learn",
+      "/app/check": "Check",
+      "/app/privacy": "Privacy",
+      "/app/care": "Care",
+    },
+    secondary: {
+      "/app/couple": "Together",
+      "/app/report": "My report",
+      "/app/partner": "Partner",
+      "/app/notifications": "Notifications",
+      "/app/ask": "Ask",
+      "/app/settings": "Settings",
+    },
+  },
+  ar: {
+    pages: "الصفحات",
+    more: "المزيد",
+    primary: {
+      "/app": "نظرة عامة",
+      "/app/result": "النتائج",
+      "/app/learn": "تعلّم",
+      "/app/check": "تحقق",
+      "/app/privacy": "الخصوصية",
+      "/app/care": "الرعاية",
+    },
+    secondary: {
+      "/app/couple": "معاً",
+      "/app/ask": "اسأل",
+      "/app/settings": "الإعدادات",
+    },
+  },
+} as const;
+
+async function goCoupleRoute(
+  page: Page,
+  locale: Locale,
+  path: (typeof coupleRoutes)[number],
+): Promise<void> {
+  const copy = coupleNav[locale];
+  if (path in copy.primary) {
+    const name = copy.primary[path as keyof typeof copy.primary];
+    await page.getByRole("navigation", { name: copy.pages }).getByRole("link", { name }).click();
+  } else if (path in copy.secondary) {
+    const name = copy.secondary[path as keyof typeof copy.secondary];
+    await page.getByRole("navigation", { name: copy.more }).getByRole("link", { name }).click();
+  } else {
+    await clientNavigate(page, path);
+  }
+  await expect(page.locator("[data-screen]")).toHaveAttribute("data-screen", path);
 }
 
 for (const locale of locales) {
@@ -104,7 +191,7 @@ for (const locale of locales) {
       await enterGuest(page);
       for (const path of coupleRoutes) {
         if (path !== "/app") {
-          await clientNavigate(page, path);
+          await goCoupleRoute(page, locale, path);
         }
         await scan(page, path);
       }
@@ -139,8 +226,8 @@ test("admin has no mock session", async ({ page }) => {
 });
 
 const zoomTargets = {
-  en: ["Continue as Guest", "Sign in"],
-  ar: ["المتابعة كضيف", "تسجيل الدخول"],
+  en: ["Get Started", "How It Works"],
+  ar: ["ابدأ", "كيف يعمل"],
 } as const;
 
 for (const locale of locales) {
@@ -200,6 +287,17 @@ for (const locale of locales) {
     expect(clipped).toEqual([]);
   });
 }
+
+test("dark landing has no serious or critical issues", async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem("rafeeq.theme", "dark");
+    localStorage.setItem("rafeeq.lang", "en");
+  });
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await scan(page, "/");
+});
 
 test("reduced motion collapses animation duration", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });

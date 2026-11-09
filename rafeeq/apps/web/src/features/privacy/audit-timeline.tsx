@@ -69,7 +69,7 @@ export function AuditTimeline({ entries }: { entries: readonly AuditEntry[] }) {
 
   return (
     <div data-audit="timeline" lang={locale.lang} dir={locale.dir}>
-      <ol className="flex flex-col gap-4 ps-6">
+      <ol className="flex flex-col gap-4 border-s-2 border-teal-100 ps-6">
         {entries.map((entry) => (
           <li key={entry.id} data-entry={entry.id} className="flex flex-col gap-1">
             <span

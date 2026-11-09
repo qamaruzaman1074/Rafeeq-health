@@ -1,10 +1,16 @@
 import { useState, useSyncExternalStore } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import { getSessionPersona, subscribeSession } from "@/app/session";
+import { AppPageLayout } from "@/components/layout/app-page-layout";
+import { PageHeader } from "@/components/layout/page-header";
 import { EmptyState } from "@/components/empty-state";
 import { ErrorState, humanContact } from "@/components/error-state";
 import { Skeleton } from "@/components/skeleton";
+import { SyntheticBadge } from "@/components/synthetic-badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useFailureToast, useNotify } from "@/components/ui/toast";
 import { fetchPathway, pathwayQueryKey, postReferral } from "@/features/care/api";
 import { BookingCalendar } from "@/features/care/booking-calendar";
@@ -57,11 +63,35 @@ export function CareView() {
   }
 
   return (
-    <div className="flex flex-col gap-8">
-      <header className="flex flex-col gap-3">
-        <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "care" })}</h1>
-        <p>{t("page.intro", { ns: "care" })}</p>
-      </header>
+    <AppPageLayout width="wide">
+      <PageHeader
+        eyebrow={<SyntheticBadge />}
+        title={t("page.title", { ns: "care" })}
+        description={t("page.intro", { ns: "care" })}
+      />
+
+      <p className="max-w-2xl text-base leading-relaxed text-ink-600">
+        {t("page.notReplacement", { ns: "care" })}
+      </p>
+
+      <section className="flex flex-col gap-4" data-care-section="when">
+        <h2 className="text-xl font-semibold text-teal-900">{t("when.heading", { ns: "care" })}</h2>
+        <p className="max-w-2xl text-base leading-relaxed text-ink-600">
+          {t("when.lead", { ns: "care" })}
+        </p>
+        <ul className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          {(["result", "question", "share"] as const).map((item) => (
+            <li key={item}>
+              <Card className="h-full hover:shadow-surface">
+                <CardHeader>
+                  <CardTitle>{t(`when.${item}.title`, { ns: "care" })}</CardTitle>
+                  <CardDescription>{t(`when.${item}.body`, { ns: "care" })}</CardDescription>
+                </CardHeader>
+              </Card>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section
         className="flex flex-col gap-4"
@@ -88,10 +118,12 @@ export function CareView() {
           <EmptyState title={t("empty", { ns: "care" })} />
         ) : null}
         {pathway.data != null ? (
-          <>
+          <div className="rounded-lg border border-border-subtle bg-sand-100 p-6">
             <PathwayTimeline pathway={pathway.data} />
-            <StatusChips status={pathway.data.status} />
-          </>
+            <div className="mt-4">
+              <StatusChips status={pathway.data.status} />
+            </div>
+          </div>
         ) : null}
       </section>
 
@@ -106,6 +138,24 @@ export function CareView() {
           void onSend();
         }}
       />
-    </div>
+
+      <section className="flex flex-col gap-3" data-care-section="next">
+        <h2 className="text-xl font-semibold text-teal-900">{t("next.heading", { ns: "care" })}</h2>
+        <p className="max-w-2xl text-base leading-relaxed text-ink-600">
+          {t("next.lead", { ns: "care" })}
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Button asChild variant="secondary">
+            <Link to="/app/ask">{t("next.ask", { ns: "care" })}</Link>
+          </Button>
+          <Button asChild variant="secondary">
+            <Link to="/app/privacy">{t("next.privacy", { ns: "care" })}</Link>
+          </Button>
+          <Button asChild variant="secondary">
+            <Link to="/app/learn">{t("next.learn", { ns: "care" })}</Link>
+          </Button>
+        </div>
+      </section>
+    </AppPageLayout>
   );
 }

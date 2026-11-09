@@ -49,14 +49,6 @@
       "tests": "Ambiguity -> T4 human, no numbers",
       "status": "draft",
       "synthetic": true
-    },
-    {
-      "id": "P7",
-      "names": "Low-literacy voice-first user",
-      "story": "Any result, voice mode",
-      "tests": "TTS + simple mode + teach-back",
-      "status": "draft",
-      "synthetic": true
     }
   ]
 }

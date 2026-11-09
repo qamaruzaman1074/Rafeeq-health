@@ -6,14 +6,24 @@ import { MemoryRouter } from "react-router";
 import { beforeAll, describe, expect, it } from "vitest";
 import { LiteracyProvider } from "@/app/literacy";
 import { productRoutes } from "@/app/route-table";
+import { ThemeProvider } from "@/app/theme";
 import i18n from "@/i18n";
 import { NumeralProvider } from "@/i18n/numerals";
 
 const titles: Record<string, string> = {
-  "/": "Understand your genes. Empower your future.",
-  "/trust": "Trust centre",
-  "/demo": "Persona picker",
-  "/app": "Couple home",
+  "/": "Understand your genetic health. Make informed decisions with confidence.",
+  "/about": "Making genetic information easier to understand, while keeping people in control.",
+  "/how-it-works": "From screening information to informed, supported decisions.",
+  "/understanding-genetic-risk": "Understanding genetic risk, clearly and without judgement.",
+  "/inherited-conditions": "Inherited conditions, explained in plain language.",
+  "/genetic-counselling": "You do not have to interpret complex genetic information alone.",
+  "/contact": "Questions about RAFEEQ?",
+  "/faq": "Frequently asked questions",
+  "/privacy-policy": "Your information deserves respect.",
+  "/terms": "Terms of Use",
+  "/trust": "Your information. Your permission. Your choice.",
+  "/demo": "Choose a demo profile",
+  "/app": "Overview",
   "/app/result": "Your result",
   "/app/couple": "Your result together",
   "/app/learn": "Learn",
@@ -21,14 +31,17 @@ const titles: Record<string, string> = {
   "/app/ask": "Ask a question",
   "/app/privacy": "Privacy",
   "/app/care": "Care pathway",
-  "/app/settings": "Settings",
+  "/app/report": "My screening report",
+  "/app/partner": "Partner connection",
+  "/app/notifications": "Notifications",
+  "/app/settings": "Profile and settings",
   "/clinic": "Counsellor console",
   "/clinic/queue": "Queue",
   "/clinic/case/:id": "Case brief",
   "/clinic/audit": "Audit",
   "/insights": "Insights",
   "/admin": "Admin",
-  "/legal": "Legal",
+  "/legal": "Terms of Use",
 };
 
 function renderRoute(Component: () => ReactNode): ReactNode {
@@ -47,7 +60,11 @@ function renderRoute(Component: () => ReactNode): ReactNode {
         createElement(
           MemoryRouter,
           null,
-          createElement(LiteracyProvider, null, createElement(Component)),
+          createElement(
+            ThemeProvider,
+            { storage: null },
+            createElement(LiteracyProvider, null, createElement(Component)),
+          ),
         ),
       ),
     ),
@@ -68,7 +85,8 @@ describe("route placeholders", () => {
       expect(i18n.t(route.titleKey, { ns: route.ns }), route.path).toBe(expected);
       const page = await route.load();
       const html = renderToStaticMarkup(renderRoute(page.Component));
-      expect(html, route.path).toContain(`>${expected}<`);
+      const escaped = expected.replaceAll("&", "&amp;");
+      expect(html, route.path).toContain(`>${escaped}<`);
     }
   });
 });

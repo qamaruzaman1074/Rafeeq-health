@@ -4,14 +4,11 @@ import { VitePWA } from "vite-plugin-pwa";
 import type { Plugin } from "vite";
 import { defineConfig } from "vite";
 
-const FIRST_ROUTE_FONTS = {
-  en: ["IBMPlexSans-Regular.woff2", "IBMPlexSans-Medium.woff2", "IBMPlexSans-SemiBold.woff2"],
-  ar: [
-    "IBMPlexSansArabic-Regular.woff2",
-    "IBMPlexSansArabic-Medium.woff2",
-    "IBMPlexSansArabic-SemiBold.woff2",
-  ],
-} as const;
+const FIRST_ROUTE_FONTS = [
+  "IBMPlexSans-Regular.woff2",
+  "IBMPlexSans-Medium.woff2",
+  "IBMPlexSans-SemiBold.woff2",
+] as const;
 
 function fontPreloadPlugin(): Plugin {
   return {
@@ -41,11 +38,8 @@ function fontPreloadPlugin(): Plugin {
           }
           throw new Error(`First-route font was not emitted: ${file}`);
         };
-        const payload = {
-          en: FIRST_ROUTE_FONTS.en.map(hrefFor),
-          ar: FIRST_ROUTE_FONTS.ar.map(hrefFor),
-        };
-        const script = `<script>(function(){var fonts=${JSON.stringify(payload)};var lang=document.documentElement.lang==="ar"?"ar":"en";var list=fonts[lang];for(var i=0;i<list.length;i+=1){var link=document.createElement("link");link.rel="preload";link.as="font";link.type="font/woff2";link.crossOrigin="anonymous";link.href=list[i];document.head.appendChild(link);}})();</script>`;
+        const list = FIRST_ROUTE_FONTS.map(hrefFor);
+        const script = `<script>(function(){var fonts=${JSON.stringify(list)};for(var i=0;i<fonts.length;i+=1){var link=document.createElement("link");link.rel="preload";link.as="font";link.type="font/woff2";link.crossOrigin="anonymous";link.href=fonts[i];document.head.appendChild(link);}})();</script>`;
         const marker = "<!-- rafeeq-font-preload -->";
         if (!html.includes(marker)) {
           throw new Error("index.html is missing the font preload marker");

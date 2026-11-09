@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createElement, type ReactNode } from "react";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
@@ -6,6 +7,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { I18nextProvider } from "react-i18next";
 import { MemoryRouter } from "react-router";
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
+import { LiteracyProvider } from "@/app/literacy";
 import { CheckScreen } from "@/features/check/check-screen";
 import { Component as HomePage } from "@/pages/app-home-page";
 import { buildAnswerRequest, fetchCheckItems, submitAnswer } from "@/features/check/api";
@@ -19,6 +21,7 @@ import {
 } from "@/features/check/progress";
 import type { CheckItemView, FeedbackBlock } from "@/features/check/types";
 import i18n from "@/i18n";
+import { NumeralProvider } from "@/i18n/numerals";
 import { ApiRequestError, apiRequest } from "@/lib/api";
 import {
   recordedComprehensionEvents,
@@ -27,8 +30,23 @@ import {
 import { resetActivePersona } from "@/mocks/persona-state";
 
 function renderNode(node: ReactNode): string {
+  const client = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  });
   return renderToStaticMarkup(
-    createElement(I18nextProvider, { i18n }, createElement(MemoryRouter, null, node)),
+    createElement(
+      I18nextProvider,
+      { i18n },
+      createElement(
+        QueryClientProvider,
+        { client },
+        createElement(
+          NumeralProvider,
+          null,
+          createElement(MemoryRouter, null, createElement(LiteracyProvider, null, node)),
+        ),
+      ),
+    ),
   );
 }
 
@@ -306,7 +324,7 @@ describe("teach-back check", () => {
     expect(after).toContain('data-complete="true"');
     expect(after).toContain(">Complete<");
     expect(open).toContain('data-complete="true"');
-    expect(home).toContain(">Couple home<");
+    expect(home).toContain(">Overview<");
     expect(home).toContain('data-step="check"');
     expect(home).toContain('data-complete="true"');
     expect(home).toContain(">Complete<");

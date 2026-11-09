@@ -10,9 +10,9 @@ const PATHWAY_STEPS = [
   { id: "result", to: "/app/result" },
   { id: "understand", to: "/app/learn" },
   { id: "check", to: "/app/check" },
-  { id: "share", to: null },
-  { id: "counselling", to: null },
-  { id: "next", to: null },
+  { id: "share", to: "/app/privacy" },
+  { id: "counselling", to: "/app/care" },
+  { id: "next", to: "/app/ask" },
 ] as const;
 
 type StepId = (typeof PATHWAY_STEPS)[number]["id"];
@@ -38,8 +38,8 @@ function stepLabel(id: StepId, t: TFunction): string {
   }
 }
 
-const linkClass =
-  "inline-flex min-h-11 items-center text-teal-700 underline decoration-teal-700 underline-offset-4 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-teal-500";
+const focusClass =
+  "focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-teal-500";
 
 export function PathwayProgress() {
   const { t } = useTranslation();
@@ -48,34 +48,29 @@ export function PathwayProgress() {
   return (
     <ol
       aria-label={t("pathway.label", { ns: "check" })}
-      className="flex flex-wrap items-center gap-x-3 gap-y-2"
+      className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
     >
-      {PATHWAY_STEPS.map((step, index) => {
+      {PATHWAY_STEPS.map((step) => {
         const label = stepLabel(step.id, t);
         const done = step.id === "check" && complete;
         return (
           <li
             key={step.id}
-            className="flex items-center gap-3"
+            className="min-w-0"
             data-step={step.id}
             data-complete={step.id === "check" ? (complete ? "true" : "false") : undefined}
           >
-            {index > 0 ? (
-              <span aria-hidden="true" className="text-ink-600">
-                ·
-              </span>
-            ) : null}
-            {step.to !== null ? (
-              <Link
-                to={step.to}
-                className={cn(linkClass, done && "text-green-600 decoration-green-600")}
-              >
-                {label}
-              </Link>
-            ) : (
-              <span className="inline-flex min-h-11 items-center text-ink-900">{label}</span>
-            )}
-            {done ? <Badge variant="positive">{t("pathway.done", { ns: "check" })}</Badge> : null}
+            <Link
+              to={step.to}
+              className={cn(
+                "flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-border-subtle bg-sand-100 ps-4 pe-4 py-3 text-teal-900 shadow-xs transition-colors duration-150 hover:border-teal-500 hover:bg-teal-100",
+                focusClass,
+                done && "border-green-600 bg-teal-100",
+              )}
+            >
+              <span className="font-medium">{label}</span>
+              {done ? <Badge variant="positive">{t("pathway.done", { ns: "check" })}</Badge> : null}
+            </Link>
           </li>
         );
       })}

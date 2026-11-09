@@ -19,7 +19,7 @@ async function openAsk(page: Page): Promise<void> {
   await page.goto("/demo");
   await page.getByRole("button", { name: "Enter as Noor & Khalid" }).click();
   await expect(page).toHaveURL(/\/app$/);
-  await page.locator("a[href='/app/ask']").click();
+  await page.getByRole("navigation", { name: "More" }).getByRole("link", { name: "Ask" }).click();
   await expect(page).toHaveURL(/\/app\/ask$/);
   await expect(page.getByRole("heading", { level: 1, name: "Ask a question" })).toBeVisible();
 }

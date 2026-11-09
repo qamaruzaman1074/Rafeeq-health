@@ -7,7 +7,7 @@ import { browserStorage, readStoredLanguage } from "@/i18n/storage";
 // Clinic and insights catalogs are registered by those routes (and the demo
 // buttons that open them) so they stay out of the first route bundle.
 const localeModules = import.meta.glob<Record<string, unknown>>(
-  ["./locales/*/*.json", "!./locales/*/clinic.json", "!./locales/*/insights.json"],
+  ["./locales/en/*.json", "!./locales/en/clinic.json", "!./locales/en/insights.json"],
   {
     eager: true,
     import: "default",
@@ -16,32 +16,28 @@ const localeModules = import.meta.glob<Record<string, unknown>>(
 
 type LocaleResources = {
   en: Record<string, Record<string, unknown>>;
-  ar: Record<string, Record<string, unknown>>;
 };
 
 function loadResources(): LocaleResources {
-  const resources: LocaleResources = { en: {}, ar: {} };
+  const resources: LocaleResources = { en: {} };
   for (const [path, catalog] of Object.entries(localeModules)) {
-    const match = /^\.\/locales\/(en|ar)\/([^/]+)\.json$/.exec(path);
-    const lang = match?.[1];
-    const namespace = match?.[2];
-    if ((lang !== "en" && lang !== "ar") || namespace === undefined) {
+    const match = /^\.\/locales\/en\/([^/]+)\.json$/.exec(path);
+    const namespace = match?.[1];
+    if (namespace === undefined) {
       continue;
     }
-    resources[lang][namespace] = catalog;
+    resources.en[namespace] = catalog;
   }
   return resources;
 }
 
-// OPEN_QUESTION: MASTER.md does not set the product default locale.
-// `en` is only a bootstrap fallback when `rafeeq.lang` is absent.
 const initialLanguage = readStoredLanguage(browserStorage()) ?? "en";
 
 void i18n.use(initReactI18next).init({
   resources: loadResources(),
   lng: initialLanguage,
   fallbackLng: "en",
-  supportedLngs: ["en", "ar"],
+  supportedLngs: ["en"],
   ns: [...NAMESPACES],
   defaultNS: "common",
   returnEmptyString: true,

@@ -1,5 +1,6 @@
 export const NAMESPACES = [
   "common",
+  "public",
   "landing",
   "result",
   "couple",

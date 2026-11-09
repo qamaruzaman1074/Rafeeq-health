@@ -8,10 +8,7 @@ export const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(f
   return (
     <div
       ref={ref}
-      className={cn(
-        "surface-elevated text-ink-900 transition-shadow duration-150 hover:shadow-surface-md",
-        className,
-      )}
+      className={cn("surface-elevated motion-card-lift text-ink-900", className)}
       {...props}
     />
   );

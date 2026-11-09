@@ -1,17 +1,83 @@
 {
   "page": {
-    "title": "Your result"
+    "title": "Your result",
+    "intro": "These notes are from a demo example. They are for learning, not a personal medical result."
   },
   "loading": "Loading your result.",
   "empty": "No carrier entries were returned.",
   "error": "Your result could not be loaded.",
   "retry": "Try again",
-  "prototype": "prototype content - not clinically validated",
+  "prototype": "Educational content — not clinically validated",
   "card": {
+    "kind": "Carrier status",
     "gene": "Gene",
     "condition": "Condition",
+    "notDiagnosis": "This carrier note is not a confirmed diagnosis.",
     "learnMore": "Learn more",
     "whoCanSee": "Who can see this",
     "whoCanSeeBody": "You can see your own result. A partner sees the overlap only when you both allow sharing."
+  },
+  "own": {
+    "heading": "What this session lists",
+    "lead": "Entries below come from the stored result for this demo session. Where approved text is missing, this is shown rather than filled in."
+  },
+  "meanings": {
+    "heading": "Three things that are not the same",
+    "carrier": {
+      "title": "Carrier status",
+      "body": "A carrier result means a screening test found a change that can be passed on. A carrier is usually healthy. It does not mean you have the condition."
+    },
+    "couple": {
+      "title": "Couple-level reproductive chance",
+      "body": "When both partners are confirmed carriers of relevant variants in the same autosomal recessive condition, a counsellor can explain what that may mean for each pregnancy. That couple-level chance is not the same as one person's carrier status."
+    },
+    "diagnosis": {
+      "title": "A confirmed diagnosis",
+      "body": "A screening carrier result is not a diagnosis of a condition in you or in a child. Diagnosis, if it is ever discussed, belongs with a qualified clinician."
+    }
+  },
+  "explainer": {
+    "heading": "How to read a carrier note",
+    "means": {
+      "title": "What a carrier result means",
+      "body": "It is information about a change that can be inherited. It is not a judgement about you, your partner, or your family."
+    },
+    "limits": {
+      "title": "What this does and does not establish",
+      "body": "It does not establish a diagnosis. It does not predict a specific child's health. It does not rank people or couples."
+    },
+    "partner": {
+      "title": "Why a partner's result may matter",
+      "body": "For some inherited conditions, both partners' carrier status is needed before a couple-level chance can be discussed. Sharing stays in your control."
+    },
+    "counsellor": {
+      "title": "When a genetic counsellor should review this",
+      "body": "A qualified genetic counsellor can review a result, explain its limits, and discuss options. You can open Care when you are ready. There is no deadline on this page."
+    }
+  },
+  "example": {
+    "title": "An autosomal recessive example",
+    "lead": "This is a teaching example. It is not a calculation for your session, and it does not apply automatically to every condition or every couple.",
+    "when": "When both partners are confirmed carriers of relevant variants in the same autosomal recessive condition, each pregnancy has:",
+    "affected": "a 25% chance of being affected",
+    "carrier": "a 50% chance of being a carrier",
+    "neither": "a 25% chance of inheriting neither familial variant",
+    "independent": "Each pregnancy is independent of the last.",
+    "visual": "Four equally likely pregnancy outcomes in this example",
+    "cell": {
+      "affected": "Affected",
+      "carrier": "Carrier",
+      "neither": "Neither familial variant"
+    },
+    "stored": "Stored example for this shared session",
+    "storedLead": "The figures below come from the explanation already stored for this demo session. RAFEEQ does not calculate them here."
+  },
+  "next": {
+    "heading": "What you can do next",
+    "lead": "Open Learn for the explanation topics, Check to say it in your own words, Together if sharing is allowed, or Care to reach a person.",
+    "learn": "Open Learn",
+    "check": "Open Check",
+    "together": "Open Together",
+    "care": "Open Care"
   }
 }

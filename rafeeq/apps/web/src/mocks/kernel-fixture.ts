@@ -1,4 +1,3 @@
-import blocksAr from "../../../../content/blocks.ar.json";
 import blocksEn from "../../../../content/blocks.en.json";
 import type { FactCardDTO } from "@/features/couple/fact-card-dto";
 import { shareGate, type ConsentRow } from "@/features/couple/share-state";
@@ -136,9 +135,9 @@ export function overlapFor(
 
 function bothCarriersCard(): FactCardDTO {
   const englishSentence = blockText(blocksEn, BLOCK_ID) ?? PREGNANCY_SENTENCE;
-  const arabicSentence = blockText(blocksAr, BLOCK_ID);
+  const arabicSentence = null;
   const englishDiagnosis = blockText(blocksEn, BLOCK_ID) ?? DIAGNOSIS_SENTENCE;
-  const arabicDiagnosis = blockText(blocksAr, BLOCK_ID);
+  const arabicDiagnosis = null;
   return {
     proportions: {
       affected: BOTH_CARRIER_COUNTS.affected,

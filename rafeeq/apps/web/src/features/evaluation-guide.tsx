@@ -38,16 +38,14 @@ export function EvaluationGuide() {
           <ul className="flex flex-col gap-4">
             {personas.map((persona) => (
               <li key={persona.id} className="flex flex-col gap-1">
-                <p className="font-medium text-teal-900">
-                  {persona.id}. {persona.names}
-                </p>
-                <p lang="en" dir="ltr">
+                <p className="font-medium text-teal-900">{persona.names}</p>
+                <p>
                   <span className="font-medium">{t("guide.story", { ns: "landing" })}: </span>
-                  {persona.story}
+                  {t(`demo.personas.${persona.id}.summary`, { ns: "landing" })}
                 </p>
-                <p lang="en" dir="ltr">
+                <p>
                   <span className="font-medium">{t("demo.willSee", { ns: "landing" })}: </span>
-                  {persona.tests}
+                  {t(`demo.personas.${persona.id}.explore`, { ns: "landing" })}
                 </p>
               </li>
             ))}

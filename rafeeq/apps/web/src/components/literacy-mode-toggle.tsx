@@ -16,7 +16,7 @@ export function LiteracyModeToggle() {
     <div role="group" aria-label={t("shell.literacy.label")} className="flex flex-wrap gap-2">
       <Button
         variant="secondary"
-        className={mode === "standard" ? "bg-sand-50" : undefined}
+        className={mode === "standard" ? "bg-card text-ink-900" : undefined}
         aria-pressed={mode === "standard"}
         onClick={() => {
           choose("standard");
@@ -26,7 +26,7 @@ export function LiteracyModeToggle() {
       </Button>
       <Button
         variant="secondary"
-        className={mode === "simple" ? "bg-sand-50" : undefined}
+        className={mode === "simple" ? "bg-card text-ink-900" : undefined}
         aria-pressed={mode === "simple"}
         onClick={() => {
           choose("simple");
@@ -36,7 +36,7 @@ export function LiteracyModeToggle() {
       </Button>
       <Button
         variant="secondary"
-        className={mode === "voice" ? "bg-sand-50" : undefined}
+        className={mode === "voice" ? "bg-card text-ink-900" : undefined}
         aria-pressed={mode === "voice"}
         onClick={() => {
           choose("voice");

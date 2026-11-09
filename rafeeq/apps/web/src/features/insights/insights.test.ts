@@ -89,7 +89,7 @@ describe("insights KPIs and equity", () => {
 
   it("shows the synthetic badge, the floor notice, and a text alternative with a data table", async () => {
     const shell = renderNode(createElement(InsightsView));
-    expect(shell).toContain("Synthetic data, not medical advice.");
+    expect(shell).toContain("Demo example");
     expect(shell).toContain(">Insights<");
     expect(shell).toContain("k-anonymity floor: 5. Groups smaller than 5 are not shown.");
 
@@ -129,7 +129,7 @@ describe("insights KPIs and equity", () => {
     expect(html).toContain("Median time from result to referral booked");
     expect(html).toContain("Privacy events (consents granted/revoked)");
     const results = kpis.metrics.flatMap((metric) => texts(html, "kpi-result", metric.id));
-    expect(results).toEqual(kpis.metrics.map(() => "OPEN_QUESTION"));
+    expect(results).toEqual(kpis.metrics.map(() => "Not available yet"));
     for (const text of results) {
       expect(text).not.toContain(String(equityCells.languageEn.n));
       expect(text).not.toContain(equityCells.languageEn.ci.low);
@@ -237,7 +237,7 @@ describe("insights KPIs and equity", () => {
     );
 
     const missing = renderNode(createElement(KpiCard, { metric: emptyMetric("teach_back_pass") }));
-    expect(texts(missing, "kpi-result", "teach_back_pass")).toEqual(["OPEN_QUESTION"]);
+    expect(texts(missing, "kpi-result", "teach_back_pass")).toEqual(["Not available yet"]);
     expect(missing).toContain("Teach-back pass rate");
   });
 
@@ -274,7 +274,7 @@ describe("insights KPIs and equity", () => {
     );
     const shown = texts(html, "equity-cell", "en");
     expect(shown.some((text) => text.includes("Count 9"))).toBe(true);
-    expect(shown.some((text) => text.includes("OPEN_QUESTION"))).toBe(true);
+    expect(shown.some((text) => text.includes("Not available yet"))).toBe(true);
     expect(shown.some((text) => text.includes("95% CI"))).toBe(false);
   });
 });

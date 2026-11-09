@@ -40,17 +40,11 @@ const stories = [
     story: "Result includes VUS flag",
     tests: "Ambiguity -> T4 human, no numbers",
   },
-  {
-    id: "P7",
-    names: "Low-literacy voice-first user",
-    story: "Any result, voice mode",
-    tests: "TTS + simple mode + teach-back",
-  },
 ] as const;
 
 describe("persona fixtures", () => {
-  it("seeds the seven Section 9 personas as draft synthetic fixtures", () => {
-    expect(personas).toHaveLength(7);
+  it("seeds the six Section 9 personas as draft synthetic fixtures", () => {
+    expect(personas).toHaveLength(6);
     expect(
       personas.map((persona) => ({
         id: persona.id,

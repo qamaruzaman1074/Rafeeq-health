@@ -1,12 +1,30 @@
 {
   "page": {
-    "title": "Learn"
+    "title": "Learn",
+    "intro": "Short explanations of inherited screening ideas. These topics are general education.",
+    "notAdvice": "This page is not personal medical advice and it does not replace a qualified genetic counsellor."
   },
   "blocks": {
     "language": "English blocks"
   },
+  "guide": {
+    "heading": "How to use these topics",
+    "education": {
+      "title": "General education",
+      "body": "These modules explain ideas that many people meet in carrier screening. They are not written about you."
+    },
+    "personal": {
+      "title": "Personal medical advice",
+      "body": "Advice about your own result belongs with a qualified clinician. This page does not give that advice."
+    },
+    "counsellor": {
+      "title": "A qualified counsellor",
+      "body": "A genetic counsellor can review a result, explain limits, and discuss options. Care is the path to a person."
+    }
+  },
   "modules": {
     "label": "Explanation modules",
+    "educationOnly": "General education. Approved body text comes from the content files.",
     "carrier": {
       "title": "What is a carrier",
       "term": "carrier"
@@ -48,8 +66,17 @@
     "label": "Transcript: {{title}}"
   },
   "glossary": {
+    "heading": "Terms used here",
+    "lead": "Each term opens the stored glossary entry. When the content file is empty, the existing marker is shown.",
     "termName": "Glossary: {{term}}",
     "loading": "Loading the glossary."
+  },
+  "related": {
+    "heading": "Related pages",
+    "lead": "Open Results for the notes in this session, Check to say it in your own words, or Care to reach a person.",
+    "results": "Open Results",
+    "check": "Open Check",
+    "care": "Open Care"
   },
   "error": "The explanation could not be loaded.",
   "empty": "No explanation modules are available.",

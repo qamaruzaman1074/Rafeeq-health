@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Section } from "@/components/layout/section";
 import { TrustStrip } from "@/components/layout/trust-strip";
 import { LocaleSwitcher } from "@/components/locale-switcher";
-import { NumeralToggle } from "@/components/numeral-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -80,8 +80,8 @@ function Pair({ heading, children }: { heading: string; children: (frame: Frame)
     <section className="flex flex-col gap-4">
       <h2 className="text-2xl font-semibold text-teal-900">{t(heading)}</h2>
       <div className="grid gap-4 lg:grid-cols-2">
-        {(["en", "ar"] as const).map((lang) => {
-          const dir: AppDirection = lang === "ar" ? "rtl" : "ltr";
+        {(["en"] as const).map((lang) => {
+          const dir: AppDirection = "ltr";
           const frame: Frame = {
             lang,
             dir,
@@ -360,8 +360,10 @@ export function StyleguidePage() {
             <p className="text-sm text-ink-600">
               {t("styleguide.documentStatus", { lang: locale.lang, dir: locale.dir })}
             </p>
-            <LocaleSwitcher />
-            <NumeralToggle />
+            <div className="flex flex-wrap items-center gap-3">
+              <LocaleSwitcher />
+              <ThemeToggle />
+            </div>
             <p className="text-base text-ink-900">{numerals.formatNumber(25)}</p>
             <p className="text-base text-ink-600">{numerals.formatDate(sampleDate)}</p>
           </header>

@@ -8,7 +8,7 @@ test("insights shows the synthetic badge, an undefined KPI, and a suppressed cel
   await page.getByRole("button", { name: "Open insights" }).click();
   await expect(page).toHaveURL(/\/insights$/);
 
-  await expect(page.getByText("Synthetic data, not medical advice.").first()).toBeVisible();
+  await expect(page.getByText("Demo example").first()).toBeVisible();
   await expect(page.getByRole("heading", { level: 1, name: "Insights" })).toBeVisible();
   await expect(
     page.getByText("k-anonymity floor: 5. Groups smaller than 5 are not shown."),
@@ -17,7 +17,7 @@ test("insights shows the synthetic badge, an undefined KPI, and a suppressed cel
   const completion = page.getByRole("heading", { level: 3, name: "Completion of explanation" });
   await expect(completion).toBeVisible();
   await expect(page.locator('[data-kpi-result="explanation_completion"]')).toHaveText(
-    "OPEN_QUESTION",
+    "Not available yet",
   );
 
   const arabic = page.getByRole("listitem").filter({ hasText: "Arabic" });

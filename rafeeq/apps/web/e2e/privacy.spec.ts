@@ -6,7 +6,10 @@ async function openPrivacy(page: Page): Promise<void> {
   await page.goto("/demo");
   await page.getByRole("button", { name: "Enter as Noor & Khalid" }).click();
   await expect(page).toHaveURL(/\/app$/);
-  await page.locator("a[href='/app/privacy']").click();
+  await page
+    .getByRole("navigation", { name: "Pages" })
+    .getByRole("link", { name: "Privacy" })
+    .click();
   await expect(page).toHaveURL(/\/app\/privacy$/);
   await expect(page.getByRole("heading", { level: 1, name: "Privacy" })).toBeVisible();
 }
@@ -22,7 +25,7 @@ test("downloads a receipt and revokes a share after confirmation", async ({ page
   await expect(page.getByRole("columnheader", { name: "Clinic" })).toBeVisible();
   await expect(page.getByRole("columnheader")).toHaveCount(4);
   await expect(page.getByRole("rowheader", { name: "Research aggregate" })).toBeVisible();
-  await expect(page.getByText("OPEN_QUESTION").first()).toBeVisible();
+  await expect(page.getByText("Not available yet").first()).toBeVisible();
 
   const timeline = page.locator("[data-audit='timeline']");
   await expect(timeline).toHaveAttribute("dir", "ltr");
@@ -65,26 +68,4 @@ test("downloads a receipt and revokes a share after confirmation", async ({ page
   await page.getByRole("dialog").getByRole("button", { name: "Revoke" }).click();
   await expect(partner).not.toBeChecked();
   await expect(card).toContainText("Off");
-});
-
-test("shows the audit timeline in Arabic with direction flipped", async ({ page }) => {
-  await openPrivacy(page);
-  await page.getByRole("button", { name: "Arabic", exact: true }).click();
-  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-  await expect(page.locator("html")).toHaveAttribute("lang", "ar");
-
-  const timeline = page.locator("[data-audit='timeline']");
-  await expect(timeline).toHaveAttribute("dir", "rtl");
-  await expect(timeline).toHaveAttribute("lang", "ar");
-  const actor = timeline.locator("[data-field='actor']").first();
-  const action = timeline.locator("[data-field='action']").first();
-  const time = timeline.locator("[data-field='time'] time").first();
-  await expect(actor).toBeVisible();
-  await expect(action).toBeVisible();
-  await expect(time).toBeVisible();
-  await expect(actor).toContainText("guest");
-  await expect(action).toContainText("read");
-  await expect(action).toContainText("results");
-  await expect(time).toHaveAttribute("datetime", "2026-11-08T12:00:00.000Z");
-  await expect(time).toHaveText(/[٠-٩]/);
 });

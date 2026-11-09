@@ -51,13 +51,6 @@ describe("clinic wording", () => {
           "utf8",
         ),
       },
-      {
-        file: "ar/clinic.json",
-        text: readFileSync(
-          fileURLToPath(new URL("../../i18n/locales/ar/clinic.json", import.meta.url)),
-          "utf8",
-        ),
-      },
     ];
     const hits: string[] = [];
     for (const source of sources) {

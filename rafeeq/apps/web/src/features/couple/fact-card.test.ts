@@ -56,9 +56,20 @@ describe("FactCard", () => {
   });
 
   it("shows the open question when the locale block has no text", async () => {
-    await i18n.changeLanguage("ar");
-    const html = renderCard();
-    expect(html).toContain("OPEN_QUESTION");
+    await i18n.changeLanguage("en");
+    const sparse: FactCardDTO = {
+      ...card,
+      sentences: [{ block_id: "block-en", locale: "en", text: null }],
+      diagnosis_banner: [{ block_id: "banner-en", locale: "en", text: null }],
+    };
+    const html = renderToStaticMarkup(
+      createElement(
+        I18nextProvider,
+        { i18n },
+        createElement(NumeralProvider, null, createElement(FactCard, { card: sparse })),
+      ),
+    );
+    expect(html).toContain("Not available yet");
     expect(html).not.toContain("Plain block");
     expect(html).not.toContain("Boundary line");
   });

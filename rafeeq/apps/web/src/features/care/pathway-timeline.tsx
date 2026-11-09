@@ -17,7 +17,7 @@ export function PathwayTimeline({ pathway }: { pathway: CouplePathway }) {
             data-current={current ? "true" : "false"}
             data-reached={step.reached ? "true" : "false"}
             aria-current={current ? "step" : undefined}
-            className="border-s-2 border-teal-500 ps-4"
+            className={cn("border-s-2 ps-4", current ? "border-teal-700" : "border-teal-100")}
           >
             <span
               className={cn(

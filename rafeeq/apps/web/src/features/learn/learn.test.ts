@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createElement, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { I18nextProvider } from "react-i18next";
+import { MemoryRouter } from "react-router";
 import { beforeAll, describe, expect, it } from "vitest";
 import { LiteracyProvider } from "@/app/literacy";
 import { audioUrlForBlock, readContentBlock, readLocaleBlock } from "@/features/learn/blocks";
@@ -36,10 +37,14 @@ function renderLearn(mode: "standard" | "simple" | "voice"): string {
     createElement(
       QueryClientProvider,
       { client },
-      createElement(LiteracyProvider, {
-        storage: store,
-        children: createElement(LearnView),
-      }),
+      createElement(
+        MemoryRouter,
+        null,
+        createElement(LiteracyProvider, {
+          storage: store,
+          children: createElement(LearnView),
+        }),
+      ),
     ),
   );
   return renderToStaticMarkup(tree);
@@ -122,7 +127,7 @@ describe("learn content blocks", () => {
     expect(standard).toContain("Play audio: What is a carrier");
     expect(standard).toContain("Transcript: What is a carrier");
     expect(standard).toContain("Glossary: carrier");
-    expect(standard).toContain("OPEN_QUESTION");
+    expect(standard).toContain("Not available yet");
     expect(standard).toContain("learn.carrier.full");
     expect(standard).not.toContain("data-module-icon");
     expect(standard).not.toContain("min-h-20");
@@ -130,7 +135,7 @@ describe("learn content blocks", () => {
     const simple = renderLearn("simple");
     expect(simple).toContain('data-module-icon="carrier"');
     expect(simple).toContain("learn.carrier.short");
-    expect(simple).toContain("OPEN_QUESTION");
+    expect(simple).toContain("Not available yet");
     expect(simple).toContain('data-literacy="simple"');
     expect(simple).not.toContain("learn.carrier.full");
 
@@ -138,7 +143,7 @@ describe("learn content blocks", () => {
     expect(voice).toContain("min-h-20");
     expect(voice).toContain("Show transcript: What is a carrier");
     expect(voice).toContain("Play audio: What is a carrier");
-    expect(voice).not.toContain("OPEN_QUESTION");
+    expect(voice).not.toContain("Not available yet");
     expect(voice).not.toContain("data-module-icon");
     expect(voice).not.toContain('role="region"');
   });

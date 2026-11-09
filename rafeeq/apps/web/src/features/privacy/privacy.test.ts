@@ -79,7 +79,7 @@ describe("privacy screen", () => {
     );
     expect(html.match(/scope="col"/g)).toHaveLength(4);
     expect(html.match(/role="switch"/g)).toHaveLength(3);
-    expect(html.match(/OPEN_QUESTION/g)).toHaveLength(3);
+    expect(html.match(/Not available yet/g)).toHaveLength(3);
     expect(isDisabled(switchTag(html, "Your own result stays on"))).toBe(true);
     expect(switchTag(html, "Your own result stays on")).toContain('aria-checked="true"');
     expect(switchTag(html, "Share the overlap with your partner")).toContain('aria-checked="true"');
@@ -100,7 +100,7 @@ describe("privacy screen", () => {
     expect(card).not.toContain('href="/');
   });
 
-  it("renders who, what, and when in English and Arabic", async () => {
+  it("renders who, what, and when in English", async () => {
     await i18n.changeLanguage("en");
     const english = renderNode(createElement(AuditTimeline, { entries: [entry] }));
     expect(english).toContain('dir="ltr"');
@@ -114,22 +114,5 @@ describe("privacy screen", () => {
     expect(english).toMatch(/datetime="2026-11-08T12:00:00.000Z"/i);
     expect(english).toContain("2026");
     expect(english).not.toMatch(/[٠-٩]/);
-
-    await i18n.changeLanguage("ar");
-    const arabic = renderNode(createElement(AuditTimeline, { entries: [entry] }));
-    expect(arabic).toContain('dir="rtl"');
-    expect(arabic).toContain('lang="ar"');
-    expect(arabic).toContain('data-field="actor"');
-    expect(arabic).toContain('data-code="guest"');
-    expect(arabic).toContain('data-field="action"');
-    expect(arabic).toContain('data-code="read:results"');
-    expect(arabic).toContain('data-field="time"');
-    expect(arabic).toContain(">TODO_AR<");
-    expect(arabic).toContain(">guest<");
-    expect(arabic).toContain(">read<");
-    expect(arabic).toContain(">results<");
-    const time = /<time\b[^>]*>([^<]*)<\/time>/.exec(arabic)?.[1] ?? "";
-    expect(time).toMatch(/[٠-٩]/);
-    expect(time.length).toBeGreaterThan(0);
   });
 });

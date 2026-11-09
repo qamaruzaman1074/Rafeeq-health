@@ -34,8 +34,8 @@ type ToastContextValue = {
 const ToastContext = createContext<ToastContextValue | null>(null);
 
 const variantClass: Record<ToastVariant, string> = {
-  default: "border-teal-500 bg-sand-50 text-ink-900",
-  error: "border-danger-600 bg-sand-50 text-ink-900",
+  default: "border-teal-500 bg-elevated text-ink-900",
+  error: "border-danger-600 bg-elevated text-ink-900",
 };
 
 export function ToastProvider({ children }: { children: ReactNode }) {

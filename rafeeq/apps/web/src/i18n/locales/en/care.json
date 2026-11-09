@@ -1,7 +1,24 @@
 {
   "page": {
     "title": "Care pathway",
-    "intro": "These are the care steps. You can ask for counselling from here."
+    "intro": "These are the care steps. You can ask for counselling from here.",
+    "notReplacement": "This page does not replace a qualified genetic counsellor. It shows the existing pathway and how to reach a person."
+  },
+  "when": {
+    "heading": "When a qualified counsellor may help",
+    "lead": "A counsellor can sit with a result, a hard question, or a referral. This page is the path to that person.",
+    "result": {
+      "title": "After a result",
+      "body": "A counsellor can explain what a result can and cannot say, including limits and next clinical steps."
+    },
+    "question": {
+      "title": "When a question is hard",
+      "body": "Ask routes questions that need a person to Care. Distress, diagnosis, and decisions belong with a counsellor."
+    },
+    "share": {
+      "title": "When you choose to share",
+      "body": "A referral can be sent only after clinic share is on. Privacy holds that switch."
+    }
   },
   "loading": "Loading the care pathway.",
   "empty": "No pathway is available for this session.",
@@ -30,6 +47,7 @@
   },
   "send": {
     "label": "Counselling request",
+    "lead": "This uses the existing referral request. Clinic share must be on first.",
     "action": "Send my questions and what I understood to the counsellor",
     "needsShare": "This stays off until clinic share is on.",
     "privacy": "Privacy",
@@ -38,8 +56,16 @@
   "booking": {
     "label": "Booking",
     "localOnly": "Choosing a time stays on this device.",
+    "demo": "This calendar is a local demonstration. It does not book a clinic appointment.",
     "selected": "Selected on this device.",
     "morning": "Morning",
     "afternoon": "Afternoon"
+  },
+  "next": {
+    "heading": "Next steps",
+    "lead": "Ask can send a question. Privacy holds clinic share. Learn holds the education topics.",
+    "ask": "Open Ask",
+    "privacy": "Open Privacy",
+    "learn": "Open Learn"
   }
 }

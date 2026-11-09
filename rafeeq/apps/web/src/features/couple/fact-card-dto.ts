@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /**
  * Shape returned by POST /explain/overlap. The web app does not calculate it.
- * OPEN_QUESTION: packages/contracts has no generated FactCard schema yet.
+ * Typed locally for mock responses and the Together view.
  */
 export const outcomeProportionsSchema = z.object({
   affected: z.number(),
