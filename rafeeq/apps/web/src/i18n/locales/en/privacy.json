@@ -1,8 +1,9 @@
 {
   "page": {
     "title": "Privacy",
-    "intro": "You control what is shared. Revoking takes effect immediately.",
-    "demo": "This session is a demonstration. The switches below send consent changes to the mock API used in this build. They do not provide production backend security.",
+    "intro": "Your Health Information. Your Control. Explore consent concepts below, then use the session demo if you are testing the mock API.",
+    "demo": "This session is a demonstration. The switches below send consent changes to the mock API used in this build. They do not provide production backend security and are not legally effective consent.",
+    "sessionDemoHeading": "Session demo (mock API scopes)",
     "controlsHeading": "Sharing controls",
     "controlsLead": "Each switch records a consent change in this session. Turn a share off to revoke it. Your own result stays on.",
     "revokeLead": "Revoke uses the existing confirm dialog. The previous choice is restored if the request fails."
@@ -93,6 +94,132 @@
   "related": {
     "heading": "Related pages",
     "care": "Open Care",
-    "results": "Open Results"
+    "results": "Open Results",
+    "partner": "Partner sharing demo"
+  },
+  "education": {
+    "heading": "Your Health Information. Your Control.",
+    "intro": "Genetic and family health information can be deeply personal. Rafeeq is designed around individual choice, clear consent and careful information sharing.",
+    "prototypeBadge": "Prototype",
+    "prototypeNotice": "Prototype interaction – changes are not saved and no information is shared.",
+    "notProductionSecurity": "These principles describe product intent. They are not a claim that production-grade security is active in this demo build.",
+    "principles": [
+      {
+        "title": "Individual control",
+        "body": "Each person should be able to make their own decisions about sharing personal health information."
+      },
+      {
+        "title": "Explicit consent",
+        "body": "Information should only be shared when the relevant individual has clearly authorized the intended sharing."
+      },
+      {
+        "title": "Limited access",
+        "body": "Sharing should be limited to the information and purpose the individual has selected."
+      },
+      {
+        "title": "Transparency",
+        "body": "Individuals should be able to understand what information is intended to be shared and with whom."
+      }
+    ],
+    "matrix": {
+      "heading": "Consent matrix (visual prototype)",
+      "lead": "Sample categories show how granular consent might look. Toggles affect only this page in memory.",
+      "caption": "Prototype consent matrix",
+      "columns": {
+        "category": "Information category",
+        "recipient": "Intended recipient",
+        "purpose": "Sharing purpose",
+        "permission": "Permission state",
+        "explanation": "Consent explanation"
+      },
+      "toggle": "Prototype permission for {{category}}",
+      "stateOn": "Illustrative: permitted",
+      "stateOff": "Illustrative: not permitted",
+      "memoryOnly": "States exist only in memory until you leave this page.",
+      "categories": "example categories",
+      "rows": [
+        {
+          "id": "education",
+          "category": "General educational progress",
+          "recipient": "You only",
+          "purpose": "Track which Learn topics you opened in the app demo",
+          "explanation": "Does not share genetic results; not stored on a server in this prototype."
+        },
+        {
+          "id": "screening",
+          "category": "Screening summary",
+          "recipient": "Qualified clinic (with consent)",
+          "purpose": "Counselling preparation",
+          "explanation": "Would share only summary fields you select—not full raw data—in a future integration."
+        },
+        {
+          "id": "family",
+          "category": "Selected family health information",
+          "recipient": "Linked partner (with mutual consent)",
+          "purpose": "Couple-level overlap explanation",
+          "explanation": "Each partner chooses independently; invitation alone does not grant access."
+        },
+        {
+          "id": "counselling",
+          "category": "Counselling preparation notes",
+          "recipient": "Genetics professional",
+          "purpose": "Prepare for an appointment",
+          "explanation": "Questions you draft in Care preview are not submitted in this build."
+        }
+      ]
+    },
+    "minimization": {
+      "heading": "Share Only What Is Needed",
+      "body": "Information sharing should be limited to what is relevant for the specific purpose. An individual should not need to share their entire personal or family health history simply to access educational support.",
+      "imageAlt": "Diagram of selective permission categories."
+    },
+    "visuals": {
+      "heading": "How consent and sharing can be explained",
+      "alt": {
+        "person": "Person deciding who may access information.",
+        "document": "Consent documentation concept.",
+        "sharing": "Controlled channel between two parties."
+      },
+      "caption": {
+        "person": "You remain at the centre of sharing decisions.",
+        "document": "Clear consent before information moves.",
+        "sharing": "Purpose-limited sharing paths."
+      }
+    },
+    "syntheticAudit": {
+      "heading": "Illustrative access history",
+      "label": "Synthetic demonstration data",
+      "lead": "These rows are fictitious examples. They are not a real security or audit log.",
+      "columns": {
+        "activity": "Example activity",
+        "recipient": "Intended recipient",
+        "category": "Information category",
+        "date": "Illustrative date",
+        "status": "Example status"
+      },
+      "rows": [
+        {
+          "activity": "Viewed Learn module (demo)",
+          "recipient": "You",
+          "category": "Educational progress",
+          "date": "Example: 8 Nov 2026",
+          "status": "Allowed (local demo)"
+        },
+        {
+          "activity": "Partner overlap preview requested",
+          "recipient": "Linked partner",
+          "category": "Screening summary",
+          "date": "Example: 9 Nov 2026",
+          "status": "Not shared (consent off)"
+        },
+        {
+          "activity": "Clinic share toggled (mock API)",
+          "recipient": "Demo clinic console",
+          "category": "Counselling preparation",
+          "date": "Example: 9 Nov 2026",
+          "status": "Recorded in MSW session only"
+        }
+      ]
+    }
   }
 }

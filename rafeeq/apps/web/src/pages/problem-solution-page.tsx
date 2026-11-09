@@ -318,6 +318,9 @@ export function Component() {
             <Button asChild variant="secondary" className="border-gold-500/40 bg-transparent text-inherit">
               <Link to="/how-it-works">{t("problemSolution.cta.secondary", { ns })}</Link>
             </Button>
+            <Button asChild variant="secondary" className="border-gold-500/40 bg-transparent text-inherit">
+              <Link to="/informed-choices">{t("problemSolution.cta.informedChoices", { ns })}</Link>
+            </Button>
           </div>
         </div>
       </Section>

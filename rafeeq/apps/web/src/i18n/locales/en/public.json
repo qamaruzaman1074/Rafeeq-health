@@ -25,6 +25,8 @@
     "learnHeading": "Learn",
     "privacyHeading": "Privacy and legal",
     "risk": "Understanding Genetic Risk",
+    "informedChoices": "Informed choices",
+    "screeningPathways": "Screening pathways",
     "conditions": "Inherited Conditions",
     "counselling": "Genetic Counselling",
     "contact": "Contact",
@@ -467,17 +469,57 @@
     "eyebrow": "Genetic risk explained",
     "heroTitle": "Understanding genetic risk, clearly and without judgement.",
     "heroIntro": "Carrier status, inheritance patterns and couple-level risk are easy to confuse. This page explains each one in plain language.",
+    "heroImageAlt": "A modern genetics laboratory. Educational photograph.",
+    "reviewBadge": "Draft — pending qualified professional review",
+    "medicalDisclaimer": "Rafeeq provides educational information and does not diagnose genetic conditions or replace genetic testing, clinical assessment or professional genetic counselling.",
+    "nav": {
+      "label": "Sections on this page",
+      "carrier": "Carrier status",
+      "inheritance": "Inheritance",
+      "couple": "Couple-level risk",
+      "riskVsDiagnosis": "Risk vs diagnosis",
+      "uncertainty": "Uncertainty",
+      "next": "Next steps"
+    },
+    "readMore": {
+      "show": "Read more",
+      "hide": "Show less",
+      "label": "More detail: {{title}}"
+    },
+    "hubCallout": {
+      "title": "Full guide to inherited genetic risk",
+      "body": "Use the public education hub for diagrams, inheritance patterns, and pathways to professional support. It is separate from any demo results in your session.",
+      "action": "Open understanding genetic risk"
+    },
     "carrier": {
-      "heading": "What does being a carrier mean?",
-      "body": "A carrier has a genetic variant associated with a particular inherited condition. In many recessive conditions, carriers do not have the condition themselves. However, if both biological parents carry relevant disease-associated variants in the same gene, there may be a chance that a child inherits the condition.",
-      "note": "Being a carrier does not automatically mean that a person is ill or that their future children will have an inherited condition."
+      "heading": "Understanding Your Genetic Carrier Status",
+      "body": "Some people carry a genetic variant associated with an inherited condition without experiencing symptoms themselves. This is known as carrier status. Being a carrier does not automatically mean that you have the condition.",
+      "note": "Being a carrier does not automatically mean that a person is ill or that their future children will have an inherited condition.",
+      "cards": [
+        {
+          "title": "What is a carrier?",
+          "body": "A carrier has one copy of a relevant genetic variant associated with a particular inherited condition. For many conditions, carriers do not have symptoms of the condition themselves."
+        },
+        {
+          "title": "Can a carrier be healthy?",
+          "body": "Yes. Many carriers are healthy. Carrier screening identifies variants that can be passed on; it does not establish that you are unwell."
+        },
+        {
+          "title": "Does one carrier result mean a child will have an inherited condition?",
+          "body": "No. One parent's carrier result alone does not establish risk for a child. Couple-level interpretation may require both biological parents' relevant findings, the gene, variants, and inheritance pattern."
+        }
+      ]
+    },
+    "inheritance": {
+      "heading": "How Genetic Conditions Can Be Inherited",
+      "note": "These patterns are educational examples. Real conditions vary; professional interpretation is needed for any personal result."
     },
     "couple": {
-      "heading": "Why one result is not enough to determine a couple's risk.",
-      "body": "An individual screening result provides information about that individual. Estimating potential risk for a child generally requires consideration of both biological parents' relevant findings, the specific gene and variants involved, the inheritance pattern, and clinical interpretation."
+      "heading": "When Both Biological Parents Carry Related Variants",
+      "body": "An individual screening result describes that person. To discuss possible implications for children, qualified professionals consider both biological parents' relevant findings, the specific gene and variants, the inheritance pattern, and clinical context."
     },
     "patternsHeading": "Inheritance patterns",
-    "patternsIntro": "Inheritance patterns differ, and not every inherited condition follows the same model.",
+    "patternsIntro": "Inherited conditions follow different inheritance patterns and risk depends on the specific condition and genetic findings.",
     "patterns": [
       {
         "title": "Autosomal recessive",
@@ -494,22 +536,22 @@
     ],
     "example": {
       "heading": "Example: autosomal recessive inheritance",
-      "intro": "When both biological parents carry relevant pathogenic variants in the same gene associated with an autosomal recessive condition, a typical model for each pregnancy is:",
+      "intro": "When both biological parents carry a relevant disease-causing variant in the same gene associated with an autosomal recessive condition, each pregnancy has a 25% chance of inheriting two relevant variants, a 50% chance of inheriting one, and a 25% chance of inheriting neither.",
       "outcomes": [
         {
           "value": "25%",
-          "label": "chance of an affected child"
+          "label": "Illustrative affected outcome (two relevant variants)"
         },
         {
           "value": "50%",
-          "label": "chance of a child who is a carrier"
+          "label": "Illustrative carrier outcome (one relevant variant)"
         },
         {
           "value": "25%",
-          "label": "chance of a child who inherits neither familial variant"
+          "label": "Illustrative outcome inheriting neither variant"
         }
       ],
-      "caveat": "This example applies only to the relevant autosomal recessive situation. It is not a universal risk estimate for every couple or every inherited condition. Each pregnancy is an independent event."
+      "caveat": "Educational example only. This illustration assumes a particular autosomal recessive inheritance pattern and specified parental findings. Actual risk depends on the condition, variants, testing methods and clinical interpretation."
     },
     "family": {
       "heading": "Understanding family relationships and inherited risk without judgement.",
@@ -519,8 +561,107 @@
       ]
     },
     "diagnosis": {
-      "heading": "Risk is not diagnosis",
-      "body": "A calculated or estimated risk is not the same as a diagnosis. Screening can identify findings that may need further assessment, but it cannot always establish whether a person or future child has a condition."
+      "heading": "Understanding the Difference Between Risk and Diagnosis",
+      "body": "A calculated or estimated risk is not the same as a diagnosis. Screening can identify findings that may need further assessment, but it cannot always establish whether a person or future child has a condition.",
+      "geneticRisk": {
+        "title": "Genetic risk",
+        "body": "A genetic finding may indicate an increased possibility of an inherited condition. It does not necessarily establish that a person or future child has that condition."
+      },
+      "clinical": {
+        "title": "Diagnosis",
+        "body": "A diagnosis requires appropriate clinical assessment and interpretation of relevant evidence by qualified healthcare professionals."
+      }
+    },
+    "uncertainty": {
+      "heading": "Understanding Uncertainty",
+      "lead": "Screening and education can reduce confusion, but they cannot remove every unknown. These topics are often discussed with a qualified professional.",
+      "note": "Rafeeq does not state personal residual-risk percentages on this page.",
+      "topics": [
+        {
+          "title": "Residual risk after negative screening",
+          "body": "A negative screening result may not detect every possible variant. Some risk can remain depending on the test, the condition, and family history. The size of residual risk is condition-specific and should be explained by a qualified professional—not generalized here."
+        },
+        {
+          "title": "Variants of uncertain significance (VUS)",
+          "body": "Sometimes a variant is reported whose clinical meaning is not yet clear. A VUS is not the same as a known disease-causing finding. Reclassification and follow-up may be appropriate with professional guidance."
+        },
+        {
+          "title": "Limitations of screening",
+          "body": "Screening panels do not cover every gene or variant. Methods differ in what they detect. Results reflect the test that was done, not every possible genetic change."
+        },
+        {
+          "title": "Why confirmatory assessment may be appropriate",
+          "body": "Some findings benefit from confirmatory testing, specialist review, or genetic counselling before anyone draws conclusions about health or reproductive planning."
+        }
+      ]
+    },
+    "pathways": {
+      "heading": "Your Next Steps",
+      "learnApp": "Open in-app Learn modules",
+      "items": [
+        {
+          "step": "Step 1",
+          "title": "Learn about the finding",
+          "body": "Read educational material about carrier status, inheritance, and what your screening report does and does not mean.",
+          "href": "/app/learn",
+          "linkLabel": "Go to Learn"
+        },
+        {
+          "step": "Step 2",
+          "title": "Review the information with a qualified professional",
+          "body": "A genetic counsellor or clinician can place findings in context for you and your family.",
+          "href": "/genetic-counselling",
+          "linkLabel": "Explore counselling support"
+        },
+        {
+          "step": "Step 3",
+          "title": "Ask questions about further assessment",
+          "body": "Confirmatory testing or specialist referral may be discussed when appropriate.",
+          "href": "/app/care",
+          "linkLabel": "Open Care"
+        },
+        {
+          "step": "Step 4",
+          "title": "Explore appropriate support services",
+          "body": "Support options depend on your setting, values, and what professionals recommend.",
+          "href": "/genetic-counselling",
+          "linkLabel": "Explore support pathways"
+        }
+      ]
+    },
+    "diagrams": {
+      "carrier": {
+        "alt": "Illustration of one gene variant copy in a carrier."
+      },
+      "patterns": {
+        "alt": "Overview diagram of recessive, dominant, and X-linked inheritance patterns."
+      },
+      "compare": {
+        "alt": "Comparison of genetic risk possibility versus clinical diagnosis."
+      },
+      "parent": "Parent",
+      "couple": {
+        "title": "Illustrative Punnett-style grid for two carrier parents",
+        "desc": "Four equally likely illustrative outcomes for one pregnancy in an autosomal recessive educational example.",
+        "caption": "Educational example — not your personal risk",
+        "fig": "Each square is one equally likely illustrative outcome for a single pregnancy in this teaching model.",
+        "cell": {
+          "neither": "Neither variant",
+          "carrier": "One variant",
+          "affected": "Two variants"
+        }
+      },
+      "pattern": {
+        "recessive": {
+          "title": "Autosomal recessive pattern diagram"
+        },
+        "dominant": {
+          "title": "Autosomal dominant pattern diagram"
+        },
+        "xLinked": {
+          "title": "X-linked pattern diagram"
+        }
+      }
     },
     "next": {
       "heading": "After screening: confirmatory assessment and options",
@@ -585,50 +726,429 @@
     ],
     "disclaimer": "These descriptions are general educational information. They do not establish a diagnosis or provide an individualised risk assessment. Screening panels differ, and not every panel includes every condition."
   },
+  "screeningPathways": {
+    "documentTitle": "Screening pathways | Rafeeq",
+    "metaDescription": "Understand how screening information may connect to counselling, further assessment and specialist services—education only, not referrals.",
+    "eyebrow": "Screening and specialist pathways",
+    "reviewBadge": "Draft — pending qualified professional review",
+    "hero": {
+      "title": "From Screening Information to the Right Support",
+      "intro": "Screening information can be an important starting point for understanding inherited health risks. Depending on the findings and individual circumstances, further discussion or assessment may be appropriate."
+    },
+    "disclaimer": "Rafeeq provides educational pathway information only. It does not order tests, submit referrals, or book specialist appointments in this demo.",
+    "actions": {
+      "result": "Open your result (demo)",
+      "care": "Open Care",
+      "counselling": "Genetic counselling guide"
+    },
+    "expand": {
+      "show": "Read more",
+      "hide": "Show less"
+    },
+    "timeline": {
+      "srTitle": "Screening to support pathway",
+      "diagramAlt": "Diagram linking screening to professional support steps.",
+      "steps": {
+        "screening": "Screening information",
+        "understand": "Understand the result",
+        "discuss": "Discuss findings with a qualified professional",
+        "assessment": "Consider further assessment where appropriate",
+        "specialist": "Connect with relevant specialist services"
+      }
+    },
+    "screening": {
+      "heading": "Understanding Your Screening Information",
+      "body": "Screening can identify findings that may warrant further discussion. Screening results do not necessarily provide a diagnosis, and their interpretation depends on the type of test and the individual findings.",
+      "imageAlt": "Genetics screening laboratory environment.",
+      "cards": [
+        {
+          "title": "Understanding the screening result",
+          "body": "Learn what a report describes, what language it uses, and what it does not conclude on its own."
+        },
+        {
+          "title": "Understanding limitations",
+          "body": "Panels, methods and family context affect what screening can detect or rule out."
+        },
+        {
+          "title": "Questions for a healthcare professional",
+          "body": "Prepare questions about findings, uncertainty, and whether follow-up is appropriate for you."
+        },
+        {
+          "title": "When additional assessment may be discussed",
+          "body": "Further steps depend on clinical judgement—not automatic prompts from this website."
+        }
+      ]
+    },
+    "discuss": {
+      "heading": "Discuss findings with a qualified professional",
+      "body": "A genetics or reproductive health professional can help place screening information in context for your situation. This product does not replace that conversation.",
+      "action": "Open the genetic counselling guide"
+    },
+    "confirmatory": {
+      "heading": "When Additional Assessment May Be Discussed",
+      "intro": "Some screening findings may require further assessment before their significance can be understood. The appropriate next step depends on the test, the findings and professional clinical interpretation.",
+      "imageAlt": "Neutral clinical diagnostic setting.",
+      "topics": [
+        {
+          "title": "Why additional assessment may be considered",
+          "body": "To clarify inconclusive findings, confirm a variant, or place a result in clinical context—when a professional judges it appropriate."
+        },
+        {
+          "title": "Questions to ask before testing",
+          "body": "What would the test add? What are limits, risks, timing and costs in your setting? Who orders it?"
+        },
+        {
+          "title": "What to discuss with a genetics professional",
+          "body": "Family history, screening scope, uncertainties, and how results might affect reproductive planning discussions."
+        },
+        {
+          "title": "Understanding possible limitations",
+          "body": "Even confirmatory testing may not answer every question. Results still require interpretation."
+        }
+      ]
+    },
+    "specialists": {
+      "heading": "Specialist pathway information",
+      "lead": "These service types may be part of a pathway in some health systems. Rafeeq does not list real providers here.",
+      "pending": "Verified service directory integration pending",
+      "imageAlt": "Healthcare specialist consultation.",
+      "counsellingAlt": "Professional counselling environment.",
+      "items": [
+        {
+          "title": "Genetic counselling",
+          "body": "Discussion of findings, inheritance, uncertainty and next steps with a qualified genetics professional."
+        },
+        {
+          "title": "Clinical genetics assessment",
+          "body": "Clinical evaluation that may include examination, family history and test interpretation where appropriate."
+        },
+        {
+          "title": "Relevant specialist services",
+          "body": "Referral to other specialties when clinically indicated—not automatic from screening alone."
+        }
+      ]
+    },
+    "referralTracker": {
+      "heading": "Referral journey preview",
+      "lead": "Illustrative stages only. Status labels show integration state—not your personal referral.",
+      "noSuccess": "No successful referral or appointment is shown here.",
+      "step": "Stage {{n}}",
+      "status": {
+        "example": "Example",
+        "not_connected": "Not connected",
+        "awaiting_backend": "Awaiting backend integration"
+      },
+      "stages": [
+        {
+          "id": "information",
+          "label": "Information reviewed",
+          "description": "Educational review of screening concepts and demo session notes.",
+          "status": "example"
+        },
+        {
+          "id": "counselling",
+          "label": "Counselling discussion may be appropriate",
+          "description": "A qualified professional can interpret findings in context.",
+          "status": "not_connected"
+        },
+        {
+          "id": "assessment",
+          "label": "Further assessment discussion",
+          "description": "Whether more testing is appropriate is a clinical decision.",
+          "status": "awaiting_backend"
+        },
+        {
+          "id": "specialist",
+          "label": "Specialist service connection",
+          "description": "Live directory and booking are not integrated in this build.",
+          "status": "not_connected"
+        }
+      ]
+    },
+    "breadcrumbs": {
+      "label": "Screening pathway navigation",
+      "hub": "Screening pathways",
+      "result": "Your result",
+      "care": "Care",
+      "counselling": "Genetic counselling"
+    },
+    "nextSteps": {
+      "heading": "Continue the pathway",
+      "lead": "These links open existing pages. They do not submit referrals or book appointments.",
+      "links": {
+        "hub": "Screening pathways hub",
+        "risk": "Understanding genetic risk",
+        "counselling": "Genetic counselling",
+        "care": "Care",
+        "result": "Your result",
+        "privacy": "Privacy and sharing"
+      }
+    }
+  },
   "counsellingPage": {
     "title": "Genetic Counselling",
-    "eyebrow": "Genetic counselling",
-    "heroTitle": "You do not have to interpret complex genetic information alone.",
-    "heroIntro": "Genetic counselling helps individuals and couples understand genetic information, inheritance patterns, possible implications, and available options. It can also help people consider uncertainty and personal values without pressure.",
-    "imageAlt": "Two healthcare professionals speaking with a couple in a clinic consultation room. Stock photograph.",
-    "whenHeading": "When counselling may help",
-    "when": [
-      "A carrier finding is identified.",
-      "Both partners have potentially relevant findings.",
-      "Results are inconclusive.",
-      "A finding has significant potential implications.",
-      "Family history raises questions.",
-      "A person needs help understanding screening limitations.",
-      "Someone wants to explore available reproductive or clinical options."
-    ],
-    "whatHeading": "What counselling can involve",
-    "what": [
-      "Reviewing relevant screening information.",
-      "Explaining inheritance patterns.",
-      "Discussing possible risks and uncertainty.",
-      "Reviewing whether confirmatory assessment is appropriate.",
-      "Explaining available options.",
-      "Supporting informed, values-sensitive decisions."
-    ],
-    "profilesHeading": "Demonstration counsellor profiles",
-    "profilesIntro": "These profiles show how counsellor information could appear. They are not real people.",
-    "fictionalLabel": "FICTIONAL DEMONSTRATION PROFILE — NOT A REAL HEALTHCARE PROFESSIONAL.",
-    "profiles": [
+    "documentTitle": "Genetic counselling | Rafeeq",
+    "metaDescription": "Learn when professional genetic counselling may help, how to prepare, and how Rafeeq supports education—not diagnosis or accredited counselling on its own.",
+    "eyebrow": "Professional genetic counselling",
+    "reviewBadge": "Draft — pending qualified professional review",
+    "heroTitle": "Expert Guidance for Better Understanding",
+    "heroIntro": "Genetic information can sometimes be complex or difficult to interpret. A qualified genetics professional can help individuals understand relevant findings, discuss uncertainty and explore appropriate next steps.",
+    "imageAlt": "A genetic counselling conversation in a calm clinical setting. Stock photograph.",
+    "assistantLimit": "Rafeeq's Ask assistant provides general educational information only. It does not diagnose or independently interpret complex personal findings.",
+    "whenCardsHeading": "When Professional Guidance May Help",
+    "whenCards": [
       {
-        "name": "Dr. Layla Al Mansoori",
-        "focus": "Carrier screening and couple-level explanations"
+        "title": "Complex or uncertain screening findings",
+        "body": "When a report is unclear, inconclusive, or hard to place in context, a qualified professional can help explain limits and possible next steps."
       },
       {
-        "name": "Dr. Omar Al Nuaimi",
-        "focus": "Hemoglobin disorders and family history"
+        "title": "Questions about inherited disease patterns",
+        "body": "Inheritance can differ by condition. Counselling can explain patterns using your situation—not generic internet summaries."
       },
       {
-        "name": "Dr. Mariam Hassan",
-        "focus": "Inconclusive findings and screening limitations"
+        "title": "Understanding results involving family history",
+        "body": "Family history and screening results together may raise questions that deserve a respectful, non-judgemental conversation."
+      },
+      {
+        "title": "Questions about further assessment",
+        "body": "Whether more testing is appropriate is a clinical decision. Rafeeq can explain concepts; professionals advise on your case."
+      },
+      {
+        "title": "Personal or family concerns",
+        "body": "Emotional, cultural, or practical concerns belong in a professional discussion when you are ready—without pressure to decide quickly."
       }
     ],
-    "cta": "Explore Your Counselling Pathway",
-    "ctaNote": "The pathway is a demonstration. No real request is sent and no appointment is booked."
+    "journey": {
+      "heading": "The counselling journey",
+      "intro": "These stages describe a common path. Your clinic or programme may order them differently.",
+      "note": "Rafeeq illustrates this journey in the product demo. It does not book accredited counselling unless a verified service is integrated.",
+      "steps": [
+        {
+          "step": "Stage 1",
+          "title": "Understand why counselling may help",
+          "body": "Learn what counselling can and cannot offer compared with education and screening reports."
+        },
+        {
+          "step": "Stage 2",
+          "title": "Prepare questions and relevant information",
+          "body": "Note what you want to clarify. Avoid entering sensitive identifiers in demo forms."
+        },
+        {
+          "step": "Stage 3",
+          "title": "Review information-sharing consent options",
+          "body": "Choose what to share with a clinic using consent controls—not automatic uploads."
+        },
+        {
+          "step": "Stage 4",
+          "title": "Request professional support",
+          "body": "In production, this would connect to a real service. Today, Care shows a preview-only request."
+        },
+        {
+          "step": "Stage 5",
+          "title": "Discuss findings with a qualified professional",
+          "body": "Interpretation belongs with accredited genetics professionals in your care setting."
+        },
+        {
+          "step": "Stage 6",
+          "title": "Review appropriate next steps",
+          "body": "Follow-up may include confirmatory testing, referrals, or support—decided with your clinician."
+        }
+      ]
+    },
+    "profilesHeading": "Provider information",
+    "profilesIntro": "Verified counsellor profiles and credentials are not integrated in this prototype.",
+    "providerSlots": [
+      {
+        "title": "Counsellor profile integration pending",
+        "body": "A future release may list accredited genetics professionals when your organisation connects a verified directory."
+      },
+      {
+        "title": "Clinic scheduling integration pending",
+        "body": "Live appointment availability is not shown. Demo calendars stay on your device only."
+      },
+      {
+        "title": "Regional service directory pending",
+        "body": "Rafeeq does not publish clinic addresses or phone numbers without a verified data source."
+      }
+    ],
+    "boundaries": {
+      "heading": "What Rafeeq is—and is not",
+      "items": [
+        "Educational support: approved articles, Learn modules, and general Ask answers.",
+        "Referral preparation: preview forms that do not submit real referrals in this demo.",
+        "Professional counselling: delivered by qualified humans in your care system—not by Rafeeq alone.",
+        "Clinical diagnosis: made only through appropriate clinical assessment, not this website."
+      ],
+      "disclaimer": "Rafeeq does not claim to provide accredited genetic counselling unless verified credentials and live service integration exist in your deployment."
+    },
+    "cta": "Try the demo",
+    "ctaCare": "Prepare a referral preview in Care",
+    "ctaNote": "Preview only — no referral is submitted to a clinic. No appointment is booked."
+  },
+  "informedChoices": {
+    "documentTitle": "Informed choices | Rafeeq",
+    "metaDescription": "Explore educational pathways for inherited disease screening and next steps without pressure. Rafeeq supports understanding and access to professional guidance.",
+    "eyebrow": "Values-sensitive decisions",
+    "reviewBadge": "Draft — pending qualified professional review",
+    "hero": {
+      "title": "Your Choices. Your Journey. Your Decisions.",
+      "intro": "Understanding inherited health information can raise important questions. Rafeeq helps you explore educational resources, understand possible next steps and prepare for conversations with qualified healthcare professionals. Every individual and family has different circumstances, priorities and values."
+    },
+    "nonDirective": "Rafeeq does not make personal, marriage or reproductive decisions for you. Its purpose is to support understanding and help you access appropriate professional guidance.",
+    "actions": {
+      "learn": "Open Learn",
+      "care": "Open Care",
+      "ask": "Ask a question"
+    },
+    "pathways": {
+      "heading": "Four educational pathways",
+      "items": [
+        {
+          "id": "screening",
+          "title": "Understand your screening information",
+          "lead": "Learn what screening results may indicate, what they cannot establish and why additional assessment may sometimes be appropriate.",
+          "image": "",
+          "bullets": [
+            "Understanding screening and what a report can and cannot establish.",
+            "Carrier status in plain language—not a diagnosis by itself.",
+            "Test limitations, residual uncertainty, and panel scope.",
+            "Questions you may wish to ask a qualified professional."
+          ]
+        },
+        {
+          "id": "assessment",
+          "title": "Explore further assessment",
+          "lead": "Some findings may require additional testing or interpretation. A qualified professional can help explain whether further assessment is appropriate.",
+          "image": "",
+          "bullets": [
+            "General information about confirmatory testing—not a recommendation for you.",
+            "Topics to discuss with a clinician or genetic counsellor.",
+            "How possible results are explained—without predicting your outcome.",
+            "Why timing and appropriateness vary by person and context."
+          ]
+        },
+        {
+          "id": "counselling",
+          "title": "Speak with a genetic counsellor",
+          "lead": "Genetic counselling offers an opportunity to discuss family history, genetic findings, uncertainties and possible next steps with a qualified professional.",
+          "image": "",
+          "bullets": [
+            "When counselling may be helpful after screening or hard news.",
+            "How to prepare questions and information to bring.",
+            "What to ask about inheritance, uncertainty, and family communication.",
+            "How Rafeeq's Care demo pathway illustrates—not books—real services."
+          ]
+        },
+        {
+          "id": "take-time",
+          "title": "Take time to understand",
+          "lead": "People may need time to understand health information and consider their next steps. There is no single personal decision that is right for every individual or family.",
+          "image": "",
+          "bullets": [
+            "Educational resources at your own pace.",
+            "Reflection prompts that are not clinical assessments.",
+            "A prototype reading list that is not saved to your account.",
+            "No ranking of personal, marriage, or reproductive choices."
+          ]
+        }
+      ],
+      "alt": {
+        "screening": "Person reviewing inherited health education materials.",
+        "assessment": "Calm clinical environment suggesting thoughtful next steps.",
+        "counselling": "Genetic counselling consultation in a professional setting.",
+        "take-time": "Supportive conversation in a healthcare setting."
+      },
+      "jump": {
+        "screening": "Screening information",
+        "assessment": "Further assessment",
+        "counselling": "Genetic counselling",
+        "take-time": "Take your time"
+      },
+      "summary": {
+        "screening": "What results may and may not mean.",
+        "assessment": "When more testing may be discussed.",
+        "counselling": "Professional conversations without pressure.",
+        "take-time": "Space to reflect at your pace."
+      }
+    },
+    "reflection": {
+      "heading": "Questions Worth Exploring",
+      "lead": "These prompts are for personal reflection. They are not forms, scores, or clinical tools.",
+      "badge": "Personal reflection only",
+      "notClinical": "Not a clinical assessment.",
+      "disclaimer": "Your answers here are for you only. They are not stored on a server, not reviewed by Rafeeq, and not used to recommend a personal, marriage, or reproductive decision.",
+      "persistence": "Reflection text exists only in this browser tab while the page is open. Refreshing or leaving clears it.",
+      "questions": [
+        {
+          "id": "understand",
+          "prompt": "What would I like to understand better?",
+          "placeholder": "Note topics, words, or ideas that still feel unclear."
+        },
+        {
+          "id": "unclear",
+          "prompt": "Which information is still unclear?",
+          "placeholder": "List parts of a report, conversation, or article you want explained."
+        },
+        {
+          "id": "conversation",
+          "prompt": "Would a professional conversation help?",
+          "placeholder": "What would you hope to gain from speaking with someone qualified?"
+        },
+        {
+          "id": "ask",
+          "prompt": "What questions would I like to ask?",
+          "placeholder": "Draft questions for a counsellor or clinician—no need to be perfect."
+        },
+        {
+          "id": "sharing",
+          "prompt": "How would I prefer to receive and share information?",
+          "placeholder": "Consider privacy, timing, language, and who should be included."
+        }
+      ]
+    },
+    "readingList": {
+      "heading": "Educational resources (prototype list)",
+      "prototype": "Prototype — not saved",
+      "lead": "Add items to a temporary list to plan what to read next. This demo does not store your list on a server or in device storage.",
+      "open": "Open resource",
+      "add": "Add to this page's list",
+      "remove": "Remove from list",
+      "empty": "Nothing is on your temporary list yet.",
+      "savedHeading": "On your temporary list (this visit only)",
+      "persistence": "This list clears when you refresh or leave the page. It is not saved to your Rafeeq account.",
+      "resources": [
+        {
+          "id": "risk-hub",
+          "title": "Understanding genetic risk",
+          "href": "/understanding-genetic-risk"
+        },
+        {
+          "id": "learn",
+          "title": "In-app Learn modules",
+          "href": "/app/learn"
+        },
+        {
+          "id": "conditions",
+          "title": "Inherited conditions directory",
+          "href": "/inherited-conditions"
+        },
+        {
+          "id": "counselling",
+          "title": "Genetic counselling pathway",
+          "href": "/genetic-counselling"
+        }
+      ]
+    },
+    "journey": {
+      "srTitle": "Decision support journey",
+      "caption": "An illustrative order people often explore—not a required sequence or prescription.",
+      "steps": {
+        "understand": "Understand",
+        "explore": "Explore",
+        "discuss": "Discuss",
+        "decide": "Decide"
+      }
+    }
   },
   "problemSolution": {
     "documentTitle": "Problem & Solution | Rafeeq",
@@ -755,7 +1275,8 @@
       "title": "Better Understanding Starts With Better Information.",
       "description": "Explore inherited health information, learn about available screening pathways, and take a more informed approach to conversations about family health.",
       "primary": "Explore Rafeeq",
-      "secondary": "Learn How It Works"
+      "secondary": "Learn How It Works",
+      "informedChoices": "Explore informed choices"
     },
     "disclaimer": "Rafeeq is an educational and support platform, not a diagnostic service. Its information does not replace genetic testing, clinical assessment, or professional genetic counselling. Any risk interpretation must be based on validated clinical information and reviewed by qualified professionals."
   },

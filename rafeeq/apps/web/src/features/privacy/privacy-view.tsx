@@ -27,7 +27,12 @@ import { AuditTimeline } from "@/features/privacy/audit-timeline";
 import { commitConsentChange, type RevocableScope } from "@/features/privacy/matrix";
 import { landmarkName } from "@/lib/landmark-name";
 import { ReceiptCard } from "@/features/privacy/receipt-card";
+import { ConsentMatrixPrototype } from "@/features/privacy/consent-matrix-prototype";
+import { ConsentVisuals } from "@/features/privacy/consent-visuals";
+import { DataMinimization } from "@/features/privacy/data-minimization";
+import { PrivacyEducation } from "@/features/privacy/privacy-education";
 import { ShareMatrix } from "@/features/privacy/share-matrix";
+import { SyntheticAuditPanel } from "@/features/privacy/synthetic-audit-panel";
 import type { MineConsent } from "@/features/privacy/types";
 
 function grantOf(rows: readonly MineConsent[] | null | undefined, scope: RevocableScope): boolean {
@@ -189,6 +194,12 @@ export function PrivacyView() {
         description={t("page.intro", { ns: "privacy" })}
       />
 
+      <PrivacyEducation />
+      <ConsentVisuals />
+      <DataMinimization />
+      <ConsentMatrixPrototype />
+      <SyntheticAuditPanel />
+
       <p
         className="rounded-lg border border-border-subtle bg-sand-100 ps-4 pe-4 py-4 text-base leading-relaxed text-ink-600"
         data-privacy-section="demo"
@@ -215,7 +226,7 @@ export function PrivacyView() {
       {rows !== null ? (
         <section className="flex flex-col gap-3" data-privacy-section="controls">
           <h2 className="text-xl font-semibold text-teal-900">
-            {t("page.controlsHeading", { ns: "privacy" })}
+            {t("page.sessionDemoHeading", { ns: "privacy" })}
           </h2>
           <p className="max-w-2xl text-base leading-relaxed text-ink-600">
             {t("page.controlsLead", { ns: "privacy" })}
@@ -316,6 +327,9 @@ export function PrivacyView() {
           </Button>
           <Button asChild variant="secondary">
             <Link to="/app/result">{t("related.results", { ns: "privacy" })}</Link>
+          </Button>
+          <Button asChild variant="secondary">
+            <Link to="/app/partner">{t("related.partner", { ns: "privacy" })}</Link>
           </Button>
         </div>
       </section>

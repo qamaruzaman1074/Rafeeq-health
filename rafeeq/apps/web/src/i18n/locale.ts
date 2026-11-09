@@ -1,5 +1,5 @@
-export type AppLocale = "en";
-export type AppDirection = "ltr";
+export type AppLocale = "en" | "ar";
+export type AppDirection = "ltr" | "rtl";
 
 export type DocumentLocaleRoot = {
   lang: string;
@@ -7,7 +7,10 @@ export type DocumentLocaleRoot = {
 };
 
 export function documentLocale(language: string): { lang: AppLocale; dir: AppDirection } {
-  void language;
+  const normalized = language.split("-")[0]?.toLowerCase() ?? "en";
+  if (normalized === "ar") {
+    return { lang: "ar", dir: "rtl" };
+  }
   return { lang: "en", dir: "ltr" };
 }
 

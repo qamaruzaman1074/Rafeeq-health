@@ -2,7 +2,9 @@
   "page": {
     "title": "Ask a question",
     "intro": "Write a question in your own words. Approved answers come from stored content. Hard questions go to a person.",
-    "notCounsellor": "This assistant is not a genetic counsellor and it does not replace a qualified professional."
+    "notCounsellor": "This assistant is not a genetic counsellor and it does not replace a qualified professional.",
+    "nonDirective": "Ask does not tell you what personal, marriage, or reproductive decision to make. It shares approved education or hands off to a person when needed.",
+    "informedChoicesLink": "Open the informed choices guide (pathways and reflection)"
   },
   "boundary": {
     "label": "Assistant limit",
@@ -35,9 +37,26 @@
   "handoff": {
     "region": "Needs a person",
     "badge": "Needs a conversation",
-    "title": "This question goes to a person",
+    "title": "Professional interpretation may be needed",
+    "escalation": "This question may require individual clinical interpretation. Rafeeq can provide general educational information, but a qualified genetics professional is better placed to discuss your specific circumstances.",
+    "prepare": "Prepare in Care (preview only)",
     "book": "Book a counsellor",
     "crisisLabel": "Approved crisis-line text",
+    "pathway": {
+      "label": "Professional support pathway",
+      "step": "Step {{n}}",
+      "noHandoff": "Rafeeq has not submitted a referral or booked an appointment for you.",
+      "learn": "Review general education before your conversation.",
+      "privacy": "Choose what you may share with a clinic.",
+      "care": "Use the referral preview (no submission) to organise questions.",
+      "public": "Read when professional genetic counselling may help.",
+      "action": {
+        "learn": "Open Learn",
+        "privacy": "Open Privacy",
+        "care": "Open Care",
+        "public": "Genetic counselling"
+      }
+    },
     "reason": {
       "distress": "Distress or self-harm",
       "termination": "Pregnancy termination",

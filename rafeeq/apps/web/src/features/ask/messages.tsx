@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { presentAsk } from "@/features/ask/present";
 import { isHardReason, type HardReason } from "@/features/ask/reasons";
 import type { AskPayload } from "@/features/ask/types";
+import { ProfessionalSupportPathway } from "@/features/ask/professional-support-pathway";
 import { readLocaleBlock } from "@/features/learn/blocks";
 import { documentLocale } from "@/i18n/locale";
 
@@ -52,7 +53,9 @@ export function HandoffCard({ reason }: { reason: string | null }) {
     >
       <Badge variant="conversation">{t("handoff.badge", { ns: "ask" })}</Badge>
       <h2 className="text-xl font-semibold text-teal-900">{t("handoff.title", { ns: "ask" })}</h2>
-      {known !== null ? <p>{reasonText(known, t)}</p> : null}
+      <p className="max-w-2xl text-base leading-relaxed">{t("handoff.escalation", { ns: "ask" })}</p>
+      {known !== null ? <p className="text-sm text-ink-600">{reasonText(known, t)}</p> : null}
+      <ProfessionalSupportPathway />
       {known === "distress" ? (
         <p>
           <span>{t("handoff.crisisLabel", { ns: "ask" })}</span>{" "}
@@ -61,8 +64,8 @@ export function HandoffCard({ reason }: { reason: string | null }) {
           </span>
         </p>
       ) : null}
-      <Button asChild>
-        <Link to="/app/care">{t("handoff.book", { ns: "ask" })}</Link>
+      <Button asChild variant="secondary">
+        <Link to="/app/care">{t("handoff.prepare", { ns: "ask" })}</Link>
       </Button>
     </section>
   );

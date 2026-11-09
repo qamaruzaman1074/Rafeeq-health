@@ -10,7 +10,6 @@ import { ErrorState, humanContact } from "@/components/error-state";
 import { Skeleton } from "@/components/skeleton";
 import { SyntheticBadge } from "@/components/synthetic-badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useFailureToast, useNotify } from "@/components/ui/toast";
 import { fetchPathway, pathwayQueryKey, postReferral } from "@/features/care/api";
 import { BookingCalendar } from "@/features/care/booking-calendar";
@@ -18,6 +17,9 @@ import { InfoCards } from "@/features/care/info-cards";
 import { PathwayTimeline } from "@/features/care/pathway-timeline";
 import { clinicShareGranted } from "@/features/care/steps";
 import { landmarkName } from "@/lib/landmark-name";
+import { CareGuidanceSections } from "@/features/care/care-guidance-sections";
+import { ReferralRequestPreview } from "@/features/genetic-counselling/referral-request-preview";
+import { PathwayNextSteps } from "@/features/screening-pathways/pathway-breadcrumbs";
 import { SendReferral } from "@/features/care/send-referral";
 import { StatusChips } from "@/features/care/status-chips";
 import { fetchMineConsents, mineConsentQueryKey } from "@/features/privacy/api";
@@ -74,23 +76,25 @@ export function CareView() {
         {t("page.notReplacement", { ns: "care" })}
       </p>
 
-      <section className="flex flex-col gap-4" data-care-section="when">
-        <h2 className="text-xl font-semibold text-teal-900">{t("when.heading", { ns: "care" })}</h2>
+      <PathwayNextSteps from="care" />
+
+      <CareGuidanceSections />
+
+      <ReferralRequestPreview
+        clinicShareOn={mine.isSuccess ? granted : null}
+      />
+
+      <section
+        className="flex flex-col gap-3 rounded-xl border border-dashed border-teal-700 bg-sand-100 p-6"
+        data-care-section="prototype-demo"
+        aria-labelledby="care-prototype-heading"
+      >
+        <h2 id="care-prototype-heading" className="text-xl font-semibold text-teal-900">
+          {t("prototypeDemo.heading", { ns: "care" })}
+        </h2>
         <p className="max-w-2xl text-base leading-relaxed text-ink-600">
-          {t("when.lead", { ns: "care" })}
+          {t("prototypeDemo.lead", { ns: "care" })}
         </p>
-        <ul className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-          {(["result", "question", "share"] as const).map((item) => (
-            <li key={item}>
-              <Card className="h-full hover:shadow-surface">
-                <CardHeader>
-                  <CardTitle>{t(`when.${item}.title`, { ns: "care" })}</CardTitle>
-                  <CardDescription>{t(`when.${item}.body`, { ns: "care" })}</CardDescription>
-                </CardHeader>
-              </Card>
-            </li>
-          ))}
-        </ul>
       </section>
 
       <section

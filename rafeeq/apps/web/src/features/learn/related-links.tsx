@@ -19,6 +19,9 @@ export function LearnRelatedLinks() {
         <Button asChild variant="secondary">
           <Link to="/app/check">{t("related.check", { ns: "learn" })}</Link>
         </Button>
+        <Button asChild variant="secondary">
+          <Link to="/understanding-genetic-risk">{t("related.riskHub", { ns: "learn" })}</Link>
+        </Button>
         <Button asChild>
           <Link to="/app/care">{t("related.care", { ns: "learn" })}</Link>
         </Button>

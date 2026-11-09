@@ -5,6 +5,7 @@ import { ErrorState, humanContact } from "@/components/error-state";
 import { Skeleton } from "@/components/skeleton";
 import { SyntheticBadge } from "@/components/synthetic-badge";
 import { useFailureToast } from "@/components/ui/toast";
+import { PlatformImpactDashboard } from "@/features/comprehension-access/platform-impact-dashboard";
 import { equityQueryKey, fetchEquity, fetchKpis, kpiQueryKey } from "@/features/insights/api";
 import { EquityChart } from "@/features/insights/equity-chart";
 import { KpiCard } from "@/features/insights/kpi-card";
@@ -40,6 +41,7 @@ export function InsightsPanels({ kpis, equity }: { kpis: KpiReport; equity: Equi
         <h2 className="text-2xl font-semibold text-teal-900">
           {t("equity.heading", { ns: "insights" })}
         </h2>
+        <p className="text-sm font-semibold text-amber-900">{t("syntheticChart.label", { ns: "insights" })}</p>
         <p>{metric}</p>
         {equity.series.map((series) => (
           <EquityChart key={series.dimension} series={series} />
@@ -76,6 +78,7 @@ export function InsightsView() {
         <p>{t("page.intro", { ns: "insights" })}</p>
         <p>{t("notice.k", { ns: "insights" })}</p>
       </header>
+      <PlatformImpactDashboard />
       {pending ? <Skeleton label={t("loading", { ns: "insights" })} /> : null}
       {failed ? (
         <ErrorState
@@ -92,7 +95,12 @@ export function InsightsView() {
         <EmptyState title={t("unavailable", { ns: "insights" })} />
       ) : null}
       {kpis.isSuccess && equity.isSuccess && kpis.data !== null && equity.data !== null ? (
-        <InsightsPanels kpis={kpis.data} equity={equity.data} />
+        <section className="flex flex-col gap-4" aria-labelledby="legacy-insights-api">
+          <h2 id="legacy-insights-api" className="text-xl font-semibold text-teal-900">
+            {t("page.legacySection", { ns: "insights" })}
+          </h2>
+          <InsightsPanels kpis={kpis.data} equity={equity.data} />
+        </section>
       ) : null}
     </div>
   );

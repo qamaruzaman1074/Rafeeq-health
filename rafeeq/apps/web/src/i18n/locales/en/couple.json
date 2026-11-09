@@ -178,6 +178,21 @@
     "eyebrow": "Consent-based sharing",
     "intro": "Invite a partner only if you want to. Each of you keeps your own report. Only the categories you switch on can be used for an educational comparison.",
     "syntheticNote": "Demo invitation — no message will be sent.",
+    "prototypeNotice": "Prototype interaction – partner demo state is kept in memory only for this visit. It is not saved to device storage and does not submit sharing requests.",
+    "sharingChoice": {
+      "heading": "Sharing Is Your Choice",
+      "intro": "An invitation does not automatically provide access to personal screening results. Each individual should understand and authorize the information they choose to share.",
+      "independent": "Each person grants their own permissions. Your partner's choices are separate from yours.",
+      "step": "Step {{n}}",
+      "diagramAlt": "Illustration of consent before information is shared between parties.",
+      "steps": {
+        "invite": "Invitation",
+        "review": "Review request",
+        "select": "Select information",
+        "consent": "Give consent",
+        "reviewShare": "Review sharing"
+      }
+    },
     "invite": {
       "heading": "Invitation",
       "none": "No partner is connected.",

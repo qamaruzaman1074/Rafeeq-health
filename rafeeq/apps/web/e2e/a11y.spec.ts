@@ -10,6 +10,8 @@ const publicRoutes = [
   "/about",
   "/how-it-works",
   "/understanding-genetic-risk",
+  "/informed-choices",
+  "/screening-pathways",
   "/inherited-conditions",
   "/genetic-counselling",
   "/contact",

@@ -6,6 +6,9 @@
   "content": {
     "missing": "Not available yet"
   },
+  "locale": {
+    "arReviewNotice": "Arabic clinical content is pending qualified linguistic and clinical review."
+  },
   "common": {
     "close": "Close",
     "language": "Language",

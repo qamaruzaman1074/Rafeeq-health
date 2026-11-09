@@ -7,6 +7,7 @@ import { ErrorState, humanContact } from "@/components/error-state";
 import { Skeleton } from "@/components/skeleton";
 import { useFailureToast } from "@/components/ui/toast";
 import { fetchQueue, queueQueryKey } from "@/features/clinic/api";
+import { ClinicDemoBanner } from "@/features/clinic/clinic-demo-banner";
 import { QueueTable } from "@/features/clinic/queue-table";
 import {
   EMPTY_FILTERS,
@@ -41,6 +42,7 @@ export function QueueView() {
         </h1>
         <p>{t("queue.intro", { ns: "clinic" })}</p>
       </header>
+      <ClinicDemoBanner />
       {queue.isPending ? <Skeleton label={t("queue.loading", { ns: "clinic" })} /> : null}
       {queue.isError ? (
         <ErrorState

@@ -2,7 +2,8 @@
   "page": {
     "title": "Learn",
     "intro": "Short explanations of inherited screening ideas. These topics are general education.",
-    "notAdvice": "This page is not personal medical advice and it does not replace a qualified genetic counsellor."
+    "notAdvice": "This page is not personal medical advice and it does not replace a qualified genetic counsellor.",
+    "informedChoicesLink": "Explore informed choices and reflection prompts (public guide)"
   },
   "blocks": {
     "language": "English blocks"
@@ -71,11 +72,39 @@
     "termName": "Glossary: {{term}}",
     "loading": "Loading the glossary."
   },
+  "journey": {
+    "heading": "Learning journey",
+    "lead": "Understand → Learn → Check → Review → Explore next steps. Progress below is temporary demo state until persistence is integrated.",
+    "demoBadge": "Demo progress only",
+    "stepsLabel": "Learning journey steps",
+    "diagramAlt": "Diagram of the learning journey steps.",
+    "steps": {
+      "understand": "Understand",
+      "learn": "Learn",
+      "check": "Check",
+      "review": "Review",
+      "explore": "Explore next steps"
+    },
+    "metrics": {
+      "visited": "Topics visited",
+      "checks": "Knowledge checks completed",
+      "review": "Topics to review",
+      "count": "{{n}} of {{total}}"
+    }
+  },
+  "progress": {
+    "heading": "Your learning path",
+    "lead": "Work through the modules below at your own pace. This indicator is for navigation only—it does not track medical completion.",
+    "bar": "Module navigation progress",
+    "demoBadge": "Temporary demo state",
+    "hubLink": "View the full public guide to inherited genetic risk (diagrams and next steps)"
+  },
   "related": {
     "heading": "Related pages",
     "lead": "Open Results for the notes in this session, Check to say it in your own words, or Care to reach a person.",
     "results": "Open Results",
     "check": "Open Check",
+    "riskHub": "Understanding genetic risk (public)",
     "care": "Open Care"
   },
   "error": "The explanation could not be loaded.",

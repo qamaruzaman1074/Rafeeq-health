@@ -91,12 +91,12 @@ describe("ask", () => {
     expect(handoff).not.toContain("Source: Approved content");
     expect(handoff).toContain('data-handoff="human"');
     expect(handoff).toContain("bg-lilac-100");
-    expect(handoff).toContain("This question goes to a person");
+    expect(handoff).toContain("Professional interpretation may be needed");
     expect(handoff).toContain("Distress or self-harm");
     expect(handoff).toContain("Approved crisis-line text");
     expect(handoff).toContain("immediate danger");
     expect(handoff).toContain('href="/app/care"');
-    expect(handoff).toContain("Book a counsellor");
+    expect(handoff).toContain("Prepare in Care (preview only)");
 
     const sourced = renderNode(
       createElement(AskExchange, {

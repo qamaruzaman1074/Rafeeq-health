@@ -311,3 +311,38 @@ The **public marketing assistant** is a separate feature:
 - Dependency: `@google/genai` (server/index scripts only; not imported from React client code).
 - Knowledge: `apps/web/knowledge/sources` built from `/content` and `en/public.json`; no personas, genotypes, or audit data.
 - OPEN_QUESTION: unify marketing assistant with Azure retrieval when `apps/api` ships, or keep Gemini only on Vercel.
+
+## 2026-11-09 — public informed-choices education route
+
+- Route: `/informed-choices` (public marketing/app education hub; no new API).
+- Content: `public.informedChoices` in `en/public.json`; typed ids in `features/informed-choices/content-model.ts` for future API payloads.
+- Reflection and reading-list UI use in-memory React state only (no `localStorage`, no server persistence); clearly labelled prototype.
+- Care page reorganised with `CareGuidanceSections`; existing MSW referral/booking demo unchanged underneath a labelled prototype block.
+
+## 2026-11-09 — genetic counselling UX (frontend prototypes)
+
+- Public `/genetic-counselling` copy and layout refreshed; fictional named counsellor profiles removed in favour of integration-pending placeholders.
+- `ReferralRequestPreview` on `/app/care`: multi-step preview only; does not call `POST` referral APIs (MSW send control remains a separate labelled demo).
+- Typed `ReferralPreviewDraft` in `features/genetic-counselling/referral-preview-model.ts` for future intake API mapping (OPEN_QUESTION: MASTER Section 6 referral body).
+- Ask `HandoffCard` shows educational escalation copy and `ProfessionalSupportPathway`; no simulated successful handoff.
+- Clinic queue/case views: `ClinicDemoBanner` and `CaseSummaryPreview`; no API contract changes.
+
+## 2026-11-09 — privacy and partner sharing UX (prototypes)
+
+- `/app/privacy`: education principles, in-memory `ConsentMatrixPrototype`, `SyntheticAuditPanel` (static copy), SVG diagrams under `public/images/outcomes/privacy/`.
+- Existing MSW consent matrix, receipts, and audit timeline remain unchanged beneath a labelled session-demo section.
+- `/app/partner`: invitation flow explainer; partner demo state uses React `useState` only (no `sessionStorage` for consent preview).
+- `consent-integration-model.ts` documents future auth/RBAC/consent/audit integration points; no new API routes.
+
+## 2026-11-09 — screening and specialist pathway hub
+
+- Public route `/screening-pathways`: education timeline, confirmatory information, specialist placeholders, referral journey preview (static statuses only).
+- `screening-pathways/content-model.ts` types for future screening records, referral stages, provider directory; no new API routes.
+- Breadcrumbs and `PathwayNextSteps` on `/app/result`, `/app/care`, and `/genetic-counselling`.
+
+## 2026-11-09 — comprehension, accessibility and equity UX
+
+- Client-side educational MCQs on `/app/check` (`comprehension-access/educational-mcq.tsx`); demo progress in `sessionStorage`; existing teach-back API unchanged.
+- Learning journey UI on Learn and Check; platform impact dashboard on `/insights` with empty KPI placeholders; synthetic chart labelled in `demo-data.ts`.
+- Arabic locale bundles under `i18n/locales/ar/` with `documentLocale` rtl; `LocaleSwitcher` enables en/ar; clinical Arabic flagged pending review.
+- No analytics backend or new API routes.

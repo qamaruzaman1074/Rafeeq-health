@@ -1,6 +1,85 @@
 {
   "page": {
-    "title": "Teach-back check"
+    "title": "Understanding Matters",
+    "intro": "Short knowledge checks help you notice what you understand and which topics may need more explanation.",
+    "teachBackSection": "Session teach-back (demo API)"
+  },
+  "comprehension": {
+    "heading": "Knowledge checks",
+    "intro": "Reading information is only one part of learning. Short knowledge checks can help users identify what they understand and which topics may need further explanation.",
+    "notDiagnostic": "These checks are educational only. Answers are not used to make personal genetic-risk conclusions.",
+    "demoBadge": "Temporary demo state",
+    "topicNav": "Comprehension topics",
+    "pickTopic": "Choose a topic to open a question.",
+    "chooseOne": "Choose one answer",
+    "submit": "Check answer",
+    "retry": "Try again",
+    "feedback": {
+      "correct": "That matches the educational explanation.",
+      "retry": "That is not the best answer. Read the explanation and try again."
+    },
+    "topics": {
+      "carrier": {
+        "title": "Understanding carrier status",
+        "question": "In general education, what does carrier status usually describe?",
+        "options": {
+          "a": "A confirmed diagnosis in the child",
+          "b": "Carrying a gene variant that may be passed on, without necessarily being ill",
+          "c": "A guarantee that a future child will be affected"
+        },
+        "explanation": "Carrier status describes having a variant that can be inherited. It is not the same as a diagnosis in a child and does not guarantee an outcome."
+      },
+      "inheritance": {
+        "title": "Understanding inheritance",
+        "question": "Why might both partners' results matter in couple carrier screening education?",
+        "options": {
+          "a": "Because inheritance patterns can involve both sides of a family",
+          "b": "Because only one partner's genes matter legally",
+          "c": "Because screening always replaces family history"
+        },
+        "explanation": "Couple context can help people discuss how variants may be passed on. It does not replace individual clinical interpretation."
+      },
+      "risk_diagnosis": {
+        "title": "Risk versus diagnosis",
+        "question": "Which statement best reflects the difference between risk information and diagnosis?",
+        "options": {
+          "a": "They always mean the same thing on a report",
+          "b": "Risk always proves a child will be affected",
+          "c": "Risk information describes possibilities; diagnosis is a clinical conclusion about health"
+        },
+        "explanation": "Educational materials distinguish uncertainty and risk from a formal diagnosis made with professional judgement."
+      },
+      "screening_limits": {
+        "title": "Understanding screening limitations",
+        "question": "What is a common limitation of carrier screening panels?",
+        "options": {
+          "a": "They test every possible condition automatically",
+          "b": "Panels vary; they may not include every condition or detect every variant type",
+          "c": "They remove the need to discuss results with a professional"
+        },
+        "explanation": "Panel scope and methods matter. Screening complements—not replaces—professional discussion."
+      },
+      "counselling": {
+        "title": "When professional counselling may help",
+        "question": "When might genetic counselling be discussed?",
+        "options": {
+          "a": "When people want help understanding results, uncertainty and next steps",
+          "b": "Only when a diagnosis has already been made in a child",
+          "c": "Never after screening"
+        },
+        "explanation": "Counselling can support understanding and decision conversations. This product does not provide counselling on its own."
+      },
+      "privacy": {
+        "title": "Privacy and consent",
+        "question": "What should users expect about sharing genetic information in Rafeeq demos?",
+        "options": {
+          "a": "Everything is automatically shared with partners",
+          "b": "Sharing never needs discussion",
+          "c": "Sharing choices should be explicit and can be limited by consent settings"
+        },
+        "explanation": "Consent and sharing are user-controlled in the product design. Demo data is fictional."
+      }
+    }
   },
   "loading": "Loading the check.",
   "empty": "No check is available for this session.",

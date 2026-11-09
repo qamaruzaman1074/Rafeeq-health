@@ -1,7 +1,59 @@
 {
   "page": {
-    "title": "Insights",
-    "intro": "Aggregates only. No row-level data."
+    "title": "Understanding Platform Impact",
+    "intro": "Aggregates only. No row-level data.",
+    "legacySection": "Aggregated API metrics (demo session)"
+  },
+  "platform": {
+    "intro": "Platform impact KPIs will appear here when analytics services are connected. Empty states below are intentional.",
+    "heroAlt": "Illustration of learning and impact analytics.",
+    "awaitingData": "Awaiting real data integration.",
+    "learning": {
+      "heading": "Learning and comprehension",
+      "checks": "Knowledge checks completed",
+      "checksDesc": "Count of completed educational checks across the platform.",
+      "correct": "Correct-answer rates",
+      "correctDesc": "Aggregate correct-answer rates on teach-back items (suppressed when groups are small).",
+      "topics": "Topics requiring additional explanation",
+      "topicsDesc": "Topics flagged for follow-up education."
+    },
+    "counselling": {
+      "heading": "Counselling access",
+      "requests": "Counselling requests",
+      "requestsDesc": "Requests recorded through approved pathways.",
+      "referral": "Referral progression",
+      "referralDesc": "Stages reached in referral workflows.",
+      "time": "Time from request to referral response",
+      "timeDesc": "Median response interval when connected."
+    },
+    "equity": {
+      "heading": "Accessibility and equity",
+      "language": "Language usage",
+      "languageDesc": "Distribution of sessions by interface language.",
+      "accessibility": "Accessibility feedback",
+      "accessibilityDesc": "Structured feedback about barriers or assistive needs.",
+      "engagement": "Differences in educational engagement",
+      "engagementDesc": "Module and check engagement by cohort (aggregated)."
+    },
+    "privacy": {
+      "heading": "Privacy and consent",
+      "consent": "Consent previews",
+      "consentDesc": "Consent review events in demo flows.",
+      "revoked": "Revoked sharing permissions",
+      "revokedDesc": "Aggregate sharing changes.",
+      "feedback": "Privacy-related user feedback",
+      "feedbackDesc": "Optional feedback about privacy UX."
+    }
+  },
+  "syntheticChart": {
+    "heading": "Illustrative engagement preview",
+    "label": "Synthetic demonstration data – not actual user measurements.",
+    "caption": "Bars show placeholder values for layout review only.",
+    "bars": {
+      "visit": "Topics visited",
+      "check": "Checks completed",
+      "review": "Marked for review"
+    }
   },
   "session": {
     "open": "Open insights"

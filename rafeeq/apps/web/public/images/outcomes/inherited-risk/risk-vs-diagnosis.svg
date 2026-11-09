@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" role="img" aria-labelledby="title desc">
+  <title id="title">Risk versus diagnosis comparison</title>
+  <desc id="desc">Two panels contrasting possible genetic risk with clinical diagnosis.</desc>
+  <rect width="400" height="160" fill="#f5f3ef" rx="12"/>
+  <rect x="24" y="24" width="160" height="112" rx="8" fill="#ecfdf5" stroke="#0f766e"/>
+  <text x="104" y="52" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#134e4a">Genetic risk</text>
+  <text x="104" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#4b5563">Possibility</text>
+  <path d="M104 92 v24" stroke="#0d9488" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="216" y="24" width="160" height="112" rx="8" fill="#fffbeb" stroke="#b45309"/>
+  <text x="296" y="52" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#92400e">Diagnosis</text>
+  <text x="296" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#4b5563">Clinical assessment</text>
+  <circle cx="296" cy="108" r="18" fill="none" stroke="#b45309" stroke-width="2"/>
+  <path d="M288 108 l8 8 l16-16" fill="none" stroke="#b45309" stroke-width="2"/>
+</svg>

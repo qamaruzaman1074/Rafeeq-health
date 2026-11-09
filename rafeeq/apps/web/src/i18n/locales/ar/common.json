@@ -1,0 +1,33 @@
+{
+  "content": {
+    "missing": "غير متاح بعد"
+  },
+  "common": {
+    "close": "إغلاق",
+    "language": "اللغة",
+    "languageName": {
+      "en": "English",
+      "ar": "العربية"
+    },
+    "languageCompact": {
+      "en": "English (EN)",
+      "ar": "العربية (AR)"
+    }
+  },
+  "locale": {
+    "arReviewNotice": "المحتوى السريري بالعربية قيد المراجعة اللغوية والسريرية المؤهلة."
+  },
+  "shell": {
+    "literacy": {
+      "label": "وضع القراءة",
+      "standard": "قياسي",
+      "simple": "مبسّط",
+      "voice": "صوت"
+    },
+    "nav": {
+      "learn": "تعلّم",
+      "check": "تحقّق",
+      "care": "رعاية"
+    }
+  }
+}

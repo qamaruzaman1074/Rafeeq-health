@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200" role="img" aria-labelledby="t d">
+  <title id="t">Consent document illustration</title>
+  <desc id="d">Paper with checkmark suggesting informed consent.</desc>
+  <rect width="280" height="200" fill="#f5f3ef" rx="12"/>
+  <rect x="70" y="40" width="140" height="120" rx="6" fill="#fff" stroke="#0f766e" stroke-width="2"/>
+  <line x1="90" y1="70" x2="190" y2="70" stroke="#d1d5db"/>
+  <line x1="90" y1="90" x2="170" y2="90" stroke="#d1d5db"/>
+  <path d="M95 130 l12 12 l28-32" fill="none" stroke="#0d9488" stroke-width="3"/>
+</svg>

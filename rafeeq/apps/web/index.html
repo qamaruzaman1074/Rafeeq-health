@@ -42,10 +42,13 @@
           document.documentElement.style.colorScheme = "light";
         }
         try {
-          document.documentElement.lang = "en";
-          document.documentElement.dir = "ltr";
-          if (localStorage.getItem("rafeeq.lang") === "ar") {
-            localStorage.setItem("rafeeq.lang", "en");
+          var storedLang = localStorage.getItem("rafeeq.lang");
+          if (storedLang === "ar") {
+            document.documentElement.lang = "ar";
+            document.documentElement.dir = "rtl";
+          } else {
+            document.documentElement.lang = "en";
+            document.documentElement.dir = "ltr";
           }
         } catch (error) {
           /* Storage can be unavailable before the app boots. */

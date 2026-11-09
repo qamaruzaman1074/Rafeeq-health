@@ -37,16 +37,16 @@ function readItem(storage: KeyValueStore | null, key: string): string | null {
 
 export function readStoredLanguage(storage: KeyValueStore | null): AppLocale | null {
   const value = readItem(storage, LANGUAGE_STORAGE_KEY);
-  if (value === "en") {
+  if (value === "en" || value === "ar") {
     return value;
-  }
-  if (value === "ar") {
-    return "en";
   }
   return null;
 }
 
 export function writeStoredLanguage(storage: KeyValueStore | null, locale: AppLocale): void {
+  if (locale !== "en" && locale !== "ar") {
+    return;
+  }
   if (storage === null) {
     return;
   }

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" role="img" aria-labelledby="t d">
+  <title id="t">Access permissions diagram</title>
+  <desc id="d">Rows showing categories and on-off permissions.</desc>
+  <rect width="360" height="180" fill="#f5f3ef" rx="12"/>
+  <text x="24" y="36" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#134e4a">Category</text>
+  <text x="140" y="36" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#134e4a">Recipient</text>
+  <text x="260" y="36" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#134e4a">Permitted</text>
+  <rect x="24" y="50" width="312" height="32" rx="4" fill="#fff" stroke="#e5e7eb"/>
+  <rect x="24" y="90" width="312" height="32" rx="4" fill="#fff" stroke="#e5e7eb"/>
+  <rect x="24" y="130" width="312" height="32" rx="4" fill="#fff" stroke="#e5e7eb"/>
+  <circle cx="290" cy="66" r="10" fill="#bbf7d0" stroke="#15803d"/>
+  <circle cx="290" cy="106" r="10" fill="#fecaca" stroke="#b91c1c"/>
+  <circle cx="290" cy="146" r="10" fill="#e5e7eb" stroke="#6b7280"/>
+</svg>

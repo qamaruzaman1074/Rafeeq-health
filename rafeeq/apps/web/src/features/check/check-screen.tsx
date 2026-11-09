@@ -44,7 +44,11 @@ function ProgressDots({
         const state =
           finished || dotIndex < index ? "passed" : dotIndex === index ? "current" : "upcoming";
         const fill =
-          state === "current" ? "bg-teal-700" : state === "passed" ? "bg-green-600" : "bg-teal-100";
+          state === "current"
+            ? "bg-teal-700 ring-2 ring-teal-900 ring-offset-2"
+            : state === "passed"
+              ? "bg-green-600 border-2 border-green-800"
+              : "bg-teal-100 border-2 border-dashed border-teal-400";
         return (
           <li key={dotIndex}>
             <span
@@ -72,6 +76,7 @@ export function CheckScreen({
   onChoose,
   onSkip,
   onRetrySave,
+  hideHeading = false,
 }: {
   item: CheckItemView | null;
   itemCount: number;
@@ -84,6 +89,7 @@ export function CheckScreen({
   onChoose: (optionId: string) => void;
   onSkip: () => void;
   onRetrySave?: () => void;
+  hideHeading?: boolean;
 }) {
   const { t } = useTranslation();
   const contact = humanContact(t);
@@ -91,7 +97,9 @@ export function CheckScreen({
   if (finished) {
     return (
       <div className="flex flex-col gap-6">
-        <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "check" })}</h1>
+        {hideHeading ? null : (
+          <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "check" })}</h1>
+        )}
         <ProgressDots count={itemCount} index={index} finished />
         <h2 className="text-2xl font-semibold text-teal-900">{t("done.title", { ns: "check" })}</h2>
         <p>{t("done.body", { ns: "check" })}</p>
@@ -108,7 +116,9 @@ export function CheckScreen({
   if (item === null) {
     return (
       <div className="flex flex-col gap-6">
-        <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "check" })}</h1>
+        {hideHeading ? null : (
+          <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "check" })}</h1>
+        )}
         <EmptyState title={t("empty", { ns: "check" })} />
       </div>
     );
@@ -118,7 +128,9 @@ export function CheckScreen({
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "check" })}</h1>
+      {hideHeading ? null : (
+        <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "check" })}</h1>
+      )}
       <ProgressDots count={itemCount} index={index} finished={false} />
       <article
         className="flex flex-col gap-4 rounded-lg border border-teal-500 bg-sand-100 p-6"

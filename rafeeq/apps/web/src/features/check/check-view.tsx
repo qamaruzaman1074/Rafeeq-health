@@ -27,7 +27,7 @@ function toView(item: {
   };
 }
 
-function CheckSession({ locale }: { locale: "en" | "ar" }) {
+function CheckSession({ locale, hideHeading = false }: { locale: "en" | "ar"; hideHeading?: boolean }) {
   const { t } = useTranslation();
   const { mode } = useLiteracy();
   const personaId = useSyncExternalStore(subscribeSession, getSessionPersona, getSessionPersona);
@@ -87,6 +87,7 @@ function CheckSession({ locale }: { locale: "en" | "ar" }) {
         feedback={null}
         pending={false}
         saveError={false}
+        hideHeading={hideHeading}
         onChoose={() => undefined}
         onSkip={() => undefined}
       />
@@ -154,6 +155,7 @@ function CheckSession({ locale }: { locale: "en" | "ar" }) {
       feedback={feedback}
       pending={pending}
       saveError={saveError}
+      hideHeading={hideHeading}
       onChoose={onChoose}
       onSkip={onSkip}
       onRetrySave={() => {
@@ -165,9 +167,11 @@ function CheckSession({ locale }: { locale: "en" | "ar" }) {
   );
 }
 
-export function CheckView() {
+export function CheckView({ hideHeading = false }: { hideHeading?: boolean }) {
   const { i18n } = useTranslation();
   const locale = documentLocale(i18n.resolvedLanguage ?? i18n.language).lang;
   const personaId = useSyncExternalStore(subscribeSession, getSessionPersona, getSessionPersona);
-  return <CheckSession key={`${personaId ?? "none"}:${locale}`} locale={locale} />;
+  return (
+    <CheckSession key={`${personaId ?? "none"}:${locale}`} locale={locale} hideHeading={hideHeading} />
+  );
 }

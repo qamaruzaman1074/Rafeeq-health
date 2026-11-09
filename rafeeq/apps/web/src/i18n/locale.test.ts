@@ -33,16 +33,16 @@ function memoryStore(
 }
 
 describe("documentLocale", () => {
-  it("always resolves to English ltr", () => {
+  it("resolves English and Arabic direction", () => {
     expect(documentLocale("en")).toEqual({ lang: "en", dir: "ltr" });
-    expect(documentLocale("ar")).toEqual({ lang: "en", dir: "ltr" });
+    expect(documentLocale("ar")).toEqual({ lang: "ar", dir: "rtl" });
     expect(documentLocale("fr")).toEqual({ lang: "en", dir: "ltr" });
   });
 
   it("writes lang and dir onto a document root", () => {
     const root = { lang: "fr", dir: "rtl" };
-    expect(applyDocumentLocale("ar", root)).toEqual({ lang: "en", dir: "ltr" });
-    expect(root).toEqual({ lang: "en", dir: "ltr" });
+    expect(applyDocumentLocale("ar", root)).toEqual({ lang: "ar", dir: "rtl" });
+    expect(root).toEqual({ lang: "ar", dir: "rtl" });
   });
 });
 
@@ -57,20 +57,20 @@ describe("rafeeq.lang", () => {
     expect(readStoredLanguage(memoryStore({ [LANGUAGE_STORAGE_KEY]: "fr" }))).toBeNull();
   });
 
-  it("migrates stored Arabic to English and keeps ltr", async () => {
+  it("persists Arabic and applies rtl", async () => {
     const storage = memoryStore({ [LANGUAGE_STORAGE_KEY]: "ar" });
-    expect(readStoredLanguage(storage)).toBe("en");
-    const root = { lang: "ar", dir: "rtl" };
+    expect(readStoredLanguage(storage)).toBe("ar");
+    const root = { lang: "en", dir: "ltr" };
     await changeAppLanguage("ar", storage, root);
-    expect(storage.values.get(LANGUAGE_STORAGE_KEY)).toBe("en");
-    expect(root).toEqual({ lang: "en", dir: "ltr" });
-    expect(i18n.resolvedLanguage).toBe("en");
+    expect(storage.values.get(LANGUAGE_STORAGE_KEY)).toBe("ar");
+    expect(root).toEqual({ lang: "ar", dir: "rtl" });
+    expect(i18n.resolvedLanguage).toBe("ar");
   });
 
   it("reads rafeeq.lang from the document bootstrap", () => {
     const html = readFileSync(new URL("../../index.html", import.meta.url), "utf8");
     expect(html).toContain('localStorage.getItem("rafeeq.lang")');
-    expect(html).toContain('document.documentElement.lang = "en"');
+    expect(html).toContain('document.documentElement.dir = "rtl"');
   });
 });
 

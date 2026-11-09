@@ -25,6 +25,8 @@ export const publicNavFooterGroups = [
     headingKey: "footer.learnHeading",
     links: [
       { path: "/understanding-genetic-risk", labelKey: "footer.risk" },
+      { path: "/informed-choices", labelKey: "footer.informedChoices" },
+      { path: "/screening-pathways", labelKey: "footer.screeningPathways" },
       { path: "/inherited-conditions", labelKey: "footer.conditions" },
       { path: "/faq", labelKey: "footer.faq" },
     ],
@@ -45,6 +47,8 @@ export const publicSitePaths = new Set([
   "/problem-solution",
   "/how-it-works",
   "/understanding-genetic-risk",
+  "/informed-choices",
+  "/screening-pathways",
   "/inherited-conditions",
   "/genetic-counselling",
   "/contact",

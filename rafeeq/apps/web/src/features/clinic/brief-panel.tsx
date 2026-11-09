@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { REFERRAL_STATUSES, type ReferralStatus } from "@/features/care/steps";
 import { StatusChips } from "@/features/care/status-chips";
 import { languageLabel, literacyLabel, referralStatusLabel } from "@/features/clinic/labels";
+import { CaseSummaryPreview } from "@/features/clinic/case-summary-preview";
 import { TierChip } from "@/features/clinic/tier-chip";
 import type { BriefNote, CaseBrief, FormulaLine } from "@/features/clinic/types";
 import type { Carrier } from "@/features/result/types";
@@ -92,6 +93,11 @@ export function BriefPanel({
 
   return (
     <div className="flex flex-col gap-8" data-brief={brief.id}>
+      <CaseSummaryPreview brief={brief} />
+      <h2 id="referral-reason" className="text-2xl font-semibold text-teal-900">
+        {t("case.referralReason", { ns: "clinic" })}
+      </h2>
+      <p className="max-w-2xl text-base text-ink-600">{t("case.referralReasonBody", { ns: "clinic" })}</p>
       <div className="flex flex-wrap items-center gap-3">
         <TierChip tier={brief.tier} />
         <StatusChips status={brief.status} />

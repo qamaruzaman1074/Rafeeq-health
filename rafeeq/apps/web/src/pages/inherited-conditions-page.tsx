@@ -4,6 +4,8 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Section } from "@/components/layout/section";
 import { RevealStagger } from "@/components/motion/reveal-stagger";
 import { NoticePanel } from "@/components/public/marketing-blocks";
+import { ClinicalDraftBadge } from "@/features/inherited-risk-education/clinical-draft-badge";
+import { EducationHubCallout } from "@/features/inherited-risk-education/education-hub-callout";
 import { Button } from "@/components/ui/button";
 import { useCopyList } from "@/i18n/copy-list";
 
@@ -27,10 +29,16 @@ export function Component() {
     <div className="flex w-full min-w-0 flex-col">
       <Section wide className="!pb-6 !pt-10 sm:!pt-14">
         <PageHeader
-          eyebrow={t("conditions.eyebrow", { ns: "public" })}
+          eyebrow={
+            <span className="flex flex-wrap items-center gap-2">
+              {t("conditions.eyebrow", { ns: "public" })}
+              <ClinicalDraftBadge />
+            </span>
+          }
           title={t("conditions.heroTitle", { ns: "public" })}
           description={t("conditions.heroIntro", { ns: "public" })}
         />
+        <EducationHubCallout />
         <nav aria-label={t("conditions.title", { ns: "public" })}>
           <ul className="flex flex-wrap gap-2">
             {conditions.map((item) => (

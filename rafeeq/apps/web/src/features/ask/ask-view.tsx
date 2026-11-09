@@ -16,7 +16,9 @@ import { limitQuestion, QUESTION_LIMIT } from "@/features/ask/limit";
 import { AskExchange } from "@/features/ask/messages";
 import { postAsk } from "@/features/ask/api";
 import type { AskPayload } from "@/features/ask/types";
+import { NoticePanel } from "@/components/public/marketing-blocks";
 import { BoundaryBanner } from "@/features/couple/boundary-banner";
+import { NonDirectiveNotice } from "@/features/informed-choices/non-directive-notice";
 import { documentLocale } from "@/i18n/locale";
 
 const faq: unknown = faqFile;
@@ -93,6 +95,18 @@ export function AskView() {
 
       <p className="max-w-2xl text-base leading-relaxed text-ink-600">
         {t("page.notCounsellor", { ns: "ask" })}
+      </p>
+
+      <NonDirectiveNotice />
+
+      <NoticePanel>
+        <p className="text-sm">{t("page.nonDirective", { ns: "ask" })}</p>
+      </NoticePanel>
+
+      <p className="text-sm">
+        <Link to="/informed-choices" className="font-medium text-teal-800 underline-offset-4 hover:underline">
+          {t("page.informedChoicesLink", { ns: "ask" })}
+        </Link>
       </p>
 
       <BoundaryBanner

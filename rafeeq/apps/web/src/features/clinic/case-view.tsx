@@ -16,6 +16,7 @@ import {
   patchReferral,
 } from "@/features/clinic/api";
 import { AuditTimeline } from "@/features/privacy/audit-timeline";
+import { ClinicDemoBanner } from "@/features/clinic/clinic-demo-banner";
 import { BriefPanel } from "@/features/clinic/brief-panel";
 import { documentLocale } from "@/i18n/locale";
 
@@ -79,6 +80,7 @@ export function CaseView() {
           {t("case.back", { ns: "clinic" })}
         </Link>
       </header>
+      <ClinicDemoBanner />
       <Tabs defaultValue="brief">
         <TabsList aria-label={t("case.tabs.label", { ns: "clinic" })}>
           <TabsTrigger value="brief">{t("case.tabs.brief", { ns: "clinic" })}</TabsTrigger>

@@ -15,10 +15,12 @@ import { useFailureToast } from "@/components/ui/toast";
 import { explainOverlap, fetchConsents } from "@/features/couple/api";
 import { FactCard } from "@/features/couple/fact-card";
 import { shareGate } from "@/features/couple/share-state";
+import { EducationHubCallout } from "@/features/inherited-risk-education/education-hub-callout";
 import { InheritanceExample } from "@/features/result/inheritance-example";
 import { ResultMeanings } from "@/features/result/meanings";
 import { fetchOwnResult } from "@/features/result/api";
 import { ResultCard } from "@/features/result/result-card";
+import { PathwayNextSteps } from "@/features/screening-pathways/pathway-breadcrumbs";
 import { landmarkName } from "@/lib/landmark-name";
 
 export function ResultView() {
@@ -60,6 +62,10 @@ export function ResultView() {
       />
 
       <ResultMeanings />
+
+      <EducationHubCallout />
+
+      <PathwayNextSteps from="result" />
 
       <section
         className="flex flex-col gap-4"

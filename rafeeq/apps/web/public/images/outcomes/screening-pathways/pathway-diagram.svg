@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 80" role="img" aria-labelledby="t">
+  <title id="t">Screening to support pathway diagram</title>
+  <rect width="480" height="80" fill="#f5f3ef" rx="8"/>
+  <circle cx="48" cy="40" r="14" fill="#ccfbf1" stroke="#0f766e"/>
+  <circle cx="144" cy="40" r="14" fill="#ccfbf1" stroke="#0f766e"/>
+  <circle cx="240" cy="40" r="14" fill="#ccfbf1" stroke="#0f766e"/>
+  <circle cx="336" cy="40" r="14" fill="#fde68a" stroke="#b45309"/>
+  <circle cx="432" cy="40" r="14" fill="#e5e7eb" stroke="#6b7280"/>
+  <path d="M62 40h70 M158 40h70 M262 40h62 M350 40h66" stroke="#0d9488" stroke-width="2"/>
+</svg>

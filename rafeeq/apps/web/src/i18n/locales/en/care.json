@@ -1,8 +1,125 @@
 {
   "page": {
     "title": "Care pathway",
-    "intro": "These are the care steps. You can ask for counselling from here.",
-    "notReplacement": "This page does not replace a qualified genetic counsellor. It shows the existing pathway and how to reach a person."
+    "intro": "Organize your questions, explore education, and use the demo pathway to see how a counselling request might work in Rafeeq.",
+    "notReplacement": "This page does not replace a qualified genetic counsellor. It explains possible next steps and shows prototype tools only."
+  },
+  "nonDirective": "Rafeeq does not make personal, marriage or reproductive decisions for you. Its purpose is to support understanding and help you access appropriate professional guidance.",
+  "guidance": {
+    "hubLink": "Open informed choices guide",
+    "journey": {
+      "heading": "An illustrative pathway",
+      "srTitle": "Understand, explore, discuss, decide",
+      "caption": "People move through these steps in different orders. Rafeeq does not tell you what to decide.",
+      "steps": {
+        "understand": "Understand",
+        "explore": "Explore",
+        "discuss": "Discuss",
+        "decide": "Decide"
+      }
+    },
+    "sections": {
+      "understand": {
+        "heading": "Understanding your information",
+        "lead": "Start with what screening can and cannot establish for you—not what someone else thinks you should do.",
+        "items": [
+          "Carrier status describes a finding on a test; it is not automatically a diagnosis.",
+          "Couple-level meaning may require both partners' relevant findings and professional interpretation.",
+          "Reports use technical terms; glossary and Learn modules are general education."
+        ]
+      },
+      "learnNext": {
+        "heading": "Learning about next steps",
+        "lead": "Education can prepare you for conversations. It does not replace them.",
+        "items": [
+          "Read about inheritance, uncertainty, and risk versus diagnosis at your own pace.",
+          "Use Ask for approved educational answers; hard questions belong with a person.",
+          "The public informed-choices guide lists pathways without ranking options."
+        ]
+      },
+      "professional": {
+        "heading": "Professional guidance",
+        "lead": "Qualified genetic counsellors and clinicians interpret findings in context.",
+        "items": []
+      },
+      "prepare": {
+        "heading": "Preparing for a conversation",
+        "lead": "Bring questions, your report, and what you hope to clarify—there is no single script.",
+        "items": [
+          "What does this result mean for me and for a possible child?",
+          "What are the limits of this test?",
+          "What confirmatory steps might be discussed—and who decides if they are appropriate?",
+          "How can I share information safely with a partner or clinic?"
+        ]
+      },
+      "services": {
+        "heading": "Finding appropriate services",
+        "lead": "Availability varies by region and clinic. Rafeeq does not list real providers or live appointment slots.",
+        "items": [
+          "Genetic counselling services may be available through hospitals, screening programmes, or referrals.",
+          "Specialised reproductive-genomics services exist in some settings when clinically appropriate.",
+          "Confirmatory testing is ordered by qualified professionals—not through this demo."
+        ]
+      }
+    }
+  },
+  "referralPreview": {
+    "heading": "Referral request preview",
+    "badge": "Preview only",
+    "lead": "Prepare what you might discuss with a counsellor. Use general topics only—do not enter real patient identifiers or full genetic reports here.",
+    "notSubmitted": "Preview only – no referral has been submitted.",
+    "form": {
+      "title": "Draft your request",
+      "note": "This form does not send data to a server.",
+      "review": "Review before preview"
+    },
+    "fields": {
+      "reason": "Reason for seeking counselling",
+      "topic": "General topic of concern",
+      "communication": "Preferred communication method",
+      "language": "Preferred language",
+      "questions": "Questions you want to discuss"
+    },
+    "placeholders": {
+      "reason": "e.g. Understand a carrier screening report (demo text only)",
+      "topic": "e.g. Autosomal recessive inheritance (not personal data)",
+      "questions": "List questions in your own words"
+    },
+    "communication": {
+      "unsure": "Not sure yet",
+      "video": "Video call",
+      "phone": "Telephone",
+      "inPerson": "In person"
+    },
+    "language": {
+      "en": "English",
+      "ar": "Arabic",
+      "other": "Other / interpreter needed"
+    },
+    "consent": {
+      "ack": "I understand this preview does not share data and is not a referral.",
+      "off": "Clinic share is off in Privacy. A real referral would only include what you consented to share.",
+      "offShort": "Clinic share off (demo)",
+      "on": "Clinic share on (demo session)",
+      "unknown": "Consent not loaded",
+      "previewLabel": "Consent preview"
+    },
+    "review": {
+      "title": "Review your preview",
+      "lead": "Check your entries. Nothing is transmitted.",
+      "back": "Edit",
+      "showPreview": "Show preview summary"
+    },
+    "done": {
+      "title": "Preview summary",
+      "lead": "This is how a referral payload might look in a future integration.",
+      "noBackend": "No backend received this data. Reset to start again.",
+      "reset": "Start over"
+    }
+  },
+  "prototypeDemo": {
+    "heading": "Prototype pathway demo",
+    "lead": "The MSW referral button below is a separate technical demo for counsellor queue testing. It is not the preview above and does not represent a real clinic referral."
   },
   "when": {
     "heading": "When a qualified counsellor may help",
@@ -47,7 +164,7 @@
   },
   "send": {
     "label": "Counselling request",
-    "lead": "This uses the existing referral request. Clinic share must be on first.",
+    "lead": "MSW demo only: exercises the mock API for counsellor queue tests. Not a real referral.",
     "action": "Send my questions and what I understood to the counsellor",
     "needsShare": "This stays off until clinic share is on.",
     "privacy": "Privacy",

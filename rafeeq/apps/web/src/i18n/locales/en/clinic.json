@@ -1,4 +1,10 @@
 {
+  "demo": {
+    "banner": {
+      "title": "Synthetic counsellor console",
+      "body": "Queue and case briefs use demo persona data only. No real patients, credentials, or clinic locations are shown."
+    }
+  },
   "page": {
     "title": "Counsellor console",
     "toQueue": "Queue"
@@ -46,6 +52,20 @@
     "overlapEmpty": "Overlap consent not recorded"
   },
   "case": {
+    "referralReason": "Referral reason (illustrative)",
+    "referralReasonBody": "Demo briefs do not include real referral letters. Reason text appears when integrated with a verified intake service.",
+    "summary": {
+      "heading": "Case summary preview",
+      "id": "Referral id",
+      "status": "Illustrative status",
+      "tier": "Priority tier",
+      "reason": "Reason for contact",
+      "reasonPlaceholder": "Demo — reason not recorded",
+      "consent": "Consent to share",
+      "consentDemo": "Per demo persona consents",
+      "questions": "Shared questions count",
+      "synthetic": "Synthetic demo record"
+    },
     "title": "Case brief",
     "loading": "Loading the brief.",
     "empty": "No brief is available for this session.",

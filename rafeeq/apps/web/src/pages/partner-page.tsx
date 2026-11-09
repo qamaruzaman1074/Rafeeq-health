@@ -23,7 +23,7 @@ import {
   type PartnerDemoState,
 } from "@/features/partner/partner-demo";
 import { useCopyList } from "@/i18n/copy-list";
-import { useSessionState } from "@/lib/use-session-state";
+import { PartnerInvitationFlow } from "@/features/partner/partner-invitation-flow";
 
 function demoCode(): string {
   return `RAF-INV-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
@@ -41,10 +41,7 @@ const panelClass =
 
 export function Component() {
   const { t } = useTranslation();
-  const [state, setState] = useSessionState<PartnerDemoState>(
-    "rafeeq.demo.partner",
-    initialPartnerState,
-  );
+  const [state, setState] = useState<PartnerDemoState>(initialPartnerState);
   const [confirm, setConfirm] = useState<ConsentCategory | null>(null);
   const [announcement, setAnnouncement] = useState("");
   const outcomes = useCopyList<{ value: string; label: string }>("partner.risk.outcomes", "couple");
@@ -68,6 +65,11 @@ export function Component() {
       />
       <p role="status" aria-live="polite" className="sr-only">
         {announcement}
+      </p>
+
+      <PartnerInvitationFlow />
+      <p className="rounded-lg border border-amber-200 bg-amber-50/80 p-4 text-sm text-ink-900">
+        {t("partner.prototypeNotice", { ns: "couple" })}
       </p>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">

@@ -6,8 +6,16 @@ import { browserStorage, readStoredLanguage } from "@/i18n/storage";
 
 // Clinic and insights catalogs are registered by those routes (and the demo
 // buttons that open them) so they stay out of the first route bundle.
-const localeModules = import.meta.glob<Record<string, unknown>>(
+const enModules = import.meta.glob<Record<string, unknown>>(
   ["./locales/en/*.json", "!./locales/en/clinic.json", "!./locales/en/insights.json"],
+  {
+    eager: true,
+    import: "default",
+  },
+);
+
+const arModules = import.meta.glob<Record<string, unknown>>(
+  ["./locales/ar/*.json", "!./locales/ar/clinic.json", "!./locales/ar/insights.json"],
   {
     eager: true,
     import: "default",
@@ -16,18 +24,28 @@ const localeModules = import.meta.glob<Record<string, unknown>>(
 
 type LocaleResources = {
   en: Record<string, Record<string, unknown>>;
+  ar: Record<string, Record<string, unknown>>;
 };
 
-function loadResources(): LocaleResources {
-  const resources: LocaleResources = { en: {} };
-  for (const [path, catalog] of Object.entries(localeModules)) {
-    const match = /^\.\/locales\/en\/([^/]+)\.json$/.exec(path);
+function mergeLocale(
+  target: Record<string, Record<string, unknown>>,
+  modules: Record<string, Record<string, unknown>>,
+  locale: string,
+): void {
+  for (const [path, catalog] of Object.entries(modules)) {
+    const match = new RegExp(`^\\.\\/locales\\/${locale}\\/([^/]+)\\.json$`).exec(path);
     const namespace = match?.[1];
     if (namespace === undefined) {
       continue;
     }
-    resources.en[namespace] = catalog;
+    target[namespace] = catalog;
   }
+}
+
+function loadResources(): LocaleResources {
+  const resources: LocaleResources = { en: {}, ar: {} };
+  mergeLocale(resources.en, enModules, "en");
+  mergeLocale(resources.ar, arModules, "ar");
   return resources;
 }
 
@@ -37,7 +55,7 @@ void i18n.use(initReactI18next).init({
   resources: loadResources(),
   lng: initialLanguage,
   fallbackLng: "en",
-  supportedLngs: ["en"],
+  supportedLngs: ["en", "ar"],
   ns: [...NAMESPACES],
   defaultNS: "common",
   returnEmptyString: true,

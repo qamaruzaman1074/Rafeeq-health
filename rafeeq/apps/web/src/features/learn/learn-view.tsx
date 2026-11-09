@@ -15,6 +15,10 @@ import { GlossaryTerm } from "@/features/learn/glossary-term";
 import { ModuleIcon } from "@/features/learn/module-icon";
 import { LEARN_MODULES, type LearnModule } from "@/features/learn/modules";
 import { LearnRelatedLinks } from "@/features/learn/related-links";
+import { ArabicReviewNotice } from "@/features/comprehension-access/arabic-review-notice";
+import { LearningJourney } from "@/features/comprehension-access/learning-journey";
+import { LearnModuleProgress } from "@/features/inherited-risk-education/learn-module-progress";
+import { NonDirectiveNotice } from "@/features/informed-choices/non-directive-notice";
 import { documentLocale } from "@/i18n/locale";
 
 function Transcript({
@@ -81,7 +85,12 @@ function LearnModuleCard({
   const spoken = readLocaleBlock(locale, spokenId);
 
   return (
-    <article className="flex flex-col gap-4" data-content-locale={locale} data-literacy={mode}>
+    <article
+      id={`learn-${module.id}`}
+      className="scroll-mt-28 flex flex-col gap-4"
+      data-content-locale={locale}
+      data-literacy={mode}
+    >
       <Card className="hover:shadow-surface">
         <CardContent className="flex flex-col gap-4 p-6 sm:p-8">
           <h2 className="text-2xl font-semibold text-teal-900">{title}</h2>
@@ -180,8 +189,17 @@ export function LearnView() {
         <p className="max-w-2xl text-base leading-relaxed text-ink-600">
           {t("page.notAdvice", { ns: "learn" })}
         </p>
+        <NonDirectiveNotice />
+        <ArabicReviewNotice />
+        <LearningJourney />
+        <p className="text-sm">
+          <a href="/informed-choices" className="font-medium text-teal-800 underline-offset-4 hover:underline">
+            {t("page.informedChoicesLink", { ns: "learn" })}
+          </a>
+        </p>
         <p>{t("blocks.language", { ns: "learn" })}</p>
         <EducationGuide />
+        <LearnModuleProgress />
         {modules.length === 0 ? (
           <EmptyState title={t("empty", { ns: "learn" })} />
         ) : (
