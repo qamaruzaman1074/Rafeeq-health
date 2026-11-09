@@ -65,6 +65,8 @@ describe("rafeeq.lang", () => {
     expect(storage.values.get(LANGUAGE_STORAGE_KEY)).toBe("ar");
     expect(root).toEqual({ lang: "ar", dir: "rtl" });
     expect(i18n.resolvedLanguage).toBe("ar");
+    expect(i18n.t("hero.title", { ns: "landing" })).not.toBe("hero.title");
+    expect(i18n.hasResourceBundle("ar", "landing")).toBe(true);
   });
 
   it("reads rafeeq.lang from the document bootstrap", () => {

@@ -67,6 +67,32 @@ const namespaceLoaders: Record<AppLocale, Partial<Record<AppNamespace, () => Pro
 
 const inflight = new Map<string, Promise<void>>();
 
+function isBootNamespace(namespace: AppNamespace): namespace is (typeof BOOT_NAMESPACES)[number] {
+  return (BOOT_NAMESPACES as readonly string[]).includes(namespace);
+}
+
+async function loadBootCatalog(
+  locale: AppLocale,
+  namespace: (typeof BOOT_NAMESPACES)[number],
+): Promise<Record<string, unknown>> {
+  const catalogs = {
+    en: {
+      common: () => import("./locales/en/common.json"),
+      landing: () => import("./locales/en/landing.json"),
+      public: () => import("./locales/en/public.json"),
+      errors: () => import("./locales/en/errors.json"),
+    },
+    ar: {
+      common: () => import("./locales/ar/common.json"),
+      landing: () => import("./locales/ar/landing.json"),
+      public: () => import("./locales/ar/public.json"),
+      errors: () => import("./locales/ar/errors.json"),
+    },
+  } as const;
+  const module = await catalogs[locale][namespace]();
+  return module.default;
+}
+
 export async function ensureNamespace(locale: AppLocale, namespace: AppNamespace): Promise<void> {
   if (i18n.hasResourceBundle(locale, namespace)) {
     return;
@@ -77,7 +103,10 @@ export async function ensureNamespace(locale: AppLocale, namespace: AppNamespace
     await pending;
     return;
   }
-  const load = namespaceLoaders[locale][namespace];
+  const deferredLoad = namespaceLoaders[locale][namespace];
+  const load =
+    deferredLoad ??
+    (isBootNamespace(namespace) ? () => loadBootCatalog(locale, namespace) : undefined);
   if (load === undefined) {
     return;
   }
