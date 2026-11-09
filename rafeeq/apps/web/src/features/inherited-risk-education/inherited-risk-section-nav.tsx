@@ -21,7 +21,10 @@ export function InheritedRiskSectionNav({ labelledBy }: { labelledBy?: string })
       <ul className="flex min-w-min gap-2">
         {INHERITED_RISK_SECTION_IDS.map((id) => (
           <li key={id}>
-            <a href={`#${id}`} className="nav-pill inline-flex min-h-11 items-center border border-border-subtle bg-card px-4 text-sm">
+            <a
+              href={`#${id}`}
+              className="nav-pill inline-flex min-h-11 items-center border border-border-subtle bg-card px-4 text-sm transition-colors duration-200 hover:border-teal-500 hover:bg-teal-50 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-teal-500"
+            >
               {t(SECTION_I18N[id], { ns: "public" })}
             </a>
           </li>

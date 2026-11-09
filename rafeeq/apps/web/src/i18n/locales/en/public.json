@@ -603,8 +603,8 @@
           "step": "Step 1",
           "title": "Learn about the finding",
           "body": "Read educational material about carrier status, inheritance, and what your screening report does and does not mean.",
-          "href": "/app/learn",
-          "linkLabel": "Go to Learn"
+          "href": "#carrier-status",
+          "linkLabel": "Review carrier status on this page"
         },
         {
           "step": "Step 2",
@@ -617,14 +617,14 @@
           "step": "Step 3",
           "title": "Ask questions about further assessment",
           "body": "Confirmatory testing or specialist referral may be discussed when appropriate.",
-          "href": "/app/care",
+          "href": "/demo",
           "linkLabel": "Open Care"
         },
         {
           "step": "Step 4",
           "title": "Explore appropriate support services",
           "body": "Support options depend on your setting, values, and what professionals recommend.",
-          "href": "/genetic-counselling",
+          "href": "/screening-pathways",
           "linkLabel": "Explore support pathways"
         }
       ]
@@ -955,8 +955,29 @@
         }
       ]
     },
-    "profilesHeading": "Provider information",
-    "profilesIntro": "Verified counsellor profiles and credentials are not integrated in this prototype.",
+    "profilesHeading": "Example genetics professionals",
+    "profilesIntro": "Fictional layout examples only. These are not real providers and cannot be booked through Rafeeq.",
+    "demoProfileBadge": "Fictional demo profiles",
+    "demoProfiles": [
+      {
+        "name": "Dr. Amira Hassan",
+        "role": "Clinical genetic counsellor",
+        "experience": "14 years supporting families after carrier screening",
+        "image": "/images/outcomes/genetic-counselling/preparing-consultation.webp"
+      },
+      {
+        "name": "Dr. James Okonkwo",
+        "role": "Consultant clinical geneticist",
+        "experience": "11 years in inherited conditions and confirmatory testing discussions",
+        "image": "/images/outcomes/genetic-counselling/clinician-reviewing.webp"
+      },
+      {
+        "name": "Dr. Lina Farouk",
+        "role": "Reproductive genetics counsellor",
+        "experience": "9 years in preconception and couple counselling",
+        "image": "/images/outcomes/genetic-counselling/consultation-room.webp"
+      }
+    ],
     "providerSlots": [
       {
         "title": "Counsellor profile integration pending",

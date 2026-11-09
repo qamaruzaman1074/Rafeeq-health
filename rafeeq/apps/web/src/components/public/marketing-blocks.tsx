@@ -52,7 +52,11 @@ export function MediaSplit({
           height={1066}
           loading="lazy"
           decoding="async"
-          className="media-reveal aspect-[3/2] h-auto w-full rounded-xl object-cover shadow-surface-md"
+          className={
+            image.endsWith(".svg")
+              ? "media-reveal aspect-[3/2] h-auto w-full rounded-xl border border-border-subtle bg-sand-100 object-contain p-4 shadow-surface-md"
+              : "media-reveal aspect-[3/2] h-auto w-full rounded-xl object-cover shadow-surface-md"
+          }
         />
       </div>
     </div>

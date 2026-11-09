@@ -41,7 +41,7 @@ export function Component() {
             <Link to="/app/care">{t("informedChoices.actions.care", { ns })}</Link>
           </Button>
           <Button asChild variant="secondary">
-            <Link to="/app/ask">{t("informedChoices.actions.ask", { ns })}</Link>
+            <Link to="/demo">{t("informedChoices.actions.ask", { ns })}</Link>
           </Button>
         </div>
       </Section>

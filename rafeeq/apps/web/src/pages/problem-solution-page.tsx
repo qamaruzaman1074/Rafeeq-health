@@ -42,12 +42,12 @@ const PILLAR_ICONS = [
 ] as const;
 
 const PILLAR_IMAGES = [
-  "/images/problem-solution/family-health-history.webp",
-  "/images/problem-solution/genetic-screening.jpg",
-  "/images/problem-solution/inherited-risk-education.webp",
-  "/images/problem-solution/ai-healthcare-assistant.jpg",
-  "/images/problem-solution/health-data-privacy.jpg",
-  "/images/problem-solution/genetic-counselling.jpg",
+  "/images/outcomes/informed-choices/supportive-conversation.webp",
+  "/images/outcomes/screening-pathways/laboratory.webp",
+  "/images/outcomes/inherited-risk/hero-genetics.webp",
+  "/images/outcomes/comprehension-access/learning-environment.webp",
+  "/images/outcomes/privacy/access-control.jpg",
+  "/images/outcomes/genetic-counselling/counselling-conversation.webp",
 ] as const;
 
 const PRINCIPLE_ICONS = [IconRespect, IconClarity, IconShield, IconGuidance] as const;
@@ -116,7 +116,7 @@ export function Component() {
           </div>
           <MotionWrap className="relative z-10 min-w-0">
             <img
-              src="/images/problem-solution/genetic-health-hero.webp"
+              src="/images/outcomes/inherited-risk/hero-genetics.webp"
               alt={t("problemSolution.hero.imageAlt", { ns })}
               width={1600}
               height={1066}

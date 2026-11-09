@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 const cellClass = {
   neither: "fill-teal-100 stroke-teal-600",
   carrier: "fill-amber-100 stroke-amber-600",
-  affected: "fill-teal-200 stroke-teal-800",
+  affected: "fill-teal-900 stroke-teal-950",
 } as const;
 
 type CellKind = keyof typeof cellClass;
@@ -21,8 +21,8 @@ export function CouplePunnettDiagram() {
   const descId = "couple-punnett-desc";
 
   return (
-    <figure className="max-w-md">
-      <svg viewBox="0 0 220 220" className="h-auto w-full" role="img" aria-labelledby={titleId} aria-describedby={descId}>
+    <figure className="min-w-0 max-w-md shrink-0">
+      <svg viewBox="0 0 220 220" className="h-auto w-full max-w-full" role="img" aria-labelledby={titleId} aria-describedby={descId}>
         <title id={titleId}>{t("risk.diagrams.couple.title", { ns: "public" })}</title>
         <desc id={descId}>{t("risk.diagrams.couple.desc", { ns: "public" })}</desc>
         <rect width="220" height="220" rx="12" className="fill-sand-100" />
@@ -48,8 +48,13 @@ export function CouplePunnettDiagram() {
               className={cellClass[cell.kind]}
               strokeWidth="2"
             />
-            <text x={cell.x + 42} y={cell.y + 30} textAnchor="middle" className="fill-ink-900 text-[8px]">
-              {t(`risk.diagrams.cell.${cell.kind}`, { ns: "public" })}
+            <text
+              x={cell.x + 42}
+              y={cell.y + 30}
+              textAnchor="middle"
+              className={`text-[9px] font-medium ${cell.kind === "affected" ? "fill-white" : "fill-teal-950"}`}
+            >
+              {t(`risk.diagrams.couple.cell.${cell.kind}`, { ns: "public" })}
             </text>
           </g>
         ))}

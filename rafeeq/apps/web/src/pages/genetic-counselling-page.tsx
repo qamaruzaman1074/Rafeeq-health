@@ -50,9 +50,18 @@ export function Component() {
       </Section>
 
       <Section wide aria-labelledby="counselling-journey-heading">
-        <div className="grid w-full gap-10 lg:grid-cols-2 lg:items-start">
+        <div className="grid w-full gap-10 lg:grid-cols-2 lg:items-center">
           <JourneyIntro />
-          <JourneyWithNote />
+          <div className="flex flex-col gap-6">
+            <img
+              src="/images/outcomes/genetic-counselling/counselling-conversation.webp"
+              alt={t("counsellingPage.imageAlt", { ns: "public" })}
+              loading="lazy"
+              decoding="async"
+              className="max-h-56 w-full rounded-xl object-cover shadow-surface-md lg:max-h-72"
+            />
+            <JourneyWithNote />
+          </div>
         </div>
       </Section>
 

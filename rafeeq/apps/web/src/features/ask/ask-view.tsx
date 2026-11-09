@@ -36,9 +36,11 @@ export function AskView() {
   const chips = readSuggestedQuestions(faq);
   const notify = useNotify();
   const contact = humanContact(t);
+  const [name, setName] = useState("");
   const [draft, setDraft] = useState("");
   const [turns, setTurns] = useState<AskTurn[]>([]);
   const [pending, setPending] = useState(false);
+  const [sendSuccess, setSendSuccess] = useState(false);
 
   function deliver(id: string, question: string): void {
     setPending(true);
@@ -52,7 +54,8 @@ export function AskView() {
         setTurns((current) =>
           current.map((turn) => (turn.id === id ? { ...turn, status: "ready", payload } : turn)),
         );
-        notify({ title: t("toast.success") });
+        setSendSuccess(true);
+        notify({ title: t("composer.sendSuccess", { ns: "ask" }) });
       })
       .catch(() => {
         setTurns((current) =>
@@ -147,13 +150,34 @@ export function AskView() {
           </ul>
         ) : null}
       </div>
+      {sendSuccess ? (
+        <p role="status" className="rounded-lg border border-green-600 bg-teal-50 px-4 py-3 text-base font-medium text-teal-900">
+          {t("composer.sendSuccess", { ns: "ask" })}
+        </p>
+      ) : null}
       <form
         className="flex flex-col items-start gap-3 rounded-lg border border-border-subtle bg-sand-100 p-6"
         onSubmit={(event) => {
           event.preventDefault();
+          setSendSuccess(false);
           send(draft);
         }}
       >
+        <label htmlFor="ask-name" className="text-sm font-medium text-teal-900">
+          {t("composer.nameLabel", { ns: "ask" })}
+        </label>
+        <input
+          id="ask-name"
+          name="name"
+          type="text"
+          autoComplete="name"
+          value={name}
+          placeholder={t("composer.namePlaceholder", { ns: "ask" })}
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
+          className="min-h-11 w-full rounded-md border border-teal-700 bg-card px-3 text-base text-ink-900 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-teal-500"
+        />
         <label htmlFor="ask-question" className="text-lg font-medium text-teal-900">
           {t("composer.label", { ns: "ask" })}
         </label>

@@ -95,7 +95,7 @@ export function InheritedRiskEducationSections() {
       </Section>
 
       <Section wide id="couple-risk" className="scroll-mt-28" aria-labelledby="risk-couple-heading">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-start">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-start lg:gap-12">
           <SectionIntro
             id="risk-couple-heading"
             heading={t("risk.couple.heading", { ns: "public" })}
@@ -126,7 +126,7 @@ export function InheritedRiskEducationSections() {
         </div>
       </Section>
 
-      <Section wide id="risk-vs-diagnosis" className="scroll-mt-28 brand-band" aria-labelledby="risk-diagnosis-heading">
+      <Section wide id="risk-vs-diagnosis" className="scroll-mt-28 surface-muted" aria-labelledby="risk-diagnosis-heading">
         <SectionIntro
           id="risk-diagnosis-heading"
           heading={t("risk.diagnosis.heading", { ns: "public" })}
@@ -204,7 +204,7 @@ export function InheritedRiskEducationSections() {
             <Link to="/inherited-conditions">{t("nav.conditions", { ns: "public" })}</Link>
           </Button>
           <Button asChild variant="secondary">
-            <Link to="/app/learn">{t("risk.pathways.learnApp", { ns: "public" })}</Link>
+            <Link to="/demo">{t("risk.pathways.learnApp", { ns: "public" })}</Link>
           </Button>
         </div>
       </Section>

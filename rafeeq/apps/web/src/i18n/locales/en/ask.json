@@ -16,8 +16,11 @@
     "action": "Open Care"
   },
   "composer": {
+    "nameLabel": "Your name",
+    "namePlaceholder": "Name (optional)",
     "label": "Your question",
     "send": "Send",
+    "sendSuccess": "Message sent successfully.",
     "count": "{{count}} of {{max}}"
   },
   "chips": {
