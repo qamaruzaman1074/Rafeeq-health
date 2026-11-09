@@ -4,7 +4,8 @@
     "indexes": "firebase/firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist",
+    "site": "rafeeq-helath",
+    "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [{ "source": "**", "destination": "/index.html" }]
   },
