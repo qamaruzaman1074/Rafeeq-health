@@ -1,19 +1,10 @@
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { useLiteracy } from "@/app/literacy";
 import { setSessionRole } from "@/app/session";
 import { SiteContainer } from "@/components/layout/site-container";
 import { PageHeader } from "@/components/layout/page-header";
-import { Button } from "@/components/ui/button";
 import { EvaluationGuide } from "@/features/evaluation-guide";
-import { startCounsellorSession } from "@/features/clinic/session";
-import { startAnalystSession } from "@/features/insights/session";
-import { registerClinicCatalog } from "@/i18n/register-clinic";
-import { registerInsightsCatalog } from "@/i18n/register-insights";
-
-registerClinicCatalog();
-registerInsightsCatalog();
 import { startGuestSession } from "@/features/guest-session";
 import { personas } from "@/features/personas";
 import { ApiRequestError } from "@/lib/api";
@@ -31,12 +22,9 @@ function initials(names: string): string {
 export function Component() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { setMode } = useLiteracy();
   const attempt = useRef(0);
   const [pendingId, setPendingId] = useState<string | null>(null);
-  const [errorKey, setErrorKey] = useState<
-    "unknownPersona" | "guestFailed" | "counsellorFailed" | "analystFailed" | null
-  >(null);
+  const [errorKey, setErrorKey] = useState<"unknownPersona" | "guestFailed" | null>(null);
 
   const choose = (personaId: string) => {
     const token = attempt.current + 1;
@@ -64,87 +52,12 @@ export function Component() {
       });
   };
 
-  const openClinic = () => {
-    const token = attempt.current + 1;
-    attempt.current = token;
-    setPendingId("counsellor");
-    setErrorKey(null);
-    void startCounsellorSession()
-      .then(async () => {
-        if (token !== attempt.current) {
-          setSessionRole(null);
-          return;
-        }
-        await navigate("/clinic/queue");
-      })
-      .catch(() => {
-        if (token !== attempt.current) {
-          return;
-        }
-        setPendingId(null);
-        setErrorKey("counsellorFailed");
-      });
-  };
-
-  const openInsights = () => {
-    const token = attempt.current + 1;
-    attempt.current = token;
-    setPendingId("analyst");
-    setErrorKey(null);
-    void startAnalystSession()
-      .then(async () => {
-        if (token !== attempt.current) {
-          setSessionRole(null);
-          return;
-        }
-        await navigate("/insights");
-      })
-      .catch(() => {
-        if (token !== attempt.current) {
-          return;
-        }
-        setPendingId(null);
-        setErrorKey("analystFailed");
-      });
-  };
-
-  const reset = () => {
-    attempt.current += 1;
-    setSessionRole(null);
-    setMode("standard");
-    setPendingId(null);
-    setErrorKey(null);
-  };
-
   return (
     <SiteContainer className="flex flex-col gap-8 py-8 sm:py-12">
       <PageHeader
         title={t("demo.title", { ns: "landing" })}
         description={t("demo.intro", { ns: "landing" })}
-        actions={
-          <div className="flex flex-wrap gap-3">
-            <Button variant="secondary" onClick={reset} disabled={pendingId !== null}>
-              {t("demo.reset", { ns: "landing" })}
-            </Button>
-            <Button
-              variant="secondary"
-              aria-busy={pendingId === "counsellor"}
-              disabled={pendingId !== null}
-              onClick={openClinic}
-            >
-              {t("session.open", { ns: "clinic" })}
-            </Button>
-            <Button
-              variant="secondary"
-              aria-busy={pendingId === "analyst"}
-              disabled={pendingId !== null}
-              onClick={openInsights}
-            >
-              {t("session.open", { ns: "insights" })}
-            </Button>
-            <EvaluationGuide />
-          </div>
-        }
+        actions={<EvaluationGuide />}
       />
       {errorKey === "unknownPersona" ? (
         <p role="alert" className="rounded-lg border border-teal-700 bg-amber-100 p-4">
@@ -154,16 +67,6 @@ export function Component() {
       {errorKey === "guestFailed" ? (
         <p role="alert" className="rounded-lg border border-teal-700 bg-amber-100 p-4">
           {t("guestFailed", { ns: "errors" })}
-        </p>
-      ) : null}
-      {errorKey === "counsellorFailed" ? (
-        <p role="alert" className="rounded-lg border border-teal-700 bg-amber-100 p-4">
-          {t("counsellorFailed", { ns: "errors" })}
-        </p>
-      ) : null}
-      {errorKey === "analystFailed" ? (
-        <p role="alert" className="rounded-lg border border-teal-700 bg-amber-100 p-4">
-          {t("analystFailed", { ns: "errors" })}
         </p>
       ) : null}
       <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">

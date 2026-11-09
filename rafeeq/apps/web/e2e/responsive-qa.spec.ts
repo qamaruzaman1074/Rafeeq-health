@@ -199,13 +199,13 @@ for (const locale of locales) {
       }
 
       await page.goto("/demo");
-      const counsellor = page.getByRole("button", { name: "Open the counsellor queue" });
-      if (await counsellor.count()) {
-        await counsellor.click();
-        await expect(page).toHaveURL(/\/clinic\/queue$/);
-        await assertDocumentLocale(page, locale);
-        await assertNoPageOverflow(page, `${locale} ${viewport.name} /clinic/queue`);
-      }
+      await page.evaluate(async () => {
+        await window.rafeeqDemoTest?.counsellor();
+      });
+      await page.goto("/clinic/queue");
+      await expect(page).toHaveURL(/\/clinic\/queue$/);
+      await assertDocumentLocale(page, locale);
+      await assertNoPageOverflow(page, `${locale} ${viewport.name} /clinic/queue`);
     });
   }
 }

@@ -90,23 +90,19 @@ async function enterGuest(page: Page): Promise<void> {
 
 async function enterCounsellor(page: Page): Promise<void> {
   await page.goto("/demo");
-  const named = page.getByRole("button", { name: "Open the counsellor queue" });
-  if (await named.count()) {
-    await named.click();
-  } else {
-    await page.locator("main header").getByRole("button").nth(1).click();
-  }
+  await page.evaluate(async () => {
+    await window.rafeeqDemoTest?.counsellor();
+  });
+  await page.goto("/clinic/queue");
   await expect(page).toHaveURL(/\/clinic\/queue$/);
 }
 
 async function enterAnalyst(page: Page): Promise<void> {
   await page.goto("/demo");
-  const named = page.getByRole("button", { name: "Open insights" });
-  if (await named.count()) {
-    await named.click();
-  } else {
-    await page.locator("main header").getByRole("button").nth(2).click();
-  }
+  await page.evaluate(async () => {
+    await window.rafeeqDemoTest?.analyst();
+  });
+  await page.goto("/insights");
   await expect(page).toHaveURL(/\/insights$/);
 }
 

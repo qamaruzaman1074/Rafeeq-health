@@ -50,10 +50,20 @@ function fontPreloadPlugin(): Plugin {
   };
 }
 
+const demoMocks = process.env.VITE_USE_MOCKS !== "false";
+
 export default defineConfig({
+  define: {
+    "import.meta.env.VITE_USE_MOCKS": JSON.stringify(
+      process.env.VITE_USE_MOCKS === undefined ? "true" : process.env.VITE_USE_MOCKS,
+    ),
+  },
   plugins: [
     react(),
-    VitePWA({
+    ...(demoMocks
+      ? []
+      : [
+          VitePWA({
       registerType: "autoUpdate",
       injectRegister: "auto",
       includeAssets: ["favicon.svg", "icons/icon-192.png", "icons/icon-512.png"],
@@ -74,14 +84,15 @@ export default defineConfig({
           { src: "icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
         ],
       },
-      workbox: {
-        navigateFallback: "index.html",
-        navigateFallbackDenylist: [/^\/api\//],
-        globPatterns: ["**/*.{js,css,html,svg,png,woff2,webmanifest}"],
-        globIgnores: ["**/mockServiceWorker.js"],
-        runtimeCaching: [],
-      },
-    }),
+            workbox: {
+              navigateFallback: "index.html",
+              navigateFallbackDenylist: [/^\/api\//],
+              globPatterns: ["**/*.{js,css,html,svg,png,woff2,webmanifest}"],
+              globIgnores: ["**/mockServiceWorker.js"],
+              runtimeCaching: [],
+            },
+          }),
+        ]),
     fontPreloadPlugin(),
   ],
   resolve: {

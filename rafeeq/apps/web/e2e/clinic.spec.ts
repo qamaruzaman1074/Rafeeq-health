@@ -3,7 +3,10 @@ import { expect, test } from "@playwright/test";
 test("counsellor queue is usable at 1024px and hides unshared P5 fields", async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 800 });
   await page.goto("/demo");
-  await page.getByRole("button", { name: "Open the counsellor queue" }).click();
+  await page.evaluate(async () => {
+    await window.rafeeqDemoTest?.counsellor();
+  });
+  await page.goto("/clinic/queue");
   await expect(page).toHaveURL(/\/clinic\/queue$/);
   await expect(page.getByRole("heading", { level: 1, name: "Queue" })).toBeVisible();
   await expect(page.getByLabel("Tier")).toBeVisible();
@@ -60,7 +63,10 @@ test("counsellor queue is usable at 1024px and hides unshared P5 fields", async 
 test("updates a referral status from the case brief", async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 800 });
   await page.goto("/demo");
-  await page.getByRole("button", { name: "Open the counsellor queue" }).click();
+  await page.evaluate(async () => {
+    await window.rafeeqDemoTest?.counsellor();
+  });
+  await page.goto("/clinic/queue");
   await page.getByRole("link", { name: "Open brief referral-P1" }).click();
   await expect(page.locator("[data-status='created']")).toBeVisible();
   await page.getByLabel("New status").selectOption("booked");

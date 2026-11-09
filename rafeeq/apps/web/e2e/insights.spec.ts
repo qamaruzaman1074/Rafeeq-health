@@ -5,7 +5,10 @@ test("insights shows the synthetic badge, an undefined KPI, and a suppressed cel
 }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/demo");
-  await page.getByRole("button", { name: "Open insights" }).click();
+  await page.evaluate(async () => {
+    await window.rafeeqDemoTest?.analyst();
+  });
+  await page.goto("/insights");
   await expect(page).toHaveURL(/\/insights$/);
 
   await expect(page.getByText("Demo example").first()).toBeVisible();

@@ -23,6 +23,7 @@ import {
   endCounsellorSession,
 } from "@/mocks/counsellor-session";
 import { equityPayload, kpiPayload } from "@/mocks/insights-fixture";
+import { readDemoPersonaFromCookieHeader } from "@/lib/demo-persona-cookie";
 import { currentPersonaId, rememberPersona } from "@/mocks/persona-state";
 import {
   auditEntries,
@@ -111,8 +112,10 @@ function envelope(data: unknown) {
   });
 }
 
-function activePersona(): Persona | null {
-  const personaId = currentPersonaId();
+function activePersona(request?: Request): Persona | null {
+  const fromCookie =
+    request === undefined ? null : readDemoPersonaFromCookieHeader(request.headers.get("Cookie"));
+  const personaId = fromCookie ?? currentPersonaId();
   if (personaId === null) {
     return null;
   }
@@ -302,16 +305,16 @@ export const handlers: HttpHandler[] = [
     rememberPersona(persona.id);
     return guestSession(persona.id);
   }),
-  http.get("*/api/v1/results/mine", () => {
-    const persona = activePersona();
+  http.get("*/api/v1/results/mine", ({ request }) => {
+    const persona = activePersona(request);
     return envelope(persona === null ? null : ownResultFor(persona));
   }),
-  http.get("*/api/v1/results/overlap", () => {
-    const persona = activePersona();
+  http.get("*/api/v1/results/overlap", ({ request }) => {
+    const persona = activePersona(request);
     return envelope(persona === null ? null : overlapFor(persona, partnerConsents(persona)));
   }),
   http.get("*/api/v1/consents", ({ request }) => {
-    const persona = activePersona();
+    const persona = activePersona(request);
     if (persona === null) {
       return envelope(null);
     }
@@ -319,7 +322,7 @@ export const handlers: HttpHandler[] = [
     return envelope(mine ? mineConsents(persona) : partnerConsents(persona));
   }),
   http.post("*/api/v1/consents", async ({ request }) => {
-    const persona = activePersona();
+    const persona = activePersona(request);
     if (persona === null) {
       return envelope(null);
     }
@@ -338,8 +341,8 @@ export const handlers: HttpHandler[] = [
     }
     return envelope(written.consents);
   }),
-  http.get("*/api/v1/consents/receipt/:id", ({ params }) => {
-    const persona = activePersona();
+  http.get("*/api/v1/consents/receipt/:id", ({ params, request }) => {
+    const persona = activePersona(request);
     if (persona === null) {
       return envelope(null);
     }
@@ -353,7 +356,7 @@ export const handlers: HttpHandler[] = [
   http.get("*/api/v1/audit", ({ request }) => {
     const mine = new URL(request.url).searchParams.get("mine") === "true";
     if (mine) {
-      const persona = activePersona();
+      const persona = activePersona(request);
       if (persona === null) {
         return envelope(null);
       }
@@ -434,8 +437,8 @@ export const handlers: HttpHandler[] = [
     }
     return envelope(equityPayload());
   }),
-  http.post("*/api/v1/explain/overlap", () => {
-    const persona = activePersona();
+  http.post("*/api/v1/explain/overlap", ({ request }) => {
+    const persona = activePersona(request);
     if (persona === null) {
       return envelope(null);
     }
@@ -472,7 +475,7 @@ export const handlers: HttpHandler[] = [
     });
   }),
   http.get("*/api/v1/comprehension/items", ({ request }) => {
-    const persona = activePersona();
+    const persona = activePersona(request);
     if (persona === null) {
       return envelope(null);
     }
@@ -480,7 +483,7 @@ export const handlers: HttpHandler[] = [
     return envelope(itemsForPersona(persona, locale));
   }),
   http.post("*/api/v1/comprehension/answer", async ({ request }) => {
-    const persona = activePersona();
+    const persona = activePersona(request);
     if (persona === null) {
       return envelope(null);
     }
@@ -519,15 +522,15 @@ export const handlers: HttpHandler[] = [
     }
     return envelope(answerAsk(parsed));
   }),
-  http.get("*/api/v1/pathway", () => {
-    const persona = activePersona();
+  http.get("*/api/v1/pathway", ({ request }) => {
+    const persona = activePersona(request);
     if (persona === null) {
       return envelope(null);
     }
     return envelope(pathwayPayload(persona));
   }),
-  http.post("*/api/v1/referrals", () => {
-    const persona = activePersona();
+  http.post("*/api/v1/referrals", ({ request }) => {
+    const persona = activePersona(request);
     if (persona === null) {
       return envelope(null);
     }

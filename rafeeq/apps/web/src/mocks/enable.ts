@@ -10,6 +10,10 @@ export async function prepareMocks(flag: string | undefined): Promise<void> {
   if (!mocksEnabled(flag)) {
     return;
   }
-  const browser = await import("@/mocks/browser");
-  await browser.startMockWorker();
+  try {
+    const browser = await import("@/mocks/browser");
+    await browser.startMockWorker();
+  } catch {
+    // PWA or hosting may block a second service worker; demo persona cookie still binds MSW when it loads.
+  }
 }

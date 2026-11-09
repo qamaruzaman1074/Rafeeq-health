@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- 2026-11-09 fix(web): bind demo guest via cookie + in-app session; disable PWA SW when mocks are on; deploy hosting from `dist`; simplify demo page actions.
 - 2026-11-09 fix(web): start MSW in production when `VITE_USE_MOCKS=true` so guest persona selection works on static deploys.
 - 2026-11-09 feat(content): draft English blocks and FAQ entries for Learn, Ask, Check, and Result; hide internal OPEN_QUESTION markers in user-facing UI (synthetic demo; not clinician_reviewed).
 - 2026-11-08 docs: land the filled MASTER source of truth, Cursor rules, and the website planning document.
