@@ -57,4 +57,11 @@ describe("generateAnswer", () => {
     expect(answer.matched).toBe(true);
     expect(answer.entryIds).toContain("screening-limitations");
   });
+
+  it("answers approved Arabic carrier questions", () => {
+    const answer = generateAnswer("ماذا يعني حالة حمل الصفة الوراثية", { language: "ar" });
+    expect(answer.matched).toBe(true);
+    expect(answer.entryIds).toContain("carrier-status-meaning");
+    expect(answer.text).toContain("حامل");
+  });
 });

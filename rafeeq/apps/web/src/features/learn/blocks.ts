@@ -1,3 +1,4 @@
+import blocksAr from "../../../../../content/blocks.ar.json";
 import blocksEn from "../../../../../content/blocks.en.json";
 
 export type LocaleCode = "en" | "ar";
@@ -8,6 +9,7 @@ export type ContentBlock = {
 };
 
 const englishBlocks: unknown = blocksEn;
+const arabicBlocks: unknown = blocksAr;
 
 function nonEmpty(value: unknown): string | null {
   if (typeof value !== "string") {
@@ -20,7 +22,7 @@ function nonEmpty(value: unknown): string | null {
   return trimmed;
 }
 
-/** English-only product: approved copy lives in blocks.en.json. */
+/** Approved copy lives in blocks.{locale}.json. Arabic blocks are draft pending review. */
 export function readContentBlock(file: unknown, blockId: string): ContentBlock {
   if (typeof file !== "object" || file === null || Array.isArray(file)) {
     return { text: null, audioUrl: null };
@@ -44,8 +46,8 @@ export function readContentBlock(file: unknown, blockId: string): ContentBlock {
 }
 
 export function readLocaleBlock(locale: LocaleCode, blockId: string): ContentBlock {
-  if (locale !== "en") {
-    return { text: null, audioUrl: null };
+  if (locale === "ar") {
+    return readContentBlock(arabicBlocks, blockId);
   }
   return readContentBlock(englishBlocks, blockId);
 }

@@ -31,6 +31,47 @@
   src: url("./fonts/IBMPlexSans-Bold.woff2") format("woff2");
 }
 
+/* IBM Plex Sans Arabic (self-hosted, Arabic subset). SIL Open Font License: ./fonts/OFL.txt */
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSansArabic-Regular.woff2") format("woff2");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF,
+    U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSansArabic-Medium.woff2") format("woff2");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF,
+    U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSansArabic-SemiBold.woff2") format("woff2");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF,
+    U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./fonts/IBMPlexSansArabic-Bold.woff2") format("woff2");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF,
+    U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
 :root {
   /* Premium palette (Phase 1) */
   --teal-900: #103d40;
@@ -170,11 +211,23 @@ html[lang="ar"] body,
 
 html[lang="en"],
 html[lang="en"] body,
-[lang="en"]:not(html),
+[lang="en"]:not(html) {
+  font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif;
+}
+
 html[lang="ar"],
 html[lang="ar"] body,
 [lang="ar"]:not(html) {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif;
+}
+
+/* Connected Arabic script must not be tracked; tall Arabic glyphs need more leading. */
+html[lang="ar"] body * {
+  letter-spacing: normal;
+}
+
+html[lang="ar"] :is(h1, h2, h3, .text-2xl, .text-3xl, .text-4xl) {
+  line-height: 1.45;
 }
 
 :focus-visible {

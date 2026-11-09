@@ -15,10 +15,11 @@ export function SuggestedQuestions({
   mode = "welcome",
   className,
 }: SuggestedQuestionsProps) {
-  const { t } = useTranslation("website-assistant");
+  const { i18n, t } = useTranslation("website-assistant");
+  const language = i18n.resolvedLanguage === "ar" ? "ar" : "en";
 
   if (mode === "contextual") {
-    const questions = contextualSuggestionQuestions(pathname);
+    const questions = contextualSuggestionQuestions(pathname, language);
     return (
       <div className={cn("flex flex-col gap-2", className)}>
         <p className="text-sm font-medium text-ink-900">{t("suggestedIntro")}</p>
@@ -42,7 +43,7 @@ export function SuggestedQuestions({
   return (
     <div className={cn("flex flex-col gap-4", className)}>
       <p className="text-sm font-medium text-ink-900">{t("suggestedIntro")}</p>
-      {allSuggestionGroups().map((group) => (
+      {allSuggestionGroups(language).map((group) => (
         <div key={group.id} className="flex flex-col gap-2">
           <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">
             {t(group.labelKey)}

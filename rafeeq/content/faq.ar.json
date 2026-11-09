@@ -1,0 +1,44 @@
+[
+  {
+    "id": "faq-carrier",
+    "question": "ماذا يعني أن أكون حاملاً للصفة الوراثية؟",
+    "source_ids": [
+      "learn.carrier.short"
+    ]
+  },
+  {
+    "id": "faq-not-diagnosis",
+    "question": "هل فحص الحاملين للصفة الوراثية تشخيص؟",
+    "source_ids": [
+      "learn.risk-vs-diagnosis.short"
+    ]
+  },
+  {
+    "id": "faq-each-pregnancy",
+    "question": "إذا حملنا التغيّر نفسه، ما الاحتمال لكل حمل؟",
+    "source_ids": [
+      "result.overlap.formula"
+    ]
+  },
+  {
+    "id": "faq-uncertainty",
+    "question": "ماذا لو كانت نتيجتي غير مؤكَّدة؟",
+    "source_ids": [
+      "learn.uncertainty.short"
+    ]
+  },
+  {
+    "id": "faq-sharing",
+    "question": "من يمكنه رؤية نتيجة التداخل لديّ؟",
+    "source_ids": [
+      "glossary.couple-result"
+    ]
+  },
+  {
+    "id": "faq-next",
+    "question": "ماذا يحدث عادة بعد نتيجة فحص؟",
+    "source_ids": [
+      "learn.next.short"
+    ]
+  }
+]

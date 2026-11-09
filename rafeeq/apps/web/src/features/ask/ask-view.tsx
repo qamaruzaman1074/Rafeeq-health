@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import faqArFile from "../../../../../content/faq.ar.json";
 import faqFile from "../../../../../content/faq.json";
 import { AppPageLayout } from "@/components/layout/app-page-layout";
 import { PageHeader } from "@/components/layout/page-header";
@@ -21,7 +22,8 @@ import { BoundaryBanner } from "@/features/couple/boundary-banner";
 import { NonDirectiveNotice } from "@/features/informed-choices/non-directive-notice";
 import { documentLocale } from "@/i18n/locale";
 
-const faq: unknown = faqFile;
+const faqEn: unknown = faqFile;
+const faqAr: unknown = faqArFile;
 
 type AskTurn = {
   id: string;
@@ -33,7 +35,7 @@ type AskTurn = {
 export function AskView() {
   const { i18n, t } = useTranslation();
   const locale = documentLocale(i18n.resolvedLanguage ?? i18n.language).lang;
-  const chips = readSuggestedQuestions(faq);
+  const chips = readSuggestedQuestions(locale === "ar" ? faqAr : faqEn);
   const notify = useNotify();
   const contact = humanContact(t);
   const [name, setName] = useState("");

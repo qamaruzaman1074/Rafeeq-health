@@ -13,6 +13,8 @@ export interface KnowledgeEntry {
   sourceUrl: string;
   language: KnowledgeLanguage;
   reviewStatus: KnowledgeReviewStatus;
+  /** Arabic entries mirror approved English copy but await qualified linguistic and clinical review. */
+  translationStatus?: "pending_review";
   followUpIds?: string[];
 }
 

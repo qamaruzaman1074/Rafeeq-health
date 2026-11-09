@@ -11,7 +11,8 @@ import type { AssistantMessage } from "@/features/assistant/types";
 import { generateAnswer } from "@/features/assistant/utils/generateAnswer";
 
 export function KnowledgeAssistant() {
-  const { t } = useTranslation("website-assistant");
+  const { i18n, t } = useTranslation("website-assistant");
+  const language = i18n.resolvedLanguage === "ar" ? "ar" : "en";
   const { pathname } = useLocation();
   const panelId = useId();
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -44,7 +45,7 @@ export function KnowledgeAssistant() {
     // Local retrieval only — brief tick keeps the loading indicator perceptible.
     window.setTimeout(() => {
       try {
-        const answer = generateAnswer(text);
+        const answer = generateAnswer(text, { language });
         setMessages((current) =>
           current.map((item) =>
             item.id === assistantId

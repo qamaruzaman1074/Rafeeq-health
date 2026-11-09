@@ -49,16 +49,64 @@ export const SUGGESTION_GROUPS: SuggestionGroup[] = [
   },
 ];
 
-export function contextualSuggestionQuestions(pathname: string): string[] {
-  const preferred = SUGGESTION_GROUPS.find((group) =>
+const SUGGESTION_GROUPS_AR: SuggestionGroup[] = [
+  {
+    id: "inherited-risk",
+    labelKey: "suggestions.groups.inheritedRisk",
+    routePrefixes: ["/understanding-genetic-risk", "/inherited-conditions"],
+    questions: [
+      "ماذا يعني حالة حمل الصفة الوراثية؟",
+      "كيف تورث الحالات الوراثية؟",
+      "ماذا يعني عندما يكون الوالدان حاملان للصفة؟",
+      "ما الفرق بين الخطر الوراثي والتشخيص؟",
+    ],
+  },
+  {
+    id: "screening",
+    labelKey: "suggestions.groups.screening",
+    routePrefixes: ["/screening-pathways", "/how-it-works"],
+    questions: [
+      "ما هو الفحص الجيني؟",
+      "ماذا يمكن ان تخبرني نتيجة الفحص؟",
+      "ما حدود الفحص؟",
+    ],
+  },
+  {
+    id: "counselling",
+    labelKey: "suggestions.groups.counselling",
+    routePrefixes: ["/genetic-counselling", "/app/care"],
+    questions: [
+      "ما هو الارشاد الوراثي؟",
+      "متى ينبغي طلب ارشاد مهني؟",
+      "كيف احضر لموعد ارشاد؟",
+    ],
+  },
+  {
+    id: "privacy",
+    labelKey: "suggestions.groups.privacy",
+    routePrefixes: ["/privacy-policy", "/app/privacy", "/trust"],
+    questions: [
+      "ماذا تعني الموافقة المستنيرة؟",
+      "كيف اتحكم بمشاركة المعلومات؟",
+    ],
+  },
+];
+
+export function suggestionGroupsForLanguage(language: "en" | "ar"): SuggestionGroup[] {
+  return language === "ar" ? SUGGESTION_GROUPS_AR : SUGGESTION_GROUPS;
+}
+
+export function allSuggestionGroups(language: "en" | "ar" = "en"): SuggestionGroup[] {
+  return suggestionGroupsForLanguage(language);
+}
+
+export function contextualSuggestionQuestions(pathname: string, language: "en" | "ar" = "en"): string[] {
+  const groups = suggestionGroupsForLanguage(language);
+  const preferred = groups.find((group) =>
     group.routePrefixes?.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)),
   );
   if (preferred) {
     return preferred.questions;
   }
-  return SUGGESTION_GROUPS.flatMap((group) => group.questions).slice(0, 6);
-}
-
-export function allSuggestionGroups(): SuggestionGroup[] {
-  return SUGGESTION_GROUPS;
+  return groups.flatMap((group) => group.questions).slice(0, 6);
 }

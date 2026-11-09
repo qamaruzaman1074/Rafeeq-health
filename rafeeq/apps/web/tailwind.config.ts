@@ -74,7 +74,7 @@ const config = {
       },
     },
     fontFamily: {
-      sans: ['"IBM Plex Sans"', "sans-serif"],
+      sans: ['"IBM Plex Sans"', '"IBM Plex Sans Arabic"', "sans-serif"],
     },
     fontSize: {
       sm: ["0.875rem", { lineHeight: "1.45" }],

@@ -1,3 +1,4 @@
+import { arabicKnowledgeEntries } from "./ar";
 import { carrierStatusEntries } from "./carrier-status";
 import { carePathwaysEntries } from "./care-pathways";
 import { geneticCounsellingEntries } from "./genetic-counselling";
@@ -17,6 +18,7 @@ const ALL_ENTRIES: KnowledgeEntry[] = [
   ...privacyEntries,
   ...carePathwaysEntries,
   ...websiteHelpEntries,
+  ...arabicKnowledgeEntries,
 ];
 
 export function allKnowledgeEntries(): KnowledgeEntry[] {
@@ -29,6 +31,11 @@ export function approvedKnowledgeEntries(language: KnowledgeEntry["language"] = 
   );
 }
 
-export function getKnowledgeEntryById(id: string): KnowledgeEntry | undefined {
-  return ALL_ENTRIES.find((entry) => entry.id === id);
+export function getKnowledgeEntryById(
+  id: string,
+  language?: KnowledgeEntry["language"],
+): KnowledgeEntry | undefined {
+  return ALL_ENTRIES.find(
+    (entry) => entry.id === id && (language === undefined || entry.language === language),
+  );
 }

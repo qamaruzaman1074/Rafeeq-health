@@ -60,7 +60,7 @@ describe("learn content blocks", () => {
     for (const module of LEARN_MODULES) {
       expect(readLocaleBlock("en", module.fullBlockId).text).not.toBeNull();
       expect(readLocaleBlock("en", module.shortBlockId).text).not.toBeNull();
-      expect(readLocaleBlock("ar", module.shortBlockId)).toEqual({ text: null, audioUrl: null });
+      expect(readLocaleBlock("ar", module.shortBlockId).text).not.toBeNull();
     }
   });
 
@@ -92,7 +92,7 @@ describe("learn content blocks", () => {
     const arabic = await fetchGlossary("relatedness", "ar");
     expect(arabic.locale).toBe("ar");
     expect(arabic.block_id).toBe("glossary.relatedness");
-    expect(arabic.text).toBeNull();
+    expect(arabic.text).not.toBeNull();
 
     const first = await requestTts("learn.carrier.full", "en");
     const second = await requestTts("learn.carrier.full", "ar");
@@ -101,7 +101,7 @@ describe("learn content blocks", () => {
     expect(first.url).toBe("/mock-audio/learn.carrier.full");
     expect(first.text).toContain("carrier");
     expect(second.url).toBe(first.url);
-    expect(second.text).toBeNull();
+    expect(second.text).not.toBeNull();
     expect(second.locale).toBe("ar");
 
     await expect(

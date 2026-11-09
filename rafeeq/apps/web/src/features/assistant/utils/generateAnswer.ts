@@ -12,10 +12,19 @@ import {
 export const NO_RESULT_ANSWER =
   "I couldn't find enough information about this topic in Rafeeq's educational resources. You can explore our learning sections or discuss your question with a qualified healthcare professional.";
 
+export const NO_RESULT_ANSWER_AR =
+  "لم أجد معلومات كافية عن هذا الموضوع في الموارد التعليمية لرفيق. يمكنك استكشاف أقسام التعلّم أو مناقشة سؤالك مع مختص رعاية صحية مؤهَّل.";
+
 const FALLBACK_SOURCES: KnowledgeSourceRef[] = [
   { title: "FAQ", url: "/faq", category: "website-help" },
   { title: "Understanding genetic risk", url: "/understanding-genetic-risk", category: "inherited-risk" },
   { title: "Genetic counselling", url: "/genetic-counselling", category: "genetic-counselling" },
+];
+
+const FALLBACK_SOURCES_AR: KnowledgeSourceRef[] = [
+  { title: "الأسئلة الشائعة", url: "/faq", category: "website-help" },
+  { title: "فهم الخطر الوراثي", url: "/understanding-genetic-risk", category: "inherited-risk" },
+  { title: "الإرشاد الوراثي", url: "/genetic-counselling", category: "genetic-counselling" },
 ];
 
 function sourcesFromEntries(entries: KnowledgeEntry[]): KnowledgeSourceRef[] {
@@ -36,13 +45,24 @@ function sourcesFromEntries(entries: KnowledgeEntry[]): KnowledgeSourceRef[] {
   return sources;
 }
 
-function followUpsForEntries(entries: KnowledgeEntry[], limit = 3): string[] {
+function formatFollowUp(pattern: string, language: KnowledgeEntry["language"]): string {
+  if (language === "ar") {
+    return `${pattern}؟`;
+  }
+  return `${pattern.charAt(0).toUpperCase()}${pattern.slice(1)}?`;
+}
+
+function followUpsForEntries(
+  entries: KnowledgeEntry[],
+  language: KnowledgeEntry["language"],
+  limit = 3,
+): string[] {
   const seen = new Set<string>();
   const questions: string[] = [];
 
   for (const entry of entries) {
     for (const id of entry.followUpIds ?? []) {
-      const related = getKnowledgeEntryById(id);
+      const related = getKnowledgeEntryById(id, language);
       if (!related || related.reviewStatus !== "approved") {
         continue;
       }
@@ -51,8 +71,7 @@ function followUpsForEntries(entries: KnowledgeEntry[], limit = 3): string[] {
         continue;
       }
       seen.add(related.id);
-      const formatted = question.charAt(0).toUpperCase() + question.slice(1) + "?";
-      questions.push(formatted);
+      questions.push(formatFollowUp(question, language));
       if (questions.length >= limit) {
         return questions;
       }
@@ -104,18 +123,28 @@ export function generateAnswer(
   question: string,
   options?: { language?: KnowledgeEntry["language"] },
 ): GeneratedAnswer {
-  const result = searchKnowledge(question, { language: options?.language ?? "en", limit: 4 });
+  const language = options?.language ?? "en";
+  const noResult = language === "ar" ? NO_RESULT_ANSWER_AR : NO_RESULT_ANSWER;
+  const fallbackSources = language === "ar" ? FALLBACK_SOURCES_AR : FALLBACK_SOURCES;
+  const result = searchKnowledge(question, { language, limit: 4 });
 
   if (result.status === "no_match") {
     return {
-      text: NO_RESULT_ANSWER,
-      sources: FALLBACK_SOURCES,
+      text: noResult,
+      sources: fallbackSources,
       entryIds: [],
-      followUpQuestions: [
-        "What does carrier status mean?",
-        "What is genetic counselling?",
-        "How can I control information sharing?",
-      ],
+      followUpQuestions:
+        language === "ar"
+          ? [
+              "ماذا يعني حالة حمل الصفة الوراثية؟",
+              "ما هو الارشاد الوراثي؟",
+              "كيف اتحكم بمشاركة المعلومات؟",
+            ]
+          : [
+              "What does carrier status mean?",
+              "What is genetic counselling?",
+              "How can I control information sharing?",
+            ],
       matched: false,
     };
   }
@@ -124,8 +153,8 @@ export function generateAnswer(
   const primaryEntry = entries[0];
   if (!primaryEntry) {
     return {
-      text: NO_RESULT_ANSWER,
-      sources: FALLBACK_SOURCES,
+      text: noResult,
+      sources: fallbackSources,
       entryIds: [],
       followUpQuestions: [],
       matched: false,
@@ -140,7 +169,7 @@ export function generateAnswer(
     text,
     sources: sourcesFromEntries(entries),
     entryIds: entries.map((entry) => entry.id),
-    followUpQuestions: followUpsForEntries(entries),
+    followUpQuestions: followUpsForEntries(entries, language),
     matched: true,
   };
 }

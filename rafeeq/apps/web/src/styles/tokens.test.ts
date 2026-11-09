@@ -181,21 +181,27 @@ describe("design tokens", () => {
     expect(contrast(tokenHex("ink-900"), tokenHex("danger-600"))).toBeLessThan(4.5);
   });
 
-  it("uses IBM Plex Sans for English and legacy Arabic lang hooks", () => {
+  it("uses IBM Plex Sans for English and IBM Plex Sans Arabic for Arabic", () => {
     expect(css).toMatch(
-      /html\[lang="en"\],\s*html\[lang="en"\] body,\s*\[lang="en"\]:not\(html\),\s*html\[lang="ar"\],\s*html\[lang="ar"\] body,\s*\[lang="ar"\]:not\(html\)\s*\{\s*font-family:\s*"IBM Plex Sans",\s*sans-serif;/,
+      /html\[lang="en"\],\s*html\[lang="en"\] body,\s*\[lang="en"\]:not\(html\)\s*\{\s*font-family:\s*"IBM Plex Sans",\s*"IBM Plex Sans Arabic",\s*sans-serif;/,
+    );
+    expect(css).toMatch(
+      /html\[lang="ar"\],\s*html\[lang="ar"\] body,\s*\[lang="ar"\]:not\(html\)\s*\{\s*font-family:\s*"IBM Plex Sans Arabic",\s*"IBM Plex Sans",\s*sans-serif;/,
     );
   });
 
-  it("self-hosts Plex Sans with font-display swap", () => {
+  it("self-hosts Plex Sans and Plex Sans Arabic with font-display swap", () => {
     const faces = css.match(/@font-face\s*{[^}]+}/g) ?? [];
-    expect(faces).toHaveLength(4);
+    expect(faces).toHaveLength(8);
     for (const face of faces) {
       expect(face).toContain("font-display: swap");
       expect(face).toContain('format("woff2")');
     }
-    expect(css).toContain('font-family: "IBM Plex Sans"');
-    expect(css).not.toContain("IBMPlexSansArabic");
+    const arabicFaces = faces.filter((face) => face.includes('"IBM Plex Sans Arabic"'));
+    expect(arabicFaces).toHaveLength(4);
+    for (const face of arabicFaces) {
+      expect(face).toContain("unicode-range: U+0600-06FF");
+    }
     expect(css).not.toContain("fonts.googleapis.com");
     expect(css).not.toContain("fonts.gstatic.com");
   });
@@ -215,6 +221,10 @@ describe("design tokens", () => {
       "IBMPlexSans-Medium.woff2",
       "IBMPlexSans-SemiBold.woff2",
       "IBMPlexSans-Bold.woff2",
+      "IBMPlexSansArabic-Regular.woff2",
+      "IBMPlexSansArabic-Medium.woff2",
+      "IBMPlexSansArabic-SemiBold.woff2",
+      "IBMPlexSansArabic-Bold.woff2",
       "OFL.txt",
     ];
     for (const name of expected) {
