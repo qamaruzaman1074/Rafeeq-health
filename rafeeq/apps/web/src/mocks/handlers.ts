@@ -5,6 +5,7 @@ import { audioUrlForBlock, readLocaleBlock, type LocaleCode } from "@/features/l
 import { glossaryBlockId } from "@/features/learn/modules";
 import { findPersona, type Persona } from "@/features/personas";
 import { answerAsk, parseAskBody } from "@/mocks/ask-fixture";
+import { mockWebsiteAssistant } from "@/mocks/website-assistant-fixture";
 import { answerFor, itemsForPersona, parseAnswerBody } from "@/mocks/comprehension-fixture";
 import { mockPayload, personaFile } from "@/mocks/fixtures";
 import { explainFor, overlapFor, ownResultFor } from "@/mocks/kernel-fixture";
@@ -505,6 +506,57 @@ export const handlers: HttpHandler[] = [
       return answerError("unknown_option", "unknownOption");
     }
     return envelope(answered);
+  }),
+  http.post("*/api/assistant/chat", async ({ request }) => {
+    let raw: unknown;
+    try {
+      raw = await request.json();
+    } catch {
+      return new Response(
+        JSON.stringify({
+          error: {
+            code: "invalid_body",
+            message_key: "invalidMessage",
+            request_id: "mock",
+          },
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } },
+      );
+    }
+    const message =
+      typeof raw === "object" && raw !== null && "message" in raw ? String(raw.message) : "";
+    if (message.trim().length === 0) {
+      return new Response(
+        JSON.stringify({
+          error: {
+            code: "empty_message",
+            message_key: "emptyMessage",
+            request_id: "mock",
+          },
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } },
+      );
+    }
+    if (message.length > 500) {
+      return new Response(
+        JSON.stringify({
+          error: {
+            code: "message_too_long",
+            message_key: "messageTooLong",
+            request_id: "mock",
+          },
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } },
+      );
+    }
+    const reply = mockWebsiteAssistant(message);
+    return new Response(
+      JSON.stringify({
+        data: reply,
+        meta: { request_id: "mock-assistant" },
+      }),
+      { headers: { "Content-Type": "application/json" } },
+    );
   }),
   http.post("*/api/v1/ask", async ({ request }) => {
     let raw: unknown;

@@ -290,3 +290,24 @@ No new package. Empty, error, and loading states use the components already allo
 `rafeeq/content/banned_terms.json` was `{}`. It is seeded with the English terms named in MASTER Section 10. `rafeeq/scripts/check_banned_terms.mjs` reads that file and fails `npm run lint` in `apps/web` when one of those terms appears in `apps/web/src/i18n/locales`.
 
 OPEN_QUESTION: Arabic banned terms are not listed in MASTER Section 10. The `ar` list is empty.
+
+## 2026-11-09 — Azure Functions backend scaffold (TypeScript)
+
+`rafeeq/backend/azure-functions` is added as a **separate** Node.js Azure Functions v4 app with `GET /api/health` only.
+
+- Depends on `@azure/functions` (not named in MASTER.md Section 3; recorded here).
+- MASTER.md Section 3 still names **Python FastAPI** + Container Apps for the canonical product API and risk **kernel**.
+- OPEN_QUESTION: implement `/api/v1` on Functions vs. add `apps/api` (Python) later and use Functions only as an edge/BFF layer.
+- No database, no genetic calculations, no migration of MSW handlers in this scaffold.
+
+## 2026-11-09 — public website assistant (Gemini File Search)
+
+MASTER.md Section 3 names **Azure OpenAI** and **Azure AI Search** for product LLM/retrieval (`POST /api/v1/ask`). That path is unchanged.
+
+The **public marketing assistant** is a separate feature:
+
+- Endpoint: `POST /api/assistant/chat` (not in MASTER Section 6; documented here and in `docs/WEBSITE_ASSISTANT.md`).
+- Runtime: Vercel serverless in `apps/web/api/assistant/chat.js` when deployed on Vercel.
+- Dependency: `@google/genai` (server/index scripts only; not imported from React client code).
+- Knowledge: `apps/web/knowledge/sources` built from `/content` and `en/public.json`; no personas, genotypes, or audit data.
+- OPEN_QUESTION: unify marketing assistant with Azure retrieval when `apps/api` ships, or keep Gemini only on Vercel.

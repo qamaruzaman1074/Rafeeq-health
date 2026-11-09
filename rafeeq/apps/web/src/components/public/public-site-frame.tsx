@@ -2,6 +2,7 @@ import { useSyncExternalStore, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { PublicFooter } from "@/components/public/public-footer";
 import { PublicHeader } from "@/components/public/public-header";
+import { WebsiteAssistantWidget } from "@/features/website-assistant/website-assistant-widget";
 import { SkipLink } from "@/components/skip-link";
 import { publicSitePaths } from "@/config/public-nav";
 
@@ -43,6 +44,7 @@ export function PublicSiteFrame({ children }: { children: ReactNode }) {
         {children}
       </main>
       <PublicFooter />
+      <WebsiteAssistantWidget />
     </div>
   );
 }

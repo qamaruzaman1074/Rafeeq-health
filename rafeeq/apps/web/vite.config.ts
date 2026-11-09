@@ -107,5 +107,17 @@ export default defineConfig({
     host: true,
     port: 5173,
     allowedHosts: true,
+    proxy: {
+      "/api/assistant": {
+        target: `http://127.0.0.1:${process.env.ASSISTANT_DEV_PORT ?? "8787"}`,
+        changeOrigin: true,
+        bypass: (req) => {
+          if (process.env.VITE_USE_MOCKS !== "false") {
+            return req.url;
+          }
+          return undefined;
+        },
+      },
+    },
   },
 });

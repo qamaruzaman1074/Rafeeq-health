@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 /**
- * HTTP client for `/api/v1` during mock development or a future REST bridge.
+ * HTTP client for `/api/v1` during mock development or the Azure backend.
+ * Set `VITE_API_BASE_URL` in Vercel (public, no secrets) to the Functions app origin.
  * Response envelopes are validated locally with Zod; callers supply typed `data`.
  */
 

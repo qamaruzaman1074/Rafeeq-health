@@ -12,6 +12,7 @@ export const NAMESPACES = [
   "clinic",
   "insights",
   "errors",
+  "website-assistant",
 ] as const;
 
 export type AppNamespace = (typeof NAMESPACES)[number];

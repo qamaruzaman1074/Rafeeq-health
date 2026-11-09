@@ -1,0 +1,17 @@
+{
+  "launcher": "Rafeeq Assistant",
+  "title": "Rafeeq Assistant",
+  "welcome": "Answers about Rafeeq use only approved website information. This is education, not personal medical advice.",
+  "suggestedIntro": "Suggested questions:",
+  "inputLabel": "Your question about Rafeeq",
+  "inputPlaceholder": "Ask about privacy, consent, screening education, or counselling…",
+  "send": "Send",
+  "sending": "Sending…",
+  "clear": "Clear conversation",
+  "loading": "Finding an answer…",
+  "sources": "Sources",
+  "disclaimer": "Do not share personal genetic results here. For your own result, use the signed-in Ask area or speak with a counsellor.",
+  "error": {
+    "generic": "The assistant is temporarily unavailable. Try again or visit the FAQ."
+  }
+}

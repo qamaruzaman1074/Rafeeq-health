@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- 2026-11-09 chore(backend): add Azure Functions TypeScript scaffold (`GET /api/health`) and architecture/backend deployment docs.
+- 2026-11-09 feat(web): public Rafeeq Assistant widget with Gemini File Search RAG API, knowledge build/index scripts, and MSW demo fallback.
 - 2026-11-09 fix(web): bind demo guest via cookie + in-app session; disable PWA SW when mocks are on; deploy hosting from `dist`; simplify demo page actions.
 - 2026-11-09 fix(web): start MSW in production when `VITE_USE_MOCKS=true` so guest persona selection works on static deploys.
 - 2026-11-09 feat(content): draft English blocks and FAQ entries for Learn, Ask, Check, and Result; hide internal OPEN_QUESTION markers in user-facing UI (synthetic demo; not clinician_reviewed).

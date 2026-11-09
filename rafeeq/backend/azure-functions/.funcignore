@@ -1,0 +1,10 @@
+.git*
+.vscode
+local.settings.json
+test
+*.md
+tsconfig.json
+.prettierrc
+node_modules
+src
+!dist

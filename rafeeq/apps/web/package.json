@@ -8,6 +8,9 @@
   },
   "scripts": {
     "dev": "vite",
+    "dev:assistant": "node server/website-assistant/dev-server.mjs",
+    "knowledge:build": "node scripts/build-knowledge.mjs",
+    "knowledge:index": "node scripts/index-gemini-knowledge.mjs",
     "build": "vite build && node scripts/check-first-route.mjs",
     "typecheck": "tsc -b",
     "preview": "vite preview",
@@ -28,6 +31,7 @@
     "@vitejs/plugin-react": "6.2.1",
     "autoprefixer": "10.6.2",
     "clsx": "2.1.1",
+    "@google/genai": "^1.30.0",
     "firebase": "^11.10.0",
     "i18next": "27.0.1",
     "postcss": "8.5.32",

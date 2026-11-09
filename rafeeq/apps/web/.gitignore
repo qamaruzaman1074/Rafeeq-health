@@ -10,3 +10,4 @@ blob-report
 .env.local
 .env.test
 .env.*.local
+knowledge/.upload-state.json

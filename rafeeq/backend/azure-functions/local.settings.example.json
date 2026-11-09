@@ -1,0 +1,17 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "APP_ENV": "local",
+    "ALLOWED_ORIGINS": "http://localhost:5173,https://rafeeq-health.vercel.app",
+    "GEMINI_API_KEY": "",
+    "GEMINI_MODEL": "gemini-2.5-flash",
+    "GEMINI_FILE_SEARCH_STORE": "",
+    "DATABASE_CONNECTION_STRING": ""
+  },
+  "Host": {
+    "CORS": "http://localhost:5173,https://rafeeq-health.vercel.app",
+    "CORSCredentials": false
+  }
+}

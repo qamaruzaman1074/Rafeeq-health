@@ -1,0 +1,28 @@
+{
+  "name": "@rafeeq/azure-functions",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Rafeeq HTTP API on Azure Functions (Node.js v4 programming model)",
+  "type": "module",
+  "main": "dist/src/index.js",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json -w",
+    "clean": "node -e \"import('node:fs').then(fs=>{try{fs.rmSync('dist',{recursive:true,force:true})}catch{}})\"",
+    "start": "func start",
+    "test": "vitest run",
+    "lint": "tsc -p tsconfig.json --noEmit && prettier --check \"src/**/*.ts\" \"test/**/*.ts\""
+  },
+  "dependencies": {
+    "@azure/functions": "^4.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "prettier": "3.9.10",
+    "typescript": "5.9.3",
+    "vitest": "5.1.0"
+  }
+}
