@@ -77,19 +77,26 @@ export function WebsiteAssistantWidget() {
       <div className="pointer-events-none fixed inset-0 z-40 flex items-end justify-end p-4 sm:p-6">
         <button
           type="button"
-          className="pointer-events-auto flex size-[4.25rem] items-center justify-center rounded-full border border-border-subtle bg-background p-1.5 shadow-lg transition-transform duration-200 hover:scale-105 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-teal-500 motion-reduce:transition-none"
+          className={cn(
+            "pointer-events-auto flex size-[4.25rem] items-center justify-center rounded-full p-2 shadow-lg ring-2 ring-gold-500/50",
+            "bg-teal-700 hover:bg-teal-500",
+            "dark:bg-teal-500 dark:ring-gold-500/60 dark:hover:bg-teal-700",
+            "transition-[transform,background-color] duration-200 hover:scale-105",
+            "focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-teal-500",
+            "motion-reduce:transition-none",
+          )}
           aria-expanded={open}
           aria-controls={listId}
           aria-label={t("launcher", { ns: "website-assistant" })}
           onClick={() => setOpen(true)}
         >
           <img
-            src="/images/website-assistant/rafeeq-assistant-launcher.png"
+            src="/images/website-assistant/rafeeq-assistant-launcher.svg"
             alt=""
             width={56}
             height={56}
             decoding="async"
-            className="size-full object-contain mix-blend-lighten"
+            className="size-full object-contain drop-shadow-sm"
           />
         </button>
       </div>
