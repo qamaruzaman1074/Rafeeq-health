@@ -32,7 +32,7 @@ export function ProviderPlaceholderCards() {
               <CardHeader className="flex flex-row items-start gap-4 space-y-0">
                 <img
                   src={profile.image}
-                  alt=""
+                  alt={t("counsellingPage.demoProfileAlt", { ns: "public", name: profile.name })}
                   width={64}
                   height={64}
                   loading="lazy"

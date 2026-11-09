@@ -3,8 +3,6 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Section } from "@/components/layout/section";
 import { ClinicalDraftBadge } from "@/features/inherited-risk-education/clinical-draft-badge";
 import { InheritedRiskEducationSections } from "@/features/inherited-risk-education/inherited-risk-education-sections";
-import { InheritedRiskSectionNav } from "@/features/inherited-risk-education/inherited-risk-section-nav";
-
 export function Component() {
   const { t } = useTranslation();
 
@@ -30,10 +28,6 @@ export function Component() {
             decoding="async"
           />
         </div>
-        <InheritedRiskSectionNav labelledBy="risk-nav-label" />
-        <p id="risk-nav-label" className="sr-only">
-          {t("risk.nav.label", { ns: "public" })}
-        </p>
       </Section>
 
       <InheritedRiskEducationSections />

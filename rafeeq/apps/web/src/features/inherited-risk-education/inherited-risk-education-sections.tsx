@@ -11,7 +11,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCopyList, type TitleBody } from "@/i18n/copy-list";
-import { CouplePunnettDiagram } from "./couple-punnett-diagram";
 import { EducationReadMore } from "./education-read-more";
 import { PatternDiagram } from "./pattern-diagram";
 
@@ -106,7 +105,20 @@ export function InheritedRiskEducationSections() {
               </>
             }
           />
-          <CouplePunnettDiagram />
+          <figure className="min-w-0">
+            <img
+              src="/images/outcomes/inherited-risk/couple-punnett-grid.svg"
+              alt={t("risk.diagrams.couple.desc", { ns: "public" })}
+              width={480}
+              height={360}
+              loading="lazy"
+              decoding="async"
+              className="w-full max-w-lg rounded-xl border border-border-subtle bg-sand-100 object-contain shadow-surface-md"
+            />
+            <figcaption className="mt-2 text-sm text-ink-600">
+              {t("risk.diagrams.couple.fig", { ns: "public" })}
+            </figcaption>
+          </figure>
         </div>
         <RevealStagger className="mt-6 grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
           {outcomes.map((outcome) => (

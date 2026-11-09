@@ -958,24 +958,25 @@
     "profilesHeading": "Example genetics professionals",
     "profilesIntro": "Fictional layout examples only. These are not real providers and cannot be booked through Rafeeq.",
     "demoProfileBadge": "Fictional demo profiles",
+    "demoProfileAlt": "Illustrated profile portrait for {{name}} (fictional demo)",
     "demoProfiles": [
       {
         "name": "Dr. Amira Hassan",
         "role": "Clinical genetic counsellor",
         "experience": "14 years supporting families after carrier screening",
-        "image": "/images/outcomes/genetic-counselling/preparing-consultation.webp"
+        "image": "/images/outcomes/genetic-counselling/demo-doctor-female.svg"
       },
       {
         "name": "Dr. James Okonkwo",
         "role": "Consultant clinical geneticist",
         "experience": "11 years in inherited conditions and confirmatory testing discussions",
-        "image": "/images/outcomes/genetic-counselling/clinician-reviewing.webp"
+        "image": "/images/outcomes/genetic-counselling/demo-doctor-male.svg"
       },
       {
         "name": "Dr. Lina Farouk",
         "role": "Reproductive genetics counsellor",
         "experience": "9 years in preconception and couple counselling",
-        "image": "/images/outcomes/genetic-counselling/consultation-room.webp"
+        "image": "/images/outcomes/genetic-counselling/demo-doctor-female.svg"
       }
     ],
     "providerSlots": [
