@@ -60,7 +60,10 @@ export function ReflectionSection() {
         {t("informedChoices.reflection.persistence", { ns: "public" })}
       </p>
       <p className="sr-only" aria-live="polite">
-        {REFLECTION_QUESTION_IDS.length} reflection prompts available.
+        {t("informedChoices.reflection.promptCountSr", {
+          ns: "public",
+          count: REFLECTION_QUESTION_IDS.length,
+        })}
       </p>
     </section>
   );

@@ -20,6 +20,7 @@ export const REQUIRED_NAMESPACES = [
   "clinic",
   "insights",
   "errors",
+  "website-assistant",
 ];
 
 const COPY_ATTRIBUTES = new Set([
@@ -80,20 +81,75 @@ function hasKey(catalog, dotted) {
   return typeof current === "string";
 }
 
-function namespaceFromCall(node) {
-  const option = node.arguments[1];
-  if (option === undefined || !ts.isObjectLiteralExpression(option)) {
-    return "common";
+function collectTranslationContext(source) {
+  const nsBindings = new Map();
+  const defaultNamespace = new Map();
+
+  function visit(node) {
+    if (ts.isVariableStatement(node)) {
+      for (const decl of node.declarationList.declarations) {
+        if (
+          ts.isIdentifier(decl.name) &&
+          decl.initializer !== undefined &&
+          ts.isStringLiteral(decl.initializer)
+        ) {
+          nsBindings.set(decl.name.text, decl.initializer.text);
+        }
+      }
+    }
+
+    if (ts.isCallExpression(node) && calleeName(node.expression) === "useTranslation") {
+      const arg = node.arguments[0];
+      if (arg !== undefined && ts.isStringLiteral(arg)) {
+        let parent = node.parent;
+        while (parent !== undefined) {
+          if (ts.isFunctionLike(parent)) {
+            defaultNamespace.set(parent, arg.text);
+            break;
+          }
+          parent = parent.parent;
+        }
+      }
+    }
+
+    ts.forEachChild(node, visit);
   }
-  for (const property of option.properties) {
-    if (!ts.isPropertyAssignment(property) || propertyName(property.name) !== "ns") {
-      continue;
+
+  visit(source);
+  return { nsBindings, defaultNamespace };
+}
+
+function namespaceFromCall(node, context) {
+  const option = node.arguments[1];
+  if (option !== undefined && ts.isObjectLiteralExpression(option)) {
+    for (const property of option.properties) {
+      if (ts.isPropertyAssignment(property) && propertyName(property.name) === "ns") {
+        if (ts.isStringLiteral(property.initializer)) {
+          return property.initializer.text;
+        }
+      }
+      if (ts.isShorthandPropertyAssignment(property) && property.name.text === "ns") {
+        return context.nsBindings.get("ns") ?? "common";
+      }
     }
-    if (ts.isStringLiteral(property.initializer)) {
-      return property.initializer.text;
+  }
+
+  let parent = node.parent;
+  while (parent !== undefined) {
+    if (ts.isFunctionLike(parent) && context.defaultNamespace.has(parent)) {
+      return context.defaultNamespace.get(parent);
     }
+    parent = parent.parent;
   }
   return "common";
+}
+
+function isIgnorableJsxText(text) {
+  const trimmed = text.trim();
+  if (trimmed.length === 0) {
+    return true;
+  }
+  return /^(&[#\w]+;|\s)+$/.test(trimmed);
 }
 
 function literalText(node) {
@@ -168,10 +224,15 @@ function knownKey(catalogs, dotted) {
 export function auditSource(text, file, catalogs) {
   const scriptKind = file.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
   const source = ts.createSourceFile(file, text, ts.ScriptTarget.Latest, true, scriptKind);
+  const translationContext = collectTranslationContext(source);
   const violations = [];
 
   function visit(node) {
-    if (ts.isJsxText(node) && hasLetters(node.getText(source))) {
+    if (
+      ts.isJsxText(node) &&
+      hasLetters(node.getText(source)) &&
+      !isIgnorableJsxText(node.getText(source))
+    ) {
       violations.push(violation(file, source, node, "Hard-coded JSX string"));
     }
 
@@ -232,7 +293,7 @@ export function auditSource(text, file, catalogs) {
     if (ts.isCallExpression(node) && calleeName(node.expression) === "t") {
       const first = node.arguments[0];
       if (first !== undefined && ts.isStringLiteral(first)) {
-        const namespace = namespaceFromCall(node);
+        const namespace = namespaceFromCall(node, translationContext);
         const key = first.text;
         const catalog = catalogs.en[namespace];
         if (catalog === undefined || !hasKey(catalog, key)) {

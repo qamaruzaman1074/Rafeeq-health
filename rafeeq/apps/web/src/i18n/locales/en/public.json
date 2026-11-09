@@ -640,6 +640,7 @@
         "alt": "Comparison of genetic risk possibility versus clinical diagnosis."
       },
       "parent": "Parent",
+      "parentWithLetter": "Parent {{letter}}",
       "couple": {
         "title": "Illustrative Punnett-style grid for two carrier parents",
         "desc": "Four equally likely illustrative outcomes for one pregnancy in an autosomal recessive educational example.",
@@ -1025,7 +1026,7 @@
           "id": "screening",
           "title": "Understand your screening information",
           "lead": "Learn what screening results may indicate, what they cannot establish and why additional assessment may sometimes be appropriate.",
-          "image": "",
+          "image": "/images/outcomes/informed-choices/reviewing-education.webp",
           "bullets": [
             "Understanding screening and what a report can and cannot establish.",
             "Carrier status in plain language—not a diagnosis by itself.",
@@ -1037,7 +1038,7 @@
           "id": "assessment",
           "title": "Explore further assessment",
           "lead": "Some findings may require additional testing or interpretation. A qualified professional can help explain whether further assessment is appropriate.",
-          "image": "",
+          "image": "/images/outcomes/informed-choices/calm-environment.webp",
           "bullets": [
             "General information about confirmatory testing—not a recommendation for you.",
             "Topics to discuss with a clinician or genetic counsellor.",
@@ -1049,7 +1050,7 @@
           "id": "counselling",
           "title": "Speak with a genetic counsellor",
           "lead": "Genetic counselling offers an opportunity to discuss family history, genetic findings, uncertainties and possible next steps with a qualified professional.",
-          "image": "",
+          "image": "/images/outcomes/informed-choices/counselling-consultation.jpg",
           "bullets": [
             "When counselling may be helpful after screening or hard news.",
             "How to prepare questions and information to bring.",
@@ -1061,7 +1062,7 @@
           "id": "take-time",
           "title": "Take time to understand",
           "lead": "People may need time to understand health information and consider their next steps. There is no single personal decision that is right for every individual or family.",
-          "image": "",
+          "image": "/images/outcomes/informed-choices/supportive-conversation.webp",
           "bullets": [
             "Educational resources at your own pace.",
             "Reflection prompts that are not clinical assessments.",
@@ -1092,6 +1093,7 @@
     "reflection": {
       "heading": "Questions Worth Exploring",
       "lead": "These prompts are for personal reflection. They are not forms, scores, or clinical tools.",
+      "promptCountSr": "{{count}} reflection prompts available.",
       "badge": "Personal reflection only",
       "notClinical": "Not a clinical assessment.",
       "disclaimer": "Your answers here are for you only. They are not stored on a server, not reviewed by Rafeeq, and not used to recommend a personal, marriage, or reproductive decision.",
@@ -1207,6 +1209,7 @@
       "title": "Making Genetic Health Information Easier to Understand",
       "description": "Rafeeq is an AI-assisted genetic health education and support platform designed to help individuals and families better understand inherited disease risks.\n\nBy bringing together accessible educational resources, understandable screening explanations, consent-based information sharing, and pathways to professional genetic counselling, Rafeeq aims to make the journey from awareness to informed support simpler and more approachable.\n\nOur platform places people at the centre of the process—helping them understand available information while keeping important decisions in their own hands.",
       "imageAlt": "Laboratory and digital tools used in modern genetic health workflows",
+      "flowAriaLabel": "Rafeeq solution pillars",
       "flowEducation": "Education",
       "flowTechnology": "Technology",
       "flowPrivacy": "Privacy",

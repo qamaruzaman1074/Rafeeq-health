@@ -13,7 +13,7 @@ export function CounsellingJourneyTimeline() {
       {steps.map((item, index) => (
         <article
           key={item.title}
-          className="relative flex gap-4 border-s-2 border-teal-200 ps-5 transition-[border-color,transform] duration-300 motion-safe:hover:border-teal-500 motion-safe:hover:translate-x-0.5"
+          className="relative flex gap-4 border-s-2 border-teal-200 ps-5 transition-[border-color] duration-300 motion-safe:hover:border-teal-500"
         >
           <span
             className="absolute -start-[0.85rem] top-4 flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-teal-700 bg-teal-50 text-xs font-bold text-teal-900 shadow-sm"

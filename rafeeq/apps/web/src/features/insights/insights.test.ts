@@ -90,7 +90,7 @@ describe("insights KPIs and equity", () => {
   it("shows the synthetic badge, the floor notice, and a text alternative with a data table", async () => {
     const shell = renderNode(createElement(InsightsView));
     expect(shell).toContain("Demo example");
-    expect(shell).toContain(">Insights<");
+    expect(shell).toContain(">Understanding Platform Impact<");
     expect(shell).toContain("k-anonymity floor: 5. Groups smaller than 5 are not shown.");
 
     await startAnalystSession();

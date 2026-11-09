@@ -38,7 +38,7 @@ export function DecisionJourneyVisual({
             </span>
             {index < STEP_SUFFIXES.length - 1 ? (
               <span
-                className="absolute end-0 top-5 hidden h-0.5 w-1/2 translate-x-1/2 bg-teal-300 sm:block"
+                className="absolute end-0 top-5 hidden h-0.5 w-1/2 bg-teal-300 sm:block [transform:translateX(50%)]"
                 aria-hidden="true"
               />
             ) : null}

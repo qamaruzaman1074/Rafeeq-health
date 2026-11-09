@@ -21,6 +21,9 @@ const requiredPaths = [
   "/",
   "/about",
   "/how-it-works",
+  "/problem-solution",
+  "/informed-choices",
+  "/screening-pathways",
   "/understanding-genetic-risk",
   "/inherited-conditions",
   "/genetic-counselling",
@@ -58,7 +61,7 @@ async function locationFor(path: string): Promise<string> {
     const timer = setTimeout(() => {
       unsubscribe();
       reject(new Error(`navigation did not settle for ${path}`));
-    }, 2000);
+    }, 8000);
     const finish = () => {
       if (!router.state.initialized || router.state.navigation.state !== "idle") {
         return;

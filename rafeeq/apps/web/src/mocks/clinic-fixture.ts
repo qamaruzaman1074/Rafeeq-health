@@ -11,7 +11,7 @@ import { mineConsents, partnerConsents } from "@/mocks/privacy-fixture";
  * OPEN_QUESTION: Section 6 names the counsellor routes and the envelope, not
  * the bodies. Queue columns follow website planning Section 7. Tier is taken
  * only when a persona's `tests` string names exactly one of T1, T2, T3, or T4
- * (P1, P4, P6). P3 names both T1 and T2, so it is left off the queue.
+ * (P1, P4, P6). P3 names both T1 and T2, so it is omitted from the queue.
  * P5 is included so the declined-share brief can be opened. Its tier is null.
  *
  * OPEN_QUESTION: language, literacy mode, due-by, reason codes, comprehension gaps, user questions,

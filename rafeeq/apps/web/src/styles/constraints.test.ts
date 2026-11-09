@@ -1,11 +1,12 @@
 import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { join, relative, sep } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
-const srcRoot = new URL("..", import.meta.url);
+const srcRoot = fileURLToPath(new URL("..", import.meta.url));
 
-function sourceFiles(directory: URL): string[] {
-  const folder = directory.pathname;
+function sourceFiles(directory: string): string[] {
+  const folder = directory;
   const found: string[] = [];
   for (const entry of readdirSync(folder)) {
     const path = join(folder, entry);
@@ -14,7 +15,7 @@ function sourceFiles(directory: URL): string[] {
       if (entry === "fonts") {
         continue;
       }
-      found.push(...sourceFiles(new URL(`${entry}/`, directory)));
+      found.push(...sourceFiles(join(folder, entry)));
       continue;
     }
     if (/\.(?:ts|tsx|css)$/.test(entry) && !entry.endsWith(".test.ts")) {
@@ -25,7 +26,11 @@ function sourceFiles(directory: URL): string[] {
 }
 
 const physical =
-  /\b(?:left|right|ml|mr|mx|pl|pr|px)-|\b(?:text-left|text-right|float-left|float-right|border-l|border-r|rounded-l|rounded-r|rounded-tl|rounded-tr|rounded-bl|rounded-br|inset-x|translate-x|space-x)\b|(?:margin|padding)-(?:left|right)\s*:|\b(?:left|right)\s*:/;
+  /\b(?:left|right)\b(?!\w)|\b(?:ml-|mr-|pl-|pr-)|\b(?:text-left|text-right|float-left|float-right|border-l-|border-r-|rounded-l-|rounded-r-|rounded-tl-|rounded-tr-|rounded-bl-|rounded-br-|inset-x-|translate-x-|space-x-)\b|(?:margin|padding)-(?:left|right)\s*:|\b(?:left|right)\s*:/;
+
+function relativeSrc(file: string): string {
+  return relative(srcRoot, file).split(sep).join("/");
+}
 
 describe("design system constraints", () => {
   it("uses logical properties and does not request Google Fonts", () => {
@@ -33,7 +38,7 @@ describe("design system constraints", () => {
     for (const file of sourceFiles(srcRoot)) {
       const text = readFileSync(file, "utf8");
       if (physical.test(text) || /fonts\.(?:googleapis|gstatic)\.com/.test(text)) {
-        failures.push(relative(srcRoot.pathname, file));
+        failures.push(relativeSrc(file));
       }
     }
     expect(failures).toEqual([]);
@@ -51,7 +56,7 @@ describe("design system constraints", () => {
     const failures: string[] = [];
     for (const file of sourceFiles(srcRoot)) {
       const text = readFileSync(file, "utf8");
-      const rel = relative(srcRoot.pathname, file);
+      const rel = relativeSrc(file);
       if (/danger-600|bg-red-|text-red-|#b3261e/i.test(text) && !allowed.has(rel)) {
         failures.push(rel);
       }

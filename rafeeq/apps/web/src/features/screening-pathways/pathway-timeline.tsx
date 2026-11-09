@@ -35,7 +35,7 @@ export function ScreeningPathwayTimeline() {
                   aria-hidden="true"
                 />
                 <span
-                  className="absolute end-0 top-5 hidden h-0.5 w-1/2 translate-x-1/2 bg-teal-200 md:block"
+                  className="absolute end-0 top-5 hidden h-0.5 w-1/2 bg-teal-200 md:block [transform:translateX(50%)]"
                   aria-hidden="true"
                 />
               </>

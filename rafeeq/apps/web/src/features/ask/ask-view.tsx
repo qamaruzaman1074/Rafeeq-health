@@ -153,7 +153,7 @@ export function AskView() {
         ) : null}
       </div>
       {sendSuccess ? (
-        <p role="status" className="rounded-lg border border-green-600 bg-teal-50 px-4 py-3 text-base font-medium text-teal-900">
+        <p role="status" className="rounded-lg border border-green-600 bg-teal-100 px-4 py-3 text-base font-medium text-teal-900">
           {t("composer.sendSuccess", { ns: "ask" })}
         </p>
       ) : null}

@@ -9,6 +9,8 @@ import { productRoutes } from "@/app/route-table";
 import { ThemeProvider } from "@/app/theme";
 import i18n from "@/i18n";
 import { NumeralProvider } from "@/i18n/numerals";
+import { registerClinicCatalog } from "@/i18n/register-clinic";
+import { registerInsightsCatalog } from "@/i18n/register-insights";
 
 const titles: Record<string, string> = {
   "/": "Understand your genetic health. Make informed decisions with confidence.",
@@ -76,6 +78,8 @@ function renderRoute(Component: () => ReactNode): ReactNode {
 
 describe("route placeholders", () => {
   beforeAll(async () => {
+    registerClinicCatalog();
+    registerInsightsCatalog();
     await i18n.changeLanguage("en");
   });
 

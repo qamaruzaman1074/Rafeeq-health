@@ -36,11 +36,11 @@ export function CouplePunnettDiagram() {
         </text>
         <circle cx="90" cy="72" r="20" className="fill-teal-pale stroke-teal-700" strokeWidth="2" />
         <text x="90" y="77" textAnchor="middle" className="fill-teal-900 text-[11px] font-medium">
-          {t("risk.diagrams.parent", { ns: "public" })} A
+          {t("risk.diagrams.parentWithLetter", { ns: "public", letter: "A" })}
         </text>
         <circle cx="270" cy="72" r="20" className="fill-teal-pale stroke-teal-700" strokeWidth="2" />
         <text x="270" y="77" textAnchor="middle" className="fill-teal-900 text-[11px] font-medium">
-          {t("risk.diagrams.parent", { ns: "public" })} B
+          {t("risk.diagrams.parentWithLetter", { ns: "public", letter: "B" })}
         </text>
         {CELLS.map((cell) => (
           <g key={cell.id}>

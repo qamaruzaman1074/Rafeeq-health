@@ -111,7 +111,9 @@ export function Component() {
               <Paragraphs text={t("problemSolution.hero.intro", { ns })} />
             </MotionWrap>
             <blockquote className="motion-text-reveal motion-delay-3 border-s-4 border-gold-500 bg-card/80 py-3 ps-4 pe-3 text-base font-medium leading-relaxed text-teal-900 sm:text-lg">
-              &ldquo;{t("problemSolution.hero.highlight", { ns })}&rdquo;
+              {"\u201C"}
+              {t("problemSolution.hero.highlight", { ns })}
+              {"\u201D"}
             </blockquote>
           </div>
           <MotionWrap className="relative z-10 min-w-0">
@@ -348,7 +350,10 @@ function SolutionFlow() {
     t("problemSolution.solution.flowGuidance", { ns }),
   ];
   return (
-    <ol className="mt-2 flex flex-wrap items-center gap-2" aria-label="Rafeeq solution pillars">
+    <ol
+      className="mt-2 flex flex-wrap items-center gap-2"
+      aria-label={t("problemSolution.solution.flowAriaLabel", { ns })}
+    >
       {items.map((label, index) => (
         <li key={label} className="flex items-center gap-2">
           <span className="rounded-full border border-teal-700/30 bg-secondary px-3 py-1.5 text-sm font-medium text-teal-900">
