@@ -15,10 +15,8 @@ import { readLocaleBlock, type LocaleCode } from "@/features/learn/blocks";
  * the feedback id stays OPEN_QUESTION and `text` stays null.
  */
 
-const FEEDBACK_BLOCK_ID = "OPEN_QUESTION";
-
-const DRAFT_SHARED_CHANCE_PROMPT =
-  "In your own words: if both of you carry the same change, what is the chance for each pregnancy?";
+const FEEDBACK_CORRECT_ID = "check.feedback.correct";
+const FEEDBACK_RETRY_ID = "check.feedback.retry";
 
 const BOTH_CARRIER_PERSONAS = new Set(["P1", "P4"]);
 
@@ -31,7 +29,7 @@ type DraftOption = {
 
 type DraftItem = {
   id: string;
-  promptEn: string | null;
+  promptBlockId: string;
   options: readonly DraftOption[];
   correctOptionId: string;
 };
@@ -47,19 +45,19 @@ function pictures(itemId: string): readonly DraftOption[] {
 const DRAFT_ITEMS: readonly DraftItem[] = [
   {
     id: "tb-draft-shared-chance",
-    promptEn: DRAFT_SHARED_CHANCE_PROMPT,
+    promptBlockId: "check.teachback.shared-chance.prompt",
     options: pictures("tb-draft-shared-chance"),
     correctOptionId: "tb-draft-shared-chance-bars",
   },
   {
     id: "tb-draft-open-b",
-    promptEn: null,
+    promptBlockId: "check.teachback.limits.prompt",
     options: pictures("tb-draft-open-b"),
     correctOptionId: "tb-draft-open-b-cluster",
   },
   {
     id: "tb-draft-open-c",
-    promptEn: null,
+    promptBlockId: "check.teachback.consent.prompt",
     options: pictures("tb-draft-open-c"),
     correctOptionId: "tb-draft-open-c-ring",
   },
@@ -136,13 +134,10 @@ export function parseAnswerBody(value: unknown): ParsedAnswer | null {
 }
 
 function promptText(item: DraftItem, persona: Persona, locale: LocaleCode): string | null {
-  if (locale !== "en" || item.promptEn === null) {
+  if (locale !== "en" || !BOTH_CARRIER_PERSONAS.has(persona.id)) {
     return null;
   }
-  if (!BOTH_CARRIER_PERSONAS.has(persona.id)) {
-    return null;
-  }
-  return item.promptEn;
+  return readLocaleBlock(locale, item.promptBlockId).text;
 }
 
 export function itemsForPersona(persona: Persona, locale: LocaleCode) {
@@ -152,7 +147,7 @@ export function itemsForPersona(persona: Persona, locale: LocaleCode) {
       id: item.id,
       status: "draft" as const,
       prompt: {
-        block_id: FEEDBACK_BLOCK_ID,
+        block_id: item.promptBlockId,
         locale,
         text: promptText(item, persona, locale),
         status: "draft" as const,
@@ -188,7 +183,8 @@ export function answerFor(input: ParsedAnswer):
   }
   const matched = input.option_id === item.correctOptionId;
   const next = DRAFT_ITEMS[index + 1];
-  const block = readLocaleBlock(input.locale, FEEDBACK_BLOCK_ID);
+  const feedbackId = matched ? FEEDBACK_CORRECT_ID : FEEDBACK_RETRY_ID;
+  const block = readLocaleBlock(input.locale, feedbackId);
   events.push({
     item_id: input.item_id,
     correct: matched,
@@ -205,7 +201,7 @@ export function answerFor(input: ParsedAnswer):
     attempt: input.attempt,
     latency_ms: input.latency_ms,
     feedback: {
-      block_id: FEEDBACK_BLOCK_ID,
+      block_id: feedbackId,
       text: block.text,
       status: "draft",
     },

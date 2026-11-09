@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { presentAsk } from "@/features/ask/present";
 import { isHardReason, type HardReason } from "@/features/ask/reasons";
 import type { AskPayload } from "@/features/ask/types";
+import { readLocaleBlock } from "@/features/learn/blocks";
+import { documentLocale } from "@/i18n/locale";
 
 function reasonText(reason: HardReason, t: TFunction): string {
   switch (reason) {
@@ -37,7 +39,9 @@ function reasonText(reason: HardReason, t: TFunction): string {
 }
 
 export function HandoffCard({ reason }: { reason: string | null }) {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const locale = documentLocale(i18n.resolvedLanguage ?? i18n.language).lang;
+  const crisisText = readLocaleBlock(locale, "ask.handoff.crisis").text;
   const known = reason !== null && isHardReason(reason) ? reason : null;
 
   return (
@@ -53,7 +57,7 @@ export function HandoffCard({ reason }: { reason: string | null }) {
         <p>
           <span>{t("handoff.crisisLabel", { ns: "ask" })}</span>{" "}
           <span lang="en" dir="ltr">
-            {t("content.missing")}
+            {crisisText ?? t("content.missing")}
           </span>
         </p>
       ) : null}

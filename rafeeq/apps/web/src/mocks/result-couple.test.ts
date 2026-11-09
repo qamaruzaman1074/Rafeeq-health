@@ -29,15 +29,16 @@ describe("result and couple mocks", () => {
       banner: { block_id: string; text: string | null };
       carriers: { gene_symbol: string | null; condition_name: string | null }[];
     }>("/api/v1/results/mine");
-    expect(own.data.banner).toEqual({ block_id: "OPEN_QUESTION", text: null });
+    expect(own.data.banner.block_id).toBe("result.own.banner");
+    expect(own.data.banner.text).toContain("carrier");
     expect(own.data.carriers).toEqual([
       {
         id: "P1-shared",
         gene_symbol: null,
-        gene_block_id: "OPEN_QUESTION",
+        gene_block_id: "glossary.carrier",
         condition_name: "hearing-loss example",
         condition_locale: "en",
-        condition_block_id: "OPEN_QUESTION",
+        condition_block_id: "result.condition.illustrative",
       },
     ]);
 
@@ -66,20 +67,20 @@ describe("result and couple mocks", () => {
     expect(card.proportions.affected + card.proportions.carrier + card.proportions.neither).toBe(
       100,
     );
-    expect(card.formula).toContain("1/4");
-    expect(card.formula).toContain("1/2");
+    expect(card.formula).toMatch(/1\/4|1 in 4/i);
+    expect(card.formula).toMatch(/1\/2|1 in 2/i);
     expect(card.sentences).toContainEqual({
-      block_id: "OPEN_QUESTION",
+      block_id: "result.pregnancy.chance",
       locale: "en",
       text: "This is a chance for each pregnancy, not a prediction about any child.",
     });
     expect(card.sentences).toContainEqual({
-      block_id: "OPEN_QUESTION",
+      block_id: "result.pregnancy.chance",
       locale: "ar",
       text: null,
     });
     expect(card.diagnosis_banner).toContainEqual({
-      block_id: "OPEN_QUESTION",
+      block_id: "result.not.diagnosis",
       locale: "en",
       text: "This is not a diagnosis.",
     });

@@ -2,15 +2,22 @@ import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Carrier } from "@/features/result/types";
+import { userVisibleBlockId } from "@/lib/content-marker";
 
 function MissingBlock({ blockId }: { blockId: string }) {
   const { t } = useTranslation();
+  const visibleId = userVisibleBlockId(blockId);
   return (
     <span>
-      <span>{t("content.missing", { ns: "common" })}</span>{" "}
-      <span lang="en" dir="ltr" className="break-all">
-        {blockId}
-      </span>
+      <span>{t("content.missing", { ns: "common" })}</span>
+      {visibleId !== null ? (
+        <>
+          {" "}
+          <span lang="en" dir="ltr" className="break-all">
+            {visibleId}
+          </span>
+        </>
+      ) : null}
     </span>
   );
 }

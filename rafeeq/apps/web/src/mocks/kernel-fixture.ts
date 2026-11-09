@@ -5,13 +5,15 @@ import type { Persona } from "@/features/personas";
 import type { Carrier, OwnResult, OverlapResult } from "@/features/result/types";
 
 /**
- * OPEN_QUESTION: `/content/blocks.*.json` is empty and MASTER does not assign
- * block ids. Every block id in this fixture is the marker below.
- * Banner text is taken only from those files, so the own-result banner stays empty.
- * Fact-card sentences below are the verbatim lines already stated in website
- * planning Section 7 (Together) and MASTER Section 7.1. They are not new wording.
+ * Synthetic payloads reference draft blocks in `/content/blocks.en.json`.
+ * Fact-card fallbacks mirror website planning Section 7 and MASTER Section 7.1.
  */
-const BLOCK_ID = "OPEN_QUESTION";
+const BANNER_ID = "result.own.banner";
+const PREGNANCY_BLOCK = "result.pregnancy.chance";
+const DIAGNOSIS_BLOCK = "result.not.diagnosis";
+const FORMULA_BLOCK = "result.overlap.formula";
+const GENE_BLOCK = "glossary.carrier";
+const CONDITION_BLOCK = "result.condition.illustrative";
 
 const PREGNANCY_SENTENCE = "This is a chance for each pregnancy, not a prediction about any child.";
 
@@ -79,10 +81,10 @@ function carriersFor(persona: Persona): Carrier[] {
     {
       id: "P1-shared",
       gene_symbol: null,
-      gene_block_id: BLOCK_ID,
+      gene_block_id: GENE_BLOCK,
       condition_name: condition,
       condition_locale: condition === null ? null : "en",
-      condition_block_id: BLOCK_ID,
+      condition_block_id: CONDITION_BLOCK,
     },
   ];
 }
@@ -90,8 +92,8 @@ function carriersFor(persona: Persona): Carrier[] {
 export function ownResultFor(persona: Persona): OwnResult {
   return {
     banner: {
-      block_id: BLOCK_ID,
-      text: blockText(blocksEn, BLOCK_ID),
+      block_id: BANNER_ID,
+      text: blockText(blocksEn, BANNER_ID),
     },
     carriers: carriersFor(persona),
   };
@@ -134,10 +136,11 @@ export function overlapFor(
 }
 
 function bothCarriersCard(): FactCardDTO {
-  const englishSentence = blockText(blocksEn, BLOCK_ID) ?? PREGNANCY_SENTENCE;
+  const englishSentence = blockText(blocksEn, PREGNANCY_BLOCK) ?? PREGNANCY_SENTENCE;
   const arabicSentence = null;
-  const englishDiagnosis = blockText(blocksEn, BLOCK_ID) ?? DIAGNOSIS_SENTENCE;
+  const englishDiagnosis = blockText(blocksEn, DIAGNOSIS_BLOCK) ?? DIAGNOSIS_SENTENCE;
   const arabicDiagnosis = null;
+  const formula = blockText(blocksEn, FORMULA_BLOCK) ?? FORMULA;
   return {
     proportions: {
       affected: BOTH_CARRIER_COUNTS.affected,
@@ -145,10 +148,10 @@ function bothCarriersCard(): FactCardDTO {
       neither: BOTH_CARRIER_COUNTS.neither,
     },
     sentences: [
-      { block_id: BLOCK_ID, locale: "en", text: englishSentence },
-      { block_id: BLOCK_ID, locale: "ar", text: arabicSentence },
+      { block_id: PREGNANCY_BLOCK, locale: "en", text: englishSentence },
+      { block_id: PREGNANCY_BLOCK, locale: "ar", text: arabicSentence },
     ],
-    formula: FORMULA,
+    formula,
     inputs: [
       { name: "inheritance", value: "AR" },
       { name: "affected.fraction", value: "1/4" },
@@ -163,8 +166,8 @@ function bothCarriersCard(): FactCardDTO {
     ],
     limits: [...LIMITS],
     diagnosis_banner: [
-      { block_id: BLOCK_ID, locale: "en", text: englishDiagnosis },
-      { block_id: BLOCK_ID, locale: "ar", text: arabicDiagnosis },
+      { block_id: DIAGNOSIS_BLOCK, locale: "en", text: englishDiagnosis },
+      { block_id: DIAGNOSIS_BLOCK, locale: "ar", text: arabicDiagnosis },
     ],
   };
 }

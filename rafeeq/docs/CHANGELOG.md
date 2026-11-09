@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- 2026-11-09 feat(content): draft English blocks and FAQ entries for Learn, Ask, Check, and Result; hide internal OPEN_QUESTION markers in user-facing UI (synthetic demo; not clinician_reviewed).
 - 2026-11-08 docs: land the filled MASTER source of truth, Cursor rules, and the website planning document.
 - 2026-11-08 feat: add empty, error, and loading states with success and failure toasts; ban the English terms from MASTER Section 10 in web locales; add route screenshots and a 90-second demo script.
 - 2026-11-08 fix: meet the accessibility and performance budgets (axe on en and ar, first-route split, font preload, shell-only service worker, meta and favicon).

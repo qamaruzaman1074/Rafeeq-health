@@ -55,10 +55,11 @@ describe("learn content blocks", () => {
     await i18n.changeLanguage("en");
   });
 
-  it("keeps empty content files as missing blocks", () => {
+  it("loads draft learn blocks in English", () => {
     expect(LEARN_MODULES).toHaveLength(7);
     for (const module of LEARN_MODULES) {
-      expect(readLocaleBlock("en", module.fullBlockId)).toEqual({ text: null, audioUrl: null });
+      expect(readLocaleBlock("en", module.fullBlockId).text).not.toBeNull();
+      expect(readLocaleBlock("en", module.shortBlockId).text).not.toBeNull();
       expect(readLocaleBlock("ar", module.shortBlockId)).toEqual({ text: null, audioUrl: null });
     }
   });
@@ -85,12 +86,9 @@ describe("learn content blocks", () => {
 
   it("returns glossary text for the requested locale and a stable tts url", async () => {
     const english = await fetchGlossary("carrier", "en");
-    expect(english).toEqual({
-      term: "carrier",
-      block_id: "glossary.carrier",
-      locale: "en",
-      text: null,
-    });
+    expect(english.block_id).toBe("glossary.carrier");
+    expect(english.locale).toBe("en");
+    expect(english.text).toContain("carrier");
     const arabic = await fetchGlossary("relatedness", "ar");
     expect(arabic.locale).toBe("ar");
     expect(arabic.block_id).toBe("glossary.relatedness");
@@ -98,12 +96,10 @@ describe("learn content blocks", () => {
 
     const first = await requestTts("learn.carrier.full", "en");
     const second = await requestTts("learn.carrier.full", "ar");
-    expect(first).toEqual({
-      block_id: "learn.carrier.full",
-      locale: "en",
-      url: "/mock-audio/learn.carrier.full",
-      text: null,
-    });
+    expect(first.block_id).toBe("learn.carrier.full");
+    expect(first.locale).toBe("en");
+    expect(first.url).toBe("/mock-audio/learn.carrier.full");
+    expect(first.text).toContain("carrier");
     expect(second.url).toBe(first.url);
     expect(second.text).toBeNull();
     expect(second.locale).toBe("ar");
@@ -127,15 +123,15 @@ describe("learn content blocks", () => {
     expect(standard).toContain("Play audio: What is a carrier");
     expect(standard).toContain("Transcript: What is a carrier");
     expect(standard).toContain("Glossary: carrier");
-    expect(standard).toContain("Not available yet");
-    expect(standard).toContain("learn.carrier.full");
+    expect(standard).toContain("screening test");
+    expect(standard).not.toContain("OPEN_QUESTION");
     expect(standard).not.toContain("data-module-icon");
     expect(standard).not.toContain("min-h-20");
 
     const simple = renderLearn("simple");
     expect(simple).toContain('data-module-icon="carrier"');
-    expect(simple).toContain("learn.carrier.short");
-    expect(simple).toContain("Not available yet");
+    expect(simple).toContain("changed gene copy");
+    expect(simple).not.toContain("OPEN_QUESTION");
     expect(simple).toContain('data-literacy="simple"');
     expect(simple).not.toContain("learn.carrier.full");
 
@@ -143,7 +139,7 @@ describe("learn content blocks", () => {
     expect(voice).toContain("min-h-20");
     expect(voice).toContain("Show transcript: What is a carrier");
     expect(voice).toContain("Play audio: What is a carrier");
-    expect(voice).not.toContain("Not available yet");
+    expect(voice).toContain("Show transcript: What is a carrier");
     expect(voice).not.toContain("data-module-icon");
     expect(voice).not.toContain('role="region"');
   });

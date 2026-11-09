@@ -35,10 +35,10 @@ function renderTree(node: ReactNode): string {
 const carrier: Carrier = {
   id: "P1-shared",
   gene_symbol: null,
-  gene_block_id: "OPEN_QUESTION",
+  gene_block_id: "glossary.carrier",
   condition_name: "hearing-loss example",
   condition_locale: "en",
-  condition_block_id: "OPEN_QUESTION",
+  condition_block_id: "result.condition.illustrative",
 };
 
 describe("result view", () => {
@@ -69,10 +69,11 @@ describe("result view", () => {
     expect(html).not.toContain('data-result-section="stored-example"');
   });
 
-  it("keeps missing approved blocks visible on a carrier card", () => {
+  it("shows draft educational copy on a carrier card without internal markers", () => {
     const html = renderTree(createElement(ResultCard, { carrier }));
     expect(html).toContain("hearing-loss example");
-    expect(html).toContain("OPEN_QUESTION");
+    expect(html).not.toContain("OPEN_QUESTION");
+    expect(html).toContain("glossary.carrier");
     expect(html).toContain("This carrier note is not a confirmed diagnosis.");
     expect(html).toContain("Who can see this");
   });

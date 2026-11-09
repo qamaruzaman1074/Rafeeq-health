@@ -103,7 +103,7 @@ describe("teach-back check", () => {
     expect(english.items.length).toBeGreaterThan(1);
     expect(english.items[0]?.prompt).toMatchObject({
       status: "draft",
-      block_id: "OPEN_QUESTION",
+      block_id: "check.teachback.shared-chance.prompt",
       locale: "en",
     });
     expect(english.items[0]?.prompt.text).toContain("In your own words");
@@ -151,11 +151,8 @@ describe("teach-back check", () => {
     expect(first.latency_ms).toBe(840);
     expect(first.attempt).toBe(1);
     expect(first.correct_option_id).toBe(item.correct_option_id);
-    expect(first.feedback).toEqual({
-      block_id: "OPEN_QUESTION",
-      text: null,
-      status: "draft",
-    });
+    expect(first.feedback.block_id).toBe("check.feedback.retry");
+    expect(first.feedback.text).toContain("Take your time");
     expect(first.next_item_id).toBeNull();
     expect(recordedComprehensionEvents()[0]).toMatchObject({
       item_id: item.id,
@@ -242,7 +239,11 @@ describe("teach-back check", () => {
     expect(html.toLowerCase()).not.toContain("wrong");
     expect(html.toLowerCase()).not.toContain("incorrect");
 
-    const feedback: FeedbackBlock = { block_id: "OPEN_QUESTION", text: null, status: "draft" };
+    const feedback: FeedbackBlock = {
+      block_id: "check.feedback.retry",
+      text: null,
+      status: "draft",
+    };
     const explained = renderNode(
       createElement(CheckScreen, {
         item: view,
@@ -258,7 +259,7 @@ describe("teach-back check", () => {
       }),
     );
     expect(explained).toContain("Here is another way to look at this.");
-    expect(explained).toContain("OPEN_QUESTION");
+    expect(explained).not.toContain("OPEN_QUESTION");
     expect(explained.toLowerCase()).not.toContain("wrong");
 
     const laterView: CheckItemView = {

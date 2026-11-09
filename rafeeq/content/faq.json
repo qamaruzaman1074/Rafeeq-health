@@ -1,1 +1,32 @@
-{}
+[
+  {
+    "id": "faq-carrier",
+    "question": "What does it mean to be a carrier?",
+    "source_ids": ["learn.carrier.short"]
+  },
+  {
+    "id": "faq-not-diagnosis",
+    "question": "Is carrier screening a diagnosis?",
+    "source_ids": ["learn.risk-vs-diagnosis.short"]
+  },
+  {
+    "id": "faq-each-pregnancy",
+    "question": "If we both carry the same change, what is the chance for each pregnancy?",
+    "source_ids": ["result.overlap.formula"]
+  },
+  {
+    "id": "faq-uncertainty",
+    "question": "What if my result is uncertain?",
+    "source_ids": ["learn.uncertainty.short"]
+  },
+  {
+    "id": "faq-sharing",
+    "question": "Who can see my overlap result?",
+    "source_ids": ["glossary.couple-result"]
+  },
+  {
+    "id": "faq-next",
+    "question": "What usually happens after a screening result?",
+    "source_ids": ["learn.next.short"]
+  }
+]

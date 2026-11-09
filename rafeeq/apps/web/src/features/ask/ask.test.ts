@@ -39,9 +39,8 @@ describe("ask", () => {
     await i18n.changeLanguage("en");
   });
 
-  it("keeps suggested questions empty when faq.json has no entries", () => {
-    expect(faqFile).toEqual({});
-    expect(readSuggestedQuestions(faqFile)).toEqual([]);
+  it("reads suggested questions from faq.json", () => {
+    expect(readSuggestedQuestions(faqFile).length).toBeGreaterThan(0);
     expect(readSuggestedQuestions({})).toEqual([]);
     expect(readSuggestedQuestions([])).toEqual([]);
     expect(
@@ -95,7 +94,7 @@ describe("ask", () => {
     expect(handoff).toContain("This question goes to a person");
     expect(handoff).toContain("Distress or self-harm");
     expect(handoff).toContain("Approved crisis-line text");
-    expect(handoff).toContain("Not available yet");
+    expect(handoff).toContain("immediate danger");
     expect(handoff).toContain('href="/app/care"');
     expect(handoff).toContain("Book a counsellor");
 
@@ -119,7 +118,7 @@ describe("ask", () => {
     expect(missingText).toContain("Source: Approved content #B-017");
   });
 
-  it("shows the boundary notice and no suggested questions", () => {
+  it("shows the boundary notice and suggested questions from content", () => {
     const html = renderNode(createElement(AskView));
     expect(html).toContain("Ask a question");
     expect(html).toContain('data-boundary="visible"');
@@ -127,8 +126,8 @@ describe("ask", () => {
       "This assistant only shows approved content. A hard question goes to a person.",
     );
     expect(html).toContain(`maxLength="${QUESTION_LIMIT}"`);
-    expect(html).toContain('data-suggested="0"');
-    expect(html).not.toContain("From the file");
+    expect(html).toMatch(/data-suggested="[1-9]/);
+    expect(html).toContain("What does it mean to be a carrier?");
   });
 
   it("returns a human route for hard questions and no answer text otherwise", async () => {

@@ -1,1 +1,134 @@
-{}
+{
+  "result.own.banner": {
+    "text": "Being a carrier is common and usually does not affect your own health. This demo uses fictional results only.",
+    "status": "draft"
+  },
+  "result.pregnancy.chance": {
+    "text": "This is a chance for each pregnancy, not a prediction about any child.",
+    "status": "draft"
+  },
+  "result.not.diagnosis": {
+    "text": "This is not a diagnosis.",
+    "status": "draft"
+  },
+  "result.overlap.formula": {
+    "text": "For autosomal recessive conditions, when both partners carry a pathogenic or likely pathogenic variant in the same gene, each pregnancy has about a 1 in 4 chance of an affected child, a 1 in 2 chance of a carrier child, and a 1 in 4 chance of a child who inherits neither familial variant. Each pregnancy is independent.",
+    "status": "draft"
+  },
+  "result.condition.illustrative": {
+    "text": "This label names an illustrative condition used in the demo. It is not tied to your real health record.",
+    "status": "draft"
+  },
+  "glossary.carrier": {
+    "text": "A carrier has one working copy and one changed copy of a gene for an autosomal recessive condition. Carriers often have no symptoms. A screening result describes what was found in the test, not a diagnosis for you or a future child.",
+    "status": "draft"
+  },
+  "glossary.couple-result": {
+    "text": "When both partners carry a change in the same gene, each pregnancy can be looked at separately. The numbers describe chances, not certainties.",
+    "status": "draft"
+  },
+  "glossary.diagnosis": {
+    "text": "A diagnosis is made by a qualified clinician using medical assessment, not by carrier screening alone.",
+    "status": "draft"
+  },
+  "glossary.uncertainty": {
+    "text": "Some results stay uncertain until more testing or counselling. VUS (variants of uncertain significance) are not used here to give child chances.",
+    "status": "draft"
+  },
+  "glossary.relatedness": {
+    "text": "Family relatedness can change how we think about whether a partner might carry the same change. Any added chance depends on the gene, the variant, and what is known about your family. A counsellor can put this in context for you.",
+    "status": "draft"
+  },
+  "glossary.options": {
+    "text": "People may discuss many paths with a counsellor, such as further testing, timing of pregnancy, or prenatal options where locally available. This platform shares information only; it does not choose for you.",
+    "status": "draft"
+  },
+  "glossary.next": {
+    "text": "Typical next steps can include genetic counselling, confirmatory testing if advised, and follow-up with your own clinician.",
+    "status": "draft"
+  },
+  "learn.carrier.full": {
+    "text": "A carrier screening test looks for certain gene changes. Finding a change means you carry it; it does not mean you have the condition the gene is linked to. Many people are carriers without knowing. Your own health is usually not affected for autosomal recessive carriers.",
+    "status": "draft"
+  },
+  "learn.carrier.short": {
+    "text": "A carrier has one changed gene copy. The test shows what was found; it is not a diagnosis.",
+    "status": "draft"
+  },
+  "learn.couple-result.full": {
+    "text": "If you and your partner both carry a change in the same gene, each pregnancy has chances for an affected child, a carrier child, or a child who inherits neither familial variant. The numbers come from a standard model for autosomal recessive inheritance and do not cover every situation.",
+    "status": "draft"
+  },
+  "learn.couple-result.short": {
+    "text": "When both carry the same change, each pregnancy has separate chances—not one fixed outcome for every child.",
+    "status": "draft"
+  },
+  "learn.risk-vs-diagnosis.full": {
+    "text": "Screening describes what was found in the test sample. A diagnosis is made only after clinical assessment. Carrier status is information to discuss with a qualified professional, not a label about you or a future child.",
+    "status": "draft"
+  },
+  "learn.risk-vs-diagnosis.short": {
+    "text": "Screening is not a diagnosis. Clinicians confirm what a result means for health.",
+    "status": "draft"
+  },
+  "learn.uncertainty.full": {
+    "text": "Tests do not explain every condition. Variants of uncertain significance, family history, and other causes may matter. When something is unclear, the path is to ask a counsellor rather than guess.",
+    "status": "draft"
+  },
+  "learn.uncertainty.short": {
+    "text": "Some results stay uncertain until more review. A person can help when numbers do not apply.",
+    "status": "draft"
+  },
+  "learn.relatedness.full": {
+    "text": "In some communities, couples are related. That can affect how likely a partner carries the same change. The added chance is real but usually modest in absolute terms and depends on the gene. Wording should stay respectful and non-judgemental.",
+    "status": "draft"
+  },
+  "learn.relatedness.short": {
+    "text": "Family relatedness can matter for partner risk. A counsellor can explain this for your situation.",
+    "status": "draft"
+  },
+  "learn.options.full": {
+    "text": "Couples may discuss timing, further testing, prenatal options where available, or other plans with a counsellor. This app lists topics people often discuss; it does not rank or recommend actions.",
+    "status": "draft"
+  },
+  "learn.options.short": {
+    "text": "Many topics are for counselling, not for this app to decide.",
+    "status": "draft"
+  },
+  "learn.next.full": {
+    "text": "After a result, people often meet a genetic counsellor, consider confirmatory testing if advised, and stay in touch with their clinician. Your pathway can move step by step at your pace.",
+    "status": "draft"
+  },
+  "learn.next.short": {
+    "text": "Next steps often include counselling and follow-up with your clinician.",
+    "status": "draft"
+  },
+  "ask.boundary": {
+    "text": "This assistant only shows approved content. A hard question goes to a person.",
+    "status": "draft"
+  },
+  "ask.handoff.crisis": {
+    "text": "If you are in immediate danger or thinking about harming yourself, contact local emergency services or a crisis line where you live. This demo does not place calls for you.",
+    "status": "draft"
+  },
+  "check.teachback.shared-chance.prompt": {
+    "text": "In your own words: if both of you carry the same change, what is the chance for each pregnancy?",
+    "status": "draft"
+  },
+  "check.teachback.limits.prompt": {
+    "text": "What does this result not tell you about a future child?",
+    "status": "draft"
+  },
+  "check.teachback.consent.prompt": {
+    "text": "Who can see your overlap result before it is shared?",
+    "status": "draft"
+  },
+  "check.feedback.correct": {
+    "text": "Thank you. You can review Learn again or talk with a counsellor to go deeper.",
+    "status": "draft"
+  },
+  "check.feedback.retry": {
+    "text": "Take your time. The pictorial choices are a rough guide—your counsellor can walk through the idea again without judgement.",
+    "status": "draft"
+  }
+}

@@ -132,10 +132,7 @@ export function CheckScreen({
           <p lang={item.prompt.locale}>{item.prompt.text}</p>
         ) : (
           <p>
-            <span>{t("content.missing", { ns: "common" })}</span>{" "}
-            <span lang="en" dir="ltr">
-              {item.prompt.block_id}
-            </span>
+            <span>{t("content.missing", { ns: "common" })}</span>
           </p>
         )}
         <div
@@ -171,13 +168,9 @@ export function CheckScreen({
             data-block-id={feedback.block_id}
           >
             <p>{feedbackText !== null ? feedbackText : t("feedback.note", { ns: "check" })}</p>
-            {feedbackText === null ? (
-              <p lang="en" dir="ltr">
-                {feedback.block_id}
-              </p>
-            ) : (
+            {feedbackText !== null ? (
               <Badge variant="notice">{t("prototype", { ns: "check" })}</Badge>
-            )}
+            ) : null}
           </aside>
         ) : null}
         {pending ? <Skeleton label={t("loading", { ns: "check" })} /> : null}
