@@ -1,6 +1,7 @@
-import { useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useSyncExternalStore, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet, ScrollRestoration, useLocation } from "react-router";
+import { preloadRouteI18n } from "@/i18n/route-i18n";
 import { LiteracyModeToggle } from "@/components/literacy-mode-toggle";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -62,6 +63,10 @@ export function ShellFrame({ children }: { children: ReactNode }) {
 
 export function AppShell() {
   const { pathname } = useLocation();
+  const { i18n } = useTranslation();
+  useEffect(() => {
+    preloadRouteI18n(pathname, i18n.resolvedLanguage ?? i18n.language);
+  }, [pathname, i18n]);
   const screen = (
     <div data-screen={pathname}>
       <ScrollRestoration />

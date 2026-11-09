@@ -2,6 +2,7 @@ import { http, HttpResponse } from "msw";
 import { describe, expect, it } from "vitest";
 import { AppProviders } from "@/app/providers";
 import i18n from "@/i18n";
+import { loadLocaleNamespaces } from "@/i18n/load-namespace";
 import { NAMESPACES } from "@/i18n/namespaces";
 import { registerClinicCatalog } from "@/i18n/register-clinic";
 import { registerInsightsCatalog } from "@/i18n/register-insights";
@@ -17,7 +18,8 @@ describe("web scaffold", () => {
     expect(apiRequest).toBeTypeOf("function");
   });
 
-  it("registers English bundles", () => {
+  it("registers English bundles", async () => {
+    await loadLocaleNamespaces("en");
     const routeCatalogs = new Set(["clinic", "insights"]);
     for (const namespace of NAMESPACES) {
       const present = !routeCatalogs.has(namespace);

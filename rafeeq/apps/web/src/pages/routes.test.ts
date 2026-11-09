@@ -9,6 +9,7 @@ import { productRoutes } from "@/app/route-table";
 import { ThemeProvider } from "@/app/theme";
 import i18n from "@/i18n";
 import { NumeralProvider } from "@/i18n/numerals";
+import { loadLocaleNamespaces } from "@/i18n/load-namespace";
 import { registerClinicCatalog } from "@/i18n/register-clinic";
 import { registerInsightsCatalog } from "@/i18n/register-insights";
 
@@ -78,6 +79,7 @@ function renderRoute(Component: () => ReactNode): ReactNode {
 
 describe("route placeholders", () => {
   beforeAll(async () => {
+    await loadLocaleNamespaces("en");
     registerClinicCatalog();
     registerInsightsCatalog();
     await i18n.changeLanguage("en");
