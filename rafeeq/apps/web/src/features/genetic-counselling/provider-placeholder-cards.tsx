@@ -7,7 +7,6 @@ type DemoProfile = {
   name: string;
   role: string;
   experience: string;
-  image: string;
 };
 
 export function ProviderPlaceholderCards() {
@@ -29,23 +28,12 @@ export function ProviderPlaceholderCards() {
         {profiles.map((profile) => (
           <li key={profile.name}>
             <Card className="h-full">
-              <CardHeader className="flex flex-row items-start gap-4 space-y-0">
-                <img
-                  src={profile.image}
-                  alt={t("counsellingPage.demoProfileAlt", { ns: "public", name: profile.name })}
-                  width={64}
-                  height={64}
-                  loading="lazy"
-                  decoding="async"
-                  className="size-16 shrink-0 rounded-full border border-border-subtle object-cover"
-                />
-                <div className="flex min-w-0 flex-col gap-1">
-                  <CardTitle className="text-lg">{profile.name}</CardTitle>
-                  <CardDescription className="text-sm font-medium text-teal-800">
-                    {profile.role}
-                  </CardDescription>
-                  <p className="text-sm text-ink-600">{profile.experience}</p>
-                </div>
+              <CardHeader className="space-y-2">
+                <CardTitle className="text-lg">{profile.name}</CardTitle>
+                <CardDescription className="text-sm font-medium text-teal-800">
+                  {profile.role}
+                </CardDescription>
+                <p className="text-sm text-ink-600">{profile.experience}</p>
               </CardHeader>
             </Card>
           </li>
