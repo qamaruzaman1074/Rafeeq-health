@@ -14,7 +14,7 @@ describe("mock API", () => {
     expect(mocksEnabled("true")).toBe(true);
 
     const enable = readFileSync(new URL("./enable.ts", import.meta.url), "utf8");
-    expect(enable).toContain("import.meta.env.DEV");
+    expect(enable).not.toContain("import.meta.env.DEV");
 
     const main = readFileSync(new URL("../main.tsx", import.meta.url), "utf8");
     expect(main).toContain("prepareMocks(import.meta.env.VITE_USE_MOCKS)");

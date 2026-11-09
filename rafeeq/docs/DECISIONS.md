@@ -75,6 +75,8 @@ No new package. `msw` 3.0.4 is already a devDependency. `apps/web/public/mockSer
 
 `VITE_USE_MOCKS` is not listed in MASTER.md. It exists because this task requires the mock API to toggle with that variable.
 
+`prepareMocks` starts MSW whenever `VITE_USE_MOCKS=true`, including production static builds (Firebase Hosting demo). There is no real `/api/v1` on that host until the API ships.
+
 OPEN_QUESTION: `content/personas.json` is `{}`, and MASTER Section 9 does not define a JSON schema. Every Section 6 handler returns `{ "data": null, "meta": { "request_id" } }`. No persona, gene, or story was added.
 
 OPEN_QUESTION: request and response bodies beyond the Section 6 envelope are not specified. `data` stays null rather than an invented object.
