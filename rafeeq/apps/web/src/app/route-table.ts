@@ -51,6 +51,13 @@ export const productRoutes: readonly ProductRoute[] = [
     load: () => import("@/pages/how-it-works-page"),
   },
   {
+    path: "/problem-solution",
+    access: "public",
+    ns: "public",
+    titleKey: "problemSolution.hero.title",
+    load: () => import("@/pages/problem-solution-page"),
+  },
+  {
     path: "/understanding-genetic-risk",
     access: "public",
     ns: "public",

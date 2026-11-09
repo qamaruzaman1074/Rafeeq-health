@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- 2026-11-09 feat(web): add competition Problem & Solution page at `/problem-solution` with i18n copy and licensed imagery.
 - 2026-11-09 chore(backend): add Azure Functions TypeScript scaffold (`GET /api/health`) and architecture/backend deployment docs.
 - 2026-11-09 feat(web): public Rafeeq Assistant widget with Gemini File Search RAG API, knowledge build/index scripts, and MSW demo fallback.
 - 2026-11-09 fix(web): bind demo guest via cookie + in-app session; disable PWA SW when mocks are on; deploy hosting from `dist`; simplify demo page actions.

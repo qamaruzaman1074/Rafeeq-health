@@ -1,6 +1,7 @@
 /** Primary public site navigation — single source for header and footer. */
 export const publicNavPrimary = [
   { path: "/about", labelKey: "nav.about" },
+  { path: "/problem-solution", labelKey: "nav.problemSolution" },
   { path: "/how-it-works", labelKey: "nav.howItWorks" },
   { path: "/understanding-genetic-risk", labelKey: "nav.risk" },
   { path: "/inherited-conditions", labelKey: "nav.conditions" },
@@ -14,6 +15,7 @@ export const publicNavFooterGroups = [
     headingKey: "footer.platformHeading",
     links: [
       { path: "/about", labelKey: "footer.about" },
+      { path: "/problem-solution", labelKey: "footer.problemSolution" },
       { path: "/how-it-works", labelKey: "footer.howItWorks" },
       { path: "/genetic-counselling", labelKey: "footer.counselling" },
       { path: "/contact", labelKey: "footer.contact" },
@@ -40,6 +42,7 @@ export const publicNavFooterGroups = [
 export const publicSitePaths = new Set([
   "/",
   "/about",
+  "/problem-solution",
   "/how-it-works",
   "/understanding-genetic-risk",
   "/inherited-conditions",

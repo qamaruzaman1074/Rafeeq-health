@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "about": "About",
+    "problemSolution": "Problem & Solution",
     "howItWorks": "How It Works",
     "faq": "FAQ",
     "trustPrivacy": "Privacy",
@@ -13,6 +14,7 @@
   },
   "footer": {
     "about": "About RAFEEQ",
+    "problemSolution": "Problem & Solution",
     "howItWorks": "How It Works",
     "faq": "FAQs",
     "privacyPolicy": "Privacy Policy",
@@ -627,6 +629,135 @@
     ],
     "cta": "Explore Your Counselling Pathway",
     "ctaNote": "The pathway is a demonstration. No real request is sent and no appointment is booked."
+  },
+  "problemSolution": {
+    "documentTitle": "Problem & Solution | Rafeeq",
+    "metaDescription": "Discover how Rafeeq helps individuals and families understand inherited disease risks through accessible genetic education, privacy-focused technology, and professional counselling pathways.",
+    "hero": {
+      "eyebrow": "THE CHALLENGE",
+      "title": "Understanding Inherited Disease Risk Before It Becomes a Family Concern",
+      "intro": "Inherited genetic conditions can affect individuals and families across generations. Some people carry genetic variants without experiencing any symptoms, making it difficult to recognize potential risks before starting a family.\n\nWhen two biological parents carry compatible disease-causing variants in the same gene, their children may have an increased chance of inheriting a genetic condition. This possibility can be particularly relevant in families where parents share biological ancestry.\n\nHowever, access to reliable genetic information, understandable screening results, confidential support, and qualified genetic counselling is not always straightforward.",
+      "highlight": "The real challenge is not simply identifying genetic risk. It is making that information understandable, accessible, confidential, and useful for informed personal decisions.",
+      "imageAlt": "Microscopy view of cells suggesting genetic and biomedical research"
+    },
+    "problems": {
+      "eyebrow": "WHY THIS MATTERS",
+      "title": "The Challenges Behind Inherited Disease Awareness",
+      "description": "Understanding inherited disease risk involves more than access to genetic testing. Individuals and families also need reliable information, clear explanations, professional guidance, and confidence that their sensitive information is protected.",
+      "imageAlt": "Healthcare professional speaking with an individual about health concerns",
+      "cards": [
+        {
+          "title": "Limited awareness",
+          "body": "Many individuals do not know that inherited conditions can be carried without visible symptoms. This can make potential genetic risks difficult to recognize without appropriate information and screening."
+        },
+        {
+          "title": "Complex screening results",
+          "body": "Genetic screening reports often contain technical terminology that can be difficult for non-specialists to understand. Individuals may struggle to interpret findings and understand what they mean."
+        },
+        {
+          "title": "Limited counselling access",
+          "body": "Finding appropriate professional genetic guidance and understanding the next steps can be challenging. Individuals may need better pathways to qualified professionals."
+        },
+        {
+          "title": "Privacy and trust concerns",
+          "body": "Genetic and family health information is highly sensitive. Individuals need transparent consent, confidentiality, and control over how their information is accessed and shared."
+        }
+      ]
+    },
+    "solution": {
+      "eyebrow": "INTRODUCING RAFEEQ",
+      "title": "Making Genetic Health Information Easier to Understand",
+      "description": "Rafeeq is an AI-assisted genetic health education and support platform designed to help individuals and families better understand inherited disease risks.\n\nBy bringing together accessible educational resources, understandable screening explanations, consent-based information sharing, and pathways to professional genetic counselling, Rafeeq aims to make the journey from awareness to informed support simpler and more approachable.\n\nOur platform places people at the centre of the process—helping them understand available information while keeping important decisions in their own hands.",
+      "imageAlt": "Laboratory and digital tools used in modern genetic health workflows",
+      "flowEducation": "Education",
+      "flowTechnology": "Technology",
+      "flowPrivacy": "Privacy",
+      "flowGuidance": "Professional guidance"
+    },
+    "pillars": {
+      "eyebrow": "OUR APPROACH",
+      "title": "A More Informed Approach to Family Health",
+      "description": "Rafeeq brings together essential resources and support pathways to make inherited health information easier to explore and understand.",
+      "items": [
+        {
+          "title": "Family health history",
+          "body": "Help users organize relevant family health information and understand why family history can matter when discussing inherited conditions."
+        },
+        {
+          "title": "Screening result understanding",
+          "body": "Present available genetic screening information in simpler language, explaining relevant findings, limitations, and questions to discuss with a qualified professional."
+        },
+        {
+          "title": "Inherited risk education",
+          "body": "Explain inheritance patterns and potential risks using understandable visual examples and validated genetic information."
+        },
+        {
+          "title": "AI-powered learning assistant",
+          "body": "Provide accessible answers to educational questions and explain approved health information in simple language, with clear limitations and appropriate source references."
+        },
+        {
+          "title": "Privacy and informed consent",
+          "body": "Support explicit consent, controlled access, and transparent information sharing so users remain in control of their sensitive information."
+        },
+        {
+          "title": "Professional counselling pathway",
+          "body": "Help users prepare questions and connect with qualified genetic professionals for interpretation, confirmatory testing, and appropriate follow-up."
+        }
+      ]
+    },
+    "journey": {
+      "eyebrow": "THE USER JOURNEY",
+      "title": "From Awareness to Informed Support",
+      "description": "A clear journey can help individuals move from understanding inherited health information to seeking appropriate professional guidance.",
+      "steps": [
+        {
+          "title": "Understand",
+          "body": "Learn about inherited conditions, family history, and genetic screening."
+        },
+        {
+          "title": "Explore",
+          "body": "Review available screening information and educational explanations."
+        },
+        {
+          "title": "Learn",
+          "body": "Understand relevant inheritance patterns, possible implications, and limitations."
+        },
+        {
+          "title": "Connect",
+          "body": "Seek qualified genetic counselling and appropriate follow-up."
+        }
+      ]
+    },
+    "principles": {
+      "eyebrow": "OUR PRINCIPLES",
+      "title": "Technology Should Support Informed Decisions, Never Make Them for People.",
+      "description": "Genetic health information deserves responsible handling. Rafeeq is built around the belief that people should have access to understandable information, privacy, and professional support without pressure or judgment.",
+      "items": [
+        {
+          "title": "Respect",
+          "body": "No stigma, pressure, or judgment based on family background."
+        },
+        {
+          "title": "Clarity",
+          "body": "Understandable explanations that acknowledge uncertainty and limitations."
+        },
+        {
+          "title": "Privacy",
+          "body": "Consent-based access and responsible handling of sensitive information."
+        },
+        {
+          "title": "Professional guidance",
+          "body": "Qualified healthcare professionals remain central to clinical interpretation and care."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Better Understanding Starts With Better Information.",
+      "description": "Explore inherited health information, learn about available screening pathways, and take a more informed approach to conversations about family health.",
+      "primary": "Explore Rafeeq",
+      "secondary": "Learn How It Works"
+    },
+    "disclaimer": "Rafeeq is an educational and support platform, not a diagnostic service. Its information does not replace genetic testing, clinical assessment, or professional genetic counselling. Any risk interpretation must be based on validated clinical information and reviewed by qualified professionals."
   },
   "contact": {
     "title": "Contact",
