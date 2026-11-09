@@ -346,3 +346,14 @@ The **public marketing assistant** is a separate feature:
 - Learning journey UI on Learn and Check; platform impact dashboard on `/insights` with empty KPI placeholders; synthetic chart labelled in `demo-data.ts`.
 - Arabic locale bundles under `i18n/locales/ar/` with `documentLocale` rtl; `LocaleSwitcher` enables en/ar; clinical Arabic flagged pending review.
 - No analytics backend or new API routes.
+
+## 2026-11-10 — public local knowledge assistant (frontend-only)
+
+The public site floating assistant on `PublicSiteFrame` answers from a **local typed knowledge base** in `apps/web/src/features/assistant`.
+
+- No Gemini, OpenAI, Azure OpenAI, API keys, or network chat calls for this UI path.
+- Retrieval is keyword / question-pattern scoring in the browser (`searchKnowledge`); draft entries are excluded.
+- Copy is drawn from existing `en/public.json` FAQ and education pages; answers are educational only.
+- Conversation state is in-memory React state only (no `localStorage` for chat).
+- The earlier `POST /api/assistant/chat` + Gemini File Search path remains in the repo for optional hosted use; the public launcher no longer depends on it.
+- OPEN_QUESTION: whether to retire the Gemini marketing endpoint entirely once this local assistant is the product default.

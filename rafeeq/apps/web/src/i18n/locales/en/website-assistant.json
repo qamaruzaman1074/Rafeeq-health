@@ -1,17 +1,31 @@
 {
   "launcher": "Rafeeq Assistant",
   "title": "Rafeeq Assistant",
+  "subtitle": "Your companion for understanding inherited health information.",
   "welcome": "Answers about Rafeeq use only approved website information. This is education, not personal medical advice.",
-  "suggestedIntro": "Suggested questions:",
+  "welcomeMessage": "Hello! Welcome to Rafeeq.\n\nI can help you explore our educational resources about inherited conditions, genetic screening, carrier status, counselling and privacy.\n\nWhat would you like to learn today?",
+  "educationNotice": "Educational information only – not a substitute for professional medical advice.",
+  "suggestedIntro": "Suggested questions",
+  "followUpIntro": "Related questions",
+  "exploreResources": "Explore Rafeeq resources",
   "inputLabel": "Your question about Rafeeq",
   "inputPlaceholder": "Ask about privacy, consent, screening education, or counselling…",
   "send": "Send",
-  "sending": "Sending…",
+  "sending": "Searching…",
   "clear": "Clear conversation",
+  "close": "Close",
   "loading": "Finding an answer…",
   "sources": "Sources",
-  "disclaimer": "Do not share personal genetic results here. For your own result, use the signed-in Ask area or speak with a counsellor.",
+  "disclaimer": "Do not share personal genetic results here. This assistant uses local educational content only—not an AI model. For your own result, use the signed-in Ask area or speak with a counsellor.",
+  "suggestions": {
+    "groups": {
+      "inheritedRisk": "Inherited risk",
+      "screening": "Screening",
+      "counselling": "Counselling",
+      "privacy": "Privacy"
+    }
+  },
   "error": {
-    "generic": "The assistant is temporarily unavailable. Try again or visit the FAQ."
+    "generic": "Something went wrong while searching local resources. Try again or visit the FAQ."
   }
 }
