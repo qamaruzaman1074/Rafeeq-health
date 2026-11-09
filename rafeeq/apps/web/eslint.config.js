@@ -12,6 +12,7 @@ export default tseslint.config(
       "playwright-report/**",
       "test-results/**",
       "blob-report/**",
+      ".i18n-work/**",
     ],
   },
   js.configs.recommended,
@@ -38,6 +39,8 @@ export default tseslint.config(
       "postcss.config.js",
       "eslint.config.js",
       "scripts/**/*.mjs",
+      "server/**/*.mjs",
+      "server/**/*.js",
     ],
     languageOptions: {
       globals: globals.node,

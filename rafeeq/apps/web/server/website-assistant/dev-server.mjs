@@ -24,9 +24,10 @@ createServer(async (req, res) => {
   for await (const chunk of req) {
     chunks.push(chunk);
   }
-  let body = {};
+  const rawBody = Buffer.concat(chunks).toString("utf8") || "{}";
+  let body;
   try {
-    body = JSON.parse(Buffer.concat(chunks).toString("utf8") || "{}");
+    body = JSON.parse(rawBody);
   } catch {
     body = {};
   }

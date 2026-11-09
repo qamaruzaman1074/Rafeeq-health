@@ -11,10 +11,6 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = join(root, "../..");
 const outDir = join(root, "knowledge", "sources");
 
-function stableId(text) {
-  return createHash("sha256").update(text).digest("hex").slice(0, 12);
-}
-
 function frontMatter(meta) {
   const lines = ["---"];
   for (const [key, value] of Object.entries(meta)) {
