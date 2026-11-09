@@ -2,7 +2,7 @@
   <title id="title">Illustrative outcomes when both parents are carriers</title>
   <desc id="desc">Educational Punnett-style grid for autosomal recessive inheritance. Not personal risk.</desc>
   <rect width="480" height="360" fill="#f8f6f0" rx="16"/>
-  <text x="240" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#134e4a">Educational example  not your personal risk</text>
+  <text x="240" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#134e4a">Educational example — not your personal risk</text>
   <circle cx="120" cy="88" r="22" fill="#ecfdf5" stroke="#0f766e" stroke-width="2"/>
   <text x="120" y="93" text-anchor="middle" font-size="11" font-weight="600" fill="#134e4a">Parent A</text>
   <circle cx="360" cy="88" r="22" fill="#ecfdf5" stroke="#0f766e" stroke-width="2"/>
