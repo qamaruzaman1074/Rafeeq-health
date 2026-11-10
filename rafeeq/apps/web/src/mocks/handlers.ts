@@ -24,7 +24,7 @@ import {
   endCounsellorSession,
 } from "@/mocks/counsellor-session";
 import { equityPayload, kpiPayload } from "@/mocks/insights-fixture";
-import { readDemoPersonaFromCookieHeader } from "@/lib/demo-persona-cookie";
+import { readDemoPersonaCookie, readDemoPersonaFromCookieHeader } from "@/lib/demo-persona-cookie";
 import { currentPersonaId, rememberPersona } from "@/mocks/persona-state";
 import {
   auditEntries,
@@ -116,7 +116,7 @@ function envelope(data: unknown) {
 function activePersona(request?: Request): Persona | null {
   const fromCookie =
     request === undefined ? null : readDemoPersonaFromCookieHeader(request.headers.get("Cookie"));
-  const personaId = fromCookie ?? currentPersonaId();
+  const personaId = fromCookie ?? readDemoPersonaCookie() ?? currentPersonaId();
   if (personaId === null) {
     return null;
   }

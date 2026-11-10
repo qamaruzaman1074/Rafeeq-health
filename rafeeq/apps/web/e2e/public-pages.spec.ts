@@ -43,6 +43,67 @@ test("theme toggle persists dark mode after refresh", async ({ page }) => {
   await expect(page.locator("html")).toHaveAttribute("style", /color-scheme:\s*dark/);
 });
 
+test("language selection persists through Arabic demo routes and restores English", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const switcher = page.getByRole("group", { name: "Language" });
+  await expect(page.getByRole("banner").getByRole("group", { name: "Language" })).toBeVisible();
+  await expect(page.getByRole("main").getByRole("group", { name: "Language" })).toHaveCount(0);
+  await expect(switcher.getByRole("button")).toHaveText(["English", "العربية"]);
+  await switcher.getByRole("button", { name: "العربية" }).click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "ar");
+  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "افهم صحتك الجينية. واتخذ قرارات مستنيرة بثقة.",
+  );
+
+  await page.goto("/demo");
+  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+  await page.locator("[data-persona]").first().click();
+  await expect(page).toHaveURL(/\/app$/);
+  await page.goto("/app/learn");
+  await expect(page.locator("html")).toHaveAttribute("lang", "ar");
+  await expect(page.getByRole("heading", { level: 1 })).not.toHaveText("Learn");
+  await page.goto("/app/check");
+  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+  await expect(page.getByRole("heading", { level: 1 })).not.toHaveText("Check");
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("lang", "ar");
+
+  await page.goto("/");
+  await page.getByRole("group", { name: "اللغة" }).getByRole("button", { name: "English" }).click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Menu" }).click();
+  const menuSwitcher = page.getByRole("dialog").getByRole("group", { name: "Language" });
+  await expect(menuSwitcher.getByRole("button")).toHaveText(["English", "العربية"]);
+  await menuSwitcher.getByRole("button", { name: "العربية" }).click();
+  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+});
+
+test("assistant launcher responds to scroll and keyboard interaction", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const launcher = page.getByRole("button", { name: "Rafeeq Assistant" });
+  await expect(launcher).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, 500));
+  await expect(launcher).toHaveAttribute("data-scrolled", "true");
+
+  await launcher.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(launcher).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect(launcher).not.toHaveAttribute("data-scrolled", "true");
+});
+
 test("keyboard guest entry reaches the couple home", async ({ page }) => {
   await page.goto("/");
   const guest = page.getByRole("banner").getByRole("link", { name: "Get Started" }).first();

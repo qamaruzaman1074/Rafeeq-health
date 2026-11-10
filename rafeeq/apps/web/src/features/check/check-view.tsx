@@ -27,7 +27,13 @@ function toView(item: {
   };
 }
 
-function CheckSession({ locale, hideHeading = false }: { locale: "en" | "ar"; hideHeading?: boolean }) {
+function CheckSession({
+  locale,
+  hideHeading = false,
+}: {
+  locale: "en" | "ar";
+  hideHeading?: boolean;
+}) {
   const { t } = useTranslation();
   const { mode } = useLiteracy();
   const personaId = useSyncExternalStore(subscribeSession, getSessionPersona, getSessionPersona);
@@ -53,7 +59,11 @@ function CheckSession({ locale, hideHeading = false }: { locale: "en" | "ar"; hi
   if (itemsQuery.isPending) {
     return (
       <div className="flex flex-col gap-6">
-        <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "check" })}</h1>
+        {hideHeading ? null : (
+          <h1 className="text-3xl font-semibold text-teal-900">
+            {t("page.title", { ns: "check" })}
+          </h1>
+        )}
         <Skeleton label={t("loading", { ns: "check" })} />
       </div>
     );
@@ -62,7 +72,11 @@ function CheckSession({ locale, hideHeading = false }: { locale: "en" | "ar"; hi
   if (itemsQuery.isError) {
     return (
       <div className="flex flex-col gap-6">
-        <h1 className="text-3xl font-semibold text-teal-900">{t("page.title", { ns: "check" })}</h1>
+        {hideHeading ? null : (
+          <h1 className="text-3xl font-semibold text-teal-900">
+            {t("page.title", { ns: "check" })}
+          </h1>
+        )}
         <ErrorState
           title={t("error", { ns: "check" })}
           retryLabel={t("retry", { ns: "check" })}
@@ -172,6 +186,10 @@ export function CheckView({ hideHeading = false }: { hideHeading?: boolean }) {
   const locale = documentLocale(i18n.resolvedLanguage ?? i18n.language).lang;
   const personaId = useSyncExternalStore(subscribeSession, getSessionPersona, getSessionPersona);
   return (
-    <CheckSession key={`${personaId ?? "none"}:${locale}`} locale={locale} hideHeading={hideHeading} />
+    <CheckSession
+      key={`${personaId ?? "none"}:${locale}`}
+      locale={locale}
+      hideHeading={hideHeading}
+    />
   );
 }

@@ -1,9 +1,16 @@
 import { useSyncExternalStore } from "react";
 import { Navigate, Outlet, redirect } from "react-router";
-import { canAccess, getSessionRole, subscribeSession, type GuardRole } from "@/app/session";
+import {
+  canAccess,
+  getSessionRole,
+  restoreGuestSessionFromCookie,
+  subscribeSession,
+  type GuardRole,
+} from "@/app/session";
 
 export function roleGuardLoader(allow: readonly GuardRole[]) {
   return () => {
+    restoreGuestSessionFromCookie();
     if (!canAccess(getSessionRole(), allow)) {
       return redirect("/");
     }

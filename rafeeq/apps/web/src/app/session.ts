@@ -1,14 +1,14 @@
+import { findPersona } from "@/features/personas";
+import { clearDemoPersonaCookie, readDemoPersonaCookie } from "@/lib/demo-persona-cookie";
+
 export const SESSION_ROLES = ["couple", "counsellor", "analyst", "admin", "guest"] as const;
 
 export type SessionRole = (typeof SESSION_ROLES)[number];
 
 export type GuardRole = Exclude<SessionRole, "guest">;
 
-// OPEN_QUESTION: MASTER.md does not specify how the shell reads the signed-in role.
-// The session starts empty, so guarded routes redirect to /.
-// OPEN_QUESTION: the guest response has persona_id, but later requests have no
-// documented way to name that persona. The web session keeps it in memory so
-// query keys change when the guest enters another persona.
+// The demo persona cookie restores this synthetic client session after reload; it is not an
+// authentication credential.
 let currentRole: SessionRole | null = null;
 let currentPersonaId: string | null = null;
 
@@ -38,6 +38,26 @@ export function setSessionRole(role: SessionRole | null): void {
   if (role === null) {
     currentPersonaId = null;
   }
+  if (role !== "guest") {
+    clearDemoPersonaCookie();
+  }
+  emit();
+}
+
+export function restoreGuestSessionFromCookie(): void {
+  if (currentRole !== null) {
+    return;
+  }
+  const personaId = readDemoPersonaCookie();
+  if (personaId === null) {
+    return;
+  }
+  if (findPersona(personaId) === undefined) {
+    clearDemoPersonaCookie();
+    return;
+  }
+  currentRole = "guest";
+  currentPersonaId = personaId;
   emit();
 }
 

@@ -1,6 +1,8 @@
 import type { ComprehensionTopicId, LearningProgressSnapshot } from "./content-model";
 
 const STORAGE_KEY = "rafeeq.learning-progress.demo";
+let lastSnapshotKey: string | undefined;
+let lastSnapshot: LearningProgressSnapshot | undefined;
 
 type Stored = {
   visited: ComprehensionTopicId[];
@@ -60,12 +62,18 @@ export function subscribeLearningProgress(listener: () => void): () => void {
 
 export function learningProgressSnapshot(): LearningProgressSnapshot {
   const stored = readStore();
-  return {
+  const key = JSON.stringify(stored);
+  if (key === lastSnapshotKey && lastSnapshot !== undefined) {
+    return lastSnapshot;
+  }
+  lastSnapshotKey = key;
+  lastSnapshot = {
     topicsVisited: stored.visited,
     checksCompleted: stored.completed,
     topicsToReview: stored.review,
     demoState: true,
   };
+  return lastSnapshot;
 }
 
 export function markTopicVisited(topicId: ComprehensionTopicId): void {
@@ -77,9 +85,7 @@ export function markTopicVisited(topicId: ComprehensionTopicId): void {
 
 export function recordCheckTopic(topicId: ComprehensionTopicId, correct: boolean): void {
   const stored = readStore();
-  const visited = stored.visited.includes(topicId)
-    ? stored.visited
-    : [...stored.visited, topicId];
+  const visited = stored.visited.includes(topicId) ? stored.visited : [...stored.visited, topicId];
   const completed = stored.completed.includes(topicId)
     ? stored.completed
     : [...stored.completed, topicId];

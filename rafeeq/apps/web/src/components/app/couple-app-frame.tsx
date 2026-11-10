@@ -6,7 +6,6 @@ import { CouplePrimaryNav, CoupleSecondaryNav } from "@/components/app/couple-na
 import { CoupleSessionCard } from "@/components/app/couple-session";
 import { RafeeqLogo } from "@/components/brand/rafeeq-logo";
 import { LiteracyModeToggle } from "@/components/literacy-mode-toggle";
-import { LocaleSwitcher } from "@/components/locale-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { SkipLink } from "@/components/skip-link";
 import { Button } from "@/components/ui/button";
@@ -53,7 +52,6 @@ function MoreMenu({ label }: { label: string }) {
         <DrawerDescription>{t("shell.nav.moreBody")}</DrawerDescription>
         <CoupleSecondaryNav />
         <div className="flex flex-col gap-3 border-t border-border-subtle pt-4">
-          <LocaleSwitcher />
           <LiteracyModeToggle />
         </div>
         <CoupleSessionCard />
@@ -96,7 +94,6 @@ export function CoupleAppFrame({ children }: { children: ReactNode }) {
             </p>
             <ThemeToggle />
           </div>
-          <LocaleSwitcher />
           <LiteracyModeToggle />
         </div>
       </aside>

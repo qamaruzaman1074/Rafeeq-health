@@ -19,6 +19,13 @@ export function clearDemoPersonaCookie(): void {
   document.cookie = `${COOKIE_NAME}=; Path=/; Max-Age=0; SameSite=Lax`;
 }
 
+export function readDemoPersonaCookie(): string | null {
+  if (typeof document === "undefined") {
+    return null;
+  }
+  return readDemoPersonaFromCookieHeader(document.cookie);
+}
+
 export function readDemoPersonaFromCookieHeader(cookieHeader: string | null): string | null {
   if (cookieHeader === null || cookieHeader.length === 0) {
     return null;

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 import { RafeeqLogo } from "@/components/brand/rafeeq-logo";
 import { SiteContainer } from "@/components/layout/site-container";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -141,6 +142,9 @@ export function PublicHeader() {
         </nav>
 
         <div className="ms-auto flex items-center gap-2">
+          <div className="hidden xl:flex">
+            <LocaleSwitcher />
+          </div>
           <Button asChild variant="ghost" className="hidden min-h-11 lg:inline-flex">
             <Link to="/demo">{t("nav.signIn", { ns: "public" })}</Link>
           </Button>
@@ -185,6 +189,9 @@ export function PublicHeader() {
                   >
                     {t("nav.contact", { ns: "public" })}
                   </Link>
+                  <div className="border-t border-border-subtle pt-4">
+                    <LocaleSwitcher />
+                  </div>
                   <Button asChild variant="secondary">
                     <Link
                       to="/demo"

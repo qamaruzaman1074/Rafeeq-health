@@ -66,6 +66,58 @@ test.describe("synthetic dashboard", () => {
     await expect(page.getByText("You are all caught up.")).toBeVisible();
   });
 
+  test("Learn and Check preserve each demo persona on direct entry and refresh", async ({
+    page,
+  }) => {
+    await page.goto("/demo");
+    const personaIds = await page
+      .locator("[data-persona]")
+      .evaluateAll((buttons) => buttons.map((button) => button.getAttribute("data-persona")));
+
+    for (const personaId of personaIds) {
+      if (personaId === null) {
+        continue;
+      }
+      await page.goto("/demo");
+      const personaButton = page.locator(`[data-persona="${personaId}"]`);
+      const personaName = await personaButton.locator(".text-xl").innerText();
+      await personaButton.click();
+      await expect(page).toHaveURL(/\/app$/);
+
+      const pagesNav = page.getByRole("navigation", { name: "Pages" });
+      await pagesNav.getByRole("link", { name: "Learn" }).click();
+      await expect(page).toHaveURL(/\/app\/learn$/);
+      await pagesNav.getByRole("link", { name: "Check" }).click();
+      await expect(page).toHaveURL(/\/app\/check$/);
+      await page.goBack();
+      await expect(page).toHaveURL(/\/app\/learn$/);
+      await expect(page.locator("aside").getByText(personaName, { exact: true })).toBeVisible();
+      await page.goForward();
+      await expect(page).toHaveURL(/\/app\/check$/);
+      await expect(page.locator("aside").getByText(personaName, { exact: true })).toBeVisible();
+
+      await page.goto("/app/learn");
+      await expect(page).toHaveURL(/\/app\/learn$/);
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Learn");
+      await expect(page.locator("aside").getByText(personaName, { exact: true })).toBeVisible();
+      await page.reload();
+      await expect(page).toHaveURL(/\/app\/learn$/);
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Learn");
+      await expect(page.locator("aside").getByText(personaName, { exact: true })).toBeVisible();
+
+      await page.goto("/app/check");
+      await expect(page).toHaveURL(/\/app\/check$/);
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Check");
+      await expect(page.locator("[data-item-id]")).toHaveCount(1);
+      await expect(page.locator("aside").getByText(personaName, { exact: true })).toBeVisible();
+      await page.reload();
+      await expect(page).toHaveURL(/\/app\/check$/);
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Check");
+      await expect(page.locator("[data-item-id]")).toHaveCount(1);
+      await expect(page.locator("aside").getByText(personaName, { exact: true })).toBeVisible();
+    }
+  });
+
   test("settings sign out ends the demo session", async ({ page }) => {
     await page
       .getByRole("navigation", { name: "More" })
