@@ -958,22 +958,30 @@
     },
     "profilesHeading": "أمثلة على مختصين في علم الوراثة",
     "profilesIntro": "أمثلة افتراضية لتوضيح التصميم فقط. هؤلاء ليسوا مقدّمي خدمات حقيقيين، ولا يمكن حجز مواعيد معهم عبر رفيق.",
+    "profilesContactNote": "صور الملفات وعناوين البريد الإلكتروني أمثلة للعرض فقط. عناوين البريد هذه غير حقيقية ولا تتم مراقبتها.",
+    "emailLabel": "بريد تجريبي:",
     "demoProfileBadge": "ملفات تجريبية افتراضية",
     "demoProfiles": [
       {
         "name": "د. أميرة حسن",
         "role": "أخصائية إرشاد وراثي سريري",
-        "experience": "14 عامًا في دعم العائلات بعد فحص الحاملين"
+        "experience": "14 عامًا في دعم العائلات بعد فحص الحاملين",
+        "email": "dr.amira.hassan.demo@gmail.com",
+        "image": "/images/outcomes/genetic-counselling/provider-amira.jpg"
       },
       {
-        "name": "د. جيمس أوكونكوو",
+        "name": "د. عمر المنصوري",
         "role": "استشاري الوراثة السريرية",
-        "experience": "11 عامًا في الحالات الوراثية ونقاشات الاختبار التأكيدي"
+        "experience": "11 عامًا في الحالات الوراثية ونقاشات الاختبار التأكيدي",
+        "email": "dr.omar.almansoori.demo@gmail.com",
+        "image": "/images/outcomes/genetic-counselling/provider-omar.jpg"
       },
       {
         "name": "د. لينا فاروق",
         "role": "أخصائية الإرشاد الوراثي الإنجابي",
-        "experience": "9 أعوام في الإرشاد قبل الحمل وإرشاد الأزواج"
+        "experience": "9 أعوام في الإرشاد قبل الحمل وإرشاد الأزواج",
+        "email": "dr.lina.farouk.demo@gmail.com",
+        "image": "/images/outcomes/genetic-counselling/provider-lina.jpg"
       }
     ],
     "providerSlots": [

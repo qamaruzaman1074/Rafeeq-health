@@ -50,17 +50,23 @@ export function Component() {
       </Section>
 
       <Section wide aria-labelledby="counselling-journey-heading">
-        <div className="grid w-full gap-10 lg:grid-cols-2 lg:items-center">
-          <JourneyIntro />
-          <div className="flex flex-col gap-6">
+        <div className="grid w-full gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.85fr)] lg:items-start lg:gap-10">
+          <div className="flex min-w-0 flex-col gap-6">
+            <JourneyIntro />
+            <JourneyWithNote />
+          </div>
+          <div className="group relative overflow-hidden rounded-3xl border border-teal-100 bg-teal-50 p-2 shadow-[0_24px_60px_rgba(15,118,110,0.12)] lg:sticky lg:top-28">
             <img
-              src="/images/outcomes/genetic-counselling/counselling-conversation.webp"
+              src="/images/couple-professional-conversation.webp"
               alt={t("counsellingPage.imageAlt", { ns: "public" })}
               loading="lazy"
               decoding="async"
-              className="max-h-56 w-full rounded-xl object-cover shadow-surface-md lg:max-h-72"
+              className="aspect-[4/3] w-full rounded-[1.25rem] object-cover object-center transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.03]"
             />
-            <JourneyWithNote />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-2 rounded-[1.25rem] bg-gradient-to-t from-slate-950/20 via-transparent to-white/10"
+            />
           </div>
         </div>
       </Section>
@@ -75,7 +81,9 @@ export function Component() {
 
       <Section wide className="!pb-16 !pt-2">
         <div className="flex w-full flex-col gap-4 rounded-2xl border border-border-subtle bg-secondary p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
-          <p className="max-w-2xl text-base text-secondary-foreground">{t("counsellingPage.ctaNote", { ns })}</p>
+          <p className="max-w-2xl text-base text-secondary-foreground">
+            {t("counsellingPage.ctaNote", { ns })}
+          </p>
           <div className="flex flex-wrap gap-3">
             <Button asChild>
               <Link to="/app/care">{t("counsellingPage.ctaCare", { ns })}</Link>
@@ -95,7 +103,9 @@ function JourneyWithNote() {
   return (
     <div className="flex flex-col gap-3">
       <CounsellingJourneyTimeline />
-      <p className="text-sm text-ink-600">{t("counsellingPage.journey.note", { ns: "public" })}</p>
+      <p className="rounded-xl border border-teal-100 bg-teal-50/70 px-4 py-3 text-sm leading-relaxed text-ink-600">
+        {t("counsellingPage.journey.note", { ns: "public" })}
+      </p>
     </div>
   );
 }

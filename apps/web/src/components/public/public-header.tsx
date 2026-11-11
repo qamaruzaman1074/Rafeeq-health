@@ -148,9 +148,6 @@ export function PublicHeader() {
           <Button asChild variant="ghost" className="hidden min-h-11 lg:inline-flex">
             <Link to="/demo">{t("nav.signIn", { ns: "public" })}</Link>
           </Button>
-          <Button asChild className="hidden min-h-11 sm:inline-flex">
-            <Link to="/demo">{t("cta.getStarted", { ns: "public" })}</Link>
-          </Button>
           <ThemeToggle />
           <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
             <DialogTrigger asChild>
@@ -200,16 +197,6 @@ export function PublicHeader() {
                       }}
                     >
                       {t("nav.signIn", { ns: "public" })}
-                    </Link>
-                  </Button>
-                  <Button asChild>
-                    <Link
-                      to="/demo"
-                      onClick={() => {
-                        setMenuOpen(false);
-                      }}
-                    >
-                      {t("cta.getStarted", { ns: "public" })}
                     </Link>
                   </Button>
                 </div>

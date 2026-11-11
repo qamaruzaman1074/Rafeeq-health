@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { RafeeqLogo } from "@/components/brand/rafeeq-logo";
+import { RafeeqMark } from "@/components/brand/rafeeq-logo";
 import { HeroVisual } from "@/components/layout/hero-visual";
 import { MarketingHero } from "@/components/layout/marketing-hero";
 import { Section } from "@/components/layout/section";
@@ -45,7 +45,7 @@ export function Component() {
   return (
     <div className="flex w-full min-w-0 flex-col">
       <MarketingHero
-        brand={<RafeeqLogo size="hero" />}
+        brand={<HomeBrandReveal />}
         eyebrow={t("hero.eyebrow", { ns: "landing" })}
         title={t("hero.title", { ns: "landing" })}
         description={
@@ -259,6 +259,25 @@ export function Component() {
           </div>
         </div>
       </Section>
+    </div>
+  );
+}
+
+function HomeBrandReveal() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="home-brand-reveal inline-flex items-center gap-3">
+      <RafeeqMark className="home-brand-mark size-14 text-teal-900 sm:size-16" />
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span
+          lang="ar"
+          dir="rtl"
+          className="home-brand-name text-2xl font-semibold text-teal-900 sm:text-3xl"
+        >
+          {t("common.brand.wordmark", { lng: "ar" })}
+        </span>
+      </div>
     </div>
   );
 }

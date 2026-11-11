@@ -2,12 +2,10 @@
 export const publicNavPrimary = [
   { path: "/about", labelKey: "nav.about" },
   { path: "/problem-solution", labelKey: "nav.problemSolution" },
-  { path: "/how-it-works", labelKey: "nav.howItWorks" },
   { path: "/understanding-genetic-risk", labelKey: "nav.risk" },
   { path: "/inherited-conditions", labelKey: "nav.conditions" },
   { path: "/genetic-counselling", labelKey: "nav.counselling" },
   { path: "/trust", labelKey: "nav.trustPrivacy" },
-  { path: "/faq", labelKey: "nav.faq" },
 ] as const;
 
 export const publicNavFooterGroups = [

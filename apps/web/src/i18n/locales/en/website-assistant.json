@@ -1,7 +1,12 @@
 {
   "launcher": "Rafeeq Assistant",
+  "launcherTitle": "Ask Rafeeq",
+  "launcherHint": "Questions? I'm here to help.",
   "title": "Rafeeq Assistant",
   "subtitle": "Your companion for understanding inherited health information.",
+  "ready": "Ready to help",
+  "welcomeHeading": "A clearer path starts with a question",
+  "welcomeSubheading": "Explore trusted Rafeeq resources",
   "welcome": "Answers about Rafeeq use only approved website information. This is education, not personal medical advice.",
   "welcomeMessage": "Hello! Welcome to Rafeeq.\n\nI can help you explore our educational resources about inherited conditions, genetic screening, carrier status, counselling and privacy.\n\nWhat would you like to learn today?",
   "educationNotice": "Educational information only – not a substitute for professional medical advice.",

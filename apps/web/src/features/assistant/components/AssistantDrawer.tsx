@@ -22,8 +22,8 @@ export function AssistantDrawer({ open, onOpenChange, panelId, children }: Assis
         <DialogPrimitive.Content
           id={panelId}
           className={cn(
-            "fixed inset-y-0 end-0 z-50 flex h-full w-full flex-col bg-background text-ink-900 shadow-lg",
-            "border-s border-border-subtle sm:max-w-md md:max-w-lg",
+            "fixed inset-0 z-50 flex h-[100dvh] w-full flex-col overflow-hidden bg-background text-ink-900 shadow-2xl",
+            "border-border-subtle sm:inset-auto sm:bottom-6 sm:end-6 sm:h-[min(42rem,calc(100dvh-3rem))] sm:w-[min(27rem,calc(100vw-3rem))] sm:rounded-3xl sm:border",
             "motion-safe:animate-fade-in motion-reduce:animate-none",
             "focus:outline-none",
           )}

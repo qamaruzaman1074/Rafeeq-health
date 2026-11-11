@@ -19,7 +19,7 @@ export function ChatInput({ value, pending, onChange, onSubmit, inputRef }: Chat
 
   return (
     <form
-      className="flex flex-col gap-2 border-t border-border-subtle bg-card p-4 pt-3"
+      className="flex shrink-0 flex-col gap-2.5 border-t border-border-subtle bg-card/95 p-4 pt-3 shadow-[0_-8px_24px_rgba(15,23,42,0.04)] backdrop-blur sm:px-5"
       onSubmit={(event) => {
         event.preventDefault();
         onSubmit();
@@ -36,7 +36,7 @@ export function ChatInput({ value, pending, onChange, onSubmit, inputRef }: Chat
         value={value}
         disabled={pending}
         data-assistant-autofocus
-        className="min-h-[4.5rem] w-full resize-y rounded-lg border border-border-subtle bg-background px-3 py-2 text-sm text-ink-900"
+        className="min-h-[5rem] w-full resize-y rounded-2xl border border-border-subtle bg-background px-4 py-3 text-sm text-ink-900 shadow-inner shadow-slate-950/[0.02] transition-[border-color,box-shadow] placeholder:text-ink-600/70 focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10"
         placeholder={t("inputPlaceholder")}
         onKeyDown={(event) => {
           if (event.key === "Enter" && !event.shiftKey) {
@@ -46,15 +46,29 @@ export function ChatInput({ value, pending, onChange, onSubmit, inputRef }: Chat
         }}
         onChange={(event) => onChange(event.target.value)}
       />
-      <div className="flex flex-wrap items-center gap-2">
-        <Button type="submit" disabled={pending || trimmed.length === 0 || tooLong}>
-          {pending ? t("sending") : t("send")}
-        </Button>
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-xs text-ink-600">
           {value.length}/{ASSISTANT_QUESTION_LIMIT}
         </p>
+        <Button
+          type="submit"
+          className="min-h-10 rounded-xl px-4 shadow-sm"
+          disabled={pending || trimmed.length === 0 || tooLong}
+        >
+          {pending ? t("sending") : t("send")}
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            className="ms-2 size-4"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Button>
       </div>
-      <p className="text-xs text-ink-600">{t("disclaimer")}</p>
+      <p className="text-[0.7rem] leading-relaxed text-ink-600">{t("disclaimer")}</p>
     </form>
   );
 }

@@ -9,23 +9,27 @@ export function CounsellingJourneyTimeline() {
   const steps = useCopyList<JourneyStep>("counsellingPage.journey.steps", "public");
 
   return (
-    <RevealStagger className="relative flex flex-col gap-4">
+    <RevealStagger className="grid grid-cols-1 gap-3 sm:grid-cols-2">
       {steps.map((item, index) => (
         <article
           key={item.title}
-          className="relative flex gap-4 border-s-2 border-teal-200 ps-5 transition-[border-color] duration-300 motion-safe:hover:border-teal-500"
+          className="group relative flex min-w-0 flex-col gap-3 rounded-2xl border border-teal-100/80 bg-gradient-to-br from-white to-teal-50/60 p-4 shadow-sm transition-[transform,box-shadow,border-color] duration-300 motion-safe:hover:-translate-y-1 motion-safe:hover:border-teal-300 motion-safe:hover:shadow-lg motion-safe:hover:shadow-teal-900/10 sm:p-5"
         >
-          <span
-            className="absolute -start-[0.85rem] top-4 flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-teal-700 bg-teal-50 text-xs font-bold text-teal-900 shadow-sm"
-            aria-hidden="true"
-          >
-            {index + 1}
-          </span>
-          <div className="flex flex-1 flex-col gap-1 rounded-xl border border-border-subtle bg-card p-4 shadow-xs">
-            <p className="text-xs font-semibold uppercase tracking-wide text-teal-800">{item.step}</p>
-            <h3 className="text-lg font-semibold text-teal-900">{item.title}</h3>
-            <p className="text-base leading-relaxed text-ink-600">{item.body}</p>
+          <div className="flex items-center gap-2">
+            <span
+              className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-600 to-cyan-600 text-[0.65rem] font-bold text-white shadow-md shadow-teal-900/15 transition-transform duration-300 motion-safe:group-hover:scale-110"
+              aria-hidden="true"
+            >
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <p className="text-[0.7rem] font-bold uppercase tracking-[0.14em] text-teal-700">
+              {item.step}
+            </p>
           </div>
+          <h3 className="text-base font-semibold leading-snug text-teal-950 sm:text-lg">
+            {item.title}
+          </h3>
+          <p className="text-sm leading-relaxed text-ink-600">{item.body}</p>
         </article>
       ))}
       <span className="sr-only">{t("counsellingPage.journey.heading", { ns: "public" })}</span>
