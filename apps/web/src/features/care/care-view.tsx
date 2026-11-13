@@ -2,7 +2,7 @@ import { useState, useSyncExternalStore } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { getSessionPersona, subscribeSession } from "@/app/session";
+import { getSessionIdentity, getSessionPersona, subscribeSession } from "@/app/session";
 import { AppPageLayout } from "@/components/layout/app-page-layout";
 import { PageHeader } from "@/components/layout/page-header";
 import { EmptyState } from "@/components/empty-state";
@@ -30,6 +30,11 @@ export function CareView() {
   const contact = humanContact(t);
   const queryClient = useQueryClient();
   const personaId = useSyncExternalStore(subscribeSession, getSessionPersona, getSessionPersona);
+  const sessionIdentity = useSyncExternalStore(
+    subscribeSession,
+    getSessionIdentity,
+    getSessionIdentity,
+  );
   const pathwayKey = pathwayQueryKey(personaId);
   const pathway = useQuery({
     queryKey: pathwayKey,
@@ -37,7 +42,7 @@ export function CareView() {
     retry: false,
   });
   const mine = useQuery({
-    queryKey: mineConsentQueryKey(personaId),
+    queryKey: mineConsentQueryKey(sessionIdentity),
     queryFn: fetchMineConsents,
     retry: false,
   });
@@ -80,9 +85,7 @@ export function CareView() {
 
       <CareGuidanceSections />
 
-      <ReferralRequestPreview
-        clinicShareOn={mine.isSuccess ? granted : null}
-      />
+      <ReferralRequestPreview clinicShareOn={mine.isSuccess ? granted : null} />
 
       <section
         className="flex flex-col gap-3 rounded-xl border border-dashed border-teal-700 bg-sand-100 p-6"

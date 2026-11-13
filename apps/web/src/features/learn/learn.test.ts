@@ -116,11 +116,10 @@ describe("learn content blocks", () => {
     );
   });
 
-  it("shows full text in standard mode, short text and icons in simple mode, and controls in voice mode", () => {
+  it("shows the selected text mode without audio controls", () => {
     const standard = renderLearn("standard");
     expect(standard).toContain(">Learn<");
     expect(standard).toContain(">What is a carrier<");
-    expect(standard).toContain("Play audio: What is a carrier");
     expect(standard).toContain("Transcript: What is a carrier");
     expect(standard).toContain("Glossary: carrier");
     expect(standard).toContain("screening test");
@@ -138,7 +137,6 @@ describe("learn content blocks", () => {
     const voice = renderLearn("voice");
     expect(voice).toContain("min-h-20");
     expect(voice).toContain("Show transcript: What is a carrier");
-    expect(voice).toContain("Play audio: What is a carrier");
     expect(voice).toContain("Show transcript: What is a carrier");
     expect(voice).not.toContain("data-module-icon");
     expect(voice).not.toContain('role="region"');

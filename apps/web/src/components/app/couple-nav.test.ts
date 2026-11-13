@@ -13,14 +13,14 @@ describe("couple primary navigation", () => {
     await i18n.changeLanguage("en");
   });
 
-  it("exposes the six couple destinations including Check", () => {
+  it("exposes the six dashboard sections", () => {
     expect(COUPLE_PRIMARY_NAV.map((item) => item.to)).toEqual([
       "/app",
-      "/app/result",
-      "/app/learn",
-      "/app/check",
-      "/app/privacy",
-      "/app/care",
+      "/app/reports",
+      "/app/journey",
+      "/app/partner",
+      "/app/resources",
+      "/app/settings",
     ]);
 
     const html = renderToStaticMarkup(
@@ -45,12 +45,15 @@ describe("couple primary navigation", () => {
 
     expect(html).toContain('aria-label="Pages"');
     expect(html).toContain("Overview");
-    expect(html).toContain("Results");
-    expect(html).toContain("Learn");
-    expect(html).toContain("Check");
-    expect(html).toContain("Privacy");
-    expect(html).toContain("Care");
-    expect(html).toContain('href="/app/check"');
+    expect(html).toContain("My Reports");
+    expect(html).toContain("Health Journey");
+    expect(html).toContain("Partner Sharing");
+    expect(html).toContain("Resources");
+    expect(html).toContain("Settings");
+    expect(html).not.toContain('href="/app/learn"');
+    expect(html).not.toContain('href="/app/check"');
+    expect(html).not.toContain('href="/app/care"');
+    expect(html).not.toContain('href="/app/privacy"');
     expect(html).toContain('aria-current="page"');
   });
 });

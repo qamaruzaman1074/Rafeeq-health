@@ -3,7 +3,7 @@ import { useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSyncExternalStore } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { getSessionPersona, subscribeSession } from "@/app/session";
+import { getSessionIdentity, subscribeSession } from "@/app/session";
 import { AppPageLayout } from "@/components/layout/app-page-layout";
 import { PageHeader } from "@/components/layout/page-header";
 import { EmptyState } from "@/components/empty-state";
@@ -93,22 +93,26 @@ export function PrivacyView() {
   const notify = useNotify();
   const contact = humanContact(t);
   const queryClient = useQueryClient();
-  const personaId = useSyncExternalStore(subscribeSession, getSessionPersona, getSessionPersona);
-  const mineKey = mineConsentQueryKey(personaId);
+  const sessionIdentity = useSyncExternalStore(
+    subscribeSession,
+    getSessionIdentity,
+    getSessionIdentity,
+  );
+  const mineKey = mineConsentQueryKey(sessionIdentity);
   const mine = useQuery({
     queryKey: mineKey,
     queryFn: fetchMineConsents,
     retry: false,
   });
   const audit = useQuery({
-    queryKey: auditQueryKey(personaId),
+    queryKey: auditQueryKey(sessionIdentity),
     queryFn: fetchMyAudit,
     retry: false,
   });
   const receiptIds = mine.data?.map((row) => row.id) ?? [];
   const receiptQueries = useQueries({
     queries: receiptIds.map((id) => ({
-      queryKey: receiptQueryKey(personaId, id),
+      queryKey: receiptQueryKey(sessionIdentity, id),
       queryFn: () => fetchReceipt(id),
       retry: false,
     })),
@@ -143,9 +147,13 @@ export function PrivacyView() {
         request: async () => {
           const list = await postConsent({ scope, granted: next });
           queryClient.setQueryData(mineKey, list);
-          await queryClient.invalidateQueries({ queryKey: partnerConsentQueryKey(personaId) });
-          await queryClient.invalidateQueries({ queryKey: ["consents", "receipt", personaId] });
-          await queryClient.invalidateQueries({ queryKey: auditQueryKey(personaId) });
+          await queryClient.invalidateQueries({
+            queryKey: partnerConsentQueryKey(sessionIdentity),
+          });
+          await queryClient.invalidateQueries({
+            queryKey: ["consents", "receipt", sessionIdentity],
+          });
+          await queryClient.invalidateQueries({ queryKey: auditQueryKey(sessionIdentity) });
         },
       });
       setOverrides((current) => {

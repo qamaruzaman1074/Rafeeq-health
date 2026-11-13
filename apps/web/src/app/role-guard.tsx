@@ -3,18 +3,23 @@ import { Navigate, Outlet, redirect } from "react-router";
 import {
   canAccess,
   getSessionRole,
+  isSupabaseAuthenticated,
   restoreGuestSessionFromCookie,
   subscribeSession,
   type GuardRole,
 } from "@/app/session";
+import { isSupabaseConfigured, restoreSupabaseSession } from "@/features/auth/supabase-auth";
 
 export function roleGuardLoader(allow: readonly GuardRole[]) {
-  return () => {
+  return async () => {
     restoreGuestSessionFromCookie();
-    if (!canAccess(getSessionRole(), allow)) {
-      return redirect("/");
+    if (canAccess(getSessionRole(), allow)) {
+      return null;
     }
-    return null;
+    if (getSessionRole() === null && !isSupabaseAuthenticated() && isSupabaseConfigured()) {
+      await restoreSupabaseSession();
+    }
+    return canAccess(getSessionRole(), allow) ? null : redirect("/");
   };
 }
 

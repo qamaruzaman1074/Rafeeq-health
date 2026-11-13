@@ -53,6 +53,7 @@ export const publicSitePaths = new Set([
   "/faq",
   "/trust",
   "/demo",
+  "/auth",
   "/privacy-policy",
   "/terms",
   "/legal",

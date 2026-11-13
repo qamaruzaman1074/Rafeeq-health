@@ -7,7 +7,6 @@ import { EmptyState } from "@/components/empty-state";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AudioButton } from "@/features/learn/audio-button";
 import { BlockBody } from "@/features/learn/block-body";
 import { readLocaleBlock, type LocaleCode } from "@/features/learn/blocks";
 import { EducationGuide } from "@/features/learn/education-guide";
@@ -124,13 +123,6 @@ function LearnModuleCard({
               large={false}
             />
           ) : null}
-          <AudioButton
-            blockId={spokenId}
-            locale={locale}
-            title={title}
-            moduleId={module.id}
-            large={mode === "voice"}
-          />
           {mode === "voice" ? (
             <Transcript
               title={title}
@@ -193,7 +185,10 @@ export function LearnView() {
         <ArabicReviewNotice />
         <LearningJourney />
         <p className="text-sm">
-          <a href="/informed-choices" className="font-medium text-teal-800 underline-offset-4 hover:underline">
+          <a
+            href="/informed-choices"
+            className="font-medium text-teal-800 underline-offset-4 hover:underline"
+          >
             {t("page.informedChoicesLink", { ns: "learn" })}
           </a>
         </p>

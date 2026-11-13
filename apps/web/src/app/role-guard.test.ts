@@ -33,6 +33,7 @@ const requiredPaths = [
   "/terms",
   "/trust",
   "/demo",
+  "/auth",
   "/app",
   "/app/result",
   "/app/couple",

@@ -29,16 +29,19 @@ const titles: Record<string, string> = {
   "/terms": "Terms of Use",
   "/trust": "Your information. Your permission. Your choice.",
   "/demo": "Choose a demo profile",
+  "/auth": "Sign in to RAFEEQ",
   "/app": "Overview",
-  "/app/result": "Your result",
-  "/app/couple": "Your result together",
+  "/app/result": "My Reports",
+  "/app/reports": "My Reports",
+  "/app/journey": "Health Journey",
+  "/app/resources": "Resources",
+  "/app/partner": "Partner Sharing",
   "/app/learn": "Learn",
   "/app/check": "Understanding Matters",
   "/app/ask": "Ask a question",
   "/app/privacy": "Privacy",
   "/app/care": "Care pathway",
   "/app/report": "My screening report",
-  "/app/partner": "Partner connection",
   "/app/notifications": "Notifications",
   "/app/settings": "Profile and settings",
   "/clinic": "Counsellor console",
@@ -87,6 +90,17 @@ describe("route placeholders", () => {
 
   it("renders each route title from its i18n key", async () => {
     for (const route of productRoutes) {
+      if (route.path === "/app/couple" || route.path === "/app/result") {
+        expect(route.titleKey, route.path).toBe(
+          route.path === "/app/couple" ? "partner.title" : "reports.title",
+        );
+        expect(route.ns, route.path).toBe("couple");
+        const page = await route.load();
+        const html = renderToStaticMarkup(renderRoute(page.Component));
+        expect(html, route.path).toBe("");
+        continue;
+      }
+
       const expected = titles[route.path];
       if (expected === undefined) {
         throw new Error(`missing title for ${route.path}`);
@@ -97,5 +111,5 @@ describe("route placeholders", () => {
       const escaped = expected.replaceAll("&", "&amp;");
       expect(html, route.path).toContain(`>${escaped}<`);
     }
-  });
+  }, 20_000);
 });

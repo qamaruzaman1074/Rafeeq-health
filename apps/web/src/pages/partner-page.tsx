@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { AppPageLayout } from "@/components/layout/app-page-layout";
@@ -24,9 +24,15 @@ import {
 } from "@/features/partner/partner-demo";
 import { useCopyList } from "@/i18n/copy-list";
 import { PartnerInvitationFlow } from "@/features/partner/partner-invitation-flow";
+import { useSessionState } from "@/lib/use-session-state";
+
+const INVITATION_CODE_CHARACTERS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const INVITATION_CODE_PATTERN = /^[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{4}$/;
 
 function demoCode(): string {
-  return `RAF-INV-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+  const bytes = globalThis.crypto.getRandomValues(new Uint8Array(4));
+  const suffix = Array.from(bytes, (byte) => INVITATION_CODE_CHARACTERS[byte & 31]).join("");
+  return `RAF-INV-${suffix}`;
 }
 
 function formatTime(iso: string): string {
@@ -41,9 +47,14 @@ const panelClass =
 
 export function Component() {
   const { t } = useTranslation();
-  const [state, setState] = useState<PartnerDemoState>(initialPartnerState);
+  const [state, setState] = useSessionState<PartnerDemoState>(
+    "rafeeq.demo.partner",
+    initialPartnerState,
+  );
   const [confirm, setConfirm] = useState<ConsentCategory | null>(null);
   const [announcement, setAnnouncement] = useState("");
+  const [partnerCode, setPartnerCode] = useState("");
+  const [codeError, setCodeError] = useState<string | null>(null);
   const outcomes = useCopyList<{ value: string; label: string }>("partner.risk.outcomes", "couple");
 
   const dispatch = (action: PartnerAction) => {
@@ -55,6 +66,28 @@ export function Component() {
   const risk = sharedRiskState(state);
   const categoryLabel = (category: ConsentCategory) =>
     t(`partner.consent.categories.${category}.title`, { ns: "couple" });
+
+  const submitPartnerCode = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const suffix = partnerCode
+      .trim()
+      .toUpperCase()
+      .replace(/^RAF-INV-/, "");
+    if (!INVITATION_CODE_PATTERN.test(suffix)) {
+      setCodeError(t("partner.enter.invalid", { ns: "couple" }));
+      return;
+    }
+    if (status === "pending" || status === "accepted") {
+      setCodeError(t("partner.enter.unavailable", { ns: "couple" }));
+      return;
+    }
+    const code = `RAF-INV-${suffix}`;
+    dispatch({ type: "invite", code });
+    dispatch({ type: "simulateAccept" });
+    setPartnerCode("");
+    setCodeError(null);
+    setAnnouncement(t("partner.enter.connected", { ns: "couple" }));
+  };
 
   return (
     <AppPageLayout width="wide">
@@ -71,6 +104,9 @@ export function Component() {
       <p className="rounded-lg border border-amber-200 bg-amber-50/80 p-4 text-sm text-ink-900">
         {t("partner.prototypeNotice", { ns: "couple" })}
       </p>
+      <Button asChild variant="secondary" className="w-fit">
+        <Link to="/app/privacy">{t("partner.managePrivacy", { ns: "couple" })}</Link>
+      </Button>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
         <section aria-labelledby="partner-invite" className={panelClass}>
@@ -101,6 +137,52 @@ export function Component() {
               </Button>
             ) : null}
           </div>
+        </section>
+
+        <section aria-labelledby="partner-enter-code" className={panelClass}>
+          <h2 id="partner-enter-code" className="text-lg font-semibold text-teal-900">
+            {t("partner.enter.heading", { ns: "couple" })}
+          </h2>
+          <p className="text-sm text-ink-600">{t("partner.enter.body", { ns: "couple" })}</p>
+          <form
+            className="flex flex-col items-start gap-3 sm:flex-row sm:items-end"
+            onSubmit={submitPartnerCode}
+          >
+            <div className="flex w-full max-w-sm flex-col gap-2">
+              <label
+                htmlFor="partner-invitation-code"
+                className="text-sm font-semibold text-teal-900"
+              >
+                {t("partner.enter.codeLabel", { ns: "couple" })}
+              </label>
+              <input
+                id="partner-invitation-code"
+                name="partnerInvitationCode"
+                type="text"
+                lang="en"
+                dir="ltr"
+                autoComplete="off"
+                autoCapitalize="characters"
+                maxLength={12}
+                value={partnerCode}
+                aria-invalid={codeError !== null}
+                onChange={(event) => {
+                  setPartnerCode(event.target.value.toUpperCase());
+                  setCodeError(null);
+                }}
+                className="min-h-12 w-full rounded-lg border border-border-subtle bg-background px-3 font-mono text-base tracking-[0.12em] text-ink-900 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-teal-500"
+                placeholder={t("partner.enter.codePlaceholder", { ns: "couple" })}
+              />
+            </div>
+            <Button type="submit" disabled={status === "pending" || connected}>
+              {t("partner.enter.submit", { ns: "couple" })}
+            </Button>
+          </form>
+          {codeError !== null ? (
+            <p role="alert" className="text-sm font-medium text-danger-600">
+              {codeError}
+            </p>
+          ) : null}
         </section>
 
         <section aria-labelledby="partner-side" className={panelClass}>

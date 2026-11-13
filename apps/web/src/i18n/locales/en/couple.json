@@ -1,57 +1,173 @@
 {
   "home": {
     "title": "Overview",
-    "welcome": "Welcome, {{names}}.",
-    "welcomeGuest": "Welcome. This is a guest demo session.",
-    "welcomeRegion": "Welcome",
-    "welcomeBody": "This overview uses only information stored for this visit. It is a demo example, not a personal medical record.",
-    "intro": "A calm place to see screening notes, learning, counselling, and sharing — then choose a next page when you are ready.",
-    "loadError": "Some overview details could not be loaded.",
-    "results": {
-      "title": "Screening notes",
-      "lead": "Carrier entries come from the result already stored for this session.",
-      "empty": "No screening notes are available for this session.",
-      "none": "No carrier entries were returned for this demo session.",
-      "listed": "A carrier entry is listed for this demo session.",
-      "action": "Open results"
+    "intro": "A personal space for synthetic demonstrations, your learning journey, privacy choices, and support resources.",
+    "askAction": "Ask Rafeeq",
+    "welcome": "Welcome, {{name}}",
+    "memberName": "Rafeeq member",
+    "accountLoadError": "Your account name could not be loaded. You can continue using your dashboard.",
+    "heroEyebrow": "Your health information, your choice",
+    "heroTitle": "A calmer way to understand your screening journey",
+    "heroBody": "Prepare your report access code, review results when you are ready, and manage sharing with clear choices at every step.",
+    "heroAlt": "A clinical laboratory prepared for screening analysis.",
+    "quickLinksLabel": "Your dashboard sections",
+    "summary": {
+      "heading": "Your account at a glance",
+      "reports": "My reports",
+      "reportsDetail": "Synthetic demo files in your account",
+      "learning": "Learning checks",
+      "learningDetail": "Completed in your learning journey",
+      "progressLabel": "Journey progress",
+      "progress": "{{completed}} of {{total}}",
+      "progressDetail": "Learning checks completed",
+      "loading": "…"
     },
-    "understanding": {
-      "title": "Understanding",
-      "lead": "Reading mode and the teach-back check are stored on this device for the visit.",
-      "reading": "Reading mode: {{mode}}",
-      "topics": "{{count}} explanation topics are available in Learn.",
-      "checkOpen": "The teach-back check is still open for this visit.",
-      "checkDone": "The teach-back check is marked complete for this visit.",
-      "learnAction": "Open Learn",
-      "checkAction": "Open Check",
-      "note": "Topic-by-topic completion is not stored, so this page does not show a learning score."
+    "journeyHeading": "Your health journey",
+    "journeyBody": "Explore screening, inherited risk, prevention, and support at your own pace.",
+    "journeyAction": "Continue journey",
+    "progress": {
+      "indicatorsLabel": "Dashboard progress indicators",
+      "journey": "Journey Progress",
+      "learning": "Learning Progress",
+      "profile": "Profile Completion",
+      "journeyActivitiesDetail": "{{completed}} of {{total}} journey activities completed",
+      "topicsDetail": "{{completed}} of {{total}} topics explored",
+      "checksDetail": "{{completed}} of {{total}} learning checks completed",
+      "profileDetail": "{{completed}} of {{total}} profile details completed",
+      "healthJourney": "Health Journey",
+      "resources": "Learning Resources",
+      "activities": "Completed Activities"
     },
-    "counselling": {
-      "title": "Counselling",
-      "lead": "Care steps come from the pathway already stored for this session.",
-      "empty": "No care pathway is available for this session.",
-      "current": "Current care step: {{step}}.",
-      "status": "Referral status: {{status}}.",
-      "none": "No counselling request is recorded yet.",
-      "action": "Open Care"
+    "activity": {
+      "heading": "Recent activity",
+      "openReports": "Open My Reports",
+      "openReport": "Enter code to view",
+      "codeLabel": "Report code",
+      "loading": "Loading your recent activity…",
+      "loadError": "Recent report activity could not be loaded.",
+      "retry": "Try again",
+      "demoCode": "A demonstration report code is ready. It unlocks fictional sample content only.",
+      "learning": "Learning checks completed: {{count}}.",
+      "empty": "Your report and learning activity will appear here as you use the dashboard."
     },
-    "privacy": {
-      "title": "Privacy and sharing",
-      "lead": "Sharing choices come from the consents already stored for this session.",
-      "empty": "No sharing details are available for this session.",
-      "own": "Your own result stays available to you.",
-      "choiceOn": "on",
-      "choiceOff": "off",
-      "partnerOn": "Both partners have allowed overlap sharing.",
-      "partnerDeclined": "Overlap stays hidden because sharing was declined.",
-      "partnerMissing": "Overlap stays hidden until both partners allow sharing.",
-      "action": "Open Privacy"
+    "upload": {
+      "title": "Create a synthetic demo report",
+      "lead": "Signed-in users can save a generated demonstration file in private storage; guest mode only creates a code. Never use real genetic, medical, or personal health records.",
+      "prototypeNotice": "Demonstration only: RAFEEQ creates fictional sample content. No file from your device or real health information is uploaded or stored.",
+      "fileLabel": "App-generated synthetic demo file",
+      "demoFileLabel": "Synthetic demo content (not saved in guest mode)",
+      "fileHelp": "Signed-in mode generates and checks a small plain-text sample. Guest mode creates a code only; no file is stored.",
+      "customCodeLabel": "Choose your own code (optional)",
+      "customCodePlaceholder": "6 digits",
+      "codeFormat": "Use exactly 6 digits. Leave blank for a generated code.",
+      "createCode": "Create report code",
+      "uploadButton": "Save synthetic demo file",
+      "saving": "Saving demonstration…",
+      "codeHeading": "Your report access code",
+      "codeReady": "Enter this code on My Reports to view the fictional sample report.",
+      "privateCodeHelp": "Keep this code for the My Reports page. It identifies your report but does not replace account sign-in.",
+      "privateNotice": "Only the app-generated synthetic text file is saved to private, account-owned Supabase storage. It contains no real health information and is not analyzed. Your code is an identifier, not a substitute for signing in.",
+      "demoNotice": "Guest demonstration only: no file is uploaded or stored. The code unlocks fictional sample content only.",
+      "openReports": "Go to My Reports",
+      "copyCode": "Copy code",
+      "feedback": {
+        "fileRequired": "The prototype generates its own synthetic demonstration file.",
+        "invalidCode": "Use exactly 6 digits for your code.",
+        "codeGenerationError": "A code could not be created. Please try again.",
+        "codeCreated": "Your prototype code is ready. No file was uploaded or stored.",
+        "uploaded": "Your synthetic demonstration file was saved privately. Keep this code and enter it on My Reports to access the file.",
+        "demoCodeCreated": "Your demonstration code is ready. No file was uploaded or stored.",
+        "uploadError": "The report could not be saved. Please try again.",
+        "codeCopied": "Code copied.",
+        "copyError": "The code could not be copied. Select and copy it manually."
+      }
     },
-    "next": {
-      "title": "Next steps",
-      "intro": "Move at your own pace. These links open existing pages in this app.",
-      "suggested": "A calm next step: {{label}}."
+    "resultsCard": {
+      "title": "My Reports",
+      "description": "Your report file stays private until you enter its code.",
+      "action": "Open My Reports"
+    },
+    "privacyCard": {
+      "title": "Privacy",
+      "description": "Review your consent choices and keep sharing within the permissions you set.",
+      "action": "Manage privacy"
+    },
+    "askCard": {
+      "title": "Ask Rafeeq",
+      "description": "Open the assistant for educational information and help navigating the prototype.",
+      "action": "Open assistant"
+    },
+    "journeyCard": {
+      "title": "Health Journey",
+      "description": "Learn about reproductive potential, inherited risk, prevention, and support.",
+      "action": "Explore journey"
+    },
+    "partnerCard": {
+      "title": "Partner Sharing",
+      "description": "Review the sharing demonstration and manage your real privacy preferences separately.",
+      "action": "Review sharing"
+    },
+    "resourcesCard": {
+      "title": "Resources",
+      "description": "Browse trusted educational guides, frequently asked questions, and counselling information.",
+      "action": "Browse resources"
     }
+  },
+  "reports": {
+    "title": "My Reports",
+    "intro": "Only app-generated synthetic demonstration files are stored, privately in your signed-in account. Enter a code to view file details or prepare a temporary download link.",
+    "demoIntro": "Guest demonstration only: enter the code created on Overview to view fictional sample content. No file is uploaded or stored.",
+    "demoTitle": "Sample screening report",
+    "demoDescription": "This is fictional educational content. It is not your uploaded report and has no clinical interpretation.",
+    "demoDate": "Demonstration content",
+    "codeHeading": "Enter your report code",
+    "codeIntro": "The code helps select your report within your signed-in account. Account sign-in and row-level security remain the access controls.",
+    "codeLabel": "6-digit report code",
+    "codePlaceholder": "Enter your code",
+    "find": "Find report",
+    "invalidCode": "Enter exactly 6 digits.",
+    "notFound": "No report with that code was found in your account.",
+    "lookupError": "The report could not be looked up. Please try again.",
+    "availableHeading": "Available reports",
+    "loading": "Loading your reports…",
+    "loadError": "Your reports could not be loaded.",
+    "retry": "Try again",
+    "empty": "No synthetic demonstration files have been saved to this account yet.",
+    "available": "Available",
+    "listFileLabel": "Synthetic demonstration file",
+    "listCodeLabel": "Your report code",
+    "listCodeGate": "Enter this code above to view report details. Sign-in is still required.",
+    "enterCodeAction": "Enter report code",
+    "viewDetails": "View details",
+    "details": {
+      "title": "Report details",
+      "date": "Date added",
+      "fileType": "File type",
+      "fileSize": "File size",
+      "sizeValue": "{{size}} MB",
+      "noAnalysis": "This app-generated file contains no real genetic, medical, or personal health information. RAFEEQ does not analyze it.",
+      "prepareDownload": "Prepare private download",
+      "preparing": "Preparing…",
+      "openFile": "Open file",
+      "openError": "A private download link could not be prepared. Please try again.",
+      "delete": "Delete report",
+      "deleting": "Deleting…",
+      "deleteConfirm": "Permanently delete this report file and its record?",
+      "deleteError": "The report could not be deleted. Please try again."
+    }
+  },
+  "journeyHub": {
+    "title": "Health Journey",
+    "intro": "Explore information about reproductive potential and inherited risk, and find prevention and counselling support at your own pace.",
+    "openPathway": "Explore this topic"
+  },
+  "resources": {
+    "title": "Resources",
+    "intro": "Find educational articles, practical guides, frequently asked questions, and counselling information.",
+    "searchLabel": "Search resources",
+    "searchPlaceholder": "Search topics",
+    "open": "Open resource",
+    "noResults": "No resources match your search. Try another term."
   },
   "together": {
     "title": "Your result together"
@@ -170,15 +286,30 @@
     "questionsLabel": "Questions you could ask a counsellor",
     "nextLabel": "Suggested next step",
     "disclaimer": "This explanation is educational and based on a demo example. It is not a clinical interpretation or diagnosis.",
-    "uploadHeading": "Report upload",
-    "upload": "Report upload is not available yet. This demo uses an example report, and no clinical genetic analysis is performed."
+    "uploadHeading": "About this prototype",
+    "upload": "The selected file is not uploaded, opened, or stored. This page displays fictional sample data only and performs no clinical genetic analysis.",
+    "access": {
+      "intro": "Enter your report code to unlock this visit's fictional sample report."
+    }
+  },
+  "reportAccess": {
+    "title": "Enter your report code",
+    "intro": "Use the code created on Overview. The sample report remains hidden until the code matches.",
+    "prototypeNotice": "Prototype only: this is a front-end demonstration. The code is not server-verified and unlocks fictional sample data only.",
+    "noCode": "No report code has been created for this visit yet.",
+    "createCodeLink": "Create a code on Overview",
+    "codeLabel": "Your 6-digit report code",
+    "codePlaceholder": "Enter your code",
+    "submit": "View sample report",
+    "invalidCode": "That code does not match the code created on Overview."
   },
   "partner": {
-    "title": "Partner connection",
+    "title": "Partner Sharing",
     "eyebrow": "Consent-based sharing",
-    "intro": "Invite a partner only if you want to. Each of you keeps your own report. Only the categories you switch on can be used for an educational comparison.",
+    "intro": "Explore how consent-based sharing could work. This prototype does not connect partner accounts or share uploaded reports.",
     "syntheticNote": "Demo invitation — no message will be sent.",
-    "prototypeNotice": "Prototype interaction – partner demo state is kept in memory only for this visit. It is not saved to device storage and does not submit sharing requests.",
+    "prototypeNotice": "Prototype only: invitations, permissions, and comparisons are simulated in this browser session. They do not connect accounts or access uploaded reports. Use Privacy to manage your actual account consent.",
+    "managePrivacy": "Manage account privacy",
     "sharingChoice": {
       "heading": "Sharing Is Your Choice",
       "intro": "An invitation does not automatically provide access to personal screening results. Each individual should understand and authorize the information they choose to share.",
@@ -205,6 +336,16 @@
       "simulateAccept": "Simulate partner accepting",
       "simulateDecline": "Simulate partner declining",
       "codeLabel": "Invitation code"
+    },
+    "enter": {
+      "heading": "Enter a partner code",
+      "body": "Enter a demo invitation code to simulate a connection. Codes are not verified and do not provide access to real accounts or reports.",
+      "codeLabel": "Partner invitation code",
+      "codePlaceholder": "RAF-INV-ABCD",
+      "submit": "Simulate connection",
+      "invalid": "Enter a code in the format RAF-INV-ABCD using supported characters.",
+      "unavailable": "Cancel or reset the current demonstration before entering another code.",
+      "connected": "This code was accepted in the local demonstration. No partner account was contacted."
     },
     "consent": {
       "heading": "What you share",
@@ -314,9 +455,15 @@
   },
   "settingsPage": {
     "title": "Profile and settings",
-    "intro": "Manage how RAFEEQ looks and what it sends you. Profile details are a demo example.",
+    "intro": "Manage display, notifications, and privacy. Demo sessions show synthetic profile details; signed-in accounts use their own profile.",
     "profileHeading": "Profile",
     "nameLabel": "Display name",
+    "loadingProfile": "Loading profile…",
+    "editNameLabel": "Edit display name",
+    "saveProfile": "Save profile",
+    "savingProfile": "Saving…",
+    "profileSaved": "Your display name was saved.",
+    "profileUpdateError": "Your display name could not be saved. Please try again.",
     "nameValue": "Ahmed Hassan (demo profile)",
     "languageLabel": "Language",
     "languageValue": "English",
@@ -330,20 +477,21 @@
     "referral": "Referral status updates",
     "saved": "Preference saved for this session.",
     "privacyHeading": "Privacy",
-    "privacyBody": "Sharing permissions and the activity history live in Privacy and Partner connection.",
+    "privacyBody": "Manage account consent in Privacy. Partner Sharing is a separate prototype demonstration.",
     "privacyLink": "Open privacy controls",
-    "partnerLink": "Open partner connection",
+    "partnerLink": "Open Partner Sharing",
     "securityHeading": "Account security",
-    "securityBody": "Password sign-in, password reset and account recovery are not available yet. This demo uses temporary sessions.",
+    "securityBody": "Supabase accounts use email and password. Demo profiles continue to use separate temporary sessions.",
     "signOut": "Sign out",
-    "signOutBody": "Ends this demonstration session on this device."
-  },
-  "dashboardExtras": {
-    "heading": "Your next steps",
-    "report": "Review your screening report",
-    "partner": "Manage partner connection",
-    "notifications": "View notifications",
-    "welcome": "Welcome back. Your genetic information deserves clear explanations and careful handling.",
-    "welcomeBody": "Review your information, explore what your findings mean, and choose the next step that feels right for you."
+    "signOutBody": "Signs out of your Supabase account or ends the demonstration session on this device.",
+    "deleteProfile": "Delete profile",
+    "deletingProfile": "Deleting profile...",
+    "deleteProfileBody": "This removes only your profile record. It does not delete your sign-in account or other app data.",
+    "deleteProfileConfirm": "Delete your profile record? Your Supabase sign-in account and other data will remain.",
+    "profileDeleted": "Your profile record was deleted. Your sign-in account remains active.",
+    "profileNotFound": "No profile record was found for this account.",
+    "noProfile": "No profile record",
+    "profileDeleteError": "Your profile could not be deleted. Please try again.",
+    "signOutError": "You could not be signed out. Please try again."
   }
 }

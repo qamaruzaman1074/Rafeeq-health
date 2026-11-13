@@ -10,6 +10,8 @@ import {
   type DemoScreeningFinding,
   type DemoScreeningStatus,
 } from "@/features/demo-report/demo-report";
+import { ReportCodeGate } from "@/features/report-access/report-code-gate";
+import { usePrototypeReportAccess } from "@/features/report-access/prototype-report-access";
 import { useCopyList } from "@/i18n/copy-list";
 
 const statusVariant: Record<DemoScreeningStatus, BadgeVariant> = {
@@ -116,6 +118,20 @@ function DemoReportLabel() {
 
 export function Component() {
   const { t } = useTranslation();
+  const reportAccess = usePrototypeReportAccess();
+  if (!reportAccess.unlocked) {
+    return (
+      <AppPageLayout width="wide">
+        <PageHeader
+          eyebrow={<DemoReportLabel />}
+          title={t("report.title", { ns: "couple" })}
+          description={t("report.access.intro", { ns: "couple" })}
+        />
+        <ReportCodeGate namespace="couple" />
+      </AppPageLayout>
+    );
+  }
+
   const meta = [
     ["name", demoReport.patientName],
     ["id", demoReport.id],

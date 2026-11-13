@@ -49,7 +49,11 @@
     "nav": {
       "label": "Pages",
       "overview": "Overview",
-      "results": "Results",
+      "myReports": "My Reports",
+      "healthJourney": "Health Journey",
+      "partnerSharing": "Partner Sharing",
+      "resources": "Resources",
+      "results": "Result",
       "learn": "Learn",
       "check": "Check",
       "privacy": "Privacy",
@@ -70,11 +74,11 @@
       }
     },
     "session": {
-      "guest": "Demo session",
-      "current": "Current session",
-      "none": "No session on this device.",
-      "noPersona": "No profile selected.",
-      "choose": "Switch profile"
+      "account": "Account",
+      "welcome": "Welcome",
+      "welcomeName": "Welcome, {{name}}",
+      "defaultName": "Rafeeq member",
+      "profileError": "Your account name could not be loaded."
     },
     "demoLabel": "Demo example"
   },

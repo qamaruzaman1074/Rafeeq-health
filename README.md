@@ -35,7 +35,7 @@ Rafeeq/
 | i18n | i18next (English namespaces) |
 | Demo API | MSW + in-memory mock handlers |
 | Tests | Vitest, Playwright, axe |
-| Backend (planned) | Firebase Auth, Cloud Firestore, Firebase Hosting (Spark) |
+| Backend setup | Supabase Auth and Postgres schema with row-level security; product data APIs still use mocks |
 
 Firebase client initialization and security rules live in the repo; **application data is not wired to Firestore yet**. See `rafeeq/docs/setup/firebase.md`.
 

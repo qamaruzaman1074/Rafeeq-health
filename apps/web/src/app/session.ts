@@ -11,6 +11,8 @@ export type GuardRole = Exclude<SessionRole, "guest">;
 // authentication credential.
 let currentRole: SessionRole | null = null;
 let currentPersonaId: string | null = null;
+let currentSupabaseUserId: string | null = null;
+let supabaseAuthenticated = false;
 
 const listeners = new Set<() => void>();
 
@@ -28,12 +30,22 @@ export function getSessionPersona(): string | null {
   return currentPersonaId;
 }
 
+export function getSessionIdentity(): string | null {
+  return supabaseAuthenticated ? currentSupabaseUserId : currentPersonaId;
+}
+
+export function isSupabaseAuthenticated(): boolean {
+  return supabaseAuthenticated;
+}
+
 export function setSessionPersona(personaId: string | null): void {
   currentPersonaId = personaId;
   emit();
 }
 
 export function setSessionRole(role: SessionRole | null): void {
+  supabaseAuthenticated = false;
+  currentSupabaseUserId = null;
   currentRole = role;
   if (role === null) {
     currentPersonaId = null;
@@ -41,6 +53,15 @@ export function setSessionRole(role: SessionRole | null): void {
   if (role !== "guest") {
     clearDemoPersonaCookie();
   }
+  emit();
+}
+
+export function setAuthenticatedSession(role: GuardRole, userId: string): void {
+  currentRole = role;
+  currentPersonaId = null;
+  currentSupabaseUserId = userId;
+  supabaseAuthenticated = true;
+  clearDemoPersonaCookie();
   emit();
 }
 
@@ -58,6 +79,8 @@ export function restoreGuestSessionFromCookie(): void {
   }
   currentRole = "guest";
   currentPersonaId = personaId;
+  currentSupabaseUserId = null;
+  supabaseAuthenticated = false;
   emit();
 }
 

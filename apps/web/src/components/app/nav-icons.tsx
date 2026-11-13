@@ -12,6 +12,7 @@ export type CoupleNavIconId =
   | "settings"
   | "report"
   | "partner"
+  | "resources"
   | "notifications"
   | "more";
 
@@ -107,6 +108,13 @@ export function CoupleNavIcon({ id }: { id: CoupleNavIconId }) {
           <circle cx="8" cy="9" r="2.75" />
           <circle cx="16" cy="9" r="2.75" />
           <path d="M3.5 19c.6-2.5 2.3-4 4.5-4s3.9 1.5 4.5 4M11.5 19c.6-2.5 2.3-4 4.5-4s3.9 1.5 4.5 4" />
+        </IconFrame>
+      );
+    case "resources":
+      return (
+        <IconFrame>
+          <path d="M5 4.5h14v15H5z" />
+          <path d="M8 8h8M8 11.5h8M8 15h5" />
         </IconFrame>
       );
     case "notifications":

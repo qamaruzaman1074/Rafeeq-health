@@ -146,7 +146,7 @@ export function PublicHeader() {
             <LocaleSwitcher />
           </div>
           <Button asChild variant="ghost" className="hidden min-h-11 lg:inline-flex">
-            <Link to="/demo">{t("nav.signIn", { ns: "public" })}</Link>
+            <Link to="/auth">{t("nav.signIn", { ns: "public" })}</Link>
           </Button>
           <ThemeToggle />
           <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
@@ -191,7 +191,7 @@ export function PublicHeader() {
                   </div>
                   <Button asChild variant="secondary">
                     <Link
-                      to="/demo"
+                      to="/auth"
                       onClick={() => {
                         setMenuOpen(false);
                       }}

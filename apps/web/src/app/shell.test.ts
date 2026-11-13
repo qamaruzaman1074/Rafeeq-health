@@ -59,7 +59,7 @@ describe("app shell", () => {
     expect(html).not.toContain("Arabic-Indic");
   });
 
-  it("renders couple primary navigation and a guest session area", () => {
+  it("renders the three dashboard sections and a welcome area without reading controls", () => {
     setSessionRole("guest");
     const html = renderToStaticMarkup(
       createElement(
@@ -85,10 +85,16 @@ describe("app shell", () => {
       ),
     );
     expect(html).toContain("Overview");
-    expect(html).toContain('href="/app/check"');
-    expect(html).toContain("Demo session");
-    expect(html).toContain("Switch profile");
-    expect(html).toContain("More");
+    expect(html).toContain('href="/app/result"');
+    expect(html).toContain('href="/app/privacy"');
+    expect(html).toContain("Welcome");
+    expect(html).toContain("English (EN)");
+    expect(html).toContain("العربية (AR)");
+    expect(html).not.toContain('href="/app/learn"');
+    expect(html).not.toContain('href="/app/check"');
+    expect(html).not.toContain("Standard");
+    expect(html).not.toContain("Simple");
+    expect(html).not.toContain("Voice");
     expect(html).toContain('href="#main"');
   });
 });

@@ -49,7 +49,11 @@
     "nav": {
       "label": "الصفحات",
       "overview": "نظرة عامة",
-      "results": "النتائج",
+      "myReports": "تقاريري",
+      "healthJourney": "رحلتي الصحية",
+      "partnerSharing": "المشاركة مع الشريك",
+      "resources": "المصادر",
+      "results": "النتيجة",
       "learn": "تعلّم",
       "check": "تحقّق",
       "privacy": "الخصوصية",
@@ -70,11 +74,11 @@
       }
     },
     "session": {
-      "guest": "جلسة تجريبية",
-      "current": "الجلسة الحالية",
-      "none": "لا توجد جلسة على هذا الجهاز.",
-      "noPersona": "لم يُختر ملف.",
-      "choose": "تبديل الملف"
+      "account": "الحساب",
+      "welcome": "مرحبًا",
+      "welcomeName": "مرحبًا، {{name}}",
+      "defaultName": "مستخدم رفيق",
+      "profileError": "تعذّر تحميل اسم حسابك."
     },
     "demoLabel": "مثال تجريبي"
   },

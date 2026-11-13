@@ -2,344 +2,435 @@ import { useQuery } from "@tanstack/react-query";
 import { useSyncExternalStore, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { useLiteracy } from "@/app/literacy";
-import { getSessionPersona, subscribeSession } from "@/app/session";
+import {
+  getSessionIdentity,
+  getSessionPersona,
+  isSupabaseAuthenticated,
+  subscribeSession,
+} from "@/app/session";
 import { AppPageLayout } from "@/components/layout/app-page-layout";
 import { PageHeader } from "@/components/layout/page-header";
-import { EmptyState } from "@/components/empty-state";
 import { ErrorState, humanContact } from "@/components/error-state";
-import { Skeleton } from "@/components/skeleton";
 import { SyntheticBadge } from "@/components/synthetic-badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useFailureToast } from "@/components/ui/toast";
-import { fetchPathway, pathwayQueryKey } from "@/features/care/api";
-import { stepLabel, statusLabel } from "@/features/care/labels";
-import { PathwayProgress } from "@/features/check/pathway";
-import { isCheckComplete, subscribeCheckProgress } from "@/features/check/progress";
-import { fetchConsents } from "@/features/couple/api";
-import {
-  availableLearnTopicCount,
-  counsellingStatus,
-  listedConditionName,
-  mineGrant,
-  partnerShareStatus,
-  resultStatus,
-} from "@/features/dashboard/summaries";
+import { getOwnAccountDisplay } from "@/features/auth/supabase-auth";
 import { findPersona } from "@/features/personas";
+import { COMPREHENSION_TOPIC_IDS } from "@/features/comprehension-access/content-model";
 import {
-  fetchMineConsents,
-  mineConsentQueryKey,
-  partnerConsentQueryKey,
-} from "@/features/privacy/api";
-import { scopeLabel } from "@/features/privacy/labels";
-import { fetchOwnResult } from "@/features/result/api";
+  learningProgressSnapshot,
+  subscribeLearningProgress,
+} from "@/features/comprehension-access/learning-progress";
+import {
+  CircularProgress,
+  HorizontalProgress,
+  progressPercent,
+} from "@/features/dashboard/progress-indicators";
+import { usePrototypeReportAccess } from "@/features/report-access/prototype-report-access";
+import { ReportUploadForm } from "@/features/reports/report-upload-form";
+import { fetchOwnReports } from "@/features/reports/supabase-reports";
 import { useNumerals } from "@/i18n/numerals";
-import { landmarkName } from "@/lib/landmark-name";
 
-function DashboardCard({
+function OverviewCard({
   title,
   description,
+  image,
   children,
-  action,
 }: {
   title: string;
-  description?: string;
+  description: string;
+  image: string;
   children: ReactNode;
-  action?: ReactNode;
 }) {
   return (
-    <Card className="h-full hover:shadow-surface">
+    <Card className="motion-card-lift h-full overflow-hidden">
+      <img src={image} alt="" className="h-40 w-full object-cover" loading="lazy" />
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        {description !== undefined ? <CardDescription>{description}</CardDescription> : null}
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        {children}
-        {action}
-      </CardContent>
+      <CardContent>{children}</CardContent>
     </Card>
   );
 }
 
-function OpenLink({ to, label }: { to: string; label: string }) {
+function SummaryCard({ label, value, detail }: { label: string; value: string; detail: string }) {
   return (
-    <Button asChild variant="secondary">
-      <Link to={to}>{label}</Link>
-    </Button>
+    <div className="motion-card-lift flex min-h-32 flex-col justify-between rounded-xl border border-border-subtle bg-card p-5 shadow-xs">
+      <p className="text-sm font-semibold text-ink-600">{label}</p>
+      <p className="motion-text-reveal text-2xl font-semibold text-teal-900">{value}</p>
+      <p className="text-sm text-ink-600">{detail}</p>
+    </div>
   );
 }
 
+function formatReportDate(iso: string, locale: string): string {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) {
+    return iso;
+  }
+  return new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(date);
+}
+
 export function DashboardView() {
-  const { t } = useTranslation();
-  const numerals = useNumerals();
-  const { mode } = useLiteracy();
-  const contact = humanContact(t);
+  const { t, i18n } = useTranslation();
+  const { formatNumber } = useNumerals();
+  const identity = useSyncExternalStore(subscribeSession, getSessionIdentity, getSessionIdentity);
   const personaId = useSyncExternalStore(subscribeSession, getSessionPersona, getSessionPersona);
-  const checkDone = useSyncExternalStore(subscribeCheckProgress, isCheckComplete, isCheckComplete);
-  const persona = personaId === null ? undefined : findPersona(personaId);
-
-  const own = useQuery({
-    queryKey: ["results", "mine", personaId],
-    queryFn: fetchOwnResult,
+  const authenticated = useSyncExternalStore(
+    subscribeSession,
+    isSupabaseAuthenticated,
+    () => false,
+  );
+  const demoAccess = usePrototypeReportAccess();
+  const learningProgress = useSyncExternalStore(
+    subscribeLearningProgress,
+    learningProgressSnapshot,
+    learningProgressSnapshot,
+  );
+  const accountQuery = useQuery({
+    queryKey: ["profile", "account-display", identity],
+    queryFn: getOwnAccountDisplay,
+    enabled: authenticated && identity !== null,
     retry: false,
   });
-  const pathway = useQuery({
-    queryKey: pathwayQueryKey(personaId),
-    queryFn: fetchPathway,
+  const reportsQuery = useQuery({
+    queryKey: ["reports", "mine", identity],
+    queryFn: fetchOwnReports,
+    enabled: authenticated && identity !== null,
     retry: false,
   });
-  const mine = useQuery({
-    queryKey: mineConsentQueryKey(personaId),
-    queryFn: fetchMineConsents,
-    retry: false,
-  });
-  const partners = useQuery({
-    queryKey: partnerConsentQueryKey(personaId),
-    queryFn: fetchConsents,
-    retry: false,
-  });
-
-  const loadFailed = own.isError || pathway.isError || mine.isError || partners.isError;
-  useFailureToast(loadFailed, t("home.loadError", { ns: "couple" }));
-
-  const welcome =
-    persona !== undefined
-      ? t("home.welcome", { ns: "couple", names: persona.names })
-      : t("home.welcomeGuest", { ns: "couple" });
-  const topicCount = numerals.formatNumber(availableLearnTopicCount());
-  const literacyLabel = t(`shell.literacy.${mode}`);
-  const screening = resultStatus(own.data);
-  const condition = listedConditionName(own.data);
-  const care = counsellingStatus(pathway.data);
-  const partner = partnerShareStatus(partners.data);
-  const overlapMine = mineGrant(mine.data, "share_overlap_with_partner");
-  const clinicMine = mineGrant(mine.data, "share_with_clinic");
-  const suggested = checkDone
-    ? t("pathway.share", { ns: "check" })
-    : t("pathway.check", { ns: "check" });
+  const completedChecks = learningProgress.checksCompleted.length;
+  const visitedTopics = learningProgress.topicsVisited.length;
+  const totalTopics = COMPREHENSION_TOPIC_IDS.length;
+  const learningPercent = progressPercent(completedChecks, totalTopics);
+  const resourcesPercent = progressPercent(visitedTopics, totalTopics);
+  const completedJourneyActivities = visitedTopics + completedChecks;
+  const totalJourneyActivities = totalTopics * 2;
+  const journeyPercent = progressPercent(completedJourneyActivities, totalJourneyActivities);
+  const profileFieldsCompleted = [
+    accountQuery.data?.displayName?.trim(),
+    accountQuery.data?.email?.trim(),
+  ].filter((field) => field !== undefined && field !== null && field.length > 0).length;
+  const profileFieldTotal = 2;
+  const profilePercent = authenticated
+    ? progressPercent(profileFieldsCompleted, profileFieldTotal)
+    : 0;
+  const accountName = authenticated
+    ? accountQuery.data?.displayName?.trim() ||
+      accountQuery.data?.email ||
+      t("home.memberName", { ns: "couple" })
+    : ((personaId === null ? undefined : findPersona(personaId)?.names) ??
+      t("home.memberName", { ns: "couple" }));
+  const reportCount = authenticated
+    ? reportsQuery.isPending
+      ? t("home.summary.loading", { ns: "couple" })
+      : reportsQuery.isError
+        ? "—"
+        : String(reportsQuery.data.length)
+    : demoAccess.code === null
+      ? "0"
+      : "1";
+  const newestReport = authenticated ? reportsQuery.data?.[0] : undefined;
+  const contact = humanContact(t);
 
   return (
     <AppPageLayout width="wide">
       <PageHeader
-        eyebrow={<SyntheticBadge />}
+        eyebrow={authenticated ? undefined : <SyntheticBadge />}
         title={t("home.title", { ns: "couple" })}
         description={t("home.intro", { ns: "couple" })}
+        actions={
+          <Button asChild variant="secondary">
+            <Link to="/app/ask">{t("home.askAction", { ns: "couple" })}</Link>
+          </Button>
+        }
       />
 
       <section
-        data-dashboard-section="welcome"
-        className="rounded-lg border border-border-subtle bg-sand-100 ps-4 pe-4 py-5 sm:ps-6 sm:pe-6"
-        aria-label={landmarkName(t("home.welcomeRegion", { ns: "couple" }), "Welcome")}
+        data-dashboard-section="overview"
+        className="motion-card-lift grid gap-6 overflow-hidden rounded-2xl border border-border-subtle bg-card p-5 shadow-xs sm:p-7 lg:grid-cols-[minmax(0,1.15fr)_minmax(16rem,0.85fr)] lg:items-center"
       >
-        <p className="text-xl font-semibold text-teal-900">{welcome}</p>
-        <p className="mt-2 max-w-2xl text-base leading-relaxed text-ink-600">
-          {t("home.welcomeBody", { ns: "couple" })}
-        </p>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-900">
-          {t("dashboardExtras.welcome", { ns: "couple" })}{" "}
-          {t("dashboardExtras.welcomeBody", { ns: "couple" })}
-        </p>
-        <nav
-          aria-label={t("dashboardExtras.heading", { ns: "couple" })}
-          className="mt-4 flex flex-wrap gap-3"
-        >
-          <OpenLink to="/app/report" label={t("dashboardExtras.report", { ns: "couple" })} />
-          <OpenLink to="/app/partner" label={t("dashboardExtras.partner", { ns: "couple" })} />
-          <OpenLink
-            to="/app/notifications"
-            label={t("dashboardExtras.notifications", { ns: "couple" })}
-          />
-        </nav>
-      </section>
-
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <section data-dashboard-section="results">
-          <DashboardCard
-            title={t("home.results.title", { ns: "couple" })}
-            description={t("home.results.lead", { ns: "couple" })}
-            action={
-              <OpenLink to="/app/result" label={t("home.results.action", { ns: "couple" })} />
-            }
-          >
-            {own.isPending ? <Skeleton label={t("loading", { ns: "result" })} /> : null}
-            {own.isError ? (
-              <ErrorState
-                title={t("error", { ns: "result" })}
-                retryLabel={t("retry", { ns: "result" })}
-                onRetry={() => {
-                  void own.refetch();
-                }}
-                {...contact}
-              />
-            ) : null}
-            {own.isSuccess && screening === "empty" ? (
-              <EmptyState title={t("home.results.empty", { ns: "couple" })} />
-            ) : null}
-            {own.isSuccess && screening === "none" ? (
-              <p>{t("home.results.none", { ns: "couple" })}</p>
-            ) : null}
-            {own.isSuccess && screening === "listed" ? (
-              <p>
-                {t("home.results.listed", { ns: "couple" })}
-                {condition !== null ? (
-                  <>
-                    {" "}
-                    <span lang="en" dir="ltr">
-                      ({condition})
-                    </span>
-                  </>
-                ) : null}
-              </p>
-            ) : null}
-          </DashboardCard>
-        </section>
-
-        <section data-dashboard-section="understanding">
-          <DashboardCard
-            title={t("home.understanding.title", { ns: "couple" })}
-            description={t("home.understanding.lead", { ns: "couple" })}
-            action={
-              <div className="flex flex-wrap gap-3">
-                <OpenLink
-                  to="/app/learn"
-                  label={t("home.understanding.learnAction", { ns: "couple" })}
-                />
-                <OpenLink
-                  to="/app/check"
-                  label={t("home.understanding.checkAction", { ns: "couple" })}
-                />
-              </div>
-            }
-          >
-            <p>{t("home.understanding.reading", { ns: "couple", mode: literacyLabel })}</p>
-            <p>{t("home.understanding.topics", { ns: "couple", count: topicCount })}</p>
-            <p>
-              {checkDone
-                ? t("home.understanding.checkDone", { ns: "couple" })
-                : t("home.understanding.checkOpen", { ns: "couple" })}
-            </p>
-            <p className="text-sm text-ink-600">{t("home.understanding.note", { ns: "couple" })}</p>
-          </DashboardCard>
-        </section>
-
-        <section data-dashboard-section="counselling">
-          <DashboardCard
-            title={t("home.counselling.title", { ns: "couple" })}
-            description={t("home.counselling.lead", { ns: "couple" })}
-            action={
-              <OpenLink to="/app/care" label={t("home.counselling.action", { ns: "couple" })} />
-            }
-          >
-            {pathway.isPending ? <Skeleton label={t("loading", { ns: "care" })} /> : null}
-            {pathway.isError ? (
-              <ErrorState
-                title={t("error", { ns: "care" })}
-                retryLabel={t("retry", { ns: "care" })}
-                onRetry={() => {
-                  void pathway.refetch();
-                }}
-                {...contact}
-              />
-            ) : null}
-            {pathway.isSuccess && care.current === null ? (
-              <EmptyState title={t("home.counselling.empty", { ns: "couple" })} />
-            ) : null}
-            {pathway.isSuccess && care.current !== null ? (
-              <>
-                <p>
-                  {t("home.counselling.current", {
-                    ns: "couple",
-                    step: stepLabel(care.current, t),
-                  })}
-                </p>
-                <p>
-                  {care.referral !== null
-                    ? t("home.counselling.status", {
-                        ns: "couple",
-                        status: statusLabel(care.referral, t),
-                      })
-                    : t("home.counselling.none", { ns: "couple" })}
-                </p>
-              </>
-            ) : null}
-          </DashboardCard>
-        </section>
-
-        <section data-dashboard-section="privacy">
-          <DashboardCard
-            title={t("home.privacy.title", { ns: "couple" })}
-            description={t("home.privacy.lead", { ns: "couple" })}
-            action={
-              <OpenLink to="/app/privacy" label={t("home.privacy.action", { ns: "couple" })} />
-            }
-          >
-            {mine.isPending || partners.isPending ? (
-              <Skeleton label={t("loading", { ns: "privacy" })} />
-            ) : null}
-            {mine.isError || partners.isError ? (
-              <ErrorState
-                title={t("error", { ns: "privacy" })}
-                retryLabel={t("retry", { ns: "privacy" })}
-                onRetry={() => {
-                  void mine.refetch();
-                  void partners.refetch();
-                }}
-                {...contact}
-              />
-            ) : null}
-            {mine.isSuccess && partners.isSuccess && partner === "empty" && overlapMine === null ? (
-              <EmptyState title={t("home.privacy.empty", { ns: "couple" })} />
-            ) : null}
-            {mine.isSuccess &&
-            partners.isSuccess &&
-            (partner !== "empty" || overlapMine !== null) ? (
-              <ul className="flex flex-col gap-2">
-                <li>{t("home.privacy.own", { ns: "couple" })}</li>
-                {overlapMine !== null ? (
-                  <li>
-                    {scopeLabel("share_overlap_with_partner", t)}
-                    {": "}
-                    {overlapMine
-                      ? t("home.privacy.choiceOn", { ns: "couple" })
-                      : t("home.privacy.choiceOff", { ns: "couple" })}
-                  </li>
-                ) : null}
-                {clinicMine !== null ? (
-                  <li>
-                    {scopeLabel("share_with_clinic", t)}
-                    {": "}
-                    {clinicMine
-                      ? t("home.privacy.choiceOn", { ns: "couple" })
-                      : t("home.privacy.choiceOff", { ns: "couple" })}
-                  </li>
-                ) : null}
-                {partner === "allowed" ? (
-                  <li>{t("home.privacy.partnerOn", { ns: "couple" })}</li>
-                ) : null}
-                {partner === "declined" ? (
-                  <li>{t("home.privacy.partnerDeclined", { ns: "couple" })}</li>
-                ) : null}
-                {partner === "missing" ? (
-                  <li>{t("home.privacy.partnerMissing", { ns: "couple" })}</li>
-                ) : null}
-              </ul>
-            ) : null}
-          </DashboardCard>
-        </section>
-      </div>
-
-      <section data-dashboard-section="next" className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
-          <h2 className="text-xl font-semibold text-teal-900">
-            {t("home.next.title", { ns: "couple" })}
+        <div className="flex flex-col gap-3">
+          <p className="text-base font-semibold text-teal-800">
+            {t("home.welcome", { ns: "couple", name: accountName })}
+          </p>
+          <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-700">
+            {t("home.heroEyebrow", { ns: "couple" })}
+          </p>
+          <h2 className="motion-text-reveal text-balance text-2xl font-semibold leading-tight text-teal-900 sm:text-3xl">
+            {t("home.heroTitle", { ns: "couple" })}
           </h2>
           <p className="max-w-2xl text-base leading-relaxed text-ink-600">
-            {t("home.next.intro", { ns: "couple" })}
+            {t("home.heroBody", { ns: "couple" })}
           </p>
-          <p>{t("home.next.suggested", { ns: "couple", label: suggested })}</p>
+          {accountQuery.isError ? (
+            <p role="status" className="text-sm text-ink-600">
+              {t("home.accountLoadError", { ns: "couple" })}
+            </p>
+          ) : null}
         </div>
-        <PathwayProgress />
+        <img
+          src="/images/outcomes/screening-pathways/laboratory.webp"
+          alt={t("home.heroAlt", { ns: "couple" })}
+          className="aspect-[4/3] max-h-72 w-full rounded-xl object-cover"
+          loading="eager"
+        />
+      </section>
+
+      <section
+        aria-label={t("home.summary.heading", { ns: "couple" })}
+        className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+      >
+        <SummaryCard
+          label={t("home.summary.reports", { ns: "couple" })}
+          value={reportCount}
+          detail={t("home.summary.reportsDetail", { ns: "couple" })}
+        />
+        <SummaryCard
+          label={t("home.summary.learning", { ns: "couple" })}
+          value={t("home.summary.progress", {
+            ns: "couple",
+            completed: completedChecks,
+            total: totalTopics,
+          })}
+          detail={t("home.summary.learningDetail", { ns: "couple" })}
+        />
+        <SummaryCard
+          label={t("home.summary.progressLabel", { ns: "couple" })}
+          value={`${formatNumber(learningPercent)}%`}
+          detail={t("home.summary.progressDetail", { ns: "couple" })}
+        />
+      </section>
+
+      <ReportUploadForm />
+
+      <section aria-labelledby="journey-progress-heading" className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div className="flex flex-col gap-1">
+            <h2 id="journey-progress-heading" className="text-xl font-semibold text-teal-900">
+              {t("home.journeyHeading", { ns: "couple" })}
+            </h2>
+            <p className="max-w-2xl text-base text-ink-600">
+              {t("home.journeyBody", { ns: "couple" })}
+            </p>
+          </div>
+          <Button asChild variant="secondary">
+            <Link to="/app/journey">{t("home.journeyAction", { ns: "couple" })}</Link>
+          </Button>
+        </div>
+        <div
+          role="group"
+          aria-label={t("home.progress.indicatorsLabel", { ns: "couple" })}
+          className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+        >
+          <CircularProgress
+            label={t("home.progress.journey", { ns: "couple" })}
+            detail={t("home.progress.journeyActivitiesDetail", {
+              ns: "couple",
+              completed: formatNumber(completedJourneyActivities),
+              total: formatNumber(totalJourneyActivities),
+            })}
+            value={journeyPercent}
+            tone="teal"
+          />
+          <CircularProgress
+            label={t("home.progress.learning", { ns: "couple" })}
+            detail={t("home.progress.checksDetail", {
+              ns: "couple",
+              completed: formatNumber(completedChecks),
+              total: formatNumber(totalTopics),
+            })}
+            value={learningPercent}
+            tone="gold"
+          />
+          <CircularProgress
+            label={t("home.progress.profile", { ns: "couple" })}
+            detail={t("home.progress.profileDetail", {
+              ns: "couple",
+              completed: formatNumber(authenticated ? profileFieldsCompleted : 0),
+              total: formatNumber(profileFieldTotal),
+            })}
+            value={profilePercent}
+            tone="green"
+          />
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          <HorizontalProgress
+            label={t("home.progress.healthJourney", { ns: "couple" })}
+            detail={t("home.progress.journeyActivitiesDetail", {
+              ns: "couple",
+              completed: formatNumber(completedJourneyActivities),
+              total: formatNumber(totalJourneyActivities),
+            })}
+            value={journeyPercent}
+            colorClass="bg-teal-700"
+            accentClass="bg-teal-700"
+            trackClass="bg-teal-100"
+          />
+          <HorizontalProgress
+            label={t("home.progress.resources", { ns: "couple" })}
+            detail={t("home.progress.topicsDetail", {
+              ns: "couple",
+              completed: formatNumber(visitedTopics),
+              total: formatNumber(totalTopics),
+            })}
+            value={resourcesPercent}
+            colorClass="bg-gold-500"
+            accentClass="bg-gold-500"
+            trackClass="bg-amber-100"
+          />
+          <HorizontalProgress
+            label={t("home.progress.activities", { ns: "couple" })}
+            detail={t("home.progress.checksDetail", {
+              ns: "couple",
+              completed: formatNumber(completedChecks),
+              total: formatNumber(totalTopics),
+            })}
+            value={learningPercent}
+            colorClass="bg-green-600"
+            accentClass="bg-green-600"
+            trackClass="bg-lilac-100"
+          />
+          <HorizontalProgress
+            label={t("home.progress.profile", { ns: "couple" })}
+            detail={t("home.progress.profileDetail", {
+              ns: "couple",
+              completed: formatNumber(authenticated ? profileFieldsCompleted : 0),
+              total: formatNumber(profileFieldTotal),
+            })}
+            value={profilePercent}
+            colorClass="bg-teal-500"
+            accentClass="bg-teal-500"
+            trackClass="bg-sand-100"
+          />
+        </div>
+      </section>
+
+      <section aria-labelledby="recent-activity-heading" className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 id="recent-activity-heading" className="text-xl font-semibold text-teal-900">
+            {t("home.activity.heading", { ns: "couple" })}
+          </h2>
+          <Button asChild variant="ghost">
+            <Link to="/app/reports">{t("home.activity.openReports", { ns: "couple" })}</Link>
+          </Button>
+        </div>
+        {authenticated && reportsQuery.isError ? (
+          <ErrorState
+            title={t("home.activity.loadError", { ns: "couple" })}
+            retryLabel={t("home.activity.retry", { ns: "couple" })}
+            onRetry={() => void reportsQuery.refetch()}
+            {...contact}
+          />
+        ) : null}
+        {authenticated && reportsQuery.isPending ? (
+          <p
+            role="status"
+            className="rounded-xl border border-border-subtle bg-card p-5 text-ink-600"
+          >
+            {t("home.activity.loading", { ns: "couple" })}
+          </p>
+        ) : null}
+        {newestReport !== undefined ? (
+          <article className="motion-card-lift flex flex-col gap-2 rounded-xl border border-border-subtle bg-card p-5 shadow-xs sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <h3 className="break-words font-semibold text-teal-900">{newestReport.file_name}</h3>
+              <p className="text-sm text-ink-600">
+                <time dateTime={newestReport.created_at}>
+                  {formatReportDate(
+                    newestReport.created_at,
+                    i18n.resolvedLanguage ?? i18n.language,
+                  )}
+                </time>
+              </p>
+              <p className="text-sm text-ink-600">
+                {t("home.activity.codeLabel", { ns: "couple" })}:{" "}
+                <span lang="en" dir="ltr" className="font-mono font-semibold text-ink-900">
+                  {newestReport.access_code}
+                </span>
+              </p>
+            </div>
+            <Button asChild variant="secondary">
+              <Link to="/app/reports">{t("home.activity.openReport", { ns: "couple" })}</Link>
+            </Button>
+          </article>
+        ) : null}
+        {!authenticated && demoAccess.code !== null ? (
+          <p className="rounded-xl border border-border-subtle bg-card p-5 text-ink-600">
+            {t("home.activity.demoCode", { ns: "couple" })}
+          </p>
+        ) : null}
+        {completedChecks > 0 ? (
+          <article className="motion-card-lift flex flex-col gap-2 rounded-xl border border-border-subtle bg-card p-5 shadow-xs sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-ink-600">
+              {t("home.activity.learning", { ns: "couple", count: completedChecks })}
+            </p>
+            <Button asChild variant="secondary">
+              <Link to="/app/journey">{t("home.journeyAction", { ns: "couple" })}</Link>
+            </Button>
+          </article>
+        ) : null}
+        {(!authenticated && demoAccess.code === null && completedChecks === 0) ||
+        (authenticated &&
+          reportsQuery.isSuccess &&
+          reportsQuery.data.length === 0 &&
+          completedChecks === 0) ? (
+          <p className="rounded-xl border border-border-subtle bg-card p-5 text-ink-600">
+            {t("home.activity.empty", { ns: "couple" })}
+          </p>
+        ) : null}
+      </section>
+
+      <section
+        aria-label={t("home.quickLinksLabel", { ns: "couple" })}
+        className="grid gap-4 md:grid-cols-2 xl:grid-cols-3"
+      >
+        <OverviewCard
+          title={t("home.resultsCard.title", { ns: "couple" })}
+          description={t("home.resultsCard.description", { ns: "couple" })}
+          image="/images/outcomes/inherited-risk/hero-genetics.webp"
+        >
+          <Button asChild variant="secondary">
+            <Link to="/app/reports">{t("home.resultsCard.action", { ns: "couple" })}</Link>
+          </Button>
+        </OverviewCard>
+        <OverviewCard
+          title={t("home.journeyCard.title", { ns: "couple" })}
+          description={t("home.journeyCard.description", { ns: "couple" })}
+          image="/images/outcomes/informed-choices/reviewing-education.webp"
+        >
+          <Button asChild variant="secondary">
+            <Link to="/app/journey">{t("home.journeyCard.action", { ns: "couple" })}</Link>
+          </Button>
+        </OverviewCard>
+        <OverviewCard
+          title={t("home.partnerCard.title", { ns: "couple" })}
+          description={t("home.partnerCard.description", { ns: "couple" })}
+          image="/images/outcomes/privacy/secure-sharing.svg"
+        >
+          <Button asChild variant="secondary">
+            <Link to="/app/partner">{t("home.partnerCard.action", { ns: "couple" })}</Link>
+          </Button>
+        </OverviewCard>
+        <OverviewCard
+          title={t("home.resourcesCard.title", { ns: "couple" })}
+          description={t("home.resourcesCard.description", { ns: "couple" })}
+          image="/images/outcomes/comprehension-access/learning-journey.svg"
+        >
+          <Button asChild variant="secondary">
+            <Link to="/app/resources">{t("home.resourcesCard.action", { ns: "couple" })}</Link>
+          </Button>
+        </OverviewCard>
+        <OverviewCard
+          title={t("home.privacyCard.title", { ns: "couple" })}
+          description={t("home.privacyCard.description", { ns: "couple" })}
+          image="/images/problem-solution/health-data-privacy.jpg"
+        >
+          <Button asChild variant="secondary">
+            <Link to="/app/privacy">{t("home.privacyCard.action", { ns: "couple" })}</Link>
+          </Button>
+        </OverviewCard>
       </section>
     </AppPageLayout>
   );
